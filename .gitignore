@@ -1,6 +1,4 @@
 .alpackages/
-.vscode/
-!Report Pack/Layouts/
 *.app
 Translations/
 _output/
