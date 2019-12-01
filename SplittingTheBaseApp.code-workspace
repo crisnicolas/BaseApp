@@ -1,0 +1,13 @@
+{
+	"folders": [
+		{
+			"path": "BaseApp"
+		},
+		{
+			"path": "ServiceMgmt"
+		}
+	],
+	"settings": {
+		"git.ignoreLimitWarning": true
+	}
+}

@@ -511,9 +511,9 @@ page 5094 "Marketing Setup"
 
         if "Exchange Account User Name" <> '' then begin
             CreateExchangeAccountCredentials(Credentials);
-            Result :=
-              ExchangeWebServicesClient.InitializeOnServer("Autodiscovery E-Mail Address",
-                "Exchange Service URL", Credentials.Credentials);
+            // Result :=
+            //   ExchangeWebServicesClient.InitializeOnServer("Autodiscovery E-Mail Address",
+            //     "Exchange Service URL", Credentials.Credentials);
         end else
             Result := ExchangeWebServicesClient.InitializeOnClient("Autodiscovery E-Mail Address", "Exchange Service URL");
 
@@ -578,8 +578,8 @@ page 5094 "Marketing Setup"
 
         if "Exchange Account User Name" <> '' then begin
             CreateExchangeAccountCredentials(Credentials);
-            CanInitialize := ExchangeWebServicesClient.InitializeOnServer("Autodiscovery E-Mail Address",
-                "Exchange Service URL", Credentials.Credentials);
+            // CanInitialize := ExchangeWebServicesClient.InitializeOnServer("Autodiscovery E-Mail Address",
+            //     "Exchange Service URL", Credentials.Credentials);
         end else
             CanInitialize := ExchangeWebServicesClient.InitializeOnClient("Autodiscovery E-Mail Address", "Exchange Service URL");
 

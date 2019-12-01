@@ -28,7 +28,7 @@ codeunit 2001 "Azure ML Connector"
         AzureMLRequest := AzureMLRequest.AzureMLRequest(ApiKey, ApiUri, TimeOutSeconds);
 
         // To set HttpMessageHandler first call SetMessageHandler
-        AzureMLRequest.SetHttpMessageHandler(HttpMessageHandler);
+        //AzureMLRequest.SetHttpMessageHandler(HttpMessageHandler);
 
         AzureMLInputBuilder := AzureMLInputBuilder.AzureMLInputBuilder;
 
@@ -85,7 +85,7 @@ codeunit 2001 "Azure ML Connector"
     [Scope('OnPrem')]
     procedure SendRequestToAzureML()
     begin
-        AzureMLRequest.SetHttpMessageHandler(HttpMessageHandler);
+        //AzureMLRequest.SetHttpMessageHandler(HttpMessageHandler);
         ProcessingTime := AzureMLRequest.InvokeRequestResponseService;
     end;
 

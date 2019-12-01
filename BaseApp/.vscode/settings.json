@@ -1,8 +1,5 @@
 {
-    "window.zoomLevel": 2,
     "git.enableSmartCommit": true,
-    "explorer.confirmDelete": false,
-    "workbench.colorTheme": "Visual Studio Light",
     "al.enableCodeAnalysis": false,
     "al.enableCodeActions": false,
     "al.incrementalBuild": true,
@@ -11,9 +8,7 @@
     "al.assemblyProbingPaths": [
         "./.netpackages",
         "c:/Windows/assembly/",
-        "c:\\Program Files\\Microsoft Dynamics 365 Business Central\\150\\Service"
-    ],
-    "al.editorServicesLogLevel": "Error",
-    "git.ignoreLimitWarning": true,
+        "C:\\Workspace\\Dynamics.365.BC.36649.DE.DVD\\ServiceTier\\program files\\Microsoft Dynamics NAV\\150\\Service"
+    ]
 }
 
