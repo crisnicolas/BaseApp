@@ -467,13 +467,6 @@ page 9022 "Business Manager Role Center"
                     RunObject = Page "G/L Budget Names";
                     ToolTip = 'View summary information about the amount budgeted for each general ledger account in different time periods.';
                 }
-                action(Action62)
-                {
-                    ApplicationArea = FixedAssets;
-                    Caption = 'Fixed Assets';
-                    RunObject = Page "Fixed Asset List";
-                    ToolTip = 'Manage periodic depreciation of your machinery or machines, keep track of your maintenance costs, manage insurance policies related to fixed assets, and monitor fixed asset statistics.';
-                }
                 action("Account Schedules")
                 {
                     ApplicationArea = Basic, Suite;
