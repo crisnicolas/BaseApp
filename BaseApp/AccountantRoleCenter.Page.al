@@ -837,79 +837,6 @@ page 9027 "Accountant Role Center"
                     ToolTip = 'Set up cost accounting budgets that are created based on cost types just as a budget for the general ledger is created based on general ledger accounts. A cost budget is created for a certain period of time, for example, a fiscal year. You can create as many cost budgets as needed. You can create a new cost budget manually, or by importing a cost budget, or by copying an existing cost budget as the budget base.';
                 }
             }
-            group(Action16)
-            {
-                Caption = 'Fixed Assets';
-                Image = FixedAssets;
-                ToolTip = 'Manage depreciation and insurance of your fixed assets.';
-                action(Action17)
-                {
-                    ApplicationArea = FixedAssets;
-                    Caption = 'Fixed Assets';
-                    Promoted = true;
-                    PromotedCategory = Process;
-                    RunObject = Page "Fixed Asset List";
-                    ToolTip = 'Manage periodic depreciation of your machinery or machines, keep track of your maintenance costs, manage insurance policies related to fixed assets, and monitor fixed asset statistics.';
-                }
-                action("Fixed Assets G/L Journals")
-                {
-                    ApplicationArea = FixedAssets;
-                    Caption = 'Fixed Assets G/L Journals';
-                    Promoted = true;
-                    PromotedCategory = Process;
-                    RunObject = Page "General Journal Batches";
-                    RunPageView = WHERE("Template Type" = CONST(Assets),
-                                        Recurring = CONST(false));
-                    ToolTip = 'Post fixed asset transactions, such as acquisition and depreciation, in integration with the general ledger. The FA G/L Journal is a general journal, which is integrated into the general ledger.';
-                }
-                action("Fixed Assets Journals")
-                {
-                    ApplicationArea = FixedAssets;
-                    Caption = 'Fixed Assets Journals';
-                    Promoted = true;
-                    PromotedCategory = Process;
-                    RunObject = Page "FA Journal Batches";
-                    RunPageView = WHERE(Recurring = CONST(false));
-                    ToolTip = 'Post fixed asset transactions, such as acquisition and depreciation book without integration to the general ledger.';
-                }
-                action("Fixed Assets Reclass. Journals")
-                {
-                    ApplicationArea = FixedAssets;
-                    Caption = 'Fixed Assets Reclass. Journals';
-                    Promoted = true;
-                    PromotedCategory = Process;
-                    RunObject = Page "FA Reclass. Journal Batches";
-                    ToolTip = 'Transfer, split, or combine fixed assets by preparing reclassification entries to be posted in the fixed asset journal.';
-                }
-                action(Insurance)
-                {
-                    ApplicationArea = FixedAssets;
-                    Caption = 'Insurance';
-                    Promoted = true;
-                    PromotedCategory = Process;
-                    RunObject = Page "Insurance List";
-                    ToolTip = 'Manage insurance policies for fixed assets and monitor insurance coverage.';
-                }
-                action("Insurance Journals")
-                {
-                    ApplicationArea = FixedAssets;
-                    Caption = 'Insurance Journals';
-                    Promoted = true;
-                    PromotedCategory = Process;
-                    RunObject = Page "Insurance Journal Batches";
-                    ToolTip = 'Post entries to the insurance coverage ledger.';
-                }
-                action("Recurring Fixed Asset Journals")
-                {
-                    ApplicationArea = FixedAssets;
-                    Caption = 'Recurring Fixed Asset Journals';
-                    Promoted = true;
-                    PromotedCategory = Process;
-                    RunObject = Page "FA Journal Batches";
-                    RunPageView = WHERE(Recurring = CONST(true));
-                    ToolTip = 'Post recurring fixed asset transactions, such as acquisition and depreciation book without integration to the general ledger.';
-                }
-            }
             group("Posted Documents")
             {
                 Caption = 'Posted Documents';
@@ -1113,15 +1040,7 @@ page 9027 "Accountant Role Center"
             group(Tasks)
             {
                 Caption = 'Tasks';
-                action("Calculate Deprec&iation")
-                {
-                    ApplicationArea = FixedAssets;
-                    Caption = 'Calculate Deprec&iation';
-                    Ellipsis = true;
-                    Image = CalculateDepreciation;
-                    RunObject = Report "Calculate Depreciation";
-                    ToolTip = 'Calculate depreciation according to the conditions that you define. If the fixed assets that are included in the batch job are integrated with the general ledger (defined in the depreciation book that is used in the batch job), the resulting entries are transferred to the fixed assets general ledger journal. Otherwise, the batch job transfers the entries to the fixed asset journal. You can then post the journal or adjust the entries before posting, if necessary.';
-                }
+
                 action("Import Co&nsolidation from Database")
                 {
                     ApplicationArea = Basic, Suite;
@@ -1364,14 +1283,6 @@ page 9027 "Accountant Role Center"
                     Image = Setup;
                     RunObject = Page "Purchases & Payables Setup";
                     ToolTip = 'Define your general policies for purchase invoicing and returns, such as whether to require vendor invoice numbers and how to post purchase discounts. Set up your number series for creating vendors and different purchase documents.';
-                }
-                action("&Fixed Asset Setup")
-                {
-                    ApplicationArea = FixedAssets;
-                    Caption = '&Fixed Asset Setup';
-                    Image = Setup;
-                    RunObject = Page "Fixed Asset Setup";
-                    ToolTip = 'Define your accounting policies for fixed assets, such as the allowed posting period and whether to allow posting to main assets. Set up your number series for creating new fixed assets.';
                 }
                 action("Cash Flow Setup")
                 {
