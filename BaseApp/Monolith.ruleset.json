@@ -1,0 +1,30 @@
+{
+    "name": "Breaking the Monolith ruleset",
+    "rules": [
+        {
+            "id": "AL0432",
+            "action": "Hidden",
+            "justification": "Ignore deprecated warning (temp)"
+        },
+        {
+            "id": "AL0273",
+            "action": "Hidden",
+            "justification": "Ignore Area type name (temp)"
+        },
+        {
+            "id": "AL0269",
+            "action": "Hidden",
+            "justification": "Ignore wrong page type reference (temp)"
+        },
+        {
+            "id": "AL0254",
+            "action": "Hidden",
+            "justification": "Ignore missing field in key for sorting (temp)"
+        },
+        {
+            "id": "AL0547",
+            "action": "Hidden",
+            "justification": "Ignore exposed globals in event publisher (temp)"
+        }
+    ]
+}

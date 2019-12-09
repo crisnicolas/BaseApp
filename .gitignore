@@ -4,3 +4,5 @@ Translations/
 _output/
 .alcache/
 .altemplates/
+**/rad.json
+**/launch.json

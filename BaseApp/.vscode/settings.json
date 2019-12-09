@@ -1,8 +1,6 @@
 {
-    "window.zoomLevel": 2,
     "git.enableSmartCommit": true,
     "explorer.confirmDelete": false,
-    "workbench.colorTheme": "Visual Studio Light",
     "al.enableCodeAnalysis": false,
     "al.enableCodeActions": false,
     "al.incrementalBuild": true,
@@ -15,5 +13,6 @@
     ],
     "al.editorServicesLogLevel": "Error",
     "git.ignoreLimitWarning": true,
+    "al.ruleSetPath": "./Monolith.ruleset.json",
 }
 
