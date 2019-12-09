@@ -1321,7 +1321,7 @@ xmlport 1611 "Sales Cr.Memo - PEPPOL BIS 3.0"
                 {
                     NamespacePrefix = 'cac';
                     XmlName = 'TaxSubtotal';
-                    SourceTableView = SORTING(Number) WHERE(Number = FILTER(1 ..));
+                    SourceTableView = SORTING(Number) WHERE(Number = FILTER(1..));
                     textelement(TaxableAmount)
                     {
                         NamespacePrefix = 'cbc';

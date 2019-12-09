@@ -1830,7 +1830,7 @@ xmlport 1610 "Sales Invoice - PEPPOL BIS 3.0"
                     {
                         NamespacePrefix = 'cac';
                         XmlName = 'AdditionalItemProperty';
-                        SourceTableView = SORTING(Number) WHERE(Number = FILTER(1 ..));
+                        SourceTableView = SORTING(Number) WHERE(Number = FILTER(1..));
                         textelement(additionalitempropertyname)
                         {
                             NamespacePrefix = 'cbc';
