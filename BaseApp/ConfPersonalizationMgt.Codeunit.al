@@ -302,7 +302,8 @@ codeunit 9170 "Conf./Personalization Mgt."
         TempFile.Create(ServerTempFileName);
         TempFile.CreateOutStream(profileConfigurationOutStream);
 
-        Designer.GenerateProfileConfigurationPackageZip(profileConfigurationOutStream);
+        //todo
+        //Designer.GenerateProfileConfigurationPackageZip(profileConfigurationOutStream);
 
         FileManagement.DownloadHandler(ServerTempFileName, '', '', '', 'profiles.zip');
         FileManagement.DeleteServerFile(ServerTempFileName);
