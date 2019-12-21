@@ -1,4 +1,4 @@
-$JobFiles = Get-ChildItem C:\Cristina\Feina\Extensions\BaseAppBreakdown\BaseApp\BaseApp\ -Name -Filter *Job*
+$JobFiles = Get-ChildItem C:\Cristina\Feina\Extensions\BaseAppBreakdown\BaseApp\BaseApp\ -Name -Filter Job*
 
 foreach ($File in $JobFiles)
 {
