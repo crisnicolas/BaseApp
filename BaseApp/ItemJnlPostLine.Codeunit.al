@@ -2438,10 +2438,6 @@ codeunit 22 "Item Jnl.-Post Line"
             ValueEntry."Gen. Prod. Posting Group" := "Gen. Prod. Posting Group";
             ValueEntry."Discount Amount" := "Discount Amount";
             ValueEntry."Entry Type" := "Value Entry Type";
-            if "Job No." <> '' then begin
-                ValueEntry."Job No." := "Job No.";
-                ValueEntry."Job Task No." := "Job Task No.";
-            end;
             if "Invoiced Quantity" <> 0 then begin
                 ValueEntry."Valued Quantity" := "Invoiced Quantity";
                 if ("Value Entry Type" = "Value Entry Type"::"Direct Cost") and

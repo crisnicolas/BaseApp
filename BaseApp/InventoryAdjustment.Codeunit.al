@@ -1738,8 +1738,6 @@ codeunit 5895 "Inventory Adjustment"
             ItemJnlLine."Order Type" := "Order Type";
             ItemJnlLine."Order No." := "Order No.";
             ItemJnlLine."Order Line No." := "Order Line No.";
-            ItemJnlLine."Job No." := "Job No.";
-            ItemJnlLine."Job Task No." := "Job Task No.";
             ItemJnlLine.Type := Type;
             if ItemJnlLine."Value Entry Type" = ItemJnlLine."Value Entry Type"::"Direct Cost" then
                 ItemJnlLine."Item Shpt. Entry No." := "Item Ledger Entry No."

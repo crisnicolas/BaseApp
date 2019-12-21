@@ -282,24 +282,6 @@ page 5807 "Value Entries Preview"
                     ApplicationArea = Basic, Suite;
                     ToolTip = 'Specifies if the adjusted cost for the inventory decrease is calculated by the average cost of the item at the valuation date.';
                 }
-                field("Job No."; "Job No.")
-                {
-                    ApplicationArea = Jobs;
-                    ToolTip = 'Specifies the number of the job that the value entry relates to.';
-                    Visible = false;
-                }
-                field("Job Task No."; "Job Task No.")
-                {
-                    ApplicationArea = Jobs;
-                    ToolTip = 'Specifies the number of the related job task.';
-                    Visible = false;
-                }
-                field("Job Ledger Entry No."; "Job Ledger Entry No.")
-                {
-                    ApplicationArea = Jobs;
-                    ToolTip = 'Specifies the number of the job ledger entry that the value entry relates to.';
-                    Visible = false;
-                }
                 field("Dimension Set ID"; "Dimension Set ID")
                 {
                     ApplicationArea = Dimensions;

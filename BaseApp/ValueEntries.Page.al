@@ -301,24 +301,6 @@
                     ApplicationArea = Basic, Suite;
                     ToolTip = 'Specifies the number of the entry, as assigned from the specified number series when the entry was created.';
                 }
-                field("Job No."; "Job No.")
-                {
-                    ApplicationArea = Jobs;
-                    ToolTip = 'Specifies the number of the job that the value entry relates to.';
-                    Visible = false;
-                }
-                field("Job Task No."; "Job Task No.")
-                {
-                    ApplicationArea = Jobs;
-                    ToolTip = 'Specifies the number of the related job task.';
-                    Visible = false;
-                }
-                field("Job Ledger Entry No."; "Job Ledger Entry No.")
-                {
-                    ApplicationArea = Jobs;
-                    ToolTip = 'Specifies the number of the job ledger entry that the value entry relates to.';
-                    Visible = false;
-                }
                 field("Dimension Set ID"; "Dimension Set ID")
                 {
                     ApplicationArea = Dimensions;

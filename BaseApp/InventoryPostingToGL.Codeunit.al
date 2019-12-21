@@ -915,7 +915,6 @@ codeunit 5802 "Inventory Posting To G/L"
             GetSourceCodeSetup;
             GenJnlLine."Source Code" := SourceCodeSetup."Inventory Post Cost";
             GenJnlLine."System-Created Entry" := true;
-            GenJnlLine."Job No." := ValueEntry."Job No.";
             GenJnlLine."Reason Code" := ValueEntry."Reason Code";
             OnPostInvtPostBufOnAfterInitGenJnlLine(GenJnlLine, ValueEntry);
             repeat
