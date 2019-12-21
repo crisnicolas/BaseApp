@@ -1,0 +1,17 @@
+{
+	"folders": [
+		{
+			"path": "BaseApp"
+		},
+		{
+			"path": "Jobs"
+		}
+	],
+	"settings": {
+		"window.zoomLevel": 2,
+		"explorer.confirmDelete": false,
+		"workbench.colorTheme": "Visual Studio Light",
+		"al.editorServicesLogLevel": "Error",
+		"git.ignoreLimitWarning": true
+	}
+}
