@@ -146,15 +146,6 @@
                     RunPageOnRec = true;
                     ToolTip = 'View the capacity of the resource group.';
                 }
-                action("Res. Group All&ocated per Job")
-                {
-                    ApplicationArea = Jobs;
-                    Caption = 'Res. Group All&ocated per Job';
-                    Image = ViewJob;
-                    RunObject = Page "Res. Gr. Allocated per Job";
-                    RunPageLink = "Resource Gr. Filter" = FIELD("No.");
-                    ToolTip = 'View the job allocations of the resource group.';
-                }
                 action("Res. Group Allocated per Service &Order")
                 {
                     ApplicationArea = Jobs;

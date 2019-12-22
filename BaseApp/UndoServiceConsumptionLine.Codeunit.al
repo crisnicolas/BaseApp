@@ -55,7 +55,6 @@ codeunit 5819 "Undo Service Consumption Line"
         TrackingSpecificationExists: Boolean;
         HideDialog: Boolean;
         Text003: Label 'Checking lines...';
-        Text004: Label 'You cannot undo consumption on the line because it has been already posted to Jobs.';
         Text005: Label 'You cannot undo consumption because the original service order %1 is already closed.';
         NextLineNo: Integer;
 
@@ -135,7 +134,6 @@ codeunit 5819 "Undo Service Consumption Line"
     var
         ServLine: Record "Service Line";
         TempItemLedgEntry: Record "Item Ledger Entry" temporary;
-        ServiceLedgerEntry: Record "Service Ledger Entry";
         IsHandled: Boolean;
     begin
         IsHandled := false;
@@ -147,16 +145,6 @@ codeunit 5819 "Undo Service Consumption Line"
             TestField("Quantity Invoiced", 0);
             TestField("Quantity Consumed");
             TestField("Qty. Shipped Not Invoiced", Quantity - "Quantity Consumed");
-
-            // Check if there was consumption posted to jobs
-            ServiceLedgerEntry.Reset;
-            ServiceLedgerEntry.SetRange("Document No.", "Document No.");
-            ServiceLedgerEntry.SetRange("Posting Date", "Posting Date");
-            ServiceLedgerEntry.SetRange("Document Line No.", "Line No.");
-            ServiceLedgerEntry.SetRange("Service Order No.", "Order No.");
-            ServiceLedgerEntry.SetRange("Job Posted", true);
-            if not ServiceLedgerEntry.IsEmpty then
-                Error(Text004);
 
             if not ServLine.Get(ServLine."Document Type"::Order, "Order No.", "Order Line No.") then
                 Error(Text005, "Order No.");

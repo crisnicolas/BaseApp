@@ -35,3 +35,4 @@ git mv C:\Cristina\Feina\Extensions\BaseAppBreakdown\BaseApp\BaseApp\SuggestJobJ
 git mv C:\Cristina\Feina\Extensions\BaseAppBreakdown\BaseApp\BaseApp\TimeSheetLineJobDetail.Page.al  C:\Cristina\Feina\Extensions\BaseAppBreakdown\BaseApp\Jobs
 git mv C:\Cristina\Feina\Extensions\BaseAppBreakdown\BaseApp\BaseApp\TopCustomersBySalesJob.Codeunit.al  C:\Cristina\Feina\Extensions\BaseAppBreakdown\BaseApp\Jobs
 git mv C:\Cristina\Feina\Extensions\BaseAppBreakdown\BaseApp\BaseApp\UpdateJobItemCost.Report.al  C:\Cristina\Feina\Extensions\BaseAppBreakdown\BaseApp\Jobs
+git mv .\ResourceManagerActivities.Page.al C:\Cristina\Feina\Extensions\BaseAppBreakdown\BaseApp\Jobs

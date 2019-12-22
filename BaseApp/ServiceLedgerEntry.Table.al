@@ -195,11 +195,6 @@ table 5907 "Service Ledger Entry"
                 ServOrderMgt.ServHeaderLookup(1, "Service Order No.");
             end;
         }
-        field(40; "Job No."; Code[20])
-        {
-            Caption = 'Job No.';
-            TableRelation = Job."No." WHERE("Bill-to Customer No." = FIELD("Bill-to Customer No."));
-        }
         field(41; "Gen. Bus. Posting Group"; Code[20])
         {
             Caption = 'Gen. Bus. Posting Group';
@@ -277,22 +272,6 @@ table 5907 "Service Ledger Entry"
         {
             AutoFormatType = 1;
             Caption = 'Amount';
-        }
-        field(58; "Job Task No."; Code[20])
-        {
-            Caption = 'Job Task No.';
-            TableRelation = "Job Task"."Job Task No." WHERE("Job No." = FIELD("Job No."));
-        }
-        field(59; "Job Line Type"; Option)
-        {
-            Caption = 'Job Line Type';
-            InitValue = Budget;
-            OptionCaption = ' ,Budget,Billable,Both Budget and Billable';
-            OptionMembers = " ",Budget,Billable,"Both Budget and Billable";
-        }
-        field(60; "Job Posted"; Boolean)
-        {
-            Caption = 'Job Posted';
         }
         field(480; "Dimension Set ID"; Integer)
         {
@@ -388,9 +367,6 @@ table 5907 "Service Ledger Entry"
             "Service Order No." := ServLine."Document No.";
 
         "Location Code" := ServLine."Location Code";
-        "Job No." := ServLine."Job No.";
-        "Job Task No." := ServLine."Job Task No.";
-        "Job Line Type" := ServLine."Job Line Type";
 
         "Document Type" := "Document Type"::Shipment;
         "Document No." := DocNo;

@@ -1363,18 +1363,6 @@
                     RunPageView = SORTING("Document Type", "Sell-to Customer No.");
                     ToolTip = 'Open the list of ongoing blanket orders.';
                 }
-                action("&Jobs")
-                {
-                    ApplicationArea = Jobs;
-                    Caption = '&Jobs';
-                    Image = Job;
-                    Promoted = true;
-                    PromotedCategory = Category8;
-                    RunObject = Page "Job List";
-                    RunPageLink = "Bill-to Customer No." = FIELD("No.");
-                    RunPageView = SORTING("Bill-to Customer No.");
-                    ToolTip = 'Open the list of ongoing jobs.';
-                }
             }
             group(Service)
             {

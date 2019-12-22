@@ -527,15 +527,6 @@
                     RunPageOnRec = true;
                     ToolTip = 'View this job''s resource capacity.';
                 }
-                action("Resource &Allocated per Job")
-                {
-                    ApplicationArea = Jobs;
-                    Caption = 'Resource &Allocated per Job';
-                    Image = ViewJob;
-                    RunObject = Page "Resource Allocated per Job";
-                    RunPageLink = "Resource Filter" = FIELD("No.");
-                    ToolTip = 'View this job''s resource allocation.';
-                }
                 action("Resource Allocated per Service &Order")
                 {
                     ApplicationArea = Basic, Suite;

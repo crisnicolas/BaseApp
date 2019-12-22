@@ -78,16 +78,6 @@ page 257 "Source Codes"
                     RunPageView = SORTING("Source Code");
                     ToolTip = 'View a list of all the resource registers. Every time a resource entry is posted, a register is created. Every register shows the first and last entry numbers of its entries. You can use the information in a resource register to document when entries were posted.';
                 }
-                action("Job Registers")
-                {
-                    ApplicationArea = Jobs;
-                    Caption = 'Job Registers';
-                    Image = JobRegisters;
-                    RunObject = Page "Job Registers";
-                    RunPageLink = "Source Code" = FIELD(Code);
-                    RunPageView = SORTING("Source Code");
-                    ToolTip = 'Open the related job registers.';
-                }
                 action("FA Registers")
                 {
                     ApplicationArea = FixedAssets;

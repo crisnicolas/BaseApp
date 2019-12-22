@@ -292,15 +292,6 @@
                     RunPageView = SORTING("Document No.", "Posting Date");
                     ToolTip = 'View all the ledger entries for the service item or service order that result from posting transactions in service documents that contain warranty agreements.';
                 }
-                action("&Job Ledger Entries")
-                {
-                    ApplicationArea = Jobs;
-                    Caption = '&Job Ledger Entries';
-                    Image = JobLedger;
-                    RunObject = Page "Job Ledger Entries";
-                    RunPageLink = "Document No." = FIELD("No.");
-                    ToolTip = 'View all the job ledger entries that result from posting transactions in the service document that involve a job.';
-                }
                 action("&Allocations")
                 {
                     ApplicationArea = Service;
