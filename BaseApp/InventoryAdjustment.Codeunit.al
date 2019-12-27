@@ -36,7 +36,7 @@ codeunit 5895 "Inventory Adjustment"
         RevaluationPoint: Record "Integer" temporary;
         TempFixApplBuffer: Record "Integer" temporary;
         TempOpenItemLedgEntry: Record "Integer" temporary;
-        TempJobToAdjustBuf: Record Job temporary;
+        //TODO JOBS:  TempJobToAdjustBuf: Record Job temporary;
         ItemJnlPostLine: Codeunit "Item Jnl.-Post Line";
         CostCalcMgt: Codeunit "Cost Calculation Management";
         ItemCostMgt: Codeunit ItemCostManagement;
@@ -126,7 +126,7 @@ codeunit 5895 "Inventory Adjustment"
         SourceCodeSetup.Get;
 
         ItemCostMgt.SetProperties(true, 0);
-        TempJobToAdjustBuf.DeleteAll;
+        //TODO JOBS:  TempJobToAdjustBuf.DeleteAll;
     end;
 
     local procedure FinalizeAdjmt()
@@ -2332,8 +2332,8 @@ codeunit 5895 "Inventory Adjustment"
 
     local procedure CopyJobToAdjustmentBuf(JobNo: Code[20])
     begin
-        TempJobToAdjustBuf."No." := JobNo;
-        if TempJobToAdjustBuf.Insert then;
+        //TODO JOBS: // TempJobToAdjustBuf."No." := JobNo;
+        // if TempJobToAdjustBuf.Insert then;
     end;
 
     local procedure UseStandardCostMirroring(ItemLedgEntry: Record "Item Ledger Entry"): Boolean

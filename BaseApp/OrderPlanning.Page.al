@@ -680,7 +680,7 @@
         ProdOrder: Record "Production Order";
         AsmHeader: Record "Assembly Header";
         ServHeader: Record "Service Header";
-        Job: Record Job;
+        //TODO JOBS: Job: Record Job;
         MfgUserTempl: Record "Manufacturing User Template";
         OrderPlanningMgt: Codeunit "Order Planning Mgt.";
         ItemAvailFormsMgt: Codeunit "Item Availability Forms Mgt";
@@ -758,12 +758,12 @@
         DemandOrderFilterCtrlEnable := false;
     end;
 
-    procedure SetJobOrder(Job2: Record Job)
-    begin
-        Job := Job2;
-        DemandOrderFilter := DemandOrderFilter::"Job Demand";
-        DemandOrderFilterCtrlEnable := false;
-    end;
+    //TODO JOBS:  // procedure SetJobOrder(Job2: Record Job)
+    // begin
+    //     Job := Job2;
+    //     DemandOrderFilter := DemandOrderFilter::"Job Demand";
+    //     DemandOrderFilterCtrlEnable := false;
+    // end;
 
     local procedure InitTempRec()
     var
@@ -864,7 +864,7 @@
                 end;
             DemandOrderFilter::"Job Demand":
                 begin
-                    SetRange("Demand Type", DATABASE::"Job Planning Line");
+                    //TODO JOBS:  SetRange("Demand Type", DATABASE::"Job Planning Line");
                     SetCurrentKey("User ID", "Demand Type", "Worksheet Template Name", "Journal Batch Name", "Line No.");
                 end;
         end;
@@ -878,7 +878,7 @@
         SalesHeader: Record "Sales Header";
         ProdOrder: Record "Production Order";
         ServHeader: Record "Service Header";
-        Job: Record Job;
+        //TODO JOBS: Job: Record Job;
         AsmHeader: Record "Assembly Header";
     begin
         case "Demand Type" of
@@ -920,14 +920,14 @@
                             PAGE.Run(PAGE::"Service Order", ServHeader);
                     end;
                 end;
-            DATABASE::"Job Planning Line":
-                begin
-                    Job.Get("Demand Order No.");
-                    case Job.Status of
-                        Job.Status::Open:
-                            PAGE.Run(PAGE::"Job Card", Job);
-                    end;
-                end;
+        //TODO JOBS: // DATABASE::"Job Planning Line":
+        //     begin
+        //         Job.Get("Demand Order No.");
+        //         case Job.Status of
+        //             Job.Status::Open:
+        //                 PAGE.Run(PAGE::"Job Card", Job);
+        //         end;
+        //     end;
         end;
 
         OnAfterShowDemandOrder(Rec);
@@ -1055,12 +1055,12 @@
                         ServHeader.Status := Status;
                         Text := Format(ServHeader.Status);
                     end;
-                DATABASE::"Job Planning Line":
-                    begin
-                        Job.Init;
-                        Job.Status := Status;
-                        Text := Format(Job.Status);
-                    end;
+                //TODO JOBS: // DATABASE::"Job Planning Line":
+                //     begin
+                //         Job.Init;
+                //         Job.Status := Status;
+                //         Text := Format(Job.Status);
+                //     end;
                 DATABASE::"Assembly Line":
                     begin
                         AsmHeader.Status := Status;
@@ -1083,8 +1083,8 @@
                     Text := Text002;
                 DATABASE::"Service Line":
                     Text := Text003;
-                DATABASE::"Job Planning Line":
-                    Text := Text004;
+                //TODO JOBS: // DATABASE::"Job Planning Line":
+                //     Text := Text004;
                 DATABASE::"Assembly Line":
                     Text := Text005;
             end;
@@ -1113,11 +1113,11 @@
                     ServHeader."Document Type" := "Demand Subtype";
                     Text := Format(ServHeader."Document Type");
                 end;
-            DATABASE::"Job Planning Line":
-                begin
-                    Job.Status := Status;
-                    Text := Format(Job.Status);
-                end;
+            //TODO JOBS: // DATABASE::"Job Planning Line":
+            //     begin
+            //         Job.Status := Status;
+            //         Text := Format(Job.Status);
+            //     end;
             DATABASE::"Assembly Line":
                 begin
                     AsmHeader."Document Type" := "Demand Subtype";

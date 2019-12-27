@@ -271,7 +271,7 @@ codeunit 6520 "Item Tracing Mgt."
         TempTrackEntry2: Record "Item Tracing Buffer";
         ProductionOrder: Record "Production Order";
         ItemLedgerEntry: Record "Item Ledger Entry";
-        Job: Record Job;
+        //TODO JOBS: Job: Record Job;
         RecRef: RecordRef;
         InsertEntry: Boolean;
         Description2: Text[100];
@@ -317,10 +317,10 @@ codeunit 6520 "Item Tracing Mgt."
                             DATABASE::"Item Ledger Entry":
                                 begin
                                     RecRef.SetTable(ItemLedgerEntry);
-                                    if ItemLedgerEntry."Job No." <> '' then begin
-                                        Job.Get(ItemLedgerEntry."Job No.");
-                                        Description2 := Format(StrSubstNo('%1 %2', Job.TableCaption, ItemLedgerEntry."Job No."), -50);
-                                    end;
+                                    //TODO JOBS:  // if ItemLedgerEntry."Job No." <> '' then begin
+                                    //     Job.Get(ItemLedgerEntry."Job No.");
+                                    //     Description2 := Format(StrSubstNo('%1 %2', Job.TableCaption, ItemLedgerEntry."Job No."), -50);
+                                    // end;
                                 end;
                         end;
                     if Description2 = '' then

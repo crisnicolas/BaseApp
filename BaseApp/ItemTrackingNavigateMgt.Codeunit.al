@@ -23,7 +23,7 @@ codeunit 6529 "Item Tracking Navigate Mgt."
         WhseEntry: Record "Warehouse Entry";
         PostedInvtPutAwayLine: Record "Posted Invt. Put-away Line";
         PostedInvtPickLine: Record "Posted Invt. Pick Line";
-        JobLedgEntry: Record "Job Ledger Entry";
+        //TODO JOBS:  JobLedgEntry: Record "Job Ledger Entry";
         TempPostedWhseRcptLine: Record "Posted Whse. Receipt Line" temporary;
         TempPostedWhseShptLine: Record "Posted Whse. Shipment Line" temporary;
         TempPurchRcptHeader: Record "Purch. Rcpt. Header" temporary;
@@ -55,7 +55,7 @@ codeunit 6529 "Item Tracking Navigate Mgt."
         TempTransLine: Record "Transfer Line" temporary;
         TempRecordBuffer: Record "Record Buffer" temporary;
         TempField: Record "Field" temporary;
-        TempJobLedgEntry: Record "Job Ledger Entry" temporary;
+        //TODO JOBS: TempJobLedgEntry: Record "Job Ledger Entry" temporary;
         RecRef: RecordRef;
         LastEntryNo: Integer;
 
@@ -904,26 +904,26 @@ codeunit 6529 "Item Tracking Navigate Mgt."
 
     local procedure FindJobLedgEntry(SerialNoFilter: Text; LotNoFilter: Text; VariantFilter: Text)
     begin
-        if not JobLedgEntry.ReadPermission then
-            exit;
+        //TODO JOBS: // if not JobLedgEntry.ReadPermission then
+        //     exit;
 
-        with JobLedgEntry do begin
-            Reset;
-            if LotNoFilter <> '' then
-                if SetCurrentKey("Lot No.") then;
-            if SerialNoFilter <> '' then
-                if SetCurrentKey("Serial No.") then;
-            SetFilter("Lot No.", LotNoFilter);
-            SetFilter("Serial No.", SerialNoFilter);
-            SetFilter("Variant Code", VariantFilter);
-            if FindSet then
-                repeat
-                    RecRef.GetTable(JobLedgEntry);
-                    InsertBufferRec(RecRef, "Serial No.", "Lot No.", '', "Variant Code");
-                    TempJobLedgEntry := JobLedgEntry;
-                    if TempJobLedgEntry.Insert then;
-                until Next = 0;
-        end;
+        // with JobLedgEntry do begin
+        //     Reset;
+        //     if LotNoFilter <> '' then
+        //         if SetCurrentKey("Lot No.") then;
+        //     if SerialNoFilter <> '' then
+        //         if SetCurrentKey("Serial No.") then;
+        //     SetFilter("Lot No.", LotNoFilter);
+        //     SetFilter("Serial No.", SerialNoFilter);
+        //     SetFilter("Variant Code", VariantFilter);
+        //     if FindSet then
+        //         repeat
+        //             RecRef.GetTable(JobLedgEntry);
+        //             InsertBufferRec(RecRef, "Serial No.", "Lot No.", '', "Variant Code");
+        //             TempJobLedgEntry := JobLedgEntry;
+        //             if TempJobLedgEntry.Insert then;
+        //         until Next = 0;
+        // end;
     end;
 
     local procedure FindReservEntry(SerialNoFilter: Text; LotNoFilter: Text; ItemNoFilter: Text; VariantFilter: Text)
@@ -1111,8 +1111,8 @@ codeunit 6529 "Item Tracking Navigate Mgt."
                 PAGE.Run(0, TempPlanningComponent);
             DATABASE::"Transfer Line":
                 PAGE.Run(0, TempTransLine);
-            DATABASE::"Job Ledger Entry":
-                PAGE.Run(0, TempJobLedgEntry);
+            //TODO JOBS: // DATABASE::"Job Ledger Entry":
+            //     PAGE.Run(0, TempJobLedgEntry);
             DATABASE::"Assembly Line":
                 PAGE.Run(0, TempAssemblyLine);
             DATABASE::"Assembly Header":

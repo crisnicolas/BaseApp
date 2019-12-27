@@ -36,7 +36,7 @@ table 49 "Invoice Post. Buffer"
         {
             Caption = 'Job No.';
             DataClassification = SystemMetadata;
-            TableRelation = Job;
+            //TODO JOBS:  TableRelation = Job;
         }
         field(7; Amount; Decimal)
         {

@@ -254,19 +254,19 @@ codeunit 99000854 "Inventory Profile Offsetting"
 
     local procedure TransJobPlanningLineToProfile(var InventoryProfile: Record "Inventory Profile"; var Item: Record Item)
     var
-        JobPlanningLine: Record "Job Planning Line";
+    //TODO JOBS: JobPlanningLine: Record "Job Planning Line";
     begin
-        if JobPlanningLine.FindLinesWithItemToPlan(Item) then
-            repeat
-                if JobPlanningLine."Planning Date" <> 0D then begin
-                    InventoryProfile.Init;
-                    InventoryProfile."Line No." := NextLineNo;
-                    InventoryProfile.TransferFromJobPlanningLine(JobPlanningLine, TempItemTrkgEntry);
-                    if InventoryProfile.IsSupply then
-                        InventoryProfile.ChangeSign;
-                    InventoryProfile.Insert;
-                end;
-            until JobPlanningLine.Next = 0;
+        // if JobPlanningLine.FindLinesWithItemToPlan(Item) then
+        //     repeat
+        //         if JobPlanningLine."Planning Date" <> 0D then begin
+        //             InventoryProfile.Init;
+        //             InventoryProfile."Line No." := NextLineNo;
+        //             InventoryProfile.TransferFromJobPlanningLine(JobPlanningLine, TempItemTrkgEntry);
+        //             if InventoryProfile.IsSupply then
+        //                 InventoryProfile.ChangeSign;
+        //             InventoryProfile.Insert;
+        //         end;
+        //     until JobPlanningLine.Next = 0;
     end;
 
     local procedure TransProdOrderCompToProfile(var InventoryProfile: Record "Inventory Profile"; var Item: Record Item)
@@ -3676,8 +3676,8 @@ codeunit 99000854 "Inventory Profile Offsetting"
                             1:
                                 "Order Priority" := 200; // Negative Sales Order
                         end;
-                    DATABASE::"Job Planning Line":
-                        "Order Priority" := 230;
+                    // //TODO JOBS: DATABASE::"Job Planning Line":
+                    //     "Order Priority" := 230;
                     DATABASE::"Transfer Line", DATABASE::"Requisition Line", DATABASE::"Planning Component":
                         "Order Priority" := 300;
                     DATABASE::"Assembly Header":
@@ -3720,8 +3720,8 @@ codeunit 99000854 "Inventory Profile Offsetting"
                         end;
                     DATABASE::"Service Line":
                         "Order Priority" := 400;
-                    DATABASE::"Job Planning Line":
-                        "Order Priority" := 450;
+                    //TODO JOBS: // DATABASE::"Job Planning Line":
+                    //     "Order Priority" := 450;
                     DATABASE::"Assembly Line":
                         "Order Priority" := 470;
                     DATABASE::"Prod. Order Component":

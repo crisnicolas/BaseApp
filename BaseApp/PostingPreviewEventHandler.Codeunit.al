@@ -23,7 +23,7 @@ codeunit 20 "Posting Preview Event Handler"
         TempServiceLedgerEntry: Record "Service Ledger Entry" temporary;
         TempWarrantyLedgerEntry: Record "Warranty Ledger Entry" temporary;
         TempMaintenanceLedgerEntry: Record "Maintenance Ledger Entry" temporary;
-        TempJobLedgerEntry: Record "Job Ledger Entry" temporary;
+        //TODO JOBS: TempJobLedgerEntry: Record "Job Ledger Entry" temporary;
         CommitPrevented: Boolean;
 
     procedure GetEntries(TableNo: Integer; var RecRef: RecordRef)
@@ -61,8 +61,8 @@ codeunit 20 "Posting Preview Event Handler"
                 RecRef.GETTABLE(TempWarrantyLedgerEntry);
             DATABASE::"Maintenance Ledger Entry":
                 RecRef.GETTABLE(TempMaintenanceLedgerEntry);
-            DATABASE::"Job Ledger Entry":
-                RecRef.GETTABLE(TempJobLedgerEntry);
+            //TODO JOBS: // DATABASE::"Job Ledger Entry":
+            //     RecRef.GETTABLE(TempJobLedgerEntry);
             ELSE
                 OnGetEntries(TableNo, RecRef);
         end
@@ -124,8 +124,8 @@ codeunit 20 "Posting Preview Event Handler"
                 PAGE.Run(PAGE::"Warranty Ledg. Entries Preview", TempWarrantyLedgerEntry);
             DATABASE::"Maintenance Ledger Entry":
                 PAGE.Run(PAGE::"Maint. Ledg. Entries Preview", TempMaintenanceLedgerEntry);
-            DATABASE::"Job Ledger Entry":
-                PAGE.Run(PAGE::"Job Ledger Entries Preview", TempJobLedgerEntry);
+            //TODO JOBS: // DATABASE::"Job Ledger Entry":
+            //     PAGE.Run(PAGE::"Job Ledger Entries Preview", TempJobLedgerEntry);
             else
                 OnAfterShowEntries(TableNo);
         end;
@@ -150,7 +150,7 @@ codeunit 20 "Posting Preview Event Handler"
         InsertDocumentEntry(TempServiceLedgerEntry, TempDocumentEntry);
         InsertDocumentEntry(TempWarrantyLedgerEntry, TempDocumentEntry);
         InsertDocumentEntry(TempMaintenanceLedgerEntry, TempDocumentEntry);
-        InsertDocumentEntry(TempJobLedgerEntry, TempDocumentEntry);
+        //TODO JOBS: InsertDocumentEntry(TempJobLedgerEntry, TempDocumentEntry);
 
         OnAfterFillDocumentEntry(TempDocumentEntry);
     end;
@@ -389,17 +389,17 @@ codeunit 20 "Posting Preview Event Handler"
         TempMaintenanceLedgerEntry.Insert;
     end;
 
-    [EventSubscriber(ObjectType::Table, 169, 'OnAfterInsertEvent', '', false, false)]
-    local procedure OnInsertJobLedgEntry(var Rec: Record "Job Ledger Entry"; RunTrigger: Boolean)
-    begin
-        if Rec.IsTemporary then
-            exit;
+    //TODO JOBS: // [EventSubscriber(ObjectType::Table, 169, 'OnAfterInsertEvent', '', false, false)]
+    // local procedure OnInsertJobLedgEntry(var Rec: Record "Job Ledger Entry"; RunTrigger: Boolean)
+    // begin
+    //     if Rec.IsTemporary then
+    //         exit;
 
-        PreventCommit;
-        TempJobLedgerEntry := Rec;
-        TempJobLedgerEntry."Document No." := '***';
-        TempJobLedgerEntry.Insert;
-    end;
+    //     PreventCommit;
+    //     TempJobLedgerEntry := Rec;
+    //     TempJobLedgerEntry."Document No." := '***';
+    //     TempJobLedgerEntry.Insert;
+    // end;
 
     [IntegrationEvent(false, false)]
     local procedure OnAfterFillDocumentEntry(var DocumentEntry: Record "Document Entry")

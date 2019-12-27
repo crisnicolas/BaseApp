@@ -803,9 +803,9 @@ codeunit 6500 "Item Tracking Management"
             Reset;
             case TempWhseJnlLine."Source Type" of
                 DATABASE::"Item Journal Line",
-              DATABASE::"Job Journal Line":
-                    SetSourceFilter(
-                      TempWhseJnlLine."Source Type", -1, TempWhseJnlLine."Journal Template Name", TempWhseJnlLine."Source Line No.", true);
+                //TODO JOBS: //   DATABASE::"Job Journal Line":
+                //         SetSourceFilter(
+                //           TempWhseJnlLine."Source Type", -1, TempWhseJnlLine."Journal Template Name", TempWhseJnlLine."Source Line No.", true);
                 0: // Whse. journal line
                     SetSourceFilter(
                       DATABASE::"Warehouse Journal Line", -1, TempWhseJnlLine."Journal Batch Name", TempWhseJnlLine."Line No.", true);

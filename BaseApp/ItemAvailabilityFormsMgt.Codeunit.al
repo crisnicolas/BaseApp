@@ -13,7 +13,7 @@ codeunit 353 "Item Availability Forms Mgt"
 
     local procedure CalcItemPlanningFields(var Item: Record Item; CalculateTransferQuantities: Boolean)
     var
-        JobPlanningLine: Record "Job Planning Line";
+    //TODO JOBS:  JobPlanningLine: Record "Job Planning Line";
     begin
         with Item do begin
             Init;
@@ -33,8 +33,8 @@ codeunit 353 "Item Availability Forms Mgt"
               "Planning Issues (Qty.)",
               "Purch. Req. Release (Qty.)");
 
-            if JobPlanningLine.ReadPermission then
-                CalcFields("Qty. on Job Order");
+            //TODO JOBS: // if JobPlanningLine.ReadPermission then
+            //     CalcFields("Qty. on Job Order");
             CalcFields(
               "Qty. on Assembly Order",
               "Qty. on Asm. Component",
@@ -156,10 +156,10 @@ codeunit 353 "Item Availability Forms Mgt"
 
     procedure ShowJobPlanningLines(var Item: Record Item)
     var
-        JobPlanningLine: Record "Job Planning Line";
+    //TODO JOBS:  JobPlanningLine: Record "Job Planning Line";
     begin
-        JobPlanningLine.FindLinesWithItemToPlan(Item);
-        PAGE.Run(0, JobPlanningLine);
+        // JobPlanningLine.FindLinesWithItemToPlan(Item);
+        // PAGE.Run(0, JobPlanningLine);
     end;
 
     procedure ShowPurchLines(var Item: Record Item)

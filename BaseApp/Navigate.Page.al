@@ -1,4 +1,4 @@
-page 344 Navigate
+page 344 "Navigate"
 {
     AdditionalSearchTerms = 'find,search,analyze';
     ApplicationArea = Basic, Suite, FixedAssets, Service, CostAccounting;
@@ -504,12 +504,12 @@ page 344 Navigate
         PhysInvtLedgEntry: Record "Phys. Inventory Ledger Entry";
         [SecurityFiltering(SecurityFilter::Filtered)]
         ResLedgEntry: Record "Res. Ledger Entry";
-        [SecurityFiltering(SecurityFilter::Filtered)]
-        JobLedgEntry: Record "Job Ledger Entry";
-        [SecurityFiltering(SecurityFilter::Filtered)]
-        JobWIPEntry: Record "Job WIP Entry";
-        [SecurityFiltering(SecurityFilter::Filtered)]
-        JobWIPGLEntry: Record "Job WIP G/L Entry";
+        //TODO JOBS: // [SecurityFiltering(SecurityFilter::Filtered)]
+        // JobLedgEntry: Record "Job Ledger Entry";
+        // [SecurityFiltering(SecurityFilter::Filtered)]
+        // JobWIPEntry: Record "Job WIP Entry";
+        // [SecurityFiltering(SecurityFilter::Filtered)]
+        // JobWIPGLEntry: Record "Job WIP G/L Entry";
         [SecurityFiltering(SecurityFilter::Filtered)]
         ValueEntry: Record "Value Entry";
         [SecurityFiltering(SecurityFilter::Filtered)]
@@ -971,26 +971,26 @@ page 344 Navigate
 
     local procedure FindJobEntries()
     begin
-        if JobLedgEntry.ReadPermission then begin
-            JobLedgEntry.Reset;
-            JobLedgEntry.SetCurrentKey("Document No.", "Posting Date");
-            JobLedgEntry.SetFilter("Document No.", DocNoFilter);
-            JobLedgEntry.SetFilter("Posting Date", PostingDateFilter);
-            InsertIntoDocEntry(Rec, DATABASE::"Job Ledger Entry", 0, JobLedgEntry.TableCaption, JobLedgEntry.Count);
-        end;
-        if JobWIPEntry.ReadPermission then begin
-            JobWIPEntry.Reset;
-            JobWIPEntry.SetFilter("Document No.", DocNoFilter);
-            JobWIPEntry.SetFilter("WIP Posting Date", PostingDateFilter);
-            InsertIntoDocEntry(Rec, DATABASE::"Job WIP Entry", 0, JobWIPEntry.TableCaption, JobWIPEntry.Count);
-        end;
-        if JobWIPGLEntry.ReadPermission then begin
-            JobWIPGLEntry.Reset;
-            JobWIPGLEntry.SetCurrentKey("Document No.", "Posting Date");
-            JobWIPGLEntry.SetFilter("Document No.", DocNoFilter);
-            JobWIPGLEntry.SetFilter("Posting Date", PostingDateFilter);
-            InsertIntoDocEntry(Rec, DATABASE::"Job WIP G/L Entry", 0, JobWIPGLEntry.TableCaption, JobWIPGLEntry.Count);
-        end;
+        //TODO JOBS: // if JobLedgEntry.ReadPermission then begin
+        //     JobLedgEntry.Reset;
+        //     JobLedgEntry.SetCurrentKey("Document No.", "Posting Date");
+        //     JobLedgEntry.SetFilter("Document No.", DocNoFilter);
+        //     JobLedgEntry.SetFilter("Posting Date", PostingDateFilter);
+        //     InsertIntoDocEntry(Rec, DATABASE::"Job Ledger Entry", 0, JobLedgEntry.TableCaption, JobLedgEntry.Count);
+        // end;
+        // if JobWIPEntry.ReadPermission then begin
+        //     JobWIPEntry.Reset;
+        //     JobWIPEntry.SetFilter("Document No.", DocNoFilter);
+        //     JobWIPEntry.SetFilter("WIP Posting Date", PostingDateFilter);
+        //     InsertIntoDocEntry(Rec, DATABASE::"Job WIP Entry", 0, JobWIPEntry.TableCaption, JobWIPEntry.Count);
+        // end;
+        // if JobWIPGLEntry.ReadPermission then begin
+        //     JobWIPGLEntry.Reset;
+        //     JobWIPGLEntry.SetCurrentKey("Document No.", "Posting Date");
+        //     JobWIPGLEntry.SetFilter("Document No.", DocNoFilter);
+        //     JobWIPGLEntry.SetFilter("Posting Date", PostingDateFilter);
+        //     InsertIntoDocEntry(Rec, DATABASE::"Job WIP G/L Entry", 0, JobWIPGLEntry.TableCaption, JobWIPGLEntry.Count);
+        // end;
     end;
 
     local procedure FindPostedDocuments()
@@ -1597,12 +1597,12 @@ page 344 Navigate
                     PAGE.Run(0, PhysInvtLedgEntry);
                 DATABASE::"Res. Ledger Entry":
                     PAGE.Run(0, ResLedgEntry);
-                DATABASE::"Job Ledger Entry":
-                    PAGE.Run(0, JobLedgEntry);
-                DATABASE::"Job WIP Entry":
-                    PAGE.Run(0, JobWIPEntry);
-                DATABASE::"Job WIP G/L Entry":
-                    PAGE.Run(0, JobWIPGLEntry);
+               //TODO JOBS:  // DATABASE::"Job Ledger Entry":
+                //     PAGE.Run(0, JobLedgEntry);
+                // DATABASE::"Job WIP Entry":
+                //     PAGE.Run(0, JobWIPEntry);
+                // DATABASE::"Job WIP G/L Entry":
+                //     PAGE.Run(0, JobWIPGLEntry);
                 DATABASE::"Bank Account Ledger Entry":
                     PAGE.Run(0, BankAccLedgEntry);
                 DATABASE::"Check Ledger Entry":

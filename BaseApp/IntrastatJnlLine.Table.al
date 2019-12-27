@@ -69,9 +69,9 @@ table 263 "Intrastat Jnl. Line"
         {
             Caption = 'Source Entry No.';
             Editable = false;
-            TableRelation = IF ("Source Type" = CONST("Item Entry")) "Item Ledger Entry"
-            ELSE
-            IF ("Source Type" = CONST("Job Entry")) "Job Ledger Entry";
+            TableRelation = IF ("Source Type" = CONST("Item Entry")) "Item Ledger Entry";
+            //TODO JOBS: // ELSE
+            // IF ("Source Type" = CONST("Job Entry")) "Job Ledger Entry";
         }
         field(13; "Net Weight"; Decimal)
         {

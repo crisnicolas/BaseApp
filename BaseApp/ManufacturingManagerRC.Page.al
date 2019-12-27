@@ -203,12 +203,12 @@ page 8903 "Manufacturing Manager RC"
                     Caption = 'Simulated Prod. Orders';
                     RunObject = page "Simulated Production Orders";
                 }
-                action("Jobs")
-                {
-                    ApplicationArea = Jobs;
-                    Caption = 'Jobs';
-                    RunObject = page "Job List";
-                }
+                //TODO JOBS: // action("Jobs")
+                // {
+                //     ApplicationArea = Jobs;
+                //     Caption = 'Jobs';
+                //     RunObject = page "Job List";
+                // }
                 group("Group8")
                 {
                     Caption = 'Orders';

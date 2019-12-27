@@ -327,9 +327,9 @@ codeunit 1876 "Business Setup Subscribers"
         end;
 
         // Jobs
-        IF ApplicationAreaMgmtFacade.IsJobsEnabled OR ApplicationAreaMgmtFacade.IsAllDisabled then
-            Sender.Insert(JobsSetupNameTxt, JobsSetupDescriptionTxt,
-              JobsSetupKeywordsTxt, PAGE::"Jobs Setup", Info.Id(), ManualSetupCategory::Jobs);
+        //TODO JOBS: // IF ApplicationAreaMgmtFacade.IsJobsEnabled OR ApplicationAreaMgmtFacade.IsAllDisabled then
+        //     Sender.Insert(JobsSetupNameTxt, JobsSetupDescriptionTxt,
+        //       JobsSetupKeywordsTxt, PAGE::"Jobs Setup", Info.Id(), ManualSetupCategory::Jobs);
 
         // Fixed Assets
         IF ApplicationAreaMgmtFacade.IsFixedAssetEnabled OR ApplicationAreaMgmtFacade.IsAllDisabled then
@@ -372,9 +372,9 @@ codeunit 1876 "Business Setup Subscribers"
             Sender.Insert(WebSourcesNameTxt, WebSourcesDescriptionTxt,
               WebSourcesKeywordsTxt, PAGE::"Web Sources", Info.Id(), ManualSetupCategory::"Relationship Mgt");
 
-            Sender.Insert(JobResponsibilitiesNameTxt, JobResponsibilitiesDescriptionTxt,
-              JobResponsibilitiesKeywordsTxt, PAGE::"Job Responsibilities",
-              Info.Id(), ManualSetupCategory::"Relationship Mgt");
+            // Sender.Insert(JobResponsibilitiesNameTxt, JobResponsibilitiesDescriptionTxt,
+            //   JobResponsibilitiesKeywordsTxt, PAGE::"Job Responsibilities",
+            //   Info.Id(), ManualSetupCategory::"Relationship Mgt");
 
             Sender.Insert(OrganizationalLevelsNameTxt, OrganizationalLevelsDescriptionTxt,
               OrganizationalLevelsKeywordsTxt, PAGE::"Organizational Levels",

@@ -2894,53 +2894,53 @@ table 83 "Item Journal Line"
         OnAfterCopyItemJnlLineFromServShptLineUndo(Rec, ServShptLine);
     end;
 
-    procedure CopyFromJobJnlLine(JobJnlLine: Record "Job Journal Line")
-    begin
-        "Line No." := JobJnlLine."Line No.";
-        "Item No." := JobJnlLine."No.";
-        "Posting Date" := JobJnlLine."Posting Date";
-        "Document Date" := JobJnlLine."Document Date";
-        "Document No." := JobJnlLine."Document No.";
-        "External Document No." := JobJnlLine."External Document No.";
-        Description := JobJnlLine.Description;
-        "Location Code" := JobJnlLine."Location Code";
-        "Applies-to Entry" := JobJnlLine."Applies-to Entry";
-        "Applies-from Entry" := JobJnlLine."Applies-from Entry";
-        "Shortcut Dimension 1 Code" := JobJnlLine."Shortcut Dimension 1 Code";
-        "Shortcut Dimension 2 Code" := JobJnlLine."Shortcut Dimension 2 Code";
-        "Dimension Set ID" := JobJnlLine."Dimension Set ID";
-        "Country/Region Code" := JobJnlLine."Country/Region Code";
-        "Entry Type" := "Entry Type"::"Negative Adjmt.";
-        "Source Code" := JobJnlLine."Source Code";
-        "Gen. Bus. Posting Group" := JobJnlLine."Gen. Bus. Posting Group";
-        "Gen. Prod. Posting Group" := JobJnlLine."Gen. Prod. Posting Group";
-        "Posting No. Series" := JobJnlLine."Posting No. Series";
-        "Variant Code" := JobJnlLine."Variant Code";
-        "Bin Code" := JobJnlLine."Bin Code";
-        "Unit of Measure Code" := JobJnlLine."Unit of Measure Code";
-        "Reason Code" := JobJnlLine."Reason Code";
-        "Transaction Type" := JobJnlLine."Transaction Type";
-        "Transport Method" := JobJnlLine."Transport Method";
-        "Entry/Exit Point" := JobJnlLine."Entry/Exit Point";
-        Area := JobJnlLine.Area;
-        "Transaction Specification" := JobJnlLine."Transaction Specification";
-        "Invoiced Quantity" := JobJnlLine.Quantity;
-        "Invoiced Qty. (Base)" := JobJnlLine."Quantity (Base)";
-        "Source Currency Code" := JobJnlLine."Source Currency Code";
-        Quantity := JobJnlLine.Quantity;
-        "Quantity (Base)" := JobJnlLine."Quantity (Base)";
-        "Qty. per Unit of Measure" := JobJnlLine."Qty. per Unit of Measure";
-        "Unit Cost" := JobJnlLine."Unit Cost (LCY)";
-        "Unit Cost (ACY)" := JobJnlLine."Unit Cost";
-        Amount := JobJnlLine."Total Cost (LCY)";
-        "Amount (ACY)" := JobJnlLine."Total Cost";
-        "Value Entry Type" := "Value Entry Type"::"Direct Cost";
-        "Job No." := JobJnlLine."Job No.";
-        "Job Task No." := JobJnlLine."Job Task No.";
-        "Shpt. Method Code" := JobJnlLine."Shpt. Method Code";
+    // procedure CopyFromJobJnlLine(JobJnlLine: Record "Job Journal Line")
+    // begin
+    //     "Line No." := JobJnlLine."Line No.";
+    //     "Item No." := JobJnlLine."No.";
+    //     "Posting Date" := JobJnlLine."Posting Date";
+    //     "Document Date" := JobJnlLine."Document Date";
+    //     "Document No." := JobJnlLine."Document No.";
+    //     "External Document No." := JobJnlLine."External Document No.";
+    //     Description := JobJnlLine.Description;
+    //     "Location Code" := JobJnlLine."Location Code";
+    //     "Applies-to Entry" := JobJnlLine."Applies-to Entry";
+    //     "Applies-from Entry" := JobJnlLine."Applies-from Entry";
+    //     "Shortcut Dimension 1 Code" := JobJnlLine."Shortcut Dimension 1 Code";
+    //     "Shortcut Dimension 2 Code" := JobJnlLine."Shortcut Dimension 2 Code";
+    //     "Dimension Set ID" := JobJnlLine."Dimension Set ID";
+    //     "Country/Region Code" := JobJnlLine."Country/Region Code";
+    //     "Entry Type" := "Entry Type"::"Negative Adjmt.";
+    //     "Source Code" := JobJnlLine."Source Code";
+    //     "Gen. Bus. Posting Group" := JobJnlLine."Gen. Bus. Posting Group";
+    //     "Gen. Prod. Posting Group" := JobJnlLine."Gen. Prod. Posting Group";
+    //     "Posting No. Series" := JobJnlLine."Posting No. Series";
+    //     "Variant Code" := JobJnlLine."Variant Code";
+    //     "Bin Code" := JobJnlLine."Bin Code";
+    //     "Unit of Measure Code" := JobJnlLine."Unit of Measure Code";
+    //     "Reason Code" := JobJnlLine."Reason Code";
+    //     "Transaction Type" := JobJnlLine."Transaction Type";
+    //     "Transport Method" := JobJnlLine."Transport Method";
+    //     "Entry/Exit Point" := JobJnlLine."Entry/Exit Point";
+    //     Area := JobJnlLine.Area;
+    //     "Transaction Specification" := JobJnlLine."Transaction Specification";
+    //     "Invoiced Quantity" := JobJnlLine.Quantity;
+    //     "Invoiced Qty. (Base)" := JobJnlLine."Quantity (Base)";
+    //     "Source Currency Code" := JobJnlLine."Source Currency Code";
+    //     Quantity := JobJnlLine.Quantity;
+    //     "Quantity (Base)" := JobJnlLine."Quantity (Base)";
+    //     "Qty. per Unit of Measure" := JobJnlLine."Qty. per Unit of Measure";
+    //     "Unit Cost" := JobJnlLine."Unit Cost (LCY)";
+    //     "Unit Cost (ACY)" := JobJnlLine."Unit Cost";
+    //     Amount := JobJnlLine."Total Cost (LCY)";
+    //     "Amount (ACY)" := JobJnlLine."Total Cost";
+    //     "Value Entry Type" := "Value Entry Type"::"Direct Cost";
+    //     "Job No." := JobJnlLine."Job No.";
+    //     "Job Task No." := JobJnlLine."Job Task No.";
+    //     "Shpt. Method Code" := JobJnlLine."Shpt. Method Code";
 
-        OnAfterCopyItemJnlLineFromJobJnlLine(Rec, JobJnlLine);
-    end;
+    //     OnAfterCopyItemJnlLineFromJobJnlLine(Rec, JobJnlLine);
+    // end;
 
     local procedure CopyFromProdOrderComp(ProdOrderComp: Record "Prod. Order Component")
     begin
@@ -3571,10 +3571,10 @@ table 83 "Item Journal Line"
     begin
     end;
 
-    [IntegrationEvent(false, false)]
-    local procedure OnAfterCopyItemJnlLineFromJobJnlLine(var ItemJournalLine: Record "Item Journal Line"; JobJournalLine: Record "Job Journal Line")
-    begin
-    end;
+    //TODO JOBS:  // [IntegrationEvent(false, false)]
+    // local procedure OnAfterCopyItemJnlLineFromJobJnlLine(var ItemJournalLine: Record "Item Journal Line"; JobJournalLine: Record "Job Journal Line")
+    // begin
+    // end;
 
     [IntegrationEvent(false, false)]
     local procedure OnAfterCopyTrackingFromSpec(var ItemJournalLine: Record "Item Journal Line"; TrackingSpecification: Record "Tracking Specification")

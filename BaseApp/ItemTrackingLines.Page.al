@@ -2664,7 +2664,7 @@ page 6510 "Item Tracking Lines"
               ("Source Type" in
                [DATABASE::"Item Ledger Entry",
                 DATABASE::"Item Journal Line",
-                DATABASE::"Job Journal Line",
+                //TODO JOBS:  DATABASE::"Job Journal Line",
                 DATABASE::"Requisition Line"]) or
               (("Source Type" in [DATABASE::"Sales Line", DATABASE::"Purchase Line", DATABASE::"Service Line"]) and
                ("Source Subtype" in [0, 2, 3])) or
@@ -2683,7 +2683,7 @@ page 6510 "Item Tracking Lines"
               ("Source Type" in
                [DATABASE::"Item Ledger Entry",
                 DATABASE::"Item Journal Line",
-                DATABASE::"Job Journal Line",
+               //TODO JOBS:  DATABASE::"Job Journal Line",
                 DATABASE::"Requisition Line",
                 DATABASE::"Transfer Line",
                 DATABASE::"Assembly Line",

@@ -1,4 +1,4 @@
-table 27 Item
+table 27 "Item"
 {
     Caption = 'Item';
     DataCaptionFields = "No.", Description;
@@ -1164,20 +1164,20 @@ table 27 Item
         }
         field(1001; "Qty. on Job Order"; Decimal)
         {
-            CalcFormula = Sum ("Job Planning Line"."Remaining Qty. (Base)" WHERE(Status = CONST(Order),
-                                                                                 Type = CONST(Item),
-                                                                                 "No." = FIELD("No."),
-                                                                                 "Location Code" = FIELD("Location Filter"),
-                                                                                 "Variant Code" = FIELD("Variant Filter"),
-                                                                                 "Planning Date" = FIELD("Date Filter")));
+            //TODO JOBS: // CalcFormula = Sum ("Job Planning Line"."Remaining Qty. (Base)" WHERE(Status = CONST(Order),
+            //                                                                      Type = CONST(Item),
+            //                                                                      "No." = FIELD("No."),
+            //                                                                      "Location Code" = FIELD("Location Filter"),
+            //                                                                      "Variant Code" = FIELD("Variant Filter"),
+            //                                                                      "Planning Date" = FIELD("Date Filter")));
             Caption = 'Qty. on Job Order';
             DecimalPlaces = 0 : 5;
             Editable = false;
-            FieldClass = FlowField;
+            //TODO JOBS: FieldClass = FlowField;
         }
         field(1002; "Res. Qty. on Job Order"; Decimal)
         {
-            AccessByPermission = TableData Job = R;
+            //TODO JOBS:  AccessByPermission = TableData Job = R;
             CalcFormula = - Sum ("Reservation Entry"."Quantity (Base)" WHERE("Item No." = FIELD("No."),
                                                                             "Source Type" = CONST(1003),
                                                                             "Source Subtype" = CONST("2"),
@@ -3151,17 +3151,17 @@ table 27 Item
 
     local procedure CheckJobPlanningLine(CurrFieldNo: Integer)
     var
-        JobPlanningLine: Record "Job Planning Line";
+    //TODO JOBS:  JobPlanningLine: Record "Job Planning Line";
     begin
-        JobPlanningLine.SetCurrentKey(Type, "No.");
-        JobPlanningLine.SetRange(Type, JobPlanningLine.Type::Item);
-        JobPlanningLine.SetRange("No.", "No.");
-        if not JobPlanningLine.IsEmpty then begin
-            if CurrFieldNo = 0 then
-                Error(Text023, TableCaption, "No.", JobPlanningLine.TableCaption);
-            if CurrFieldNo = FieldNo(Type) then
-                Error(CannotChangeFieldErr, FieldCaption(Type), TableCaption, "No.", JobPlanningLine.TableCaption);
-        end;
+        // JobPlanningLine.SetCurrentKey(Type, "No.");
+        // JobPlanningLine.SetRange(Type, JobPlanningLine.Type::Item);
+        // JobPlanningLine.SetRange("No.", "No.");
+        // if not JobPlanningLine.IsEmpty then begin
+        //     if CurrFieldNo = 0 then
+        //         Error(Text023, TableCaption, "No.", JobPlanningLine.TableCaption);
+        //     if CurrFieldNo = FieldNo(Type) then
+        //         Error(CannotChangeFieldErr, FieldCaption(Type), TableCaption, "No.", JobPlanningLine.TableCaption);
+        // end;
     end;
 
     local procedure CalcVAT(): Decimal

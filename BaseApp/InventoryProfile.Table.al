@@ -853,35 +853,35 @@ table 99000853 "Inventory Profile"
         OnAfterTransferFromServLine(Rec, ServLine);
     end;
 
-    procedure TransferFromJobPlanningLine(var JobPlanningLine: Record "Job Planning Line"; var TrackingReservEntry: Record "Reservation Entry")
-    var
-        ReservEntry: Record "Reservation Entry";
-        JobPlanningLineReserve: Codeunit "Job Planning Line-Reserve";
-        AutoReservedQty: Decimal;
-    begin
-        JobPlanningLine.TestField(Type, JobPlanningLine.Type::Item);
-        SetSource(
-          DATABASE::"Job Planning Line", JobPlanningLine.Status, JobPlanningLine."Job No.", JobPlanningLine."Job Contract Entry No.", '', 0);
-        "Item No." := JobPlanningLine."No.";
-        "Variant Code" := JobPlanningLine."Variant Code";
-        "Location Code" := JobPlanningLine."Location Code";
-        JobPlanningLine.CalcFields("Reserved Qty. (Base)");
-        JobPlanningLineReserve.FilterReservFor(ReservEntry, JobPlanningLine);
-        AutoReservedQty := -TransferBindings(ReservEntry, TrackingReservEntry);
-        "Untracked Quantity" := JobPlanningLine."Remaining Qty. (Base)" - JobPlanningLine."Reserved Qty. (Base)" + AutoReservedQty;
-        Quantity := JobPlanningLine.Quantity;
-        "Remaining Quantity" := JobPlanningLine."Remaining Qty.";
-        "Finished Quantity" := JobPlanningLine."Qty. Posted";
-        "Quantity (Base)" := JobPlanningLine."Quantity (Base)";
-        "Remaining Quantity (Base)" := JobPlanningLine."Remaining Qty. (Base)";
-        "Unit of Measure Code" := JobPlanningLine."Unit of Measure Code";
-        "Qty. per Unit of Measure" := JobPlanningLine."Qty. per Unit of Measure";
-        IsSupply := "Untracked Quantity" < 0;
-        "Due Date" := JobPlanningLine."Planning Date";
-        "Planning Flexibility" := "Planning Flexibility"::None;
+    //TODO JOBS: // procedure TransferFromJobPlanningLine(var JobPlanningLine: Record "Job Planning Line"; var TrackingReservEntry: Record "Reservation Entry")
+    // var
+    //     ReservEntry: Record "Reservation Entry";
+    //     JobPlanningLineReserve: Codeunit "Job Planning Line-Reserve";
+    //     AutoReservedQty: Decimal;
+    // begin
+    //     JobPlanningLine.TestField(Type, JobPlanningLine.Type::Item);
+    //     SetSource(
+    //       DATABASE::"Job Planning Line", JobPlanningLine.Status, JobPlanningLine."Job No.", JobPlanningLine."Job Contract Entry No.", '', 0);
+    //     "Item No." := JobPlanningLine."No.";
+    //     "Variant Code" := JobPlanningLine."Variant Code";
+    //     "Location Code" := JobPlanningLine."Location Code";
+    //     JobPlanningLine.CalcFields("Reserved Qty. (Base)");
+    //     JobPlanningLineReserve.FilterReservFor(ReservEntry, JobPlanningLine);
+    //     AutoReservedQty := -TransferBindings(ReservEntry, TrackingReservEntry);
+    //     "Untracked Quantity" := JobPlanningLine."Remaining Qty. (Base)" - JobPlanningLine."Reserved Qty. (Base)" + AutoReservedQty;
+    //     Quantity := JobPlanningLine.Quantity;
+    //     "Remaining Quantity" := JobPlanningLine."Remaining Qty.";
+    //     "Finished Quantity" := JobPlanningLine."Qty. Posted";
+    //     "Quantity (Base)" := JobPlanningLine."Quantity (Base)";
+    //     "Remaining Quantity (Base)" := JobPlanningLine."Remaining Qty. (Base)";
+    //     "Unit of Measure Code" := JobPlanningLine."Unit of Measure Code";
+    //     "Qty. per Unit of Measure" := JobPlanningLine."Qty. per Unit of Measure";
+    //     IsSupply := "Untracked Quantity" < 0;
+    //     "Due Date" := JobPlanningLine."Planning Date";
+    //     "Planning Flexibility" := "Planning Flexibility"::None;
 
-        OnAfterTransferFromJobPlanningLine(Rec, JobPlanningLine);
-    end;
+    //     OnAfterTransferFromJobPlanningLine(Rec, JobPlanningLine);
+    // end;
 
     procedure TransferBindings(var ReservEntry: Record "Reservation Entry"; var TrackingEntry: Record "Reservation Entry"): Decimal
     var
@@ -1047,8 +1047,8 @@ table 99000853 "Inventory Profile"
                     TrkgReservEntry.SetSource(DATABASE::"Transfer Line", 0, "Source ID", "Source Ref. No.", '', 0);
             DATABASE::"Service Line":
                 TrkgReservEntry.SetSource(DATABASE::"Service Line", "Source Order Status", "Source ID", "Source Ref. No.", '', 0);
-            DATABASE::"Job Planning Line":
-                TrkgReservEntry.SetSource(DATABASE::"Job Planning Line", "Source Order Status", "Source ID", "Source Ref. No.", '', 0);
+            //TODO JOBS: // DATABASE::"Job Planning Line":
+            //     TrkgReservEntry.SetSource(DATABASE::"Job Planning Line", "Source Order Status", "Source ID", "Source Ref. No.", '', 0);
             else begin
                     IsHandled := false;
                     OnTransferToTrackingEntrySourceTypeElseCase(Rec, TrkgReservEntry, UseSecondaryFields, IsHandled);
@@ -1208,10 +1208,10 @@ table 99000853 "Inventory Profile"
     begin
     end;
 
-    [IntegrationEvent(false, false)]
-    local procedure OnAfterTransferFromJobPlanningLine(var InventoryProfile: Record "Inventory Profile"; JobPlanningLine: Record "Job Planning Line")
-    begin
-    end;
+    //TODO JOBS: // [IntegrationEvent(false, false)]
+    // local procedure OnAfterTransferFromJobPlanningLine(var InventoryProfile: Record "Inventory Profile"; JobPlanningLine: Record "Job Planning Line")
+    // begin
+    // end;
 
     [IntegrationEvent(false, false)]
     local procedure OnAfterTransferToTrackingEntry(var ReservationEntry: Record "Reservation Entry"; InventoryProfile: Record "Inventory Profile"; UseSecondaryFields: Boolean)

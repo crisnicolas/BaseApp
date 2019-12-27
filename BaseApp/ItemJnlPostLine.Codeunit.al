@@ -72,7 +72,7 @@ codeunit 22 "Item Jnl.-Post Line"
         ReserveItemJnlLine: Codeunit "Item Jnl. Line-Reserve";
         ReserveProdOrderComp: Codeunit "Prod. Order Comp.-Reserve";
         ReserveProdOrderLine: Codeunit "Prod. Order Line-Reserve";
-        JobPlanningLineReserve: Codeunit "Job Planning Line-Reserve";
+        //TODO JOBS: JobPlanningLineReserve: Codeunit "Job Planning Line-Reserve";
         ItemTrackingMgt: Codeunit "Item Tracking Management";
         InvtPost: Codeunit "Inventory Posting To G/L";
         CostCalcMgt: Codeunit "Cost Calculation Management";
@@ -5014,17 +5014,17 @@ codeunit 22 "Item Jnl.-Post Line"
 
     local procedure TransReserveFromJobPlanningLine(FromJobContractEntryNo: Integer; ToItemJnlLine: Record "Item Journal Line")
     var
-        JobPlanningLine: Record "Job Planning Line";
+    //TODO JOBS:  JobPlanningLine: Record "Job Planning Line";
     begin
-        JobPlanningLine.SetCurrentKey("Job Contract Entry No.");
-        JobPlanningLine.SetRange("Job Contract Entry No.", FromJobContractEntryNo);
-        JobPlanningLine.FindFirst;
+        // JobPlanningLine.SetCurrentKey("Job Contract Entry No.");
+        // JobPlanningLine.SetRange("Job Contract Entry No.", FromJobContractEntryNo);
+        // JobPlanningLine.FindFirst;
 
-        if JobPlanningLine."Remaining Qty. (Base)" >= ToItemJnlLine."Quantity (Base)" then
-            JobPlanningLine."Remaining Qty. (Base)" := JobPlanningLine."Remaining Qty. (Base)" - ToItemJnlLine."Quantity (Base)"
-        else
-            JobPlanningLine."Remaining Qty. (Base)" := 0;
-        JobPlanningLineReserve.TransferJobLineToItemJnlLine(JobPlanningLine, ToItemJnlLine, ToItemJnlLine."Quantity (Base)");
+        // if JobPlanningLine."Remaining Qty. (Base)" >= ToItemJnlLine."Quantity (Base)" then
+        //     JobPlanningLine."Remaining Qty. (Base)" := JobPlanningLine."Remaining Qty. (Base)" - ToItemJnlLine."Quantity (Base)"
+        // else
+        //     JobPlanningLine."Remaining Qty. (Base)" := 0;
+        // JobPlanningLineReserve.TransferJobLineToItemJnlLine(JobPlanningLine, ToItemJnlLine, ToItemJnlLine."Quantity (Base)");
     end;
 
     procedure SetupTempSplitItemJnlLine(ItemJnlLine2: Record "Item Journal Line"; SignFactor: Integer; var NonDistrQuantity: Decimal; var NonDistrAmount: Decimal; var NonDistrAmountACY: Decimal; var NonDistrDiscountAmount: Decimal; Invoice: Boolean): Boolean

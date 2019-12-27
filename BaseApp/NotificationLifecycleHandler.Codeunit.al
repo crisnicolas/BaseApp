@@ -116,32 +116,32 @@ codeunit 1508 "Notification Lifecycle Handler"
         NotificationLifecycleMgt.RecallNotificationsForRecord(Rec.RecordId, false);
     end;
 
-    [EventSubscriber(ObjectType::Table, 1003, 'OnAfterInsertEvent', '', false, false)]
-    local procedure OnAfterJobPlanningLineInsertSetRecId(var Rec: Record "Job Planning Line"; RunTrigger: Boolean)
-    begin
-        if Rec.IsTemporary or NotificationLifecycleMgt.AreSubscribersDisabled then
-            exit;
+    //TODO JOBS:  // [EventSubscriber(ObjectType::Table, 1003, 'OnAfterInsertEvent', '', false, false)]
+    // local procedure OnAfterJobPlanningLineInsertSetRecId(var Rec: Record "Job Planning Line"; RunTrigger: Boolean)
+    // begin
+    //     if Rec.IsTemporary or NotificationLifecycleMgt.AreSubscribersDisabled then
+    //         exit;
 
-        NotificationLifecycleMgt.SetRecordID(Rec.RecordId);
-    end;
+    //     NotificationLifecycleMgt.SetRecordID(Rec.RecordId);
+    // end;
 
-    [EventSubscriber(ObjectType::Table, 1003, 'OnAfterRenameEvent', '', false, false)]
-    local procedure OnAfterJobPlanningLineRenameUpdateRecId(var Rec: Record "Job Planning Line"; var xRec: Record "Job Planning Line"; RunTrigger: Boolean)
-    begin
-        if Rec.IsTemporary or NotificationLifecycleMgt.AreSubscribersDisabled then
-            exit;
+    //TODO JOBS:   // [EventSubscriber(ObjectType::Table, 1003, 'OnAfterRenameEvent', '', false, false)]
+    // local procedure OnAfterJobPlanningLineRenameUpdateRecId(var Rec: Record "Job Planning Line"; var xRec: Record "Job Planning Line"; RunTrigger: Boolean)
+    // begin
+    //     if Rec.IsTemporary or NotificationLifecycleMgt.AreSubscribersDisabled then
+    //         exit;
 
-        NotificationLifecycleMgt.UpdateRecordID(xRec.RecordId, Rec.RecordId);
-    end;
+    //     NotificationLifecycleMgt.UpdateRecordID(xRec.RecordId, Rec.RecordId);
+    // end;
 
-    [EventSubscriber(ObjectType::Table, 1003, 'OnAfterDeleteEvent', '', false, false)]
-    local procedure OnAfterJobPlanningLineDeleteRecall(var Rec: Record "Job Planning Line"; RunTrigger: Boolean)
-    begin
-        if Rec.IsTemporary or NotificationLifecycleMgt.AreSubscribersDisabled then
-            exit;
+    //TODO JOBS:  // [EventSubscriber(ObjectType::Table, 1003, 'OnAfterDeleteEvent', '', false, false)]
+    // local procedure OnAfterJobPlanningLineDeleteRecall(var Rec: Record "Job Planning Line"; RunTrigger: Boolean)
+    // begin
+    //     if Rec.IsTemporary or NotificationLifecycleMgt.AreSubscribersDisabled then
+    //         exit;
 
-        NotificationLifecycleMgt.RecallNotificationsForRecord(Rec.RecordId, false);
-    end;
+    //     NotificationLifecycleMgt.RecallNotificationsForRecord(Rec.RecordId, false);
+    // end;
 
     [EventSubscriber(ObjectType::Table, 901, 'OnAfterInsertEvent', '', false, false)]
     local procedure OnAfterAssemblyLineInsertSetRecId(var Rec: Record "Assembly Line"; RunTrigger: Boolean)
@@ -314,46 +314,46 @@ codeunit 1508 "Notification Lifecycle Handler"
               Rec.RecordId, ItemCheckAvail.GetItemAvailabilityNotificationId, true);
     end;
 
-    [EventSubscriber(ObjectType::Table, 1003, 'OnBeforeValidateEvent', 'Type', false, false)]
-    local procedure OnJobPlanningLineUpdateTypeRecallItemNotif(var Rec: Record "Job Planning Line"; var xRec: Record "Job Planning Line"; CurrFieldNo: Integer)
-    var
-        ItemCheckAvail: Codeunit "Item-Check Avail.";
-    begin
-        if Rec.IsTemporary or NotificationLifecycleMgt.AreSubscribersDisabled then
-            exit;
+    //TODO JOBS: // [EventSubscriber(ObjectType::Table, 1003, 'OnBeforeValidateEvent', 'Type', false, false)]
+    // local procedure OnJobPlanningLineUpdateTypeRecallItemNotif(var Rec: Record "Job Planning Line"; var xRec: Record "Job Planning Line"; CurrFieldNo: Integer)
+    // var
+    //     ItemCheckAvail: Codeunit "Item-Check Avail.";
+    // begin
+    //     if Rec.IsTemporary or NotificationLifecycleMgt.AreSubscribersDisabled then
+    //         exit;
 
-        if (Rec.Type <> Rec.Type::Item) and (xRec.Type <> Rec.Type) and (CurrFieldNo = Rec.FieldNo(Type)) then
-            NotificationLifecycleMgt.RecallNotificationsForRecordWithAdditionalContext(
-              Rec.RecordId, ItemCheckAvail.GetItemAvailabilityNotificationId, true);
-    end;
+    //     if (Rec.Type <> Rec.Type::Item) and (xRec.Type <> Rec.Type) and (CurrFieldNo = Rec.FieldNo(Type)) then
+    //         NotificationLifecycleMgt.RecallNotificationsForRecordWithAdditionalContext(
+    //           Rec.RecordId, ItemCheckAvail.GetItemAvailabilityNotificationId, true);
+    // end;
 
-    [EventSubscriber(ObjectType::Table, 1003, 'OnBeforeValidateEvent', 'Line Type', false, false)]
-    local procedure OnJobPlanningLineUpdateLineTypeRecallItemNotif(var Rec: Record "Job Planning Line"; var xRec: Record "Job Planning Line"; CurrFieldNo: Integer)
-    var
-        ItemCheckAvail: Codeunit "Item-Check Avail.";
-    begin
-        if Rec.IsTemporary or NotificationLifecycleMgt.AreSubscribersDisabled then
-            exit;
+    //TODO JOBS: // [EventSubscriber(ObjectType::Table, 1003, 'OnBeforeValidateEvent', 'Line Type', false, false)]
+    // local procedure OnJobPlanningLineUpdateLineTypeRecallItemNotif(var Rec: Record "Job Planning Line"; var xRec: Record "Job Planning Line"; CurrFieldNo: Integer)
+    // var
+    //     ItemCheckAvail: Codeunit "Item-Check Avail.";
+    // begin
+    //     if Rec.IsTemporary or NotificationLifecycleMgt.AreSubscribersDisabled then
+    //         exit;
 
-        if (Rec."Line Type" = Rec."Line Type"::Billable) and
-           (xRec."Line Type" <> Rec."Line Type") and (CurrFieldNo = Rec.FieldNo("Line Type"))
-        then
-            NotificationLifecycleMgt.RecallNotificationsForRecordWithAdditionalContext(
-              Rec.RecordId, ItemCheckAvail.GetItemAvailabilityNotificationId, true);
-    end;
+    //     if (Rec."Line Type" = Rec."Line Type"::Billable) and
+    //        (xRec."Line Type" <> Rec."Line Type") and (CurrFieldNo = Rec.FieldNo("Line Type"))
+    //     then
+    //         NotificationLifecycleMgt.RecallNotificationsForRecordWithAdditionalContext(
+    //           Rec.RecordId, ItemCheckAvail.GetItemAvailabilityNotificationId, true);
+    // end;
 
-    [EventSubscriber(ObjectType::Table, 1003, 'OnBeforeValidateEvent', 'Quantity', false, false)]
-    local procedure OnJobPlanningLineUpdateQtyTo0RecallItemNotif(var Rec: Record "Job Planning Line"; var xRec: Record "Job Planning Line"; CurrFieldNo: Integer)
-    var
-        ItemCheckAvail: Codeunit "Item-Check Avail.";
-    begin
-        if Rec.IsTemporary or NotificationLifecycleMgt.AreSubscribersDisabled then
-            exit;
+    //TODO JOBS: // [EventSubscriber(ObjectType::Table, 1003, 'OnBeforeValidateEvent', 'Quantity', false, false)]
+    // local procedure OnJobPlanningLineUpdateQtyTo0RecallItemNotif(var Rec: Record "Job Planning Line"; var xRec: Record "Job Planning Line"; CurrFieldNo: Integer)
+    // var
+    //     ItemCheckAvail: Codeunit "Item-Check Avail.";
+    // begin
+    //     if Rec.IsTemporary or NotificationLifecycleMgt.AreSubscribersDisabled then
+    //         exit;
 
-        if (Rec.Quantity = 0) and (xRec.Quantity <> Rec.Quantity) and (CurrFieldNo = Rec.FieldNo(Quantity)) then
-            NotificationLifecycleMgt.RecallNotificationsForRecordWithAdditionalContext(
-              Rec.RecordId, ItemCheckAvail.GetItemAvailabilityNotificationId, true);
-    end;
+    //     if (Rec.Quantity = 0) and (xRec.Quantity <> Rec.Quantity) and (CurrFieldNo = Rec.FieldNo(Quantity)) then
+    //         NotificationLifecycleMgt.RecallNotificationsForRecordWithAdditionalContext(
+    //           Rec.RecordId, ItemCheckAvail.GetItemAvailabilityNotificationId, true);
+    // end;
 
     [EventSubscriber(ObjectType::Table, 901, 'OnBeforeValidateEvent', 'Unit of Measure Code', false, false)]
     local procedure OnAssemblyLineUpdateUnitOfMeasureCodeRecallItemNotif(var Rec: Record "Assembly Line"; var xRec: Record "Assembly Line"; CurrFieldNo: Integer)

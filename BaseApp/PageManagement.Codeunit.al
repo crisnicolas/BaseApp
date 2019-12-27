@@ -151,8 +151,8 @@ codeunit 700 "Page Management"
                 exit(GetPurchaseHeaderArchivePageID(RecordRef));
             DATABASE::"Res. Journal Line":
                 exit(PAGE::"Resource Journal");
-            DATABASE::"Job Journal Line":
-                exit(PAGE::"Job Journal");
+            //TODO JOBS: // DATABASE::"Job Journal Line":
+            //     exit(PAGE::"Job Journal");
             DATABASE::"Item Analysis View":
                 exit(GetAnalysisViewPageID(RecordRef));
             DATABASE::"Purchases & Payables Setup":
@@ -291,8 +291,8 @@ codeunit 700 "Page Management"
                 exit(PAGE::"Fixed Asset G/L Journal");
             GenJournalTemplate.Type::Intercompany:
                 exit(PAGE::"IC General Journal");
-            GenJournalTemplate.Type::Jobs:
-                exit(PAGE::"Job G/L Journal");
+            //TODO JOBS: // GenJournalTemplate.Type::Jobs:
+            //     exit(PAGE::"Job G/L Journal");
         end;
     end;
 
@@ -418,6 +418,7 @@ codeunit 700 "Page Management"
                 exit(PAGE::"Purchase Return Order List");
         end;
     end;
+
     procedure GetWebUrl(var RecRef: RecordRef; PageID: Integer): Text
     begin
         if not RecRef.HasFilter then

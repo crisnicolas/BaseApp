@@ -275,8 +275,8 @@ report 1003 "Post Invt. Cost to G/L - Test"
                             No[1] := "Account No.";
                             TableID[2] := DimMgt.TypeToTableID1(0);
                             No[2] := '';
-                            TableID[3] := DATABASE::Job;
-                            No[3] := '';
+                            //TODO JOBS:  // TableID[3] := DATABASE::Job;
+                            // No[3] := '';
                             TableID[4] := DATABASE::"Salesperson/Purchaser";
                             No[4] := '';
                             TableID[5] := DATABASE::Campaign;

@@ -189,8 +189,8 @@ codeunit 802 "Online Map Management"
                 SetParameters(RecordRef, Parameters, 4, 6, 31, 30, 36);
             DATABASE::Resource:
                 SetParameters(RecordRef, Parameters, 6, 8, 54, 53, 59);
-            DATABASE::Job:
-                SetParameters(RecordRef, Parameters, 59, 61, 63, 64, 67);
+            //TODO JOBS: // DATABASE::Job:
+            //     SetParameters(RecordRef, Parameters, 59, 61, 63, 64, 67);
             DATABASE::"Ship-to Address":
                 SetParameters(RecordRef, Parameters, 5, 7, 92, 91, 35);
             DATABASE::"Order Address":
@@ -226,7 +226,7 @@ codeunit 802 "Online Map Management"
                       DATABASE::Contact,
                       DATABASE::Customer,
                       DATABASE::Employee,
-                      DATABASE::Job,
+                      //TODO JOBS: DATABASE::Job,
                       DATABASE::Location,
                       DATABASE::Resource,
                       DATABASE::"Ship-to Address",

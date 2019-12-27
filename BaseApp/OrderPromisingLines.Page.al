@@ -209,7 +209,7 @@ page 99000959 "Order Promising Lines"
     var
         SalesHeader: Record "Sales Header";
         ServHeader: Record "Service Header";
-        Job: Record Job;
+    //TODO JOBS:  Job: Record Job;
     begin
         OrderPromisingCalculationDone := false;
         Accepted := false;
@@ -224,10 +224,10 @@ page 99000959 "Order Promising Lines"
                     end;
                 "Source Type"::Job:
                     begin
-                        Job.Status := Job.Status::Open;
-                        Job."No." := GetRangeMin("Source ID");
-                        Job.Find;
-                        SetJob(Job);
+                        //TODO JOBS: // Job.Status := Job.Status::Open;
+                        // Job."No." := GetRangeMin("Source ID");
+                        // Job.Find;
+                        // SetJob(Job);
                     end;
                 else
                     SalesHeader."Document Type" := SalesHeader."Document Type"::Order;
@@ -264,12 +264,12 @@ page 99000959 "Order Promising Lines"
         CrntSourceID := CrntServHeader."No.";
     end;
 
-    procedure SetJob(var CrntJob: Record Job)
-    begin
-        AvailabilityMgt.SetJob(Rec, CrntJob);
-        CrntSourceType := CrntSourceType::Job;
-        CrntSourceID := CrntJob."No.";
-    end;
+    //TODO JOBS:  // procedure SetJob(var CrntJob: Record Job)
+    // begin
+    //     AvailabilityMgt.SetJob(Rec, CrntJob);
+    //     CrntSourceType := CrntSourceType::Job;
+    //     CrntSourceID := CrntJob."No.";
+    // end;
 
     procedure SetSourceType(SourceType: Option)
     begin
