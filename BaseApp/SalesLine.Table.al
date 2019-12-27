@@ -241,10 +241,11 @@ table 37 "Sales Line"
 
                 OnValidateNoOnAfterUpdateUnitPrice(Rec, xRec);
 
-                CreateDim(
-                  DimMgt.TypeToTableID3(Type), "No.",
-                  DATABASE::Job, "Job No.",
-                  DATABASE::"Responsibility Center", "Responsibility Center");
+                //TODO JOBS: 
+                // CreateDim(
+                //   DimMgt.TypeToTableID3(Type), "No.",
+                //   DATABASE::Job, "Job No.",
+                //   DATABASE::"Responsibility Center", "Responsibility Center");
 
                 if "No." <> xRec."No." then begin
                     if Type = Type::Item then
@@ -1021,7 +1022,7 @@ table 37 "Sales Line"
         {
             Caption = 'Job No.';
             Editable = false;
-            TableRelation = Job;
+            //TODO JOBS: TableRelation = Job;
         }
         field(52; "Work Type Code"; Code[10])
         {
@@ -1975,25 +1976,25 @@ table 37 "Sales Line"
         {
             Caption = 'Job Task No.';
             Editable = false;
-            TableRelation = "Job Task"."Job Task No." WHERE("Job No." = FIELD("Job No."));
+            //TODO JOBS: TableRelation = "Job Task"."Job Task No." WHERE("Job No." = FIELD("Job No."));
         }
         field(1002; "Job Contract Entry No."; Integer)
         {
-            AccessByPermission = TableData Job = R;
+            //TODO JOBS: AccessByPermission = TableData Job = R;
             Caption = 'Job Contract Entry No.';
             Editable = false;
 
             trigger OnValidate()
             var
-                JobPlanningLine: Record "Job Planning Line";
+            //TODO JOBS: JobPlanningLine: Record "Job Planning Line";
             begin
-                JobPlanningLine.SetCurrentKey("Job Contract Entry No.");
-                JobPlanningLine.SetRange("Job Contract Entry No.", "Job Contract Entry No.");
-                JobPlanningLine.FindFirst;
-                CreateDim(
-                  DimMgt.TypeToTableID3(Type), "No.",
-                  DATABASE::Job, JobPlanningLine."Job No.",
-                  DATABASE::"Responsibility Center", "Responsibility Center");
+                // JobPlanningLine.SetCurrentKey("Job Contract Entry No.");
+                // JobPlanningLine.SetRange("Job Contract Entry No.", "Job Contract Entry No.");
+                // JobPlanningLine.FindFirst;
+                // CreateDim(
+                //   DimMgt.TypeToTableID3(Type), "No.",
+                //   DATABASE::Job, JobPlanningLine."Job No.",
+                //   DATABASE::"Responsibility Center", "Responsibility Center");
             end;
         }
         field(1300; "Posting Date"; Date)
@@ -2363,10 +2364,11 @@ table 37 "Sales Line"
 
             trigger OnValidate()
             begin
-                CreateDim(
-                  DATABASE::"Responsibility Center", "Responsibility Center",
-                  DimMgt.TypeToTableID3(Type), "No.",
-                  DATABASE::Job, "Job No.");
+                //TODO JOBS: 
+                // CreateDim(
+                //   DATABASE::"Responsibility Center", "Responsibility Center",
+                //   DimMgt.TypeToTableID3(Type), "No.",
+                //   DATABASE::Job, "Job No.");
             end;
         }
         field(5701; "Out-of-Stock Substitution"; Boolean)
@@ -3016,7 +3018,7 @@ table 37 "Sales Line"
     var
         SalesCommentLine: Record "Sales Comment Line";
         CapableToPromise: Codeunit "Capable to Promise";
-        JobCreateInvoice: Codeunit "Job Create-Invoice";
+    //TODO JOBS: JobCreateInvoice: Codeunit "Job Create-Invoice";
     begin
         TestStatusOpen;
 
@@ -3066,8 +3068,9 @@ table 37 "Sales Line"
             SalesLine2.DeleteAll(true);
         end;
 
-        if "Job Contract Entry No." <> 0 then
-            JobCreateInvoice.DeleteSalesLine(Rec);
+        //TODO JOBS: 
+        // if "Job Contract Entry No." <> 0 then
+        //     JobCreateInvoice.DeleteSalesLine(Rec);
 
         SalesCommentLine.SetRange("Document Type", "Document Type");
         SalesCommentLine.SetRange("No.", "Document No.");

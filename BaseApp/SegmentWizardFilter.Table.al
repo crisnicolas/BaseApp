@@ -74,7 +74,7 @@ table 5096 "Segment Wizard Filter"
         {
             Caption = 'Job Responsibility Code Filter';
             FieldClass = FlowFilter;
-            TableRelation = "Job Responsibility";
+            //TODO JOBS: TableRelation = "Job Responsibility";
         }
         field(13; "Profile Questionnaire Code"; Code[20])
         {

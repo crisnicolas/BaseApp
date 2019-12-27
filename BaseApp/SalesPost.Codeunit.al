@@ -229,7 +229,7 @@ codeunit 80 "Sales-Post"
         WhsePostShpt: Codeunit "Whse.-Post Shipment";
         PurchPost: Codeunit "Purch.-Post";
         CostCalcMgt: Codeunit "Cost Calculation Management";
-        JobPostLine: Codeunit "Job Post-Line";
+        //TODO JOBS: JobPostLine: Codeunit "Job Post-Line";
         ServItemMgt: Codeunit ServItemManagement;
         AsmPost: Codeunit "Assembly-Post";
         DeferralUtilities: Codeunit "Deferral Utilities";
@@ -4050,7 +4050,7 @@ codeunit 80 "Sales-Post"
         if SalesHeader."Document Type" = SalesHeader."Document Type"::"Credit Memo" then
             SalesLine."Document No." := SalesCrMemoHeader."No.";
         JobContractLine := true;
-        JobPostLine.PostInvoiceContractLine(SalesHeader, SalesLine);
+        //TODO JOBS: JobPostLine.PostInvoiceContractLine(SalesHeader, SalesLine);
     end;
 
     local procedure InsertICGenJnlLine(SalesHeader: Record "Sales Header"; SalesLine: Record "Sales Line"; var ICGenJnlLineNo: Integer)
@@ -5952,10 +5952,11 @@ codeunit 80 "Sales-Post"
 
                 GLEntryNo := PostInvoicePostBufferLine(SalesHeader, TempInvoicePostBuffer);
 
-                if (TempInvoicePostBuffer."Job No." <> '') and
-                   (TempInvoicePostBuffer.Type = TempInvoicePostBuffer.Type::"G/L Account")
-                then
-                    JobPostLine.PostSalesGLAccounts(TempInvoicePostBuffer, GLEntryNo);
+            //TODO JOBS: 
+            // if (TempInvoicePostBuffer."Job No." <> '') and
+            //    (TempInvoicePostBuffer.Type = TempInvoicePostBuffer.Type::"G/L Account")
+            // then
+            //     JobPostLine.PostSalesGLAccounts(TempInvoicePostBuffer, GLEntryNo);
 
             until TempInvoicePostBuffer.Next(-1) = 0;
 
@@ -6493,7 +6494,7 @@ codeunit 80 "Sales-Post"
         Clear(WhsePostShpt);
         Clear(GenJnlPostLine);
         Clear(ResJnlPostLine);
-        Clear(JobPostLine);
+        //TODO JOBS: Clear(JobPostLine);
         Clear(ItemJnlPostLine);
         Clear(WhseJnlPostLine);
     end;

@@ -587,7 +587,7 @@ table 5076 "Segment Header"
         ContProfileAnswer: Record "Contact Profile Answer";
         ContMailingGrp: Record "Contact Mailing Group";
         InteractLogEntry: Record "Interaction Log Entry";
-        ContJobResp: Record "Contact Job Responsibility";
+        //TODO JOBS: ContJobResp: Record "Contact Job Responsibility";
         ContIndustGrp: Record "Contact Industry Group";
         ContBusRel: Record "Contact Business Relation";
         ValueEntry: Record "Value Entry";
@@ -615,7 +615,7 @@ table 5076 "Segment Header"
                 ContProfileAnswer.Reset;
                 ContMailingGrp.Reset;
                 InteractLogEntry.Reset;
-                ContJobResp.Reset;
+                //TODO JOBS: ContJobResp.Reset;
                 ContIndustGrp.Reset;
                 ContBusRel.Reset;
                 ValueEntry.Reset;
@@ -634,8 +634,8 @@ table 5076 "Segment Header"
                                 ContMailingGrp.SetView(SavedSegCriteriaLineFilter.View);
                             DATABASE::"Interaction Log Entry":
                                 InteractLogEntry.SetView(SavedSegCriteriaLineFilter.View);
-                            DATABASE::"Contact Job Responsibility":
-                                ContJobResp.SetView(SavedSegCriteriaLineFilter.View);
+                            // DATABASE::"Contact Job Responsibility"://TODO JOBS: 
+                            //     ContJobResp.SetView(SavedSegCriteriaLineFilter.View);
                             DATABASE::"Contact Industry Group":
                                 ContIndustGrp.SetView(SavedSegCriteriaLineFilter.View);
                             DATABASE::"Contact Business Relation":
@@ -653,7 +653,7 @@ table 5076 "Segment Header"
                             AddContacts.SetTableView(ContProfileAnswer);
                             AddContacts.SetTableView(ContMailingGrp);
                             AddContacts.SetTableView(InteractLogEntry);
-                            AddContacts.SetTableView(ContJobResp);
+                            //TODO JOBS: AddContacts.SetTableView(ContJobResp);
                             AddContacts.SetTableView(ContIndustGrp);
                             AddContacts.SetTableView(ContBusRel);
                             AddContacts.SetTableView(ValueEntry);
@@ -673,7 +673,7 @@ table 5076 "Segment Header"
                             ReduceContacts.SetTableView(ContProfileAnswer);
                             ReduceContacts.SetTableView(ContMailingGrp);
                             ReduceContacts.SetTableView(InteractLogEntry);
-                            ReduceContacts.SetTableView(ContJobResp);
+                            //TODO JOBS: ReduceContacts.SetTableView(ContJobResp);
                             ReduceContacts.SetTableView(ContIndustGrp);
                             ReduceContacts.SetTableView(ContBusRel);
                             ReduceContacts.SetTableView(ValueEntry);
@@ -689,7 +689,7 @@ table 5076 "Segment Header"
                             RefineContacts.SetTableView(ContProfileAnswer);
                             RefineContacts.SetTableView(ContMailingGrp);
                             RefineContacts.SetTableView(InteractLogEntry);
-                            RefineContacts.SetTableView(ContJobResp);
+                            //TODO JOBS: RefineContacts.SetTableView(ContJobResp);
                             RefineContacts.SetTableView(ContIndustGrp);
                             RefineContacts.SetTableView(ContBusRel);
                             RefineContacts.SetTableView(ValueEntry);

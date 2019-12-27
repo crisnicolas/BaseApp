@@ -785,10 +785,11 @@ codeunit 5940 ServContractManagement
         ServLine2."Posting Date" := PeriodStarts;
         if ApplyDiscAmt then
             ServLine2.Validate("Line Discount Amount", DiscAmount);
-        ServLine2.CreateDim(
-          DimMgt.TypeToTableID5(ServLine2.Type), ServLine2."No.",
-          DATABASE::Job, ServLine2."Job No.",
-          DATABASE::"Responsibility Center", ServLine2."Responsibility Center");
+        //TODO JOBS: 
+        // ServLine2.CreateDim(
+        //   DimMgt.TypeToTableID5(ServLine2.Type), ServLine2."No.",
+        //   DATABASE::Job, ServLine2."Job No.",
+        //   DATABASE::"Responsibility Center", ServLine2."Responsibility Center");
         OnBeforeServLineInsert(ServLine2, ServHeader2, ServContract);
         ServLine2.Insert;
     end;
@@ -1794,10 +1795,11 @@ codeunit 5940 ServContractManagement
 
             OnServLedgEntryToServiceLineOnBeforeServLineInsert(ServLine, TotalServLine, TotalServLineLCY, ServHeader, ServLedgEntry);
             Insert;
-            CreateDim(
-              DimMgt.TypeToTableID5(Type), "No.",
-              DATABASE::Job, "Job No.",
-              DATABASE::"Responsibility Center", "Responsibility Center");
+            //TODO JOBS: 
+            // CreateDim(
+            //   DimMgt.TypeToTableID5(Type), "No.",
+            //   DATABASE::Job, "Job No.",
+            //   DATABASE::"Responsibility Center", "Responsibility Center");
         end;
     end;
 

@@ -31,7 +31,7 @@ page 9217 "ResGrp. All. per Serv.  Matrix"
                     ApplicationArea = Service;
                     CaptionClass = '3,' + MatrixColumnCaptions[1];
                     DrillDown = true;
-                    DrillDownPageID = "Job Planning Lines";
+                    //TODO JOBS: DrillDownPageID = "Job Planning Lines";
                     Editable = false;
                     Visible = Col1Visible;
 

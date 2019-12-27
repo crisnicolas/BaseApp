@@ -1268,55 +1268,55 @@ table 5902 "Service Line"
 
             trigger OnValidate()
             var
-                JobPlanningLine: Record "Job Planning Line";
+            //TODO JOBS: JobPlanningLine: Record "Job Planning Line";
             begin
-                if "Job Planning Line No." <> 0 then begin
-                    JobPlanningLine.Get("Job No.", "Job Task No.", "Job Planning Line No.");
-                    JobPlanningLine.TestField("Job No.", "Job No.");
-                    JobPlanningLine.TestField("Job Task No.", "Job Task No.");
-                    case Type of
-                        Type::Resource:
-                            JobPlanningLine.TestField(Type, JobPlanningLine.Type::Resource);
-                        Type::Item:
-                            JobPlanningLine.TestField(Type, JobPlanningLine.Type::Item);
-                        Type::"G/L Account":
-                            JobPlanningLine.TestField(Type, JobPlanningLine.Type::"G/L Account");
-                    end;
-                    JobPlanningLine.TestField("No.", "No.");
-                    JobPlanningLine.TestField("Usage Link", true);
-                    JobPlanningLine.TestField("System-Created Entry", false);
-                    "Job Line Type" := JobPlanningLine."Line Type" + 1;
-                    Validate("Job Remaining Qty.", JobPlanningLine."Remaining Qty." - Quantity);
-                end else
-                    Validate("Job Remaining Qty.", 0);
-            end;
+            //     if "Job Planning Line No." <> 0 then begin
+            //         JobPlanningLine.Get("Job No.", "Job Task No.", "Job Planning Line No.");
+            //         JobPlanningLine.TestField("Job No.", "Job No.");
+            //         JobPlanningLine.TestField("Job Task No.", "Job Task No.");
+            //         case Type of
+            //             Type::Resource:
+            //                 JobPlanningLine.TestField(Type, JobPlanningLine.Type::Resource);
+            //             Type::Item:
+            //                 JobPlanningLine.TestField(Type, JobPlanningLine.Type::Item);
+            //             Type::"G/L Account":
+            //                 JobPlanningLine.TestField(Type, JobPlanningLine.Type::"G/L Account");
+            //         end;
+            //         JobPlanningLine.TestField("No.", "No.");
+            //         JobPlanningLine.TestField("Usage Link", true);
+            //         JobPlanningLine.TestField("System-Created Entry", false);
+            //         "Job Line Type" := JobPlanningLine."Line Type" + 1;
+            //         Validate("Job Remaining Qty.", JobPlanningLine."Remaining Qty." - Quantity);
+            //     end else
+            //         Validate("Job Remaining Qty.", 0);
+             end;
         }
         field(1030; "Job Remaining Qty."; Decimal)
         {
-            AccessByPermission = TableData Job = R;
+            //TODO JOBS: AccessByPermission = TableData Job = R;
             Caption = 'Job Remaining Qty.';
             DecimalPlaces = 0 : 5;
 
             trigger OnValidate()
             var
-                JobPlanningLine: Record "Job Planning Line";
+            //TODO JOBS: JobPlanningLine: Record "Job Planning Line";
             begin
-                if ("Job Remaining Qty." <> 0) and ("Job Planning Line No." = 0) then
-                    Error(Text047, FieldCaption("Job Remaining Qty."), FieldCaption("Job Planning Line No."));
+                // if ("Job Remaining Qty." <> 0) and ("Job Planning Line No." = 0) then
+                //     Error(Text047, FieldCaption("Job Remaining Qty."), FieldCaption("Job Planning Line No."));
 
-                if "Job Planning Line No." <> 0 then begin
-                    JobPlanningLine.Get("Job No.", "Job Task No.", "Job Planning Line No.");
-                    if JobPlanningLine.Quantity >= 0 then begin
-                        if "Job Remaining Qty." < 0 then
-                            "Job Remaining Qty." := 0;
-                    end else begin
-                        if "Job Remaining Qty." > 0 then
-                            "Job Remaining Qty." := 0;
-                    end;
-                end;
-                "Job Remaining Qty. (Base)" := UOMMgt.CalcBaseQty("Job Remaining Qty.", "Qty. per Unit of Measure");
+                // if "Job Planning Line No." <> 0 then begin
+                //     JobPlanningLine.Get("Job No.", "Job Task No.", "Job Planning Line No.");
+                //     if JobPlanningLine.Quantity >= 0 then begin
+                //         if "Job Remaining Qty." < 0 then
+                //             "Job Remaining Qty." := 0;
+                //     end else begin
+                //         if "Job Remaining Qty." > 0 then
+                //             "Job Remaining Qty." := 0;
+                //     end;
+                // end;
+                // "Job Remaining Qty. (Base)" := UOMMgt.CalcBaseQty("Job Remaining Qty.", "Qty. per Unit of Measure");
 
-                UpdateRemainingCostsAndAmounts;
+                // UpdateRemainingCostsAndAmounts;
             end;
         }
         field(1031; "Job Remaining Qty. (Base)"; Decimal)
@@ -1325,7 +1325,7 @@ table 5902 "Service Line"
         }
         field(1032; "Job Remaining Total Cost"; Decimal)
         {
-            AccessByPermission = TableData Job = R;
+            //TODO JOBS: AccessByPermission = TableData Job = R;
             AutoFormatExpression = "Currency Code";
             AutoFormatType = 1;
             Caption = 'Job Remaining Total Cost';
@@ -1333,14 +1333,14 @@ table 5902 "Service Line"
         }
         field(1033; "Job Remaining Total Cost (LCY)"; Decimal)
         {
-            AccessByPermission = TableData Job = R;
+            //TODO JOBS: AccessByPermission = TableData Job = R;
             AutoFormatType = 1;
             Caption = 'Job Remaining Total Cost (LCY)';
             Editable = false;
         }
         field(1034; "Job Remaining Line Amount"; Decimal)
         {
-            AccessByPermission = TableData Job = R;
+            //TODO JOBS: AccessByPermission = TableData Job = R;
             AutoFormatExpression = "Currency Code";
             AutoFormatType = 1;
             Caption = 'Job Remaining Line Amount';
@@ -1636,10 +1636,11 @@ table 5902 "Service Line"
 
             trigger OnValidate()
             begin
-                CreateDim(
-                  DATABASE::"Responsibility Center", "Responsibility Center",
-                  DimMgt.TypeToTableID5(Type), "No.",
-                  DATABASE::Job, "Job No.");
+                //TODO JOBS: 
+                // CreateDim(
+                //   DATABASE::"Responsibility Center", "Responsibility Center",
+                //   DimMgt.TypeToTableID5(Type), "No.",
+                //   DATABASE::Job, "Job No.");
             end;
         }
         field(5702; "Substitution Available"; Boolean)

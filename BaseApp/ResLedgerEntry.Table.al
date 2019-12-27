@@ -46,7 +46,7 @@ table 203 "Res. Ledger Entry"
         field(9; "Job No."; Code[20])
         {
             Caption = 'Job No.';
-            TableRelation = Job;
+            // TableRelation = Job;
         }
         field(10; "Unit of Measure Code"; Code[10])
         {

@@ -1221,7 +1221,7 @@ codeunit 5988 "Serv-Documents Mgt."
         end else begin
             TableIDArr[1] := DimMgt.TypeToTableID5(ServiceLine2.Type);
             NumberArr[1] := ServiceLine2."No.";
-            TableIDArr[2] := DATABASE::Job;
+            //TODO JOBS: TableIDArr[2] := DATABASE::Job;
             NumberArr[2] := ServiceLine2."Job No.";
 
             TableIDArr[3] := DATABASE::"Responsibility Center";
@@ -1935,7 +1935,7 @@ codeunit 5988 "Serv-Documents Mgt."
         ServiceLedgerEntry: Record "Service Ledger Entry";
     begin
         ServiceLedgerEntry.Get(ServLedgEntryNo);
-        ServiceLedgerEntry."Job Posted" := true;
+        //TODO JOBS: ServiceLedgerEntry."Job Posted" := true;
         ServiceLedgerEntry.Modify;
     end;
 

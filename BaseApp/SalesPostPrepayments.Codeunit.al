@@ -1148,7 +1148,7 @@ codeunit 442 "Sales-Post Prepayments"
         SourceCodeSetup.Get;
         TableID[1] := DATABASE::"G/L Account";
         No[1] := SalesLine."No.";
-        TableID[2] := DATABASE::Job;
+        //TODO JOBS: TableID[2] := DATABASE::Job;
         No[2] := SalesLine."Job No.";
         TableID[3] := DATABASE::"Responsibility Center";
         No[3] := SalesLine."Responsibility Center";

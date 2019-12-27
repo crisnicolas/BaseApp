@@ -1052,460 +1052,479 @@ codeunit 7000 "Sales Price Calc. Mgt."
             exit(TempSalesLineDisc.Count);
     end;
 
-    procedure FindJobPlanningLinePrice(var JobPlanningLine: Record "Job Planning Line"; CalledByFieldNo: Integer)
-    var
-        Job: Record Job;
-        IsHandled: Boolean;
-    begin
-        IsHandled := false;
-        OnBeforeFindJobPlanningLinePrice(JobPlanningLine, CalledByFieldNo, IsHandled);
-        if IsHandled then
-            exit;
+    //TODO JOBS: 
+    // procedure FindJobPlanningLinePrice(var JobPlanningLine: Record "Job Planning Line"; CalledByFieldNo: Integer)
+    // var
+    //     Job: Record Job;
+    //     IsHandled: Boolean;
+    // begin
+    //     IsHandled := false;
+    //     OnBeforeFindJobPlanningLinePrice(JobPlanningLine, CalledByFieldNo, IsHandled);
+    //     if IsHandled then
+    //         exit;
 
-        with JobPlanningLine do begin
-            SetCurrency("Currency Code", "Currency Factor", "Planning Date");
-            SetVAT(false, 0, 0, '');
-            SetUoM(Abs(Quantity), "Qty. per Unit of Measure");
-            SetLineDisc(0, true, true);
+    //     with JobPlanningLine do begin
+    //         SetCurrency("Currency Code", "Currency Factor", "Planning Date");
+    //         SetVAT(false, 0, 0, '');
+    //         SetUoM(Abs(Quantity), "Qty. per Unit of Measure");
+    //         SetLineDisc(0, true, true);
 
-            case Type of
-                Type::Item:
-                    begin
-                        Job.Get("Job No.");
-                        Item.Get("No.");
-                        TestField("Qty. per Unit of Measure");
-                        FindSalesPrice(
-                          TempSalesPrice, Job."Bill-to Customer No.", Job."Bill-to Contact No.",
-                          Job."Customer Price Group", '', "No.", "Variant Code", "Unit of Measure Code",
-                          Job."Currency Code", "Planning Date", false);
-                        CalcBestUnitPrice(TempSalesPrice);
-                        if FoundSalesPrice or
-                           not ((CalledByFieldNo = FieldNo(Quantity)) or
-                                (CalledByFieldNo = FieldNo("Location Code")) or
-                                (CalledByFieldNo = FieldNo("Variant Code")))
-                        then begin
-                            "Unit Price" := TempSalesPrice."Unit Price";
-                            AllowLineDisc := TempSalesPrice."Allow Line Disc.";
-                        end;
-                    end;
-                Type::Resource:
-                    begin
-                        Job.Get("Job No.");
-                        SetResPrice("No.", "Work Type Code", "Currency Code");
-                        CODEUNIT.Run(CODEUNIT::"Resource-Find Price", ResPrice);
-                        OnAfterFindJobPlanningLineResPrice(JobPlanningLine, ResPrice);
-                        ConvertPriceLCYToFCY(ResPrice."Currency Code", ResPrice."Unit Price");
-                        "Unit Price" := ResPrice."Unit Price" * "Qty. per Unit of Measure";
-                    end;
-            end;
-        end;
-        JobPlanningLineFindJTPrice(JobPlanningLine);
-    end;
+    //         case Type of
+    //             Type::Item:
+    //                 begin
+    //                     Job.Get("Job No.");
+    //                     Item.Get("No.");
+    //                     TestField("Qty. per Unit of Measure");
+    //                     FindSalesPrice(
+    //                       TempSalesPrice, Job."Bill-to Customer No.", Job."Bill-to Contact No.",
+    //                       Job."Customer Price Group", '', "No.", "Variant Code", "Unit of Measure Code",
+    //                       Job."Currency Code", "Planning Date", false);
+    //                     CalcBestUnitPrice(TempSalesPrice);
+    //                     if FoundSalesPrice or
+    //                        not ((CalledByFieldNo = FieldNo(Quantity)) or
+    //                             (CalledByFieldNo = FieldNo("Location Code")) or
+    //                             (CalledByFieldNo = FieldNo("Variant Code")))
+    //                     then begin
+    //                         "Unit Price" := TempSalesPrice."Unit Price";
+    //                         AllowLineDisc := TempSalesPrice."Allow Line Disc.";
+    //                     end;
+    //                 end;
+    //             Type::Resource:
+    //                 begin
+    //                     Job.Get("Job No.");
+    //                     SetResPrice("No.", "Work Type Code", "Currency Code");
+    //                     CODEUNIT.Run(CODEUNIT::"Resource-Find Price", ResPrice);
+    //                     OnAfterFindJobPlanningLineResPrice(JobPlanningLine, ResPrice);
+    //                     ConvertPriceLCYToFCY(ResPrice."Currency Code", ResPrice."Unit Price");
+    //                     "Unit Price" := ResPrice."Unit Price" * "Qty. per Unit of Measure";
+    //                 end;
+    //         end;
+    //     end;
+    //     JobPlanningLineFindJTPrice(JobPlanningLine);
+    // end;
 
-    procedure JobPlanningLineFindJTPrice(var JobPlanningLine: Record "Job Planning Line")
-    var
-        JobItemPrice: Record "Job Item Price";
-        JobResPrice: Record "Job Resource Price";
-        JobGLAccPrice: Record "Job G/L Account Price";
-        IsHandled: Boolean;
-    begin
-        IsHandled := false;
-        OnBeforeJobPlanningLineFindJTPrice(JobPlanningLine, IsHandled);
-        if IsHandled then
-            exit;
+    //TODO JOBS: 
+    // procedure JobPlanningLineFindJTPrice(var JobPlanningLine: Record "Job Planning Line")
+    // var
+    //     JobItemPrice: Record "Job Item Price";
+    //     JobResPrice: Record "Job Resource Price";
+    //     JobGLAccPrice: Record "Job G/L Account Price";
+    //     IsHandled: Boolean;
+    // begin
+    //     IsHandled := false;
+    //     OnBeforeJobPlanningLineFindJTPrice(JobPlanningLine, IsHandled);
+    //     if IsHandled then
+    //         exit;
 
-        with JobPlanningLine do
-            case Type of
-                Type::Item:
-                    begin
-                        JobItemPrice.SetRange("Job No.", "Job No.");
-                        JobItemPrice.SetRange("Item No.", "No.");
-                        JobItemPrice.SetRange("Variant Code", "Variant Code");
-                        JobItemPrice.SetRange("Unit of Measure Code", "Unit of Measure Code");
-                        JobItemPrice.SetRange("Currency Code", "Currency Code");
-                        JobItemPrice.SetRange("Job Task No.", "Job Task No.");
-                        if JobItemPrice.FindFirst then
-                            CopyJobItemPriceToJobPlanLine(JobPlanningLine, JobItemPrice)
-                        else begin
-                            JobItemPrice.SetRange("Job Task No.", ' ');
-                            if JobItemPrice.FindFirst then
-                                CopyJobItemPriceToJobPlanLine(JobPlanningLine, JobItemPrice);
-                        end;
+    //     with JobPlanningLine do
+    //         case Type of
+    //             Type::Item:
+    //                 begin
+    //                     JobItemPrice.SetRange("Job No.", "Job No.");
+    //                     JobItemPrice.SetRange("Item No.", "No.");
+    //                     JobItemPrice.SetRange("Variant Code", "Variant Code");
+    //                     JobItemPrice.SetRange("Unit of Measure Code", "Unit of Measure Code");
+    //                     JobItemPrice.SetRange("Currency Code", "Currency Code");
+    //                     JobItemPrice.SetRange("Job Task No.", "Job Task No.");
+    //                     if JobItemPrice.FindFirst then
+    //                         CopyJobItemPriceToJobPlanLine(JobPlanningLine, JobItemPrice)
+    //                     else begin
+    //                         JobItemPrice.SetRange("Job Task No.", ' ');
+    //                         if JobItemPrice.FindFirst then
+    //                             CopyJobItemPriceToJobPlanLine(JobPlanningLine, JobItemPrice);
+    //                     end;
 
-                        if JobItemPrice.IsEmpty or (not JobItemPrice."Apply Job Discount") then
-                            FindJobPlanningLineLineDisc(JobPlanningLine);
-                    end;
-                Type::Resource:
-                    begin
-                        Res.Get("No.");
-                        JobResPrice.SetRange("Job No.", "Job No.");
-                        JobResPrice.SetRange("Currency Code", "Currency Code");
-                        JobResPrice.SetRange("Job Task No.", "Job Task No.");
-                        case true of
-                            JobPlanningLineFindJobResPrice(JobPlanningLine, JobResPrice, JobResPrice.Type::Resource):
-                                CopyJobResPriceToJobPlanLine(JobPlanningLine, JobResPrice);
-                            JobPlanningLineFindJobResPrice(JobPlanningLine, JobResPrice, JobResPrice.Type::"Group(Resource)"):
-                                CopyJobResPriceToJobPlanLine(JobPlanningLine, JobResPrice);
-                            JobPlanningLineFindJobResPrice(JobPlanningLine, JobResPrice, JobResPrice.Type::All):
-                                CopyJobResPriceToJobPlanLine(JobPlanningLine, JobResPrice);
-                            else begin
-                                    JobResPrice.SetRange("Job Task No.", '');
-                                    case true of
-                                        JobPlanningLineFindJobResPrice(JobPlanningLine, JobResPrice, JobResPrice.Type::Resource):
-                                            CopyJobResPriceToJobPlanLine(JobPlanningLine, JobResPrice);
-                                        JobPlanningLineFindJobResPrice(JobPlanningLine, JobResPrice, JobResPrice.Type::"Group(Resource)"):
-                                            CopyJobResPriceToJobPlanLine(JobPlanningLine, JobResPrice);
-                                        JobPlanningLineFindJobResPrice(JobPlanningLine, JobResPrice, JobResPrice.Type::All):
-                                            CopyJobResPriceToJobPlanLine(JobPlanningLine, JobResPrice);
-                                    end;
-                                end;
-                        end;
-                    end;
-                Type::"G/L Account":
-                    begin
-                        JobGLAccPrice.SetRange("Job No.", "Job No.");
-                        JobGLAccPrice.SetRange("G/L Account No.", "No.");
-                        JobGLAccPrice.SetRange("Currency Code", "Currency Code");
-                        JobGLAccPrice.SetRange("Job Task No.", "Job Task No.");
-                        if JobGLAccPrice.FindFirst then
-                            CopyJobGLAccPriceToJobPlanLine(JobPlanningLine, JobGLAccPrice)
-                        else begin
-                            JobGLAccPrice.SetRange("Job Task No.", '');
-                            if JobGLAccPrice.FindFirst then;
-                            CopyJobGLAccPriceToJobPlanLine(JobPlanningLine, JobGLAccPrice);
-                        end;
-                    end;
-            end;
-    end;
+    //                     if JobItemPrice.IsEmpty or (not JobItemPrice."Apply Job Discount") then
+    //                         FindJobPlanningLineLineDisc(JobPlanningLine);
+    //                 end;
+    //             Type::Resource:
+    //                 begin
+    //                     Res.Get("No.");
+    //                     JobResPrice.SetRange("Job No.", "Job No.");
+    //                     JobResPrice.SetRange("Currency Code", "Currency Code");
+    //                     JobResPrice.SetRange("Job Task No.", "Job Task No.");
+    //                     case true of
+    //                         JobPlanningLineFindJobResPrice(JobPlanningLine, JobResPrice, JobResPrice.Type::Resource):
+    //                             CopyJobResPriceToJobPlanLine(JobPlanningLine, JobResPrice);
+    //                         JobPlanningLineFindJobResPrice(JobPlanningLine, JobResPrice, JobResPrice.Type::"Group(Resource)"):
+    //                             CopyJobResPriceToJobPlanLine(JobPlanningLine, JobResPrice);
+    //                         JobPlanningLineFindJobResPrice(JobPlanningLine, JobResPrice, JobResPrice.Type::All):
+    //                             CopyJobResPriceToJobPlanLine(JobPlanningLine, JobResPrice);
+    //                         else begin
+    //                                 JobResPrice.SetRange("Job Task No.", '');
+    //                                 case true of
+    //                                     JobPlanningLineFindJobResPrice(JobPlanningLine, JobResPrice, JobResPrice.Type::Resource):
+    //                                         CopyJobResPriceToJobPlanLine(JobPlanningLine, JobResPrice);
+    //                                     JobPlanningLineFindJobResPrice(JobPlanningLine, JobResPrice, JobResPrice.Type::"Group(Resource)"):
+    //                                         CopyJobResPriceToJobPlanLine(JobPlanningLine, JobResPrice);
+    //                                     JobPlanningLineFindJobResPrice(JobPlanningLine, JobResPrice, JobResPrice.Type::All):
+    //                                         CopyJobResPriceToJobPlanLine(JobPlanningLine, JobResPrice);
+    //                                 end;
+    //                             end;
+    //                     end;
+    //                 end;
+    //             Type::"G/L Account":
+    //                 begin
+    //                     JobGLAccPrice.SetRange("Job No.", "Job No.");
+    //                     JobGLAccPrice.SetRange("G/L Account No.", "No.");
+    //                     JobGLAccPrice.SetRange("Currency Code", "Currency Code");
+    //                     JobGLAccPrice.SetRange("Job Task No.", "Job Task No.");
+    //                     if JobGLAccPrice.FindFirst then
+    //                         CopyJobGLAccPriceToJobPlanLine(JobPlanningLine, JobGLAccPrice)
+    //                     else begin
+    //                         JobGLAccPrice.SetRange("Job Task No.", '');
+    //                         if JobGLAccPrice.FindFirst then;
+    //                         CopyJobGLAccPriceToJobPlanLine(JobPlanningLine, JobGLAccPrice);
+    //                     end;
+    //                 end;
+    //         end;
+    // end;
 
-    local procedure CopyJobItemPriceToJobPlanLine(var JobPlanningLine: Record "Job Planning Line"; JobItemPrice: Record "Job Item Price")
-    begin
-        with JobPlanningLine do begin
-            if JobItemPrice."Apply Job Price" then begin
-                "Unit Price" := JobItemPrice."Unit Price";
-                "Cost Factor" := JobItemPrice."Unit Cost Factor";
-            end;
-            if JobItemPrice."Apply Job Discount" then
-                "Line Discount %" := JobItemPrice."Line Discount %";
-        end;
-    end;
+    //TODO JOBS: 
+    // local procedure CopyJobItemPriceToJobPlanLine(var JobPlanningLine: Record "Job Planning Line"; JobItemPrice: Record "Job Item Price")
+    // begin
+    //     with JobPlanningLine do begin
+    //         if JobItemPrice."Apply Job Price" then begin
+    //             "Unit Price" := JobItemPrice."Unit Price";
+    //             "Cost Factor" := JobItemPrice."Unit Cost Factor";
+    //         end;
+    //         if JobItemPrice."Apply Job Discount" then
+    //             "Line Discount %" := JobItemPrice."Line Discount %";
+    //     end;
+    // end;
 
-    local procedure CopyJobResPriceToJobPlanLine(var JobPlanningLine: Record "Job Planning Line"; JobResPrice: Record "Job Resource Price")
-    begin
-        with JobPlanningLine do begin
-            if JobResPrice."Apply Job Price" then begin
-                "Unit Price" := JobResPrice."Unit Price" * "Qty. per Unit of Measure";
-                "Cost Factor" := JobResPrice."Unit Cost Factor";
-            end;
-            if JobResPrice."Apply Job Discount" then
-                "Line Discount %" := JobResPrice."Line Discount %";
-        end;
-    end;
+    //TODO JOBS: 
+    // local procedure CopyJobResPriceToJobPlanLine(var JobPlanningLine: Record "Job Planning Line"; JobResPrice: Record "Job Resource Price")
+    // begin
+    //     with JobPlanningLine do begin
+    //         if JobResPrice."Apply Job Price" then begin
+    //             "Unit Price" := JobResPrice."Unit Price" * "Qty. per Unit of Measure";
+    //             "Cost Factor" := JobResPrice."Unit Cost Factor";
+    //         end;
+    //         if JobResPrice."Apply Job Discount" then
+    //             "Line Discount %" := JobResPrice."Line Discount %";
+    //     end;
+    // end;
 
-    local procedure JobPlanningLineFindJobResPrice(var JobPlanningLine: Record "Job Planning Line"; var JobResPrice: Record "Job Resource Price"; PriceType: Option Resource,"Group(Resource)",All): Boolean
-    begin
-        case PriceType of
-            PriceType::Resource:
-                begin
-                    JobResPrice.SetRange(Type, JobResPrice.Type::Resource);
-                    JobResPrice.SetRange("Work Type Code", JobPlanningLine."Work Type Code");
-                    JobResPrice.SetRange(Code, JobPlanningLine."No.");
-                    exit(JobResPrice.Find('-'));
-                end;
-            PriceType::"Group(Resource)":
-                begin
-                    JobResPrice.SetRange(Type, JobResPrice.Type::"Group(Resource)");
-                    JobResPrice.SetRange(Code, Res."Resource Group No.");
-                    exit(FindJobResPrice(JobResPrice, JobPlanningLine."Work Type Code"));
-                end;
-            PriceType::All:
-                begin
-                    JobResPrice.SetRange(Type, JobResPrice.Type::All);
-                    JobResPrice.SetRange(Code);
-                    exit(FindJobResPrice(JobResPrice, JobPlanningLine."Work Type Code"));
-                end;
-        end;
-    end;
+    //TODO JOBS: 
+    // local procedure JobPlanningLineFindJobResPrice(var JobPlanningLine: Record "Job Planning Line"; var JobResPrice: Record "Job Resource Price"; PriceType: Option Resource,"Group(Resource)",All): Boolean
+    // begin
+    //     case PriceType of
+    //         PriceType::Resource:
+    //             begin
+    //                 JobResPrice.SetRange(Type, JobResPrice.Type::Resource);
+    //                 JobResPrice.SetRange("Work Type Code", JobPlanningLine."Work Type Code");
+    //                 JobResPrice.SetRange(Code, JobPlanningLine."No.");
+    //                 exit(JobResPrice.Find('-'));
+    //             end;
+    //         PriceType::"Group(Resource)":
+    //             begin
+    //                 JobResPrice.SetRange(Type, JobResPrice.Type::"Group(Resource)");
+    //                 JobResPrice.SetRange(Code, Res."Resource Group No.");
+    //                 exit(FindJobResPrice(JobResPrice, JobPlanningLine."Work Type Code"));
+    //             end;
+    //         PriceType::All:
+    //             begin
+    //                 JobResPrice.SetRange(Type, JobResPrice.Type::All);
+    //                 JobResPrice.SetRange(Code);
+    //                 exit(FindJobResPrice(JobResPrice, JobPlanningLine."Work Type Code"));
+    //             end;
+    //     end;
+    // end;
 
-    local procedure CopyJobGLAccPriceToJobPlanLine(var JobPlanningLine: Record "Job Planning Line"; JobGLAccPrice: Record "Job G/L Account Price")
-    begin
-        with JobPlanningLine do begin
-            "Unit Cost" := JobGLAccPrice."Unit Cost";
-            "Unit Price" := JobGLAccPrice."Unit Price" * "Qty. per Unit of Measure";
-            "Cost Factor" := JobGLAccPrice."Unit Cost Factor";
-            "Line Discount %" := JobGLAccPrice."Line Discount %";
-        end;
-    end;
+    //TODO JOBS: 
+    // local procedure CopyJobGLAccPriceToJobPlanLine(var JobPlanningLine: Record "Job Planning Line"; JobGLAccPrice: Record "Job G/L Account Price")
+    // begin
+    //     with JobPlanningLine do begin
+    //         "Unit Cost" := JobGLAccPrice."Unit Cost";
+    //         "Unit Price" := JobGLAccPrice."Unit Price" * "Qty. per Unit of Measure";
+    //         "Cost Factor" := JobGLAccPrice."Unit Cost Factor";
+    //         "Line Discount %" := JobGLAccPrice."Line Discount %";
+    //     end;
+    // end;
 
-    procedure FindJobJnlLinePrice(var JobJnlLine: Record "Job Journal Line"; CalledByFieldNo: Integer)
-    var
-        Job: Record Job;
-        IsHandled: Boolean;
-    begin
-        IsHandled := false;
-        OnBeforeFindJobJnlLinePrice(JobJnlLine, CalledByFieldNo, IsHandled);
-        if IsHandled then
-            exit;
+    //TODO JOBS: 
+    // procedure FindJobJnlLinePrice(var JobJnlLine: Record "Job Journal Line"; CalledByFieldNo: Integer)
+    // var
+    //     Job: Record Job;
+    //     IsHandled: Boolean;
+    // begin
+    //     IsHandled := false;
+    //     OnBeforeFindJobJnlLinePrice(JobJnlLine, CalledByFieldNo, IsHandled);
+    //     if IsHandled then
+    //         exit;
 
-        with JobJnlLine do begin
-            SetCurrency("Currency Code", "Currency Factor", "Posting Date");
-            SetVAT(false, 0, 0, '');
-            SetUoM(Abs(Quantity), "Qty. per Unit of Measure");
+    //     with JobJnlLine do begin
+    //         SetCurrency("Currency Code", "Currency Factor", "Posting Date");
+    //         SetVAT(false, 0, 0, '');
+    //         SetUoM(Abs(Quantity), "Qty. per Unit of Measure");
 
-            case Type of
-                Type::Item:
-                    begin
-                        Item.Get("No.");
-                        TestField("Qty. per Unit of Measure");
-                        Job.Get("Job No.");
+    //         case Type of
+    //             Type::Item:
+    //                 begin
+    //                     Item.Get("No.");
+    //                     TestField("Qty. per Unit of Measure");
+    //                     Job.Get("Job No.");
 
-                        FindSalesPrice(
-                          TempSalesPrice, Job."Bill-to Customer No.", Job."Bill-to Contact No.",
-                          "Customer Price Group", '', "No.", "Variant Code", "Unit of Measure Code",
-                          "Currency Code", "Posting Date", false);
-                        CalcBestUnitPrice(TempSalesPrice);
-                        if FoundSalesPrice or
-                           not ((CalledByFieldNo = FieldNo(Quantity)) or
-                                (CalledByFieldNo = FieldNo("Variant Code")))
-                        then
-                            "Unit Price" := TempSalesPrice."Unit Price";
-                    end;
-                Type::Resource:
-                    begin
-                        Job.Get("Job No.");
-                        SetResPrice("No.", "Work Type Code", "Currency Code");
-                        CODEUNIT.Run(CODEUNIT::"Resource-Find Price", ResPrice);
-                        OnAfterFindJobJnlLineResPrice(JobJnlLine, ResPrice);
-                        ConvertPriceLCYToFCY(ResPrice."Currency Code", ResPrice."Unit Price");
-                        "Unit Price" := ResPrice."Unit Price" * "Qty. per Unit of Measure";
-                    end;
-            end;
-        end;
-        JobJnlLineFindJTPrice(JobJnlLine);
-    end;
+    //                     FindSalesPrice(
+    //                       TempSalesPrice, Job."Bill-to Customer No.", Job."Bill-to Contact No.",
+    //                       "Customer Price Group", '', "No.", "Variant Code", "Unit of Measure Code",
+    //                       "Currency Code", "Posting Date", false);
+    //                     CalcBestUnitPrice(TempSalesPrice);
+    //                     if FoundSalesPrice or
+    //                        not ((CalledByFieldNo = FieldNo(Quantity)) or
+    //                             (CalledByFieldNo = FieldNo("Variant Code")))
+    //                     then
+    //                         "Unit Price" := TempSalesPrice."Unit Price";
+    //                 end;
+    //             Type::Resource:
+    //                 begin
+    //                     Job.Get("Job No.");
+    //                     SetResPrice("No.", "Work Type Code", "Currency Code");
+    //                     CODEUNIT.Run(CODEUNIT::"Resource-Find Price", ResPrice);
+    //                     OnAfterFindJobJnlLineResPrice(JobJnlLine, ResPrice);
+    //                     ConvertPriceLCYToFCY(ResPrice."Currency Code", ResPrice."Unit Price");
+    //                     "Unit Price" := ResPrice."Unit Price" * "Qty. per Unit of Measure";
+    //                 end;
+    //         end;
+    //     end;
+    //     JobJnlLineFindJTPrice(JobJnlLine);
+    // end;
 
-    local procedure JobJnlLineFindJobResPrice(var JobJnlLine: Record "Job Journal Line"; var JobResPrice: Record "Job Resource Price"; PriceType: Option Resource,"Group(Resource)",All): Boolean
-    begin
-        case PriceType of
-            PriceType::Resource:
-                begin
-                    JobResPrice.SetRange(Type, JobResPrice.Type::Resource);
-                    JobResPrice.SetRange("Work Type Code", JobJnlLine."Work Type Code");
-                    JobResPrice.SetRange(Code, JobJnlLine."No.");
-                    exit(JobResPrice.Find('-'));
-                end;
-            PriceType::"Group(Resource)":
-                begin
-                    JobResPrice.SetRange(Type, JobResPrice.Type::"Group(Resource)");
-                    JobResPrice.SetRange(Code, Res."Resource Group No.");
-                    exit(FindJobResPrice(JobResPrice, JobJnlLine."Work Type Code"));
-                end;
-            PriceType::All:
-                begin
-                    JobResPrice.SetRange(Type, JobResPrice.Type::All);
-                    JobResPrice.SetRange(Code);
-                    exit(FindJobResPrice(JobResPrice, JobJnlLine."Work Type Code"));
-                end;
-        end;
-    end;
+    //TODO JOBS: 
+    // local procedure JobJnlLineFindJobResPrice(var JobJnlLine: Record "Job Journal Line"; var JobResPrice: Record "Job Resource Price"; PriceType: Option Resource,"Group(Resource)",All): Boolean
+    // begin
+    //     case PriceType of
+    //         PriceType::Resource:
+    //             begin
+    //                 JobResPrice.SetRange(Type, JobResPrice.Type::Resource);
+    //                 JobResPrice.SetRange("Work Type Code", JobJnlLine."Work Type Code");
+    //                 JobResPrice.SetRange(Code, JobJnlLine."No.");
+    //                 exit(JobResPrice.Find('-'));
+    //             end;
+    //         PriceType::"Group(Resource)":
+    //             begin
+    //                 JobResPrice.SetRange(Type, JobResPrice.Type::"Group(Resource)");
+    //                 JobResPrice.SetRange(Code, Res."Resource Group No.");
+    //                 exit(FindJobResPrice(JobResPrice, JobJnlLine."Work Type Code"));
+    //             end;
+    //         PriceType::All:
+    //             begin
+    //                 JobResPrice.SetRange(Type, JobResPrice.Type::All);
+    //                 JobResPrice.SetRange(Code);
+    //                 exit(FindJobResPrice(JobResPrice, JobJnlLine."Work Type Code"));
+    //             end;
+    //     end;
+    // end;
 
-    local procedure CopyJobResPriceToJobJnlLine(var JobJnlLine: Record "Job Journal Line"; JobResPrice: Record "Job Resource Price")
-    begin
-        with JobJnlLine do begin
-            if JobResPrice."Apply Job Price" then begin
-                "Unit Price" := JobResPrice."Unit Price" * "Qty. per Unit of Measure";
-                "Cost Factor" := JobResPrice."Unit Cost Factor";
-            end;
-            if JobResPrice."Apply Job Discount" then
-                "Line Discount %" := JobResPrice."Line Discount %";
-        end;
-    end;
+    //TODO JOBS: 
+    // local procedure CopyJobResPriceToJobJnlLine(var JobJnlLine: Record "Job Journal Line"; JobResPrice: Record "Job Resource Price")
+    // begin
+    //     with JobJnlLine do begin
+    //         if JobResPrice."Apply Job Price" then begin
+    //             "Unit Price" := JobResPrice."Unit Price" * "Qty. per Unit of Measure";
+    //             "Cost Factor" := JobResPrice."Unit Cost Factor";
+    //         end;
+    //         if JobResPrice."Apply Job Discount" then
+    //             "Line Discount %" := JobResPrice."Line Discount %";
+    //     end;
+    // end;
 
-    local procedure CopyJobGLAccPriceToJobJnlLine(var JobJnlLine: Record "Job Journal Line"; JobGLAccPrice: Record "Job G/L Account Price")
-    begin
-        with JobJnlLine do begin
-            "Unit Cost" := JobGLAccPrice."Unit Cost";
-            "Unit Price" := JobGLAccPrice."Unit Price" * "Qty. per Unit of Measure";
-            "Cost Factor" := JobGLAccPrice."Unit Cost Factor";
-            "Line Discount %" := JobGLAccPrice."Line Discount %";
-        end;
-    end;
+    //TODO JOBS: 
+    // local procedure CopyJobGLAccPriceToJobJnlLine(var JobJnlLine: Record "Job Journal Line"; JobGLAccPrice: Record "Job G/L Account Price")
+    // begin
+    //     with JobJnlLine do begin
+    //         "Unit Cost" := JobGLAccPrice."Unit Cost";
+    //         "Unit Price" := JobGLAccPrice."Unit Price" * "Qty. per Unit of Measure";
+    //         "Cost Factor" := JobGLAccPrice."Unit Cost Factor";
+    //         "Line Discount %" := JobGLAccPrice."Line Discount %";
+    //     end;
+    // end;
 
-    procedure JobJnlLineFindJTPrice(var JobJnlLine: Record "Job Journal Line")
-    var
-        JobItemPrice: Record "Job Item Price";
-        JobResPrice: Record "Job Resource Price";
-        JobGLAccPrice: Record "Job G/L Account Price";
-    begin
-        with JobJnlLine do
-            case Type of
-                Type::Item:
-                    begin
-                        JobItemPrice.SetRange("Job No.", "Job No.");
-                        JobItemPrice.SetRange("Item No.", "No.");
-                        JobItemPrice.SetRange("Variant Code", "Variant Code");
-                        JobItemPrice.SetRange("Unit of Measure Code", "Unit of Measure Code");
-                        JobItemPrice.SetRange("Currency Code", "Currency Code");
-                        JobItemPrice.SetRange("Job Task No.", "Job Task No.");
-                        if JobItemPrice.FindFirst then
-                            CopyJobItemPriceToJobJnlLine(JobJnlLine, JobItemPrice)
-                        else begin
-                            JobItemPrice.SetRange("Job Task No.", ' ');
-                            if JobItemPrice.FindFirst then
-                                CopyJobItemPriceToJobJnlLine(JobJnlLine, JobItemPrice);
-                        end;
-                        if JobItemPrice.IsEmpty or (not JobItemPrice."Apply Job Discount") then
-                            FindJobJnlLineLineDisc(JobJnlLine);
-                        OnAfterJobJnlLineFindJTPriceItem(JobJnlLine);
-                    end;
-                Type::Resource:
-                    begin
-                        Res.Get("No.");
-                        JobResPrice.SetRange("Job No.", "Job No.");
-                        JobResPrice.SetRange("Currency Code", "Currency Code");
-                        JobResPrice.SetRange("Job Task No.", "Job Task No.");
-                        case true of
-                            JobJnlLineFindJobResPrice(JobJnlLine, JobResPrice, JobResPrice.Type::Resource):
-                                CopyJobResPriceToJobJnlLine(JobJnlLine, JobResPrice);
-                            JobJnlLineFindJobResPrice(JobJnlLine, JobResPrice, JobResPrice.Type::"Group(Resource)"):
-                                CopyJobResPriceToJobJnlLine(JobJnlLine, JobResPrice);
-                            JobJnlLineFindJobResPrice(JobJnlLine, JobResPrice, JobResPrice.Type::All):
-                                CopyJobResPriceToJobJnlLine(JobJnlLine, JobResPrice);
-                            else begin
-                                    JobResPrice.SetRange("Job Task No.", '');
-                                    case true of
-                                        JobJnlLineFindJobResPrice(JobJnlLine, JobResPrice, JobResPrice.Type::Resource):
-                                            CopyJobResPriceToJobJnlLine(JobJnlLine, JobResPrice);
-                                        JobJnlLineFindJobResPrice(JobJnlLine, JobResPrice, JobResPrice.Type::"Group(Resource)"):
-                                            CopyJobResPriceToJobJnlLine(JobJnlLine, JobResPrice);
-                                        JobJnlLineFindJobResPrice(JobJnlLine, JobResPrice, JobResPrice.Type::All):
-                                            CopyJobResPriceToJobJnlLine(JobJnlLine, JobResPrice);
-                                    end;
-                                end;
-                        end;
-                        OnAfterJobJnlLineFindJTPriceResource(JobJnlLine);
-                    end;
-                Type::"G/L Account":
-                    begin
-                        JobGLAccPrice.SetRange("Job No.", "Job No.");
-                        JobGLAccPrice.SetRange("G/L Account No.", "No.");
-                        JobGLAccPrice.SetRange("Currency Code", "Currency Code");
-                        JobGLAccPrice.SetRange("Job Task No.", "Job Task No.");
-                        if JobGLAccPrice.FindFirst then
-                            CopyJobGLAccPriceToJobJnlLine(JobJnlLine, JobGLAccPrice)
-                        else begin
-                            JobGLAccPrice.SetRange("Job Task No.", '');
-                            if JobGLAccPrice.FindFirst then;
-                            CopyJobGLAccPriceToJobJnlLine(JobJnlLine, JobGLAccPrice);
-                        end;
-                        OnAfterJobJnlLineFindJTPriceGLAccount(JobJnlLine);
-                    end;
-            end;
-    end;
+    //TODO JOBS: 
+    // procedure JobJnlLineFindJTPrice(var JobJnlLine: Record "Job Journal Line")
+    // var
+    //     JobItemPrice: Record "Job Item Price";
+    //     JobResPrice: Record "Job Resource Price";
+    //     JobGLAccPrice: Record "Job G/L Account Price";
+    // begin
+    //     with JobJnlLine do
+    //         case Type of
+    //             Type::Item:
+    //                 begin
+    //                     JobItemPrice.SetRange("Job No.", "Job No.");
+    //                     JobItemPrice.SetRange("Item No.", "No.");
+    //                     JobItemPrice.SetRange("Variant Code", "Variant Code");
+    //                     JobItemPrice.SetRange("Unit of Measure Code", "Unit of Measure Code");
+    //                     JobItemPrice.SetRange("Currency Code", "Currency Code");
+    //                     JobItemPrice.SetRange("Job Task No.", "Job Task No.");
+    //                     if JobItemPrice.FindFirst then
+    //                         CopyJobItemPriceToJobJnlLine(JobJnlLine, JobItemPrice)
+    //                     else begin
+    //                         JobItemPrice.SetRange("Job Task No.", ' ');
+    //                         if JobItemPrice.FindFirst then
+    //                             CopyJobItemPriceToJobJnlLine(JobJnlLine, JobItemPrice);
+    //                     end;
+    //                     if JobItemPrice.IsEmpty or (not JobItemPrice."Apply Job Discount") then
+    //                         FindJobJnlLineLineDisc(JobJnlLine);
+    //                     OnAfterJobJnlLineFindJTPriceItem(JobJnlLine);
+    //                 end;
+    //             Type::Resource:
+    //                 begin
+    //                     Res.Get("No.");
+    //                     JobResPrice.SetRange("Job No.", "Job No.");
+    //                     JobResPrice.SetRange("Currency Code", "Currency Code");
+    //                     JobResPrice.SetRange("Job Task No.", "Job Task No.");
+    //                     case true of
+    //                         JobJnlLineFindJobResPrice(JobJnlLine, JobResPrice, JobResPrice.Type::Resource):
+    //                             CopyJobResPriceToJobJnlLine(JobJnlLine, JobResPrice);
+    //                         JobJnlLineFindJobResPrice(JobJnlLine, JobResPrice, JobResPrice.Type::"Group(Resource)"):
+    //                             CopyJobResPriceToJobJnlLine(JobJnlLine, JobResPrice);
+    //                         JobJnlLineFindJobResPrice(JobJnlLine, JobResPrice, JobResPrice.Type::All):
+    //                             CopyJobResPriceToJobJnlLine(JobJnlLine, JobResPrice);
+    //                         else begin
+    //                                 JobResPrice.SetRange("Job Task No.", '');
+    //                                 case true of
+    //                                     JobJnlLineFindJobResPrice(JobJnlLine, JobResPrice, JobResPrice.Type::Resource):
+    //                                         CopyJobResPriceToJobJnlLine(JobJnlLine, JobResPrice);
+    //                                     JobJnlLineFindJobResPrice(JobJnlLine, JobResPrice, JobResPrice.Type::"Group(Resource)"):
+    //                                         CopyJobResPriceToJobJnlLine(JobJnlLine, JobResPrice);
+    //                                     JobJnlLineFindJobResPrice(JobJnlLine, JobResPrice, JobResPrice.Type::All):
+    //                                         CopyJobResPriceToJobJnlLine(JobJnlLine, JobResPrice);
+    //                                 end;
+    //                             end;
+    //                     end;
+    //                     OnAfterJobJnlLineFindJTPriceResource(JobJnlLine);
+    //                 end;
+    //             Type::"G/L Account":
+    //                 begin
+    //                     JobGLAccPrice.SetRange("Job No.", "Job No.");
+    //                     JobGLAccPrice.SetRange("G/L Account No.", "No.");
+    //                     JobGLAccPrice.SetRange("Currency Code", "Currency Code");
+    //                     JobGLAccPrice.SetRange("Job Task No.", "Job Task No.");
+    //                     if JobGLAccPrice.FindFirst then
+    //                         CopyJobGLAccPriceToJobJnlLine(JobJnlLine, JobGLAccPrice)
+    //                     else begin
+    //                         JobGLAccPrice.SetRange("Job Task No.", '');
+    //                         if JobGLAccPrice.FindFirst then;
+    //                         CopyJobGLAccPriceToJobJnlLine(JobJnlLine, JobGLAccPrice);
+    //                     end;
+    //                     OnAfterJobJnlLineFindJTPriceGLAccount(JobJnlLine);
+    //                 end;
+    //         end;
+    // end;
 
-    local procedure CopyJobItemPriceToJobJnlLine(var JobJnlLine: Record "Job Journal Line"; JobItemPrice: Record "Job Item Price")
-    begin
-        with JobJnlLine do begin
-            if JobItemPrice."Apply Job Price" then begin
-                "Unit Price" := JobItemPrice."Unit Price";
-                "Cost Factor" := JobItemPrice."Unit Cost Factor";
-            end;
-            if JobItemPrice."Apply Job Discount" then
-                "Line Discount %" := JobItemPrice."Line Discount %";
-        end;
-    end;
+    //TODO JOBS: 
+    // local procedure CopyJobItemPriceToJobJnlLine(var JobJnlLine: Record "Job Journal Line"; JobItemPrice: Record "Job Item Price")
+    // begin
+    //     with JobJnlLine do begin
+    //         if JobItemPrice."Apply Job Price" then begin
+    //             "Unit Price" := JobItemPrice."Unit Price";
+    //             "Cost Factor" := JobItemPrice."Unit Cost Factor";
+    //         end;
+    //         if JobItemPrice."Apply Job Discount" then
+    //             "Line Discount %" := JobItemPrice."Line Discount %";
+    //     end;
+    // end;
 
-    local procedure FindJobPlanningLineLineDisc(var JobPlanningLine: Record "Job Planning Line")
-    begin
-        with JobPlanningLine do begin
-            SetCurrency("Currency Code", "Currency Factor", "Planning Date");
-            SetUoM(Abs(Quantity), "Qty. per Unit of Measure");
-            TestField("Qty. per Unit of Measure");
-            if Type = Type::Item then begin
-                JobPlanningLineLineDiscExists(JobPlanningLine, false);
-                CalcBestLineDisc(TempSalesLineDisc);
-                if AllowLineDisc then
-                    "Line Discount %" := TempSalesLineDisc."Line Discount %"
-                else
-                    "Line Discount %" := 0;
-            end;
-        end;
+    //TODO JOBS: 
+    // local procedure FindJobPlanningLineLineDisc(var JobPlanningLine: Record "Job Planning Line")
+    // begin
+    //     with JobPlanningLine do begin
+    //         SetCurrency("Currency Code", "Currency Factor", "Planning Date");
+    //         SetUoM(Abs(Quantity), "Qty. per Unit of Measure");
+    //         TestField("Qty. per Unit of Measure");
+    //         if Type = Type::Item then begin
+    //             JobPlanningLineLineDiscExists(JobPlanningLine, false);
+    //             CalcBestLineDisc(TempSalesLineDisc);
+    //             if AllowLineDisc then
+    //                 "Line Discount %" := TempSalesLineDisc."Line Discount %"
+    //             else
+    //                 "Line Discount %" := 0;
+    //         end;
+    //     end;
 
-        OnAfterFindJobPlanningLineLineDisc(JobPlanningLine, TempSalesLineDisc);
-    end;
+    //     OnAfterFindJobPlanningLineLineDisc(JobPlanningLine, TempSalesLineDisc);
+    // end;
 
-    local procedure JobPlanningLineLineDiscExists(var JobPlanningLine: Record "Job Planning Line"; ShowAll: Boolean): Boolean
-    var
-        Job: Record Job;
-    begin
-        with JobPlanningLine do
-            if (Type = Type::Item) and Item.Get("No.") then begin
-                Job.Get("Job No.");
-                OnBeforeJobPlanningLineLineDiscExists(JobPlanningLine);
-                FindSalesLineDisc(
-                  TempSalesLineDisc, Job."Bill-to Customer No.", Job."Bill-to Contact No.",
-                  Job."Customer Disc. Group", '', "No.", Item."Item Disc. Group", "Variant Code", "Unit of Measure Code",
-                  "Currency Code", JobPlanningLineStartDate(JobPlanningLine, DateCaption), ShowAll);
-                OnAfterJobPlanningLineLineDiscExists(JobPlanningLine);
-                exit(TempSalesLineDisc.Find('-'));
-            end;
-        exit(false);
-    end;
+    //TODO JOBS: 
+    // local procedure JobPlanningLineLineDiscExists(var JobPlanningLine: Record "Job Planning Line"; ShowAll: Boolean): Boolean
+    // var
+    //     Job: Record Job;
+    // begin
+    //     with JobPlanningLine do
+    //         if (Type = Type::Item) and Item.Get("No.") then begin
+    //             Job.Get("Job No.");
+    //             OnBeforeJobPlanningLineLineDiscExists(JobPlanningLine);
+    //             FindSalesLineDisc(
+    //               TempSalesLineDisc, Job."Bill-to Customer No.", Job."Bill-to Contact No.",
+    //               Job."Customer Disc. Group", '', "No.", Item."Item Disc. Group", "Variant Code", "Unit of Measure Code",
+    //               "Currency Code", JobPlanningLineStartDate(JobPlanningLine, DateCaption), ShowAll);
+    //             OnAfterJobPlanningLineLineDiscExists(JobPlanningLine);
+    //             exit(TempSalesLineDisc.Find('-'));
+    //         end;
+    //     exit(false);
+    // end;
 
-    local procedure JobPlanningLineStartDate(JobPlanningLine: Record "Job Planning Line"; var DateCaption: Text[30]): Date
-    begin
-        DateCaption := JobPlanningLine.FieldCaption("Planning Date");
-        exit(JobPlanningLine."Planning Date");
-    end;
+    //TODO JOBS: 
+    // local procedure JobPlanningLineStartDate(JobPlanningLine: Record "Job Planning Line"; var DateCaption: Text[30]): Date
+    // begin
+    //     DateCaption := JobPlanningLine.FieldCaption("Planning Date");
+    //     exit(JobPlanningLine."Planning Date");
+    // end;
 
-    local procedure FindJobJnlLineLineDisc(var JobJnlLine: Record "Job Journal Line")
-    begin
-        with JobJnlLine do begin
-            SetCurrency("Currency Code", "Currency Factor", "Posting Date");
-            SetUoM(Abs(Quantity), "Qty. per Unit of Measure");
-            TestField("Qty. per Unit of Measure");
-            if Type = Type::Item then begin
-                JobJnlLineLineDiscExists(JobJnlLine, false);
-                CalcBestLineDisc(TempSalesLineDisc);
-                "Line Discount %" := TempSalesLineDisc."Line Discount %";
-            end;
-        end;
+    //TODO JOBS: 
+    // local procedure FindJobJnlLineLineDisc(var JobJnlLine: Record "Job Journal Line")
+    // begin
+    //     with JobJnlLine do begin
+    //         SetCurrency("Currency Code", "Currency Factor", "Posting Date");
+    //         SetUoM(Abs(Quantity), "Qty. per Unit of Measure");
+    //         TestField("Qty. per Unit of Measure");
+    //         if Type = Type::Item then begin
+    //             JobJnlLineLineDiscExists(JobJnlLine, false);
+    //             CalcBestLineDisc(TempSalesLineDisc);
+    //             "Line Discount %" := TempSalesLineDisc."Line Discount %";
+    //         end;
+    //     end;
 
-        OnAfterFindJobJnlLineLineDisc(JobJnlLine, TempSalesLineDisc);
-    end;
+    //     OnAfterFindJobJnlLineLineDisc(JobJnlLine, TempSalesLineDisc);
+    // end;
 
-    local procedure JobJnlLineLineDiscExists(var JobJnlLine: Record "Job Journal Line"; ShowAll: Boolean): Boolean
-    var
-        Job: Record Job;
-    begin
-        with JobJnlLine do
-            if (Type = Type::Item) and Item.Get("No.") then begin
-                Job.Get("Job No.");
-                OnBeforeJobJnlLineLineDiscExists(JobJnlLine);
-                FindSalesLineDisc(
-                  TempSalesLineDisc, Job."Bill-to Customer No.", Job."Bill-to Contact No.",
-                  Job."Customer Disc. Group", '', "No.", Item."Item Disc. Group", "Variant Code", "Unit of Measure Code",
-                  "Currency Code", JobJnlLineStartDate(JobJnlLine, DateCaption), ShowAll);
-                OnAfterJobJnlLineLineDiscExists(JobJnlLine);
-                exit(TempSalesLineDisc.Find('-'));
-            end;
-        exit(false);
-    end;
+    //TODO JOBS: 
+    // local procedure JobJnlLineLineDiscExists(var JobJnlLine: Record "Job Journal Line"; ShowAll: Boolean): Boolean
+    // var
+    //     Job: Record Job;
+    // begin
+    //     with JobJnlLine do
+    //         if (Type = Type::Item) and Item.Get("No.") then begin
+    //             Job.Get("Job No.");
+    //             OnBeforeJobJnlLineLineDiscExists(JobJnlLine);
+    //             FindSalesLineDisc(
+    //               TempSalesLineDisc, Job."Bill-to Customer No.", Job."Bill-to Contact No.",
+    //               Job."Customer Disc. Group", '', "No.", Item."Item Disc. Group", "Variant Code", "Unit of Measure Code",
+    //               "Currency Code", JobJnlLineStartDate(JobJnlLine, DateCaption), ShowAll);
+    //             OnAfterJobJnlLineLineDiscExists(JobJnlLine);
+    //             exit(TempSalesLineDisc.Find('-'));
+    //         end;
+    //     exit(false);
+    // end;
 
-    local procedure JobJnlLineStartDate(JobJnlLine: Record "Job Journal Line"; var DateCaption: Text[30]): Date
-    begin
-        DateCaption := JobJnlLine.FieldCaption("Posting Date");
-        exit(JobJnlLine."Posting Date");
-    end;
+    //TODO JOBS: 
+    // local procedure JobJnlLineStartDate(JobJnlLine: Record "Job Journal Line"; var DateCaption: Text[30]): Date
+    // begin
+    //     DateCaption := JobJnlLine.FieldCaption("Posting Date");
+    //     exit(JobJnlLine."Posting Date");
+    // end;
 
-    local procedure FindJobResPrice(var JobResPrice: Record "Job Resource Price"; WorkTypeCode: Code[10]): Boolean
-    begin
-        JobResPrice.SetRange("Work Type Code", WorkTypeCode);
-        if JobResPrice.FindFirst then
-            exit(true);
-        JobResPrice.SetRange("Work Type Code", '');
-        exit(JobResPrice.FindFirst);
-    end;
+    //TODO JOBS: 
+    // local procedure FindJobResPrice(var JobResPrice: Record "Job Resource Price"; WorkTypeCode: Code[10]): Boolean
+    // begin
+    //     JobResPrice.SetRange("Work Type Code", WorkTypeCode);
+    //     if JobResPrice.FindFirst then
+    //         exit(true);
+    //     JobResPrice.SetRange("Work Type Code", '');
+    //     exit(JobResPrice.FindFirst);
+    // end;
 
     [IntegrationEvent(false, false)]
     local procedure OnAfterCalcBestUnitPrice(var SalesPrice: Record "Sales Price")
@@ -1522,25 +1541,26 @@ codeunit 7000 "Sales Price Calc. Mgt."
     begin
     end;
 
-    [IntegrationEvent(false, false)]
-    local procedure OnAfterFindJobJnlLineResPrice(var JobJournalLine: Record "Job Journal Line"; var ResourcePrice: Record "Resource Price")
-    begin
-    end;
+    //TODO JOBS: 
+    // [IntegrationEvent(false, false)]
+    // local procedure OnAfterFindJobJnlLineResPrice(var JobJournalLine: Record "Job Journal Line"; var ResourcePrice: Record "Resource Price")
+    // begin
+    // end;
 
-    [IntegrationEvent(false, false)]
-    local procedure OnAfterFindJobJnlLineLineDisc(var JobJournalLine: Record "Job Journal Line"; var TempSalesLineDisc: Record "Sales Line Discount" temporary)
-    begin
-    end;
+    // [IntegrationEvent(false, false)]
+    // local procedure OnAfterFindJobJnlLineLineDisc(var JobJournalLine: Record "Job Journal Line"; var TempSalesLineDisc: Record "Sales Line Discount" temporary)
+    // begin
+    // end;
 
-    [IntegrationEvent(false, false)]
-    local procedure OnAfterFindJobPlanningLineLineDisc(var JobPlanningLine: Record "Job Planning Line"; var TempSalesLineDisc: Record "Sales Line Discount" temporary)
-    begin
-    end;
+    // [IntegrationEvent(false, false)]
+    // local procedure OnAfterFindJobPlanningLineLineDisc(var JobPlanningLine: Record "Job Planning Line"; var TempSalesLineDisc: Record "Sales Line Discount" temporary)
+    // begin
+    // end;
 
-    [IntegrationEvent(false, false)]
-    local procedure OnAfterFindJobPlanningLineResPrice(var JobPlanningLine: Record "Job Planning Line"; var ResourcePrice: Record "Resource Price")
-    begin
-    end;
+    // [IntegrationEvent(false, false)]
+    // local procedure OnAfterFindJobPlanningLineResPrice(var JobPlanningLine: Record "Job Planning Line"; var ResourcePrice: Record "Resource Price")
+    // begin
+    // end;
 
     [IntegrationEvent(false, false)]
     local procedure OnAfterFindStdItemJnlLinePrice(var StdItemJnlLine: Record "Standard Item Journal Line"; var SalesPrice: Record "Sales Price"; CalledByFieldNo: Integer)
@@ -1602,30 +1622,35 @@ codeunit 7000 "Sales Price Calc. Mgt."
     begin
     end;
 
-    [IntegrationEvent(false, false)]
-    local procedure OnAfterJobJnlLineFindJTPriceGLAccount(var JobJournalLine: Record "Job Journal Line")
-    begin
-    end;
+    //TODO JOBS: 
+    // [IntegrationEvent(false, false)]
+    // local procedure OnAfterJobJnlLineFindJTPriceGLAccount(var JobJournalLine: Record "Job Journal Line")
+    // begin
+    // end;
 
-    [IntegrationEvent(false, false)]
-    local procedure OnAfterJobJnlLineFindJTPriceItem(var JobJournalLine: Record "Job Journal Line")
-    begin
-    end;
+    //TODO JOBS: 
+    // [IntegrationEvent(false, false)]
+    // local procedure OnAfterJobJnlLineFindJTPriceItem(var JobJournalLine: Record "Job Journal Line")
+    // begin
+    // end;
 
-    [IntegrationEvent(false, false)]
-    local procedure OnAfterJobJnlLineFindJTPriceResource(var JobJournalLine: Record "Job Journal Line")
-    begin
-    end;
+    //TODO JOBS: 
+    // [IntegrationEvent(false, false)]
+    // local procedure OnAfterJobJnlLineFindJTPriceResource(var JobJournalLine: Record "Job Journal Line")
+    // begin
+    // end;
 
-    [IntegrationEvent(false, false)]
-    local procedure OnAfterJobJnlLineLineDiscExists(var JobJournalLine: Record "Job Journal Line")
-    begin
-    end;
+    //TODO JOBS: 
+    // [IntegrationEvent(false, false)]
+    // local procedure OnAfterJobJnlLineLineDiscExists(var JobJournalLine: Record "Job Journal Line")
+    // begin
+    // end;
 
-    [IntegrationEvent(false, false)]
-    local procedure OnAfterJobPlanningLineLineDiscExists(var JobPlanningLine: Record "Job Planning Line")
-    begin
-    end;
+    //TODO JOBS: 
+    // [IntegrationEvent(false, false)]
+    // local procedure OnAfterJobPlanningLineLineDiscExists(var JobPlanningLine: Record "Job Planning Line")
+    // begin
+    // end;
 
     [IntegrationEvent(false, false)]
     local procedure OnAfterSalesLineLineDiscExists(var SalesLine: Record "Sales Line"; var SalesHeader: Record "Sales Header"; var TempSalesLineDisc: Record "Sales Line Discount" temporary; ShowAll: Boolean)
@@ -1667,15 +1692,17 @@ codeunit 7000 "Sales Price Calc. Mgt."
     begin
     end;
 
-    [IntegrationEvent(false, false)]
-    local procedure OnBeforeFindJobJnlLinePrice(var JobJournalLine: Record "Job Journal Line"; CalledByFieldNo: Integer; var IsHandled: Boolean)
-    begin
-    end;
+    //TODO JOBS: 
+    // [IntegrationEvent(false, false)]
+    // local procedure OnBeforeFindJobJnlLinePrice(var JobJournalLine: Record "Job Journal Line"; CalledByFieldNo: Integer; var IsHandled: Boolean)
+    // begin
+    // end;
 
-    [IntegrationEvent(false, false)]
-    local procedure OnBeforeFindJobPlanningLinePrice(var JobPlanningLine: Record "Job Planning Line"; CalledByFieldNo: Integer; var IsHandled: Boolean)
-    begin
-    end;
+    //TODO JOBS: 
+    // [IntegrationEvent(false, false)]
+    // local procedure OnBeforeFindJobPlanningLinePrice(var JobPlanningLine: Record "Job Planning Line"; CalledByFieldNo: Integer; var IsHandled: Boolean)
+    // begin
+    // end;
 
     [IntegrationEvent(false, false)]
     local procedure OnBeforeFindSalesPrice(var ToSalesPrice: Record "Sales Price"; var FromSalesPrice: Record "Sales Price"; var QtyPerUOM: Decimal; var Qty: Decimal; var CustNo: Code[20]; var ContNo: Code[20]; var CustPriceGrCode: Code[10]; var CampaignNo: Code[20]; var ItemNo: Code[20]; var VariantCode: Code[10]; var UOM: Code[10]; var CurrencyCode: Code[10]; var StartingDate: Date; var ShowAll: Boolean)
@@ -1717,20 +1744,23 @@ codeunit 7000 "Sales Price Calc. Mgt."
     begin
     end;
 
-    [IntegrationEvent(false, false)]
-    local procedure OnBeforeJobJnlLineLineDiscExists(var JobJournalLine: Record "Job Journal Line")
-    begin
-    end;
+    //TODO JOBS: 
+    // [IntegrationEvent(false, false)]
+    // local procedure OnBeforeJobJnlLineLineDiscExists(var JobJournalLine: Record "Job Journal Line")
+    // begin
+    // end;
 
-    [IntegrationEvent(false, false)]
-    local procedure OnBeforeJobPlanningLineLineDiscExists(var JobPlanningLine: Record "Job Planning Line")
-    begin
-    end;
+    //TODO JOBS: 
+    // [IntegrationEvent(false, false)]
+    // local procedure OnBeforeJobPlanningLineLineDiscExists(var JobPlanningLine: Record "Job Planning Line")
+    // begin
+    // end;
 
-    [IntegrationEvent(false, false)]
-    local procedure OnBeforeJobPlanningLineFindJTPrice(var JobPlanningLine: Record "Job Planning Line"; var IsHandled: Boolean)
-    begin
-    end;
+    //TODO JOBS: 
+    // [IntegrationEvent(false, false)]
+    // local procedure OnBeforeJobPlanningLineFindJTPrice(var JobPlanningLine: Record "Job Planning Line"; var IsHandled: Boolean)
+    // begin
+    // end;
 
     [IntegrationEvent(false, false)]
     local procedure OnBeforeSalesLineLineDiscExists(var SalesLine: Record "Sales Line"; var SalesHeader: Record "Sales Header"; var TempSalesLineDisc: Record "Sales Line Discount" temporary; StartingDate: Date; Qty: Decimal; QtyPerUOM: Decimal; ShowAll: Boolean; var IsHandled: Boolean)

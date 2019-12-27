@@ -350,7 +350,7 @@ page 498 Reservation
         PlanningComponent: Record "Planning Component";
         ServiceLine: Record "Service Line";
         TransLine: Record "Transfer Line";
-        JobPlanningLine: Record "Job Planning Line";
+        // JobPlanningLine: Record "Job Planning Line";//TODO JOBS: 
         ReservMgt: Codeunit "Reservation Management";
         ReservEngineMgt: Codeunit "Reservation Engine Mgt.";
         ReserveSalesLine: Codeunit "Sales Line-Reserve";
@@ -364,7 +364,7 @@ page 498 Reservation
         ReservePlanningComponent: Codeunit "Plng. Component-Reserve";
         ReserveServiceLine: Codeunit "Service Line-Reserve";
         ReserveTransLine: Codeunit "Transfer Line-Reserve";
-        JobPlanningLineReserve: Codeunit "Job Planning Line-Reserve";
+        //TODO JOBS: JobPlanningLineReserve: Codeunit "Job Planning Line-Reserve";
         CreateReservEntry: Codeunit "Create Reserv. Entry";
         UOMMgt: Codeunit "Unit of Measure Management";
         AvailableSalesLines: Page "Available - Sales Lines";
@@ -377,7 +377,7 @@ page 498 Reservation
         AvailableServiceLines: Page "Available - Service Lines";
         AvailableTransLines: Page "Available - Transfer Lines";
         AvailableItemTrackingLines: Page "Avail. - Item Tracking Lines";
-        AvailableJobPlanningLines: Page "Available - Job Planning Lines";
+        //TODO JOBS: AvailableJobPlanningLines: Page "Available - Job Planning Lines";
         AvailableAssemblyHeaders: Page "Available - Assembly Headers";
         AvailableAssemblyLines: Page "Available - Assembly Lines";
         QtyToReserve: Decimal;
@@ -624,25 +624,26 @@ page 498 Reservation
         OnAfterSetServiceLine(Rec, ReservEntry);
     end;
 
-    procedure SetJobPlanningLine(var CurrentJobPlanningLine: Record "Job Planning Line")
-    begin
-        CurrentJobPlanningLine.TestField(Type, CurrentJobPlanningLine.Type::Item);
-        CurrentJobPlanningLine.TestField("Planning Date");
+    //TODO JOBS: 
+    // procedure SetJobPlanningLine(var CurrentJobPlanningLine: Record "Job Planning Line")
+    // begin
+    //     CurrentJobPlanningLine.TestField(Type, CurrentJobPlanningLine.Type::Item);
+    //     CurrentJobPlanningLine.TestField("Planning Date");
 
-        JobPlanningLine := CurrentJobPlanningLine;
-        ReservEntry.SetSource(
-          DATABASE::"Job Planning Line", JobPlanningLine.Status, JobPlanningLine."Job No.",
-          JobPlanningLine."Job Contract Entry No.", '', 0);
-        ReservEntry."Item No." := JobPlanningLine."No.";
-        ReservEntry."Variant Code" := JobPlanningLine."Variant Code";
-        ReservEntry."Location Code" := JobPlanningLine."Location Code";
-        ReservEntry."Shipment Date" := JobPlanningLine."Planning Date";
+    //     JobPlanningLine := CurrentJobPlanningLine;
+    //     ReservEntry.SetSource(
+    //       DATABASE::"Job Planning Line", JobPlanningLine.Status, JobPlanningLine."Job No.",
+    //       JobPlanningLine."Job Contract Entry No.", '', 0);
+    //     ReservEntry."Item No." := JobPlanningLine."No.";
+    //     ReservEntry."Variant Code" := JobPlanningLine."Variant Code";
+    //     ReservEntry."Location Code" := JobPlanningLine."Location Code";
+    //     ReservEntry."Shipment Date" := JobPlanningLine."Planning Date";
 
-        CaptionText := JobPlanningLineReserve.Caption(JobPlanningLine);
-        UpdateReservFrom;
+    //     CaptionText := JobPlanningLineReserve.Caption(JobPlanningLine);
+    //     UpdateReservFrom;
 
-        OnAfterSetJobPlanningLine(Rec, ReservEntry);
-    end;
+    //     OnAfterSetJobPlanningLine(Rec, ReservEntry);
+    // end;
 
     procedure SetReservEntry(ReservEntry2: Record "Reservation Entry")
     begin

@@ -125,7 +125,7 @@ codeunit 5062 SegCriteriaManagement
         ContProfileAnswer: Record "Contact Profile Answer";
         ContMailingGrp: Record "Contact Mailing Group";
         InteractLogEntry: Record "Interaction Log Entry";
-        ContJobResp: Record "Contact Job Responsibility";
+        //TODO JOBS: ContJobResp: Record "Contact Job Responsibility";
         ContIndustGrp: Record "Contact Industry Group";
         ContBusRel: Record "Contact Business Relation";
         ValueEntry: Record "Value Entry";
@@ -161,11 +161,12 @@ codeunit 5062 SegCriteriaManagement
                     InteractLogEntry.SetView(View);
                     exit(InteractLogEntry.GetFilters);
                 end;
-            DATABASE::"Contact Job Responsibility":
-                begin
-                    ContJobResp.SetView(View);
-                    exit(ContJobResp.GetFilters);
-                end;
+            //TODO JOBS: 
+            // DATABASE::"Contact Job Responsibility":
+            //     begin
+            //         ContJobResp.SetView(View);
+            //         exit(ContJobResp.GetFilters);
+            //     end;
             DATABASE::"Contact Industry Group":
                 begin
                     ContIndustGrp.SetView(View);

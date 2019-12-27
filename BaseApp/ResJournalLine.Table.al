@@ -41,10 +41,11 @@ table 207 "Res. Journal Line"
             trigger OnValidate()
             begin
                 if "Resource No." = '' then begin
-                    CreateDim(
-                      DATABASE::Resource, "Resource No.",
-                      DATABASE::"Resource Group", "Resource Group No.",
-                      DATABASE::Job, "Job No.");
+                    //TODO JOBS: 
+                    // CreateDim(
+                    //   DATABASE::Resource, "Resource No.",
+                    //   DATABASE::"Resource Group", "Resource Group No.",
+                    //   DATABASE::Job, "Job No.");
                     exit;
                 end;
 
@@ -64,10 +65,11 @@ table 207 "Res. Journal Line"
                     if "Time Sheet No." = '' then
                         Res.TestField("Use Time Sheet", false);
 
-                CreateDim(
-                  DATABASE::Resource, "Resource No.",
-                  DATABASE::"Resource Group", "Resource Group No.",
-                  DATABASE::Job, "Job No.");
+                //TODO JOBS: 
+                // CreateDim(
+                //   DATABASE::Resource, "Resource No.",
+                //   DATABASE::"Resource Group", "Resource Group No.",
+                //   DATABASE::Job, "Job No.");
             end;
         }
         field(7; "Resource Group No."; Code[20])
@@ -78,10 +80,11 @@ table 207 "Res. Journal Line"
 
             trigger OnValidate()
             begin
-                CreateDim(
-                  DATABASE::"Resource Group", "Resource Group No.",
-                  DATABASE::Resource, "Resource No.",
-                  DATABASE::Job, "Job No.");
+                //TODO JOBS: 
+                // CreateDim(
+                //   DATABASE::"Resource Group", "Resource Group No.",
+                //   DATABASE::Resource, "Resource No.",
+                //   DATABASE::Job, "Job No.");
             end;
         }
         field(8; Description; Text[100])
@@ -120,16 +123,16 @@ table 207 "Res. Journal Line"
         field(10; "Job No."; Code[20])
         {
             Caption = 'Job No.';
-            TableRelation = Job;
+            //TODO JOBS: TableRelation = Job;
 
             trigger OnValidate()
             begin
                 FindResPrice;
-
-                CreateDim(
-                  DATABASE::Job, "Job No.",
-                  DATABASE::Resource, "Resource No.",
-                  DATABASE::"Resource Group", "Resource Group No.");
+                //TODO JOBS: 
+                // CreateDim(
+                //   DATABASE::Job, "Job No.",
+                //   DATABASE::Resource, "Resource No.",
+                //   DATABASE::"Resource Group", "Resource Group No.");
             end;
         }
         field(11; "Unit of Measure Code"; Code[10])
@@ -599,43 +602,44 @@ table 207 "Res. Journal Line"
         OnAfterCopyResJnlLineFromServShptLine(ServShptLine, Rec);
     end;
 
-    procedure CopyFromJobJnlLine(JobJnlLine: Record "Job Journal Line")
-    begin
-        "Entry Type" := JobJnlLine."Entry Type";
-        "Document No." := JobJnlLine."Document No.";
-        "External Document No." := JobJnlLine."External Document No.";
-        "Posting Date" := JobJnlLine."Posting Date";
-        "Document Date" := JobJnlLine."Document Date";
-        "Resource No." := JobJnlLine."No.";
-        Description := JobJnlLine.Description;
-        "Work Type Code" := JobJnlLine."Work Type Code";
-        "Job No." := JobJnlLine."Job No.";
-        "Shortcut Dimension 1 Code" := JobJnlLine."Shortcut Dimension 1 Code";
-        "Shortcut Dimension 2 Code" := JobJnlLine."Shortcut Dimension 2 Code";
-        "Dimension Set ID" := JobJnlLine."Dimension Set ID";
-        "Unit of Measure Code" := JobJnlLine."Unit of Measure Code";
-        "Source Code" := JobJnlLine."Source Code";
-        "Gen. Bus. Posting Group" := JobJnlLine."Gen. Bus. Posting Group";
-        "Gen. Prod. Posting Group" := JobJnlLine."Gen. Prod. Posting Group";
-        "Posting No. Series" := JobJnlLine."Posting No. Series";
-        "Reason Code" := JobJnlLine."Reason Code";
-        "Resource Group No." := JobJnlLine."Resource Group No.";
-        "Recurring Method" := JobJnlLine."Recurring Method";
-        "Expiration Date" := JobJnlLine."Expiration Date";
-        "Recurring Frequency" := JobJnlLine."Recurring Frequency";
-        Quantity := JobJnlLine.Quantity;
-        "Qty. per Unit of Measure" := JobJnlLine."Qty. per Unit of Measure";
-        "Direct Unit Cost" := JobJnlLine."Direct Unit Cost (LCY)";
-        "Unit Cost" := JobJnlLine."Unit Cost (LCY)";
-        "Total Cost" := JobJnlLine."Total Cost (LCY)";
-        "Unit Price" := JobJnlLine."Unit Price (LCY)";
-        "Total Price" := JobJnlLine."Line Amount (LCY)";
-        "Time Sheet No." := JobJnlLine."Time Sheet No.";
-        "Time Sheet Line No." := JobJnlLine."Time Sheet Line No.";
-        "Time Sheet Date" := JobJnlLine."Time Sheet Date";
+    //TODO JOBS: 
+    // procedure CopyFromJobJnlLine(JobJnlLine: Record "Job Journal Line")
+    // begin
+    //     "Entry Type" := JobJnlLine."Entry Type";
+    //     "Document No." := JobJnlLine."Document No.";
+    //     "External Document No." := JobJnlLine."External Document No.";
+    //     "Posting Date" := JobJnlLine."Posting Date";
+    //     "Document Date" := JobJnlLine."Document Date";
+    //     "Resource No." := JobJnlLine."No.";
+    //     Description := JobJnlLine.Description;
+    //     "Work Type Code" := JobJnlLine."Work Type Code";
+    //     "Job No." := JobJnlLine."Job No.";
+    //     "Shortcut Dimension 1 Code" := JobJnlLine."Shortcut Dimension 1 Code";
+    //     "Shortcut Dimension 2 Code" := JobJnlLine."Shortcut Dimension 2 Code";
+    //     "Dimension Set ID" := JobJnlLine."Dimension Set ID";
+    //     "Unit of Measure Code" := JobJnlLine."Unit of Measure Code";
+    //     "Source Code" := JobJnlLine."Source Code";
+    //     "Gen. Bus. Posting Group" := JobJnlLine."Gen. Bus. Posting Group";
+    //     "Gen. Prod. Posting Group" := JobJnlLine."Gen. Prod. Posting Group";
+    //     "Posting No. Series" := JobJnlLine."Posting No. Series";
+    //     "Reason Code" := JobJnlLine."Reason Code";
+    //     "Resource Group No." := JobJnlLine."Resource Group No.";
+    //     "Recurring Method" := JobJnlLine."Recurring Method";
+    //     "Expiration Date" := JobJnlLine."Expiration Date";
+    //     "Recurring Frequency" := JobJnlLine."Recurring Frequency";
+    //     Quantity := JobJnlLine.Quantity;
+    //     "Qty. per Unit of Measure" := JobJnlLine."Qty. per Unit of Measure";
+    //     "Direct Unit Cost" := JobJnlLine."Direct Unit Cost (LCY)";
+    //     "Unit Cost" := JobJnlLine."Unit Cost (LCY)";
+    //     "Total Cost" := JobJnlLine."Total Cost (LCY)";
+    //     "Unit Price" := JobJnlLine."Unit Price (LCY)";
+    //     "Total Price" := JobJnlLine."Line Amount (LCY)";
+    //     "Time Sheet No." := JobJnlLine."Time Sheet No.";
+    //     "Time Sheet Line No." := JobJnlLine."Time Sheet Line No.";
+    //     "Time Sheet Date" := JobJnlLine."Time Sheet Date";
 
-        OnAfterCopyResJnlLineFromJobJnlLine(Rec, JobJnlLine);
-    end;
+    //     OnAfterCopyResJnlLineFromJobJnlLine(Rec, JobJnlLine);
+    // end;
 
     local procedure GetGLSetup()
     begin
@@ -699,10 +703,11 @@ table 207 "Res. Journal Line"
     begin
     end;
 
-    [IntegrationEvent(false, false)]
-    local procedure OnAfterCopyResJnlLineFromJobJnlLine(var ResJnlLine: Record "Res. Journal Line"; var JobJnlLine: Record "Job Journal Line")
-    begin
-    end;
+    //TODO JOBS: 
+    // [IntegrationEvent(false, false)]
+    // local procedure OnAfterCopyResJnlLineFromJobJnlLine(var ResJnlLine: Record "Res. Journal Line"; var JobJnlLine: Record "Job Journal Line")
+    // begin
+    // end;
 
     [IntegrationEvent(false, false)]
     local procedure OnAfterCreateDimTableIDs(var ResJournalLine: Record "Res. Journal Line"; var FieldNo: Integer; var TableID: array[10] of Integer; var No: array[10] of Code[20])
