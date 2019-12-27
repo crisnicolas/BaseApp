@@ -709,8 +709,9 @@ page 498 Reservation
                 end;
             131, 132, 133, 134:
                 begin // Job Planning Line
-                    FilterReservEntry.SetRange("Source Type", DATABASE::"Job Planning Line");
-                    FilterReservEntry.SetRange("Source Subtype", FromReservSummEntry."Entry No." - 131);
+                      //TODO JOBS: 
+                      // FilterReservEntry.SetRange("Source Type", DATABASE::"Job Planning Line");
+                      // FilterReservEntry.SetRange("Source Subtype", FromReservSummEntry."Entry No." - 131);
                 end;
             141, 142, 143, 144, 145:
                 begin // Assembly Header
@@ -772,9 +773,10 @@ page 498 Reservation
             110: // Service Line
                 exit((FilterReservEntry."Source Type" = DATABASE::"Service Line") and
                   (FilterReservEntry."Source Subtype" = FromReservSummEntry."Entry No." - 109));
-            131, 132, 133, 134: // Job Planning Line
-                exit((FilterReservEntry."Source Type" = DATABASE::"Job Planning Line") and
-                  (FilterReservEntry."Source Subtype" = FromReservSummEntry."Entry No." - 131));
+            //TODO JOBS: 
+            // 131, 132, 133, 134: // Job Planning Line
+            //     exit((FilterReservEntry."Source Type" = DATABASE::"Job Planning Line") and
+            //       (FilterReservEntry."Source Subtype" = FromReservSummEntry."Entry No." - 131));
             141, 142, 143, 144, 145: // Assembly Header
                 exit((FilterReservEntry."Source Type" = DATABASE::"Assembly Header") and
                   (FilterReservEntry."Source Subtype" = FromReservSummEntry."Entry No." - 141));
@@ -853,8 +855,9 @@ page 498 Reservation
                 ReservMgt.SetTransferLine(TransLine, ReservEntry."Source Subtype");
             DATABASE::"Service Line":
                 ReservMgt.SetServLine(ServiceLine);
-            DATABASE::"Job Planning Line":
-                ReservMgt.SetJobPlanningLine(JobPlanningLine);
+            //TODO JOBS: 
+            // DATABASE::"Job Planning Line":
+            //     ReservMgt.SetJobPlanningLine(JobPlanningLine);
             else
                 OnUpdateReservMgt(ReservEntry, ReservMgt);
         end;
@@ -963,13 +966,14 @@ page 498 Reservation
                                 AvailableItemLedgEntries.SetMaxQtyToReserve(QtyToReserveBase - QtyReservedBase);
                                 AvailableItemLedgEntries.RunModal;
                             end;
-                        DATABASE::"Job Planning Line":
-                            begin
-                                AvailableItemLedgEntries.SetJobPlanningLine(JobPlanningLine, ReservEntry2);
-                                AvailableItemLedgEntries.SetTotalAvailQty("Total Available Quantity");
-                                AvailableItemLedgEntries.SetMaxQtyToReserve(QtyToReserveBase - QtyReservedBase);
-                                AvailableItemLedgEntries.RunModal;
-                            end;
+                        //TODO JOBS: 
+                        // DATABASE::"Job Planning Line":
+                        //     begin
+                        //         AvailableItemLedgEntries.SetJobPlanningLine(JobPlanningLine, ReservEntry2);
+                        //         AvailableItemLedgEntries.SetTotalAvailQty("Total Available Quantity");
+                        //         AvailableItemLedgEntries.SetMaxQtyToReserve(QtyToReserveBase - QtyReservedBase);
+                        //         AvailableItemLedgEntries.RunModal;
+                        //     end;
                         DATABASE::"Assembly Header":
                             begin
                                 AvailableItemLedgEntries.SetAssemblyHeader(AssemblyHeader, ReservEntry2);
@@ -1031,11 +1035,12 @@ page 498 Reservation
                                 AvailablePurchLines.SetServiceInvLine(ServiceLine, ReservEntry2);
                                 AvailablePurchLines.RunModal;
                             end;
-                        DATABASE::"Job Planning Line":
-                            begin
-                                AvailablePurchLines.SetJobPlanningLine(JobPlanningLine, ReservEntry2);
-                                AvailablePurchLines.RunModal;
-                            end;
+                        //TODO JOBS: 
+                        // DATABASE::"Job Planning Line":
+                        //     begin
+                        //         AvailablePurchLines.SetJobPlanningLine(JobPlanningLine, ReservEntry2);
+                        //         AvailablePurchLines.RunModal;
+                        //     end;
                         DATABASE::"Assembly Header":
                             begin
                                 AvailablePurchLines.SetAssemblyHeader(AssemblyHeader, ReservEntry2);
@@ -1092,21 +1097,22 @@ page 498 Reservation
                                 AvailableReqLines.SetServiceInvLine(ServiceLine, ReservEntry2);
                                 AvailableReqLines.RunModal;
                             end;
-                        DATABASE::"Job Planning Line":
-                            begin
-                                AvailableJobPlanningLines.SetJobPlanningLine(JobPlanningLine, ReservEntry2);
-                                AvailableJobPlanningLines.RunModal;
-                            end;
-                        DATABASE::"Assembly Header":
-                            begin
-                                AvailableJobPlanningLines.SetAssemblyHeader(AssemblyHeader, ReservEntry2);
-                                AvailableJobPlanningLines.RunModal;
-                            end;
-                        DATABASE::"Assembly Line":
-                            begin
-                                AvailableJobPlanningLines.SetAssemblyLine(AssemblyLine, ReservEntry2);
-                                AvailableJobPlanningLines.RunModal;
-                            end;
+                    //TODO JOBS: 
+                    // DATABASE::"Job Planning Line":
+                    //     begin
+                    //         AvailableJobPlanningLines.SetJobPlanningLine(JobPlanningLine, ReservEntry2);
+                    //         AvailableJobPlanningLines.RunModal;
+                    //     end;
+                    // DATABASE::"Assembly Header":
+                    //     begin
+                    //         AvailableJobPlanningLines.SetAssemblyHeader(AssemblyHeader, ReservEntry2);
+                    //         AvailableJobPlanningLines.RunModal;
+                    //     end;
+                    // DATABASE::"Assembly Line":
+                    //     begin
+                    //         AvailableJobPlanningLines.SetAssemblyLine(AssemblyLine, ReservEntry2);
+                    //         AvailableJobPlanningLines.RunModal;
+                    //     end;
                     end;
                 end;
             31, 32, 33, 34, 35, 36:
@@ -1154,11 +1160,12 @@ page 498 Reservation
                                 AvailableSalesLines.SetServiceInvLine(ServiceLine, ReservEntry2);
                                 AvailableSalesLines.RunModal;
                             end;
-                        DATABASE::"Job Planning Line":
-                            begin
-                                AvailableSalesLines.SetJobPlanningLine(JobPlanningLine, ReservEntry2);
-                                AvailableSalesLines.RunModal;
-                            end;
+                        //TODO JOBS: 
+                        // DATABASE::"Job Planning Line":
+                        //     begin
+                        //         AvailableSalesLines.SetJobPlanningLine(JobPlanningLine, ReservEntry2);
+                        //         AvailableSalesLines.RunModal;
+                        //     end;
                         DATABASE::"Assembly Header":
                             begin
                                 AvailableSalesLines.SetAssemblyHeader(AssemblyHeader, ReservEntry2);
@@ -1216,11 +1223,12 @@ page 498 Reservation
                                 AvailableProdOrderLines.SetServiceInvLine(ServiceLine, ReservEntry2);
                                 AvailableProdOrderLines.RunModal;
                             end;
-                        DATABASE::"Job Planning Line":
-                            begin
-                                AvailableProdOrderLines.SetJobPlanningLine(JobPlanningLine, ReservEntry2);
-                                AvailableProdOrderLines.RunModal;
-                            end;
+                        //TODO JOBS: 
+                        // DATABASE::"Job Planning Line":
+                        //     begin
+                        //         AvailableProdOrderLines.SetJobPlanningLine(JobPlanningLine, ReservEntry2);
+                        //         AvailableProdOrderLines.RunModal;
+                        //     end;
                         DATABASE::"Assembly Header":
                             begin
                                 AvailableProdOrderLines.SetAssemblyHeader(AssemblyHeader, ReservEntry2);
@@ -1278,11 +1286,12 @@ page 498 Reservation
                                 AvailableProdOrderComps.SetServiceInvLine(ServiceLine, ReservEntry2);
                                 AvailableProdOrderComps.RunModal;
                             end;
-                        DATABASE::"Job Planning Line":
-                            begin
-                                AvailableProdOrderComps.SetJobPlanningLine(JobPlanningLine, ReservEntry2);
-                                AvailableProdOrderComps.RunModal;
-                            end;
+                        //TODO JOBS: 
+                        // DATABASE::"Job Planning Line":
+                        //     begin
+                        //         AvailableProdOrderComps.SetJobPlanningLine(JobPlanningLine, ReservEntry2);
+                        //         AvailableProdOrderComps.RunModal;
+                        //     end;
                         DATABASE::"Assembly Header":
                             begin
                                 AvailableProdOrderComps.SetAssemblyHeader(AssemblyHeader, ReservEntry2);
@@ -1339,11 +1348,12 @@ page 498 Reservation
                                 AvailablePlanningComponents.SetServiceInvLine(ServiceLine, ReservEntry2);
                                 AvailablePlanningComponents.RunModal;
                             end;
-                        DATABASE::"Job Planning Line":
-                            begin
-                                AvailablePlanningComponents.SetJobPlanningLine(JobPlanningLine, ReservEntry2);
-                                AvailablePlanningComponents.RunModal;
-                            end;
+                        //TODO JOBS: 
+                        // DATABASE::"Job Planning Line":
+                        //     begin
+                        //         AvailablePlanningComponents.SetJobPlanningLine(JobPlanningLine, ReservEntry2);
+                        //         AvailablePlanningComponents.RunModal;
+                        //     end;
                         DATABASE::"Assembly Header":
                             begin
                                 AvailablePlanningComponents.SetAssemblyHeader(AssemblyHeader, ReservEntry2);
@@ -1400,11 +1410,12 @@ page 498 Reservation
                                 AvailableTransLines.SetServiceInvLine(ServiceLine, ReservEntry2);
                                 AvailableTransLines.RunModal;
                             end;
-                        DATABASE::"Job Planning Line":
-                            begin
-                                AvailableTransLines.SetJobPlanningLine(JobPlanningLine, ReservEntry2);
-                                AvailableTransLines.RunModal;
-                            end;
+                        //TODO JOBS: 
+                        // DATABASE::"Job Planning Line":
+                        //     begin
+                        //         AvailableTransLines.SetJobPlanningLine(JobPlanningLine, ReservEntry2);
+                        //         AvailableTransLines.RunModal;
+                        //     end;
                         DATABASE::"Assembly Header":
                             begin
                                 AvailableTransLines.SetAssemblyHeader(AssemblyHeader, ReservEntry2);
@@ -1462,11 +1473,12 @@ page 498 Reservation
                                 AvailableServiceLines.SetServInvLine(ServiceLine, ReservEntry2);
                                 AvailableServiceLines.RunModal;
                             end;
-                        DATABASE::"Job Planning Line":
-                            begin
-                                AvailableServiceLines.SetJobPlanningLine(JobPlanningLine, ReservEntry2);
-                                AvailableServiceLines.RunModal;
-                            end;
+                        //TODO JOBS: 
+                        // DATABASE::"Job Planning Line":
+                        //     begin
+                        //         AvailableServiceLines.SetJobPlanningLine(JobPlanningLine, ReservEntry2);
+                        //         AvailableServiceLines.RunModal;
+                        //     end;
                         DATABASE::"Assembly Header":
                             begin
                                 AvailableServiceLines.SetAssemblyHeader(AssemblyHeader, ReservEntry2);
@@ -1481,65 +1493,66 @@ page 498 Reservation
                 end;
             131, 132, 133, 134:
                 begin // Job Planning Line
-                    Clear(AvailableJobPlanningLines);
-                    AvailableJobPlanningLines.SetCurrentSubType("Entry No." - 131);
-                    case ReservEntry2."Source Type" of
-                        DATABASE::"Sales Line":
-                            begin
-                                AvailableJobPlanningLines.SetSalesLine(SalesLine, ReservEntry2);
-                                AvailableJobPlanningLines.RunModal;
-                            end;
-                        DATABASE::"Requisition Line":
-                            begin
-                                AvailableJobPlanningLines.SetReqLine(ReqLine, ReservEntry2);
-                                AvailableJobPlanningLines.RunModal;
-                            end;
-                        DATABASE::"Purchase Line":
-                            begin
-                                AvailableJobPlanningLines.SetPurchLine(PurchLine, ReservEntry2);
-                                AvailableJobPlanningLines.RunModal;
-                            end;
-                        DATABASE::"Prod. Order Line":
-                            begin
-                                AvailableJobPlanningLines.SetProdOrderLine(ProdOrderLine, ReservEntry2);
-                                AvailableJobPlanningLines.RunModal;
-                            end;
-                        DATABASE::"Prod. Order Component":
-                            begin
-                                AvailableJobPlanningLines.SetProdOrderComponent(ProdOrderComp, ReservEntry2);
-                                AvailableJobPlanningLines.RunModal;
-                            end;
-                        DATABASE::"Planning Component":
-                            begin
-                                AvailableJobPlanningLines.SetPlanningComponent(PlanningComponent, ReservEntry2);
-                                AvailableJobPlanningLines.RunModal;
-                            end;
-                        DATABASE::"Transfer Line":
-                            begin
-                                AvailableJobPlanningLines.SetTransferLine(TransLine, ReservEntry2, ReservEntry."Source Subtype");
-                                AvailableJobPlanningLines.RunModal;
-                            end;
-                        DATABASE::"Service Line":
-                            begin
-                                AvailableJobPlanningLines.SetServLine(ServiceLine, ReservEntry2);
-                                AvailableJobPlanningLines.RunModal;
-                            end;
-                        DATABASE::"Job Planning Line":
-                            begin
-                                AvailableJobPlanningLines.SetJobPlanningLine(JobPlanningLine, ReservEntry2);
-                                AvailableJobPlanningLines.RunModal;
-                            end;
-                        DATABASE::"Assembly Header":
-                            begin
-                                AvailableJobPlanningLines.SetAssemblyHeader(AssemblyHeader, ReservEntry2);
-                                AvailableJobPlanningLines.RunModal;
-                            end;
-                        DATABASE::"Assembly Line":
-                            begin
-                                AvailableJobPlanningLines.SetAssemblyLine(AssemblyLine, ReservEntry2);
-                                AvailableJobPlanningLines.RunModal;
-                            end;
-                    end;
+                      //TODO JOBS: 
+                      // Clear(AvailableJobPlanningLines);
+                      // AvailableJobPlanningLines.SetCurrentSubType("Entry No." - 131);
+                      // case ReservEntry2."Source Type" of
+                      //     DATABASE::"Sales Line":
+                      //         begin
+                      //             AvailableJobPlanningLines.SetSalesLine(SalesLine, ReservEntry2);
+                      //             AvailableJobPlanningLines.RunModal;
+                      //         end;
+                      //     DATABASE::"Requisition Line":
+                      //         begin
+                      //             AvailableJobPlanningLines.SetReqLine(ReqLine, ReservEntry2);
+                      //             AvailableJobPlanningLines.RunModal;
+                      //         end;
+                      //     DATABASE::"Purchase Line":
+                      //         begin
+                      //             AvailableJobPlanningLines.SetPurchLine(PurchLine, ReservEntry2);
+                      //             AvailableJobPlanningLines.RunModal;
+                      //         end;
+                      //     DATABASE::"Prod. Order Line":
+                      //         begin
+                      //             AvailableJobPlanningLines.SetProdOrderLine(ProdOrderLine, ReservEntry2);
+                      //             AvailableJobPlanningLines.RunModal;
+                      //         end;
+                      //     DATABASE::"Prod. Order Component":
+                      //         begin
+                      //             AvailableJobPlanningLines.SetProdOrderComponent(ProdOrderComp, ReservEntry2);
+                      //             AvailableJobPlanningLines.RunModal;
+                      //         end;
+                      //     DATABASE::"Planning Component":
+                      //         begin
+                      //             AvailableJobPlanningLines.SetPlanningComponent(PlanningComponent, ReservEntry2);
+                      //             AvailableJobPlanningLines.RunModal;
+                      //         end;
+                      //     DATABASE::"Transfer Line":
+                      //         begin
+                      //             AvailableJobPlanningLines.SetTransferLine(TransLine, ReservEntry2, ReservEntry."Source Subtype");
+                      //             AvailableJobPlanningLines.RunModal;
+                      //         end;
+                      //     DATABASE::"Service Line":
+                      //         begin
+                      //             AvailableJobPlanningLines.SetServLine(ServiceLine, ReservEntry2);
+                      //             AvailableJobPlanningLines.RunModal;
+                      //         end;
+                      //     DATABASE::"Job Planning Line":
+                      //         begin
+                      //             AvailableJobPlanningLines.SetJobPlanningLine(JobPlanningLine, ReservEntry2);
+                      //             AvailableJobPlanningLines.RunModal;
+                      //         end;
+                      //     DATABASE::"Assembly Header":
+                      //         begin
+                      //             AvailableJobPlanningLines.SetAssemblyHeader(AssemblyHeader, ReservEntry2);
+                      //             AvailableJobPlanningLines.RunModal;
+                      //         end;
+                      //     DATABASE::"Assembly Line":
+                      //         begin
+                      //             AvailableJobPlanningLines.SetAssemblyLine(AssemblyLine, ReservEntry2);
+                      //             AvailableJobPlanningLines.RunModal;
+                      //         end;
+                      // end;
                 end;
             141, 142:
                 begin // Asm Header
@@ -1586,11 +1599,12 @@ page 498 Reservation
                                 AvailableAssemblyHeaders.SetServiceInvLine(ServiceLine, ReservEntry2);
                                 AvailableAssemblyHeaders.RunModal;
                             end;
-                        DATABASE::"Job Planning Line":
-                            begin
-                                AvailableAssemblyHeaders.SetJobPlanningLine(JobPlanningLine, ReservEntry2);
-                                AvailableAssemblyHeaders.RunModal;
-                            end;
+                        //TODO JOBS: 
+                        // DATABASE::"Job Planning Line":
+                        //     begin
+                        //         AvailableAssemblyHeaders.SetJobPlanningLine(JobPlanningLine, ReservEntry2);
+                        //         AvailableAssemblyHeaders.RunModal;
+                        //     end;
                         DATABASE::"Assembly Header":
                             begin
                                 AvailableAssemblyHeaders.SetAssemblyHeader(AssemblyHeader, ReservEntry2);
@@ -1648,11 +1662,12 @@ page 498 Reservation
                                 AvailableAssemblyLines.SetServiceInvLine(ServiceLine, ReservEntry2);
                                 AvailableAssemblyLines.RunModal;
                             end;
-                        DATABASE::"Job Planning Line":
-                            begin
-                                AvailableAssemblyLines.SetJobPlanningLine(JobPlanningLine, ReservEntry2);
-                                AvailableAssemblyLines.RunModal;
-                            end;
+                        //TODO JOBS: 
+                        // DATABASE::"Job Planning Line":
+                        //     begin
+                        //         AvailableAssemblyLines.SetJobPlanningLine(JobPlanningLine, ReservEntry2);
+                        //         AvailableAssemblyLines.RunModal;
+                        //     end;
                         DATABASE::"Assembly Header":
                             begin
                                 AvailableAssemblyLines.SetAssemblyHeader(AssemblyHeader, ReservEntry2);
@@ -1839,8 +1854,9 @@ page 498 Reservation
                 QtyPerUOM := GetQtyPerUomFromTransferLine;
             DATABASE::"Service Line":
                 QtyPerUOM := GetQtyPerUomFromServiceLine;
-            DATABASE::"Job Planning Line":
-                QtyPerUOM := GetQtyPerUomFromJobPlanningLine;
+        //TODO JOBS: 
+        // DATABASE::"Job Planning Line":
+        //     QtyPerUOM := GetQtyPerUomFromJobPlanningLine;
         end;
 
         OnAfterGetQtyPerUOMFromSource(ReservEntry, QtyPerUOM);
@@ -1985,17 +2001,18 @@ page 498 Reservation
 
     local procedure GetQtyPerUomFromJobPlanningLine(): Decimal
     begin
-        JobPlanningLine.Find;
-        if JobPlanningLine.UpdatePlanned then begin
-            JobPlanningLine.Modify(true);
-            Commit;
-        end;
-        JobPlanningLine.CalcFields("Reserved Quantity", "Reserved Qty. (Base)");
-        QtyReserved := JobPlanningLine."Reserved Quantity";
-        QtyReservedBase := JobPlanningLine."Reserved Qty. (Base)";
-        QtyToReserve := JobPlanningLine."Remaining Qty.";
-        QtyToReserveBase := JobPlanningLine."Remaining Qty. (Base)";
-        exit(JobPlanningLine."Qty. per Unit of Measure");
+        //TODO JOBS: 
+        // JobPlanningLine.Find;
+        // if JobPlanningLine.UpdatePlanned then begin
+        //     JobPlanningLine.Modify(true);
+        //     Commit;
+        // end;
+        // JobPlanningLine.CalcFields("Reserved Quantity", "Reserved Qty. (Base)");
+        // QtyReserved := JobPlanningLine."Reserved Quantity";
+        // QtyReservedBase := JobPlanningLine."Reserved Qty. (Base)";
+        // QtyToReserve := JobPlanningLine."Remaining Qty.";
+        // QtyToReserveBase := JobPlanningLine."Remaining Qty. (Base)";
+        // exit(JobPlanningLine."Qty. per Unit of Measure");
     end;
 
     [IntegrationEvent(TRUE, false)]

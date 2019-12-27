@@ -97,7 +97,7 @@ codeunit 452 "Report Distribution Management"
         ServiceInvoiceHeader: Record "Service Invoice Header";
         ServiceCrMemoHeader: Record "Service Cr.Memo Header";
         ServiceHeader: Record "Service Header";
-        Job: Record Job;
+        //TODO JOBS: Job: Record Job;
         DocumentRecordRef: RecordRef;
     begin
         DocumentRecordRef.GetTable(DocumentVariant);
@@ -132,11 +132,12 @@ codeunit 452 "Report Distribution Management"
                     SalesHeader := DocumentVariant;
                     Customer.Get(SalesHeader."Bill-to Customer No.");
                 end;
-            DATABASE::Job:
-                begin
-                    Job := DocumentVariant;
-                    Customer.Get(Job."Bill-to Customer No.");
-                end;
+        //TODO JOBS: 
+        // DATABASE::Job:
+        //     begin
+        //         Job := DocumentVariant;
+        //         Customer.Get(Job."Bill-to Customer No.");
+        //     end;
         end;
     end;
 

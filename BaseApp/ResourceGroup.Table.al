@@ -31,11 +31,12 @@ table 152 "Resource Group"
         }
         field(24; "Qty. on Order (Job)"; Decimal)
         {
-            CalcFormula = Sum ("Job Planning Line"."Quantity (Base)" WHERE(Status = CONST(Order),
-                                                                           "Schedule Line" = CONST(true),
-                                                                           Type = CONST(Resource),
-                                                                           "Resource Group No." = FIELD("No."),
-                                                                           "Planning Date" = FIELD("Date Filter")));
+            //TODO JOBS: 
+            // CalcFormula = Sum ("Job Planning Line"."Quantity (Base)" WHERE(Status = CONST(Order),
+            // "Schedule Line" = CONST(true),
+            //                                                                Type = CONST(Resource),
+            //                                                                "Resource Group No." = FIELD("No."),
+            //                                                                "Planning Date" = FIELD("Date Filter")));
             Caption = 'Qty. on Order (Job)';
             DecimalPlaces = 0 : 5;
             Editable = false;
@@ -43,11 +44,12 @@ table 152 "Resource Group"
         }
         field(25; "Qty. Quoted (Job)"; Decimal)
         {
-            CalcFormula = Sum ("Job Planning Line"."Quantity (Base)" WHERE(Status = CONST(Quote),
-                                                                           "Schedule Line" = CONST(true),
-                                                                           Type = CONST(Resource),
-                                                                           "Resource Group No." = FIELD("No."),
-                                                                           "Planning Date" = FIELD("Date Filter")));
+            //TODO JOBS: 
+            // CalcFormula = Sum ("Job Planning Line"."Quantity (Base)" WHERE(Status = CONST(Quote),
+            //                                                                "Schedule Line" = CONST(true),
+            //                                                                Type = CONST(Resource),
+            //                                                                "Resource Group No." = FIELD("No."),
+            //                                                                "Planning Date" = FIELD("Date Filter")));
             Caption = 'Qty. Quoted (Job)';
             DecimalPlaces = 0 : 5;
             Editable = false;

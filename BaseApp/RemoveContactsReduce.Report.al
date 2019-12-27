@@ -54,16 +54,17 @@ report 5197 "Remove Contacts - Reduce"
                 CurrReport.Break;
             end;
         }
-        dataitem("Contact Job Responsibility"; "Contact Job Responsibility")
-        {
-            DataItemTableView = SORTING("Contact No.", "Job Responsibility Code");
-            RequestFilterFields = "Job Responsibility Code";
+        //TODO JOBS: 
+        // dataitem("Contact Job Responsibility"; "Contact Job Responsibility")
+        // {
+        //     DataItemTableView = SORTING("Contact No.", "Job Responsibility Code");
+        //     RequestFilterFields = "Job Responsibility Code";
 
-            trigger OnPreDataItem()
-            begin
-                CurrReport.Break;
-            end;
-        }
+        //     trigger OnPreDataItem()
+        //     begin
+        //         CurrReport.Break;
+        //     end;
+        // }
         dataitem("Contact Industry Group"; "Contact Industry Group")
         {
             DataItemTableView = SORTING("Contact No.", "Industry Group Code");
@@ -134,7 +135,7 @@ report 5197 "Remove Contacts - Reduce"
         ReduceRefineSegment.SetTableView("Contact Profile Answer");
         ReduceRefineSegment.SetTableView("Contact Mailing Group");
         ReduceRefineSegment.SetTableView("Interaction Log Entry");
-        ReduceRefineSegment.SetTableView("Contact Job Responsibility");
+        //TODO JOBS: ReduceRefineSegment.SetTableView("Contact Job Responsibility");
         ReduceRefineSegment.SetTableView("Contact Industry Group");
         ReduceRefineSegment.SetTableView("Contact Business Relation");
         ReduceRefineSegment.SetTableView("Value Entry");

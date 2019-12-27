@@ -260,7 +260,7 @@ report 1102 "Resource Journal - Test"
                     No[1] := "Resource No.";
                     TableID[2] := DATABASE::"Resource Group";
                     No[2] := "Resource Group No.";
-                    TableID[3] := DATABASE::Job;
+                    //TODO JOBS: TableID[3] := DATABASE::Job;
                     No[3] := "Job No.";
                     if not DimMgt.CheckDimValuePosting(TableID, No, "Dimension Set ID") then
                         AddError(DimMgt.GetDimValuePostingErr);

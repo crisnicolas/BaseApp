@@ -28,7 +28,7 @@ codeunit 99000831 "Reservation Engine Mgt."
         TempSortRec4: Record "Reservation Entry" temporary;
         Text006: Label 'Signing mismatch.';
         Text007: Label 'Renaming reservation entries...';
-        DummyJobJnlLine: Record "Job Journal Line";
+        //TODO JOBS: DummyJobJnlLine: Record "Job Journal Line";
         ReservMgt: Codeunit "Reservation Management";
         LostReservationQty: Decimal;
         Text008: Label 'You cannot state %1 or %2 on a demand when it is linked to a supply by %3 = %4.';
@@ -327,12 +327,13 @@ codeunit 99000831 "Reservation Engine Mgt."
                         exit(StrSubstNo('%1 %2 %3 %4', SelectStr(SourceType, SourceTypeText),
                             DummyItemJnlLine."Entry Type", "Source ID", "Source Batch Name"));
                     end;
-                DATABASE::"Job Journal Line":
-                    begin
-                        SourceType := SourceType::"Job Journal";
-                        exit(StrSubstNo('%1 %2 %3 %4', SelectStr(SourceType, SourceTypeText),
-                            DummyJobJnlLine."Entry Type", "Source ID", "Source Batch Name"));
-                    end;
+                //TODO JOBS: 
+                // DATABASE::"Job Journal Line":
+                //     begin
+                //         SourceType := SourceType::"Job Journal";
+                //         exit(StrSubstNo('%1 %2 %3 %4', SelectStr(SourceType, SourceTypeText),
+                //             DummyJobJnlLine."Entry Type", "Source ID", "Source Batch Name"));
+                //     end;
                 DATABASE::"Item Ledger Entry":
                     begin
                         SourceType := SourceType::"Item Ledger Entry";
@@ -363,11 +364,12 @@ codeunit 99000831 "Reservation Engine Mgt."
                         SourceType := SourceType::Service;
                         exit(StrSubstNo('%1 %2', SelectStr(SourceType, SourceTypeText), "Source ID"));
                     end;
-                DATABASE::"Job Planning Line":
-                    begin
-                        SourceType := SourceType::Job;
-                        exit(StrSubstNo('%1 %2', SelectStr(SourceType, SourceTypeText), "Source ID"));
-                    end;
+                //TODO JOBS: 
+                // DATABASE::"Job Planning Line":
+                //     begin
+                //         SourceType := SourceType::Job;
+                //         exit(StrSubstNo('%1 %2', SelectStr(SourceType, SourceTypeText), "Source ID"));
+                //     end;
                 DATABASE::"Assembly Header":
                     begin
                         CalcAsmHeader.Init;
@@ -1081,7 +1083,7 @@ codeunit 99000831 "Reservation Engine Mgt."
             DATABASE::"Sales Line",
             DATABASE::"Purchase Line",
             DATABASE::"Service Line",
-            DATABASE::"Job Planning Line",
+            //TODO JOBS: DATABASE::"Job Planning Line",
             DATABASE::"Assembly Line":
                 begin
                     PointerFieldIsActive[2] := true;  // SubType
@@ -1101,13 +1103,14 @@ codeunit 99000831 "Reservation Engine Mgt."
                     PointerFieldIsActive[4] := true;  // BatchName
                     PointerFieldIsActive[6] := true;  // RefNo
                 end;
-            DATABASE::"Job Journal Line":
-                begin
-                    PointerFieldIsActive[2] := true;  // SubType
-                    PointerFieldIsActive[3] := true;  // ID
-                    PointerFieldIsActive[4] := true;  // BatchName
-                    PointerFieldIsActive[6] := true;  // RefNo
-                end;
+            //TODO JOBS: 
+            // DATABASE::"Job Journal Line":
+            //     begin
+            //         PointerFieldIsActive[2] := true;  // SubType
+            //         PointerFieldIsActive[3] := true;  // ID
+            //         PointerFieldIsActive[4] := true;  // BatchName
+            //         PointerFieldIsActive[6] := true;  // RefNo
+            //     end;
             DATABASE::"Item Ledger Entry":
                 PointerFieldIsActive[6] := true;  // RefNo
             DATABASE::"Prod. Order Line":

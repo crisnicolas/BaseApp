@@ -120,11 +120,12 @@ table 156 Resource
                 ResCapacityEntry.SetRange("Resource No.", "No.");
                 ResCapacityEntry.ModifyAll("Resource Group No.", "Resource Group No.");
 
-                PlanningLine.SetCurrentKey(Type, "No.");
-                PlanningLine.SetRange(Type, PlanningLine.Type::Resource);
-                PlanningLine.SetRange("No.", "No.");
-                PlanningLine.SetRange("Schedule Line", true);
-                PlanningLine.ModifyAll("Resource Group No.", "Resource Group No.");
+                //TODO JOBS: 
+                // PlanningLine.SetCurrentKey(Type, "No.");
+                // PlanningLine.SetRange(Type, PlanningLine.Type::Resource);
+                // PlanningLine.SetRange("No.", "No.");
+                // PlanningLine.SetRange("Schedule Line", true);
+                // PlanningLine.ModifyAll("Resource Group No.", "Resource Group No.");
             end;
         }
         field(16; "Global Dimension 1 Code"; Code[20])
@@ -307,11 +308,12 @@ table 156 Resource
         }
         field(42; "Qty. on Order (Job)"; Decimal)
         {
-            CalcFormula = Sum ("Job Planning Line"."Quantity (Base)" WHERE(Status = CONST(Order),
-                                                                           "Schedule Line" = CONST(true),
-                                                                           Type = CONST(Resource),
-                                                                           "No." = FIELD("No."),
-                                                                           "Planning Date" = FIELD("Date Filter")));
+            //TODO JOBS: 
+            // CalcFormula = Sum ("Job Planning Line"."Quantity (Base)" WHERE(Status = CONST(Order),
+            //                                                                "Schedule Line" = CONST(true),
+            //                                                                Type = CONST(Resource),
+            //                                                                "No." = FIELD("No."),
+            //                                                                "Planning Date" = FIELD("Date Filter")));
             Caption = 'Qty. on Order (Job)';
             DecimalPlaces = 0 : 5;
             Editable = false;
@@ -319,11 +321,12 @@ table 156 Resource
         }
         field(43; "Qty. Quoted (Job)"; Decimal)
         {
-            CalcFormula = Sum ("Job Planning Line"."Quantity (Base)" WHERE(Status = CONST(Quote),
-                                                                           "Schedule Line" = CONST(true),
-                                                                           Type = CONST(Resource),
-                                                                           "No." = FIELD("No."),
-                                                                           "Planning Date" = FIELD("Date Filter")));
+            //TODO JOBS: 
+            // CalcFormula = Sum ("Job Planning Line"."Quantity (Base)" WHERE(Status = CONST(Quote),
+            //                                                                "Schedule Line" = CONST(true),
+            //                                                                Type = CONST(Resource),
+            //                                                                "No." = FIELD("No."),
+            //                                                                "Planning Date" = FIELD("Date Filter")));
             Caption = 'Qty. Quoted (Job)';
             DecimalPlaces = 0 : 5;
             Editable = false;
@@ -717,7 +720,7 @@ table 156 Resource
         ResLoc: Record "Resource Location";
         ResServZone: Record "Resource Service Zone";
         ResUnitMeasure: Record "Resource Unit of Measure";
-        PlanningLine: Record "Job Planning Line";
+        //TODO JOBS: PlanningLine: Record "Job Planning Line";
         NoSeriesMgt: Codeunit NoSeriesManagement;
         MoveEntries: Codeunit MoveEntries;
         DimMgt: Codeunit DimensionManagement;
@@ -834,13 +837,13 @@ table 156 Resource
 
     local procedure CheckJobPlanningLine()
     var
-        JobPlanningLine: Record "Job Planning Line";
+    //TODO JOBS: JobPlanningLine: Record "Job Planning Line";
     begin
-        JobPlanningLine.SetCurrentKey(Type, "No.");
-        JobPlanningLine.SetRange(Type, JobPlanningLine.Type::Resource);
-        JobPlanningLine.SetRange("No.", "No.");
-        if not JobPlanningLine.IsEmpty then
-            Error(CannotDeleteResourceErr, "No.");
+        // JobPlanningLine.SetCurrentKey(Type, "No.");
+        // JobPlanningLine.SetRange(Type, JobPlanningLine.Type::Resource);
+        // JobPlanningLine.SetRange("No.", "No.");
+        // if not JobPlanningLine.IsEmpty then
+        //     Error(CannotDeleteResourceErr, "No.");
     end;
 
     procedure CheckResourcePrivacyBlocked(IsPosting: Boolean)

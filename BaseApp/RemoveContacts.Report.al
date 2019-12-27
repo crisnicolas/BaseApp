@@ -77,27 +77,28 @@ report 5186 "Remove Contacts"
                                 CurrReport.Break;
                         end;
                     }
-                    dataitem("Contact Job Responsibility"; "Contact Job Responsibility")
-                    {
-                        DataItemLink = "Contact No." = FIELD("No.");
-                        DataItemTableView = SORTING("Contact No.", "Job Responsibility Code");
-                        RequestFilterFields = "Job Responsibility Code";
-                        RequestFilterHeading = 'Job Responsibility';
+                    //TODO JOBS: 
+                    // dataitem("Contact Job Responsibility"; "Contact Job Responsibility")
+                    // {
+                    //     DataItemLink = "Contact No." = FIELD("No.");
+                    //     DataItemTableView = SORTING("Contact No.", "Job Responsibility Code");
+                    //     RequestFilterFields = "Job Responsibility Code";
+                    //     RequestFilterHeading = 'Job Responsibility';
 
-                        trigger OnAfterGetRecord()
-                        begin
-                            ContactOK := true;
-                            CurrReport.Break;
-                        end;
+                    //     trigger OnAfterGetRecord()
+                    //     begin
+                    //         ContactOK := true;
+                    //         CurrReport.Break;
+                    //     end;
 
-                        trigger OnPreDataItem()
-                        begin
-                            if ContactOK and (GetFilters <> '') then
-                                ContactOK := false
-                            else
-                                CurrReport.Break;
-                        end;
-                    }
+                    //     trigger OnPreDataItem()
+                    //     begin
+                    //         if ContactOK and (GetFilters <> '') then
+                    //             ContactOK := false
+                    //         else
+                    //             CurrReport.Break;
+                    //     end;
+                    // }
                     dataitem("Contact Industry Group"; "Contact Industry Group")
                     {
                         DataItemLink = "Contact No." = FIELD("Company No.");

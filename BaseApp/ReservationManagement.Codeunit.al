@@ -42,8 +42,8 @@ codeunit 99000845 "Reservation Management"
         CalcTransLine: Record "Transfer Line";
         ForServiceLine: Record "Service Line";
         CalcServiceLine: Record "Service Line";
-        ForJobPlanningLine: Record "Job Planning Line";
-        CalcJobPlanningLine: Record "Job Planning Line";
+        //TODO JOBS: ForJobPlanningLine: Record "Job Planning Line";
+        //TODO JOBS: CalcJobPlanningLine: Record "Job Planning Line";
         ActionMessageEntry: Record "Action Message Entry";
         Item: Record Item;
         Location: Record Location;
@@ -52,7 +52,7 @@ codeunit 99000845 "Reservation Management"
         ItemTrackingCode: Record "Item Tracking Code";
         TempTrackingSpecification: Record "Tracking Specification" temporary;
         CallTrackingSpecification: Record "Tracking Specification";
-        ForJobJnlLine: Record "Job Journal Line";
+        //TODO JOBS: ForJobJnlLine: Record "Job Journal Line";
         CreateReservEntry: Codeunit "Create Reserv. Entry";
         ReservEngineMgt: Codeunit "Reservation Engine Mgt.";
         ReserveSalesLine: Codeunit "Sales Line-Reserve";
@@ -66,7 +66,7 @@ codeunit 99000845 "Reservation Management"
         ReservePlanningComponent: Codeunit "Plng. Component-Reserve";
         ReserveServiceInvLine: Codeunit "Service Line-Reserve";
         ReserveTransLine: Codeunit "Transfer Line-Reserve";
-        JobPlanningLineReserve: Codeunit "Job Planning Line-Reserve";
+        //TODO JOBS: JobPlanningLineReserve: Codeunit "Job Planning Line-Reserve";
         GetPlanningParameters: Codeunit "Planning-Get Parameters";
         CreatePick: Codeunit "Create Pick";
         UOMMgt: Codeunit "Unit of Measure Management";
@@ -370,43 +370,45 @@ codeunit 99000845 "Reservation Management"
         UpdateReservation((CreateReservEntry.SignFactor(CalcReservEntry) * ForServiceLine."Outstanding Qty. (Base)") <= 0);
     end;
 
-    procedure SetJobJnlLine(NewJobJnlLine: Record "Job Journal Line")
-    begin
-        ClearAll;
-        ForJobJnlLine := NewJobJnlLine;
+    //TODO JOBS: 
+    // procedure SetJobJnlLine(NewJobJnlLine: Record "Job Journal Line")
+    // begin
+    //     ClearAll;
+    //     ForJobJnlLine := NewJobJnlLine;
 
-        CalcReservEntry.SetSource(
-          DATABASE::"Job Journal Line", ForJobJnlLine."Entry Type", NewJobJnlLine."Journal Template Name", NewJobJnlLine."Line No.",
-          NewJobJnlLine."Journal Batch Name", 0);
-        CalcReservEntry.SetItemData(
-          NewJobJnlLine."No.", NewJobJnlLine.Description, NewJobJnlLine."Location Code", NewJobJnlLine."Variant Code",
-          NewJobJnlLine."Qty. per Unit of Measure");
-        CalcReservEntry."Expected Receipt Date" := NewJobJnlLine."Posting Date";
-        CalcReservEntry."Shipment Date" := NewJobJnlLine."Posting Date";
-        OnSetJobJnlLineOnBeforeUpdateReservation(CalcReservEntry, NewJobJnlLine);
-        UpdateReservation((CreateReservEntry.SignFactor(CalcReservEntry) * ForJobJnlLine."Quantity (Base)") < 0);
-    end;
+    //     CalcReservEntry.SetSource(
+    //       DATABASE::"Job Journal Line", ForJobJnlLine."Entry Type", NewJobJnlLine."Journal Template Name", NewJobJnlLine."Line No.",
+    //       NewJobJnlLine."Journal Batch Name", 0);
+    //     CalcReservEntry.SetItemData(
+    //       NewJobJnlLine."No.", NewJobJnlLine.Description, NewJobJnlLine."Location Code", NewJobJnlLine."Variant Code",
+    //       NewJobJnlLine."Qty. per Unit of Measure");
+    //     CalcReservEntry."Expected Receipt Date" := NewJobJnlLine."Posting Date";
+    //     CalcReservEntry."Shipment Date" := NewJobJnlLine."Posting Date";
+    //     OnSetJobJnlLineOnBeforeUpdateReservation(CalcReservEntry, NewJobJnlLine);
+    //     UpdateReservation((CreateReservEntry.SignFactor(CalcReservEntry) * ForJobJnlLine."Quantity (Base)") < 0);
+    // end;
 
-    procedure SetJobPlanningLine(NewJobPlanningLine: Record "Job Planning Line")
-    begin
-        ClearAll;
-        TempTrackingSpecification.DeleteAll;
+    //TODO JOBS: 
+    // procedure SetJobPlanningLine(NewJobPlanningLine: Record "Job Planning Line")
+    // begin
+    //     ClearAll;
+    //     TempTrackingSpecification.DeleteAll;
 
-        ForJobPlanningLine := NewJobPlanningLine;
+    //     ForJobPlanningLine := NewJobPlanningLine;
 
-        CalcReservEntry.SetSource(
-          DATABASE::"Job Planning Line", ForJobPlanningLine.Status, NewJobPlanningLine."Job No.",
-          NewJobPlanningLine."Job Contract Entry No.", '', 0);
-        CalcReservEntry.SetItemData(
-          NewJobPlanningLine."No.", NewJobPlanningLine.Description, NewJobPlanningLine."Location Code", NewJobPlanningLine."Variant Code",
-          NewJobPlanningLine."Qty. per Unit of Measure");
-        if NewJobPlanningLine.Type <> NewJobPlanningLine.Type::Item then
-            CalcReservEntry."Item No." := '';
-        CalcReservEntry."Expected Receipt Date" := NewJobPlanningLine."Planning Date";
-        CalcReservEntry."Shipment Date" := NewJobPlanningLine."Planning Date";
-        OnSetJobPlanningLineOnBeforeUpdateReservation(CalcReservEntry, NewJobPlanningLine);
-        UpdateReservation((CreateReservEntry.SignFactor(CalcReservEntry) * ForJobPlanningLine."Remaining Qty. (Base)") <= 0);
-    end;
+    //     CalcReservEntry.SetSource(
+    //       DATABASE::"Job Planning Line", ForJobPlanningLine.Status, NewJobPlanningLine."Job No.",
+    //       NewJobPlanningLine."Job Contract Entry No.", '', 0);
+    //     CalcReservEntry.SetItemData(
+    //       NewJobPlanningLine."No.", NewJobPlanningLine.Description, NewJobPlanningLine."Location Code", NewJobPlanningLine."Variant Code",
+    //       NewJobPlanningLine."Qty. per Unit of Measure");
+    //     if NewJobPlanningLine.Type <> NewJobPlanningLine.Type::Item then
+    //         CalcReservEntry."Item No." := '';
+    //     CalcReservEntry."Expected Receipt Date" := NewJobPlanningLine."Planning Date";
+    //     CalcReservEntry."Shipment Date" := NewJobPlanningLine."Planning Date";
+    //     OnSetJobPlanningLineOnBeforeUpdateReservation(CalcReservEntry, NewJobPlanningLine);
+    //     UpdateReservation((CreateReservEntry.SignFactor(CalcReservEntry) * ForJobPlanningLine."Remaining Qty. (Base)") <= 0);
+    // end;
 
     procedure SetExternalDocumentResEntry(ReservEntry: Record "Reservation Entry"; UpdReservation: Boolean)
     begin
@@ -555,16 +557,17 @@ codeunit 99000845 "Reservation Management"
             end;
     end;
 
-    procedure JobPlanningLineUpdateValues(var CurrentJobPlanningLine: Record "Job Planning Line"; var QtyToReserve: Decimal; var QtyToReserveBase: Decimal; var QtyReservedThisLine: Decimal; var QtyReservedThisLineBase: Decimal)
-    begin
-        with CurrentJobPlanningLine do begin
-            CalcFields("Reserved Quantity", "Reserved Qty. (Base)");
-            QtyReservedThisLine := "Reserved Quantity";
-            QtyReservedThisLineBase := "Reserved Qty. (Base)";
-            QtyToReserve := "Remaining Qty." - "Reserved Quantity";
-            QtyToReserveBase := "Remaining Qty. (Base)" - "Reserved Qty. (Base)";
-        end;
-    end;
+    //TODO JOBS: 
+    // procedure JobPlanningLineUpdateValues(var CurrentJobPlanningLine: Record "Job Planning Line"; var QtyToReserve: Decimal; var QtyToReserveBase: Decimal; var QtyReservedThisLine: Decimal; var QtyReservedThisLineBase: Decimal)
+    // begin
+    //     with CurrentJobPlanningLine do begin
+    //         CalcFields("Reserved Quantity", "Reserved Qty. (Base)");
+    //         QtyReservedThisLine := "Reserved Quantity";
+    //         QtyReservedThisLineBase := "Reserved Qty. (Base)";
+    //         QtyToReserve := "Remaining Qty." - "Reserved Quantity";
+    //         QtyToReserveBase := "Remaining Qty. (Base)" - "Reserved Qty. (Base)";
+    //     end;
+    // end;
 
     local procedure UpdateReservation(EntryIsPositive: Boolean)
     begin
@@ -939,29 +942,30 @@ codeunit 99000845 "Reservation Management"
 
     local procedure UpdateJobPlanningLineStats(var ReservEntrySummary: Record "Entry Summary"; AvailabilityDate: Date; i: Integer; var CalcSumValue: Decimal)
     begin
-        if CalcJobPlanningLine.ReadPermission then begin
-            InitFilter(ValueArray[i], AvailabilityDate);
-            if CalcJobPlanningLine.FindSet then
-                repeat
-                    CalcJobPlanningLine.CalcFields("Reserved Qty. (Base)");
-                    ReservEntrySummary."Total Reserved Quantity" -= CalcJobPlanningLine."Reserved Qty. (Base)";
-                    CalcSumValue += CalcJobPlanningLine."Remaining Qty. (Base)";
-                until CalcJobPlanningLine.Next = 0;
+        //TODO JOBS: 
+        // if CalcJobPlanningLine.ReadPermission then begin
+        //     InitFilter(ValueArray[i], AvailabilityDate);
+        //     if CalcJobPlanningLine.FindSet then
+        //         repeat
+        //             CalcJobPlanningLine.CalcFields("Reserved Qty. (Base)");
+        //             ReservEntrySummary."Total Reserved Quantity" -= CalcJobPlanningLine."Reserved Qty. (Base)";
+        //             CalcSumValue += CalcJobPlanningLine."Remaining Qty. (Base)";
+        //         until CalcJobPlanningLine.Next = 0;
 
-            if CalcSumValue <> 0 then
-                with ReservEntrySummary do
-                    if (CalcSumValue < 0) = Positive then begin
-                        "Table ID" := DATABASE::"Job Planning Line";
-                        "Summary Type" :=
-                          CopyStr(
-                            StrSubstNo('%1, %2', CalcJobPlanningLine.TableCaption, CalcJobPlanningLine.Status),
-                            1, MaxStrLen("Summary Type"));
-                        "Total Quantity" := -CalcSumValue;
-                        "Total Available Quantity" := "Total Quantity" - "Total Reserved Quantity";
-                        if not Insert then
-                            Modify;
-                    end;
-        end;
+        //     if CalcSumValue <> 0 then
+        //         with ReservEntrySummary do
+        //             if (CalcSumValue < 0) = Positive then begin
+        //                 "Table ID" := DATABASE::"Job Planning Line";
+        //                 "Summary Type" :=
+        //                   CopyStr(
+        //                     StrSubstNo('%1, %2', CalcJobPlanningLine.TableCaption, CalcJobPlanningLine.Status),
+        //                     1, MaxStrLen("Summary Type"));
+        //                 "Total Quantity" := -CalcSumValue;
+        //                 "Total Available Quantity" := "Total Quantity" - "Total Reserved Quantity";
+        //                 if not Insert then
+        //                     Modify;
+        //             end;
+        // end;
     end;
 
     local procedure UpdateItemTrackingLineStats(var ReservEntrySummary: Record "Entry Summary"; AvailabilityDate: Date)
@@ -1626,27 +1630,28 @@ codeunit 99000845 "Reservation Management"
             exit;
 
         InitFilter(ReservSummEntryNo, AvailabilityDate);
-        if CalcJobPlanningLine.Find(Search) then
-            repeat
-                CalcJobPlanningLine.CalcFields("Reserved Qty. (Base)");
-                QtyThisLine := CalcJobPlanningLine."Remaining Qty.";
-                QtyThisLineBase := CalcJobPlanningLine."Remaining Qty. (Base)";
-                ReservQty := CalcJobPlanningLine."Reserved Qty. (Base)";
-                if Positive = (QtyThisLineBase > 0) then begin
-                    QtyThisLine := 0;
-                    QtyThisLineBase := 0;
-                end;
+        //TODO JOBS: 
+        // if CalcJobPlanningLine.Find(Search) then
+        //     repeat
+        //         CalcJobPlanningLine.CalcFields("Reserved Qty. (Base)");
+        //         QtyThisLine := CalcJobPlanningLine."Remaining Qty.";
+        //         QtyThisLineBase := CalcJobPlanningLine."Remaining Qty. (Base)";
+        //         ReservQty := CalcJobPlanningLine."Reserved Qty. (Base)";
+        //         if Positive = (QtyThisLineBase > 0) then begin
+        //             QtyThisLine := 0;
+        //             QtyThisLineBase := 0;
+        //         end;
 
-                CallTrackingSpecification.InitTrackingSpecification(
-                  DATABASE::"Job Planning Line", CalcJobPlanningLine.Status, CalcJobPlanningLine."Job No.", '',
-                  0, CalcJobPlanningLine."Job Contract Entry No.",
-                  CalcJobPlanningLine."Variant Code", CalcJobPlanningLine."Location Code",
-                  CalcReservEntry."Serial No.", CalcReservEntry."Lot No.",
-                  CalcJobPlanningLine."Qty. per Unit of Measure");
+        //         CallTrackingSpecification.InitTrackingSpecification(
+        //           DATABASE::"Job Planning Line", CalcJobPlanningLine.Status, CalcJobPlanningLine."Job No.", '',
+        //           0, CalcJobPlanningLine."Job Contract Entry No.",
+        //           CalcJobPlanningLine."Variant Code", CalcJobPlanningLine."Location Code",
+        //           CalcReservEntry."Serial No.", CalcReservEntry."Lot No.",
+        //           CalcJobPlanningLine."Qty. per Unit of Measure");
 
-                CallCreateReservation(RemainingQtyToReserve, RemainingQtyToReserveBase, ReservQty,
-                  Description, CalcJobPlanningLine."Planning Date", QtyThisLine, QtyThisLineBase, CallTrackingSpecification);
-            until (CalcJobPlanningLine.Next(NextStep) = 0) or (RemainingQtyToReserveBase = 0);
+        //         CallCreateReservation(RemainingQtyToReserve, RemainingQtyToReserveBase, ReservQty,
+        //           Description, CalcJobPlanningLine."Planning Date", QtyThisLine, QtyThisLineBase, CallTrackingSpecification);
+        //     until (CalcJobPlanningLine.Next(NextStep) = 0) or (RemainingQtyToReserveBase = 0);
     end;
 
     local procedure CallCreateReservation(var RemainingQtyToReserve: Decimal; var RemainingQtyToReserveBase: Decimal; ReservQty: Decimal; Description: Text[100]; ExpectedDate: Date; QtyThisLine: Decimal; QtyThisLineBase: Decimal; TrackingSpecification: Record "Tracking Specification") ReservationCreated: Boolean
@@ -1767,14 +1772,15 @@ codeunit 99000845 "Reservation Management"
                       CalcReservEntry."Serial No.", CalcReservEntry."Lot No.");
                     ForServiceLine.CalcFields("Reserved Qty. (Base)");
                 end;
-            DATABASE::"Job Planning Line":
-                begin
-                    JobPlanningLineReserve.CreateReservationSetFrom(TrackingSpecification);
-                    JobPlanningLineReserve.CreateReservation(
-                      ForJobPlanningLine, Description, ExpectedDate, Quantity, QuantityBase,
-                      CalcReservEntry."Serial No.", CalcReservEntry."Lot No.");
-                    ForJobPlanningLine.CalcFields("Reserved Qty. (Base)");
-                end;
+        //TODO JOBS: 
+        // DATABASE::"Job Planning Line":
+        //     begin
+        //         JobPlanningLineReserve.CreateReservationSetFrom(TrackingSpecification);
+        //         JobPlanningLineReserve.CreateReservation(
+        //           ForJobPlanningLine, Description, ExpectedDate, Quantity, QuantityBase,
+        //           CalcReservEntry."Serial No.", CalcReservEntry."Lot No.");
+        //         ForJobPlanningLine.CalcFields("Reserved Qty. (Base)");
+        //     end;
         end;
     end;
 
@@ -2059,14 +2065,15 @@ codeunit 99000845 "Reservation Management"
                     RemainingQty := ForServiceLine."Outstanding Quantity" - Abs(ForServiceLine."Reserved Quantity");
                     RemainingQtyBase := ForServiceLine."Outstanding Qty. (Base)" - Abs(ForServiceLine."Reserved Qty. (Base)");
                 end;
-            DATABASE::"Job Planning Line":
-                begin
-                    ForJobPlanningLine.CalcFields("Reserved Quantity", "Reserved Qty. (Base)");
-                    RemainingQty := ForJobPlanningLine."Remaining Qty." - Abs(ForJobPlanningLine."Reserved Quantity");
-                    RemainingQtyBase := ForJobPlanningLine."Remaining Qty. (Base)" - Abs(ForJobPlanningLine."Reserved Qty. (Base)");
-                end;
-            else
-                Error(Text003);
+        //TODO JOBS: 
+        // DATABASE::"Job Planning Line":
+        //     begin
+        //         ForJobPlanningLine.CalcFields("Reserved Quantity", "Reserved Qty. (Base)");
+        //         RemainingQty := ForJobPlanningLine."Remaining Qty." - Abs(ForJobPlanningLine."Reserved Quantity");
+        //         RemainingQtyBase := ForJobPlanningLine."Remaining Qty. (Base)" - Abs(ForJobPlanningLine."Reserved Qty. (Base)");
+        //     end;
+        // else
+        //     Error(Text003);
         end;
     end;
 
@@ -2311,18 +2318,19 @@ codeunit 99000845 "Reservation Management"
                 end;
             133:
                 begin // Job Planning Line
-                    CalcJobPlanningLine.Reset;
-                    CalcJobPlanningLine.SetCurrentKey(Status, Type, "No.", "Variant Code", "Location Code", "Planning Date");
-                    CalcJobPlanningLine.SetRange(Status, EntryID - 131);
-                    CalcJobPlanningLine.SetRange(Type, CalcJobPlanningLine.Type::Item);
-                    CalcJobPlanningLine.SetRange("No.", CalcReservEntry."Item No.");
-                    CalcJobPlanningLine.SetRange("Variant Code", CalcReservEntry."Variant Code");
-                    CalcJobPlanningLine.SetRange("Location Code", CalcReservEntry."Location Code");
-                    CalcJobPlanningLine.SetFilter("Planning Date", GetAvailabilityFilter(AvailabilityDate));
-                    if Positive then
-                        CalcJobPlanningLine.SetFilter("Quantity (Base)", '<0')
-                    else
-                        CalcJobPlanningLine.SetFilter("Quantity (Base)", '>0');
+                      //TODO JOBS: 
+                      // CalcJobPlanningLine.Reset;
+                      // CalcJobPlanningLine.SetCurrentKey(Status, Type, "No.", "Variant Code", "Location Code", "Planning Date");
+                      // CalcJobPlanningLine.SetRange(Status, EntryID - 131);
+                      // CalcJobPlanningLine.SetRange(Type, CalcJobPlanningLine.Type::Item);
+                      // CalcJobPlanningLine.SetRange("No.", CalcReservEntry."Item No.");
+                      // CalcJobPlanningLine.SetRange("Variant Code", CalcReservEntry."Variant Code");
+                      // CalcJobPlanningLine.SetRange("Location Code", CalcReservEntry."Location Code");
+                      // CalcJobPlanningLine.SetFilter("Planning Date", GetAvailabilityFilter(AvailabilityDate));
+                      // if Positive then
+                      //     CalcJobPlanningLine.SetFilter("Quantity (Base)", '<0')
+                      // else
+                      //     CalcJobPlanningLine.SetFilter("Quantity (Base)", '>0');
                 end;
             141, 142:
                 begin // Assembly Header
@@ -2721,8 +2729,9 @@ codeunit 99000845 "Reservation Management"
                     exit(GetSourcePurchLineValue(ReservEntry, SetAsCurrent, ReturnOption));
                 DATABASE::"Item Journal Line":
                     exit(GetSourceItemJnlLineValue(ReservEntry, SetAsCurrent, ReturnOption));
-                DATABASE::"Job Journal Line":
-                    exit(GetSourceJobJnlLineValue(ReservEntry, SetAsCurrent, ReturnOption));
+                //TODO JOBS: 
+                // DATABASE::"Job Journal Line":
+                //     exit(GetSourceJobJnlLineValue(ReservEntry, SetAsCurrent, ReturnOption));
                 DATABASE::"Prod. Order Line":
                     exit(GetSourceProdOrderLineValue(ReservEntry, SetAsCurrent, ReturnOption));
                 DATABASE::"Prod. Order Component":
@@ -2737,8 +2746,9 @@ codeunit 99000845 "Reservation Management"
                     exit(GetSourceTransLineValue(ReservEntry, SetAsCurrent, ReturnOption));
                 DATABASE::"Service Line":
                     exit(GetSourceServLineValue(ReservEntry, SetAsCurrent, ReturnOption));
-                DATABASE::"Job Planning Line":
-                    exit(GetSourceJobPlanningLineValue(ReservEntry, SetAsCurrent, ReturnOption));
+                //TODO JOBS: 
+                // DATABASE::"Job Planning Line":
+                //     exit(GetSourceJobPlanningLineValue(ReservEntry, SetAsCurrent, ReturnOption));
                 else begin
                         OnGetSourceRecordValue(ReservEntry, SetAsCurrent, ReturnOption, ReturnQty);
                         exit(ReturnQty);
@@ -2823,17 +2833,17 @@ codeunit 99000845 "Reservation Management"
 
     local procedure GetSourceJobJnlLineValue(var ReservEntry: Record "Reservation Entry"; SetAsCurrent: Boolean; ReturnOption: Option "Net Qty. (Base)","Gross Qty. (Base)"): Decimal
     var
-        JobJnlLine: Record "Job Journal Line";
+    //TODO JOBS: JobJnlLine: Record "Job Journal Line";
     begin
-        JobJnlLine.Get(ReservEntry."Source ID", ReservEntry."Source Batch Name", ReservEntry."Source Ref. No.");
-        if SetAsCurrent then
-            SetJobJnlLine(JobJnlLine);
-        case ReturnOption of
-            ReturnOption::"Net Qty. (Base)":
-                exit(JobJnlLine."Quantity (Base)");
-            ReturnOption::"Gross Qty. (Base)":
-                exit(JobJnlLine."Quantity (Base)");
-        end;
+        // JobJnlLine.Get(ReservEntry."Source ID", ReservEntry."Source Batch Name", ReservEntry."Source Ref. No.");
+        // if SetAsCurrent then
+        //     SetJobJnlLine(JobJnlLine);
+        // case ReturnOption of
+        //     ReturnOption::"Net Qty. (Base)":
+        //         exit(JobJnlLine."Quantity (Base)");
+        //     ReturnOption::"Gross Qty. (Base)":
+        //         exit(JobJnlLine."Quantity (Base)");
+        // end;
     end;
 
     local procedure GetSourceProdOrderLineValue(var ReservEntry: Record "Reservation Entry"; SetAsCurrent: Boolean; ReturnOption: Option "Net Qty. (Base)","Gross Qty. (Base)"): Decimal
@@ -2949,19 +2959,19 @@ codeunit 99000845 "Reservation Management"
 
     local procedure GetSourceJobPlanningLineValue(var ReservEntry: Record "Reservation Entry"; SetAsCurrent: Boolean; ReturnOption: Option "Net Qty. (Base)","Gross Qty. (Base)"): Decimal
     var
-        JobPlanningLine: Record "Job Planning Line";
+    //TODO JOBS: JobPlanningLine: Record "Job Planning Line";
     begin
-        JobPlanningLine.SetCurrentKey("Job Contract Entry No.");
-        JobPlanningLine.SetRange("Job Contract Entry No.", ReservEntry."Source Ref. No.");
-        JobPlanningLine.FindFirst;
-        if SetAsCurrent then
-            SetJobPlanningLine(JobPlanningLine);
-        case ReturnOption of
-            ReturnOption::"Net Qty. (Base)":
-                exit(JobPlanningLine."Remaining Qty. (Base)");
-            ReturnOption::"Gross Qty. (Base)":
-                exit(JobPlanningLine."Quantity (Base)");
-        end;
+        // JobPlanningLine.SetCurrentKey("Job Contract Entry No.");
+        // JobPlanningLine.SetRange("Job Contract Entry No.", ReservEntry."Source Ref. No.");
+        // JobPlanningLine.FindFirst;
+        // if SetAsCurrent then
+        //     SetJobPlanningLine(JobPlanningLine);
+        // case ReturnOption of
+        //     ReturnOption::"Net Qty. (Base)":
+        //         exit(JobPlanningLine."Remaining Qty. (Base)");
+        //     ReturnOption::"Gross Qty. (Base)":
+        //         exit(JobPlanningLine."Quantity (Base)");
+        // end;
     end;
 
     local procedure GetItemSetup(var ReservEntry: Record "Reservation Entry")
@@ -3358,7 +3368,7 @@ codeunit 99000845 "Reservation Management"
         ProdOrderComp: Record "Prod. Order Component";
         PlanningComponent: Record "Planning Component";
         ServLine: Record "Service Line";
-        JobPlanningLine: Record "Job Planning Line";
+        //TODO JOBS: JobPlanningLine: Record "Job Planning Line";
         AsmHeader: Record "Assembly Header";
         AsmLine: Record "Assembly Line";
     begin
@@ -3436,13 +3446,14 @@ codeunit 99000845 "Reservation Management"
                     ServLine.SetRange("Line No.", SourceRefNo);
                     PAGE.Run(0, ServLine);
                 end;
-            DATABASE::"Job Planning Line":
-                begin
-                    JobPlanningLine.Reset;
-                    JobPlanningLine.SetCurrentKey("Job Contract Entry No.");
-                    JobPlanningLine.SetRange("Job Contract Entry No.", SourceRefNo);
-                    PAGE.Run(0, JobPlanningLine);
-                end;
+            //TODO JOBS: 
+            // DATABASE::"Job Planning Line":
+            //     begin
+            //         JobPlanningLine.Reset;
+            //         JobPlanningLine.SetCurrentKey("Job Contract Entry No.");
+            //         JobPlanningLine.SetRange("Job Contract Entry No.", SourceRefNo);
+            //         PAGE.Run(0, JobPlanningLine);
+            //     end;
             DATABASE::"Assembly Header":
                 begin
                     AsmHeader.Reset;
@@ -3473,7 +3484,7 @@ codeunit 99000845 "Reservation Management"
         ProdOrder: Record "Production Order";
         TransHeader: Record "Transfer Header";
         ServiceHeader: Record "Service Header";
-        Job: Record Job;
+        //TODO JOBS: Job: Record Job;
         AsmHeader: Record "Assembly Header";
         IsHandled: Boolean;
     begin
@@ -3583,12 +3594,13 @@ codeunit 99000845 "Reservation Management"
                     else
                         PAGE.RunModal(PAGE::"Service Order", ServiceHeader);
                 end;
-            DATABASE::"Job Planning Line":
-                begin
-                    Job.Reset;
-                    Job.SetRange("No.", SourceID);
-                    PAGE.RunModal(PAGE::"Job Card", Job)
-                end;
+            //TODO JOBS: 
+            // DATABASE::"Job Planning Line":
+            //     begin
+            //         Job.Reset;
+            //         Job.SetRange("No.", SourceID);
+            //         PAGE.RunModal(PAGE::"Job Card", Job)
+            //     end;
             DATABASE::"Assembly Header",
             DATABASE::"Assembly Line":
                 begin
@@ -4146,15 +4158,18 @@ codeunit 99000845 "Reservation Management"
     begin
     end;
 
-    [IntegrationEvent(false, false)]
-    local procedure OnSetJobPlanningLineOnBeforeUpdateReservation(var ReservEntry: Record "Reservation Entry"; JobPlanningLine: Record "Job Planning Line")
-    begin
-    end;
+    //TODO JOBS: 
+    // [IntegrationEvent(false, false)]
+    // local procedure OnSetJobPlanningLineOnBeforeUpdateReservation(var ReservEntry: Record "Reservation Entry"; JobPlanningLine: Record "Job Planning Line")
+    // begin
+    // end;
 
-    [IntegrationEvent(false, false)]
-    local procedure OnSetJobJnlLineOnBeforeUpdateReservation(var ReservEntry: Record "Reservation Entry"; JobJnlLine: Record "Job Journal Line")
-    begin
-    end;
+    //TODO JOBS: 
+    // [IntegrationEvent(false, false)]
+    // local procedure OnSetJobJnlLineOnBeforeUpdateReservation(var ReservEntry: Record "Reservation Entry"; JobJnlLine: Record "Job Journal Line")
+    // begin
+    // end;
+
 
     [IntegrationEvent(false, false)]
     local procedure OnSetSalesLineOnBeforeUpdateReservation(var ReservEntry: Record "Reservation Entry"; SalesLine: Record "Sales Line")
