@@ -99,7 +99,7 @@ codeunit 5701 "Item Subst."
 
                 TempSalesLine.CreateDim(
                   DimMgt.TypeToTableID3(TempSalesLine.Type), TempSalesLine."No.",
-                  DATABASE::Job, TempSalesLine."Job No.",
+                  167, '',//TODO JOBS: DATABASE::Job, TempSalesLine."Job No.",
                   DATABASE::"Responsibility Center", TempSalesLine."Responsibility Center");
 
                 OnItemSubstGetOnAfterSubstSalesLineItem(TempSalesLine);

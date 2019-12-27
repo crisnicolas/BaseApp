@@ -232,26 +232,26 @@ table 5530 "Inventory Event Buffer"
         OnAfterTransferFromProdComp(Rec, ProdOrderComp);
     end;
 
-    procedure TransferFromJobNeed(JobPlanningLine: Record "Job Planning Line")
-    begin
-        if JobPlanningLine.Type <> JobPlanningLine.Type::Item then
-            exit;
+    //TODO JOBS: // procedure TransferFromJobNeed(JobPlanningLine: Record "Job Planning Line")
+    // begin
+    //     if JobPlanningLine.Type <> JobPlanningLine.Type::Item then
+    //         exit;
 
-        Init;
-        RecRef.GetTable(JobPlanningLine);
-        "Source Line ID" := RecRef.RecordId;
-        "Item No." := JobPlanningLine."No.";
-        "Variant Code" := JobPlanningLine."Variant Code";
-        "Location Code" := JobPlanningLine."Location Code";
-        "Availability Date" := JobPlanningLine."Planning Date";
-        Type := Type::Job;
-        JobPlanningLine.CalcFields("Reserved Qty. (Base)");
-        "Remaining Quantity (Base)" := -JobPlanningLine."Remaining Qty. (Base)";
-        "Reserved Quantity (Base)" := -JobPlanningLine."Reserved Qty. (Base)";
-        Positive := not ("Remaining Quantity (Base)" < 0);
+    //     Init;
+    //     RecRef.GetTable(JobPlanningLine);
+    //     "Source Line ID" := RecRef.RecordId;
+    //     "Item No." := JobPlanningLine."No.";
+    //     "Variant Code" := JobPlanningLine."Variant Code";
+    //     "Location Code" := JobPlanningLine."Location Code";
+    //     "Availability Date" := JobPlanningLine."Planning Date";
+    //     Type := Type::Job;
+    //     JobPlanningLine.CalcFields("Reserved Qty. (Base)");
+    //     "Remaining Quantity (Base)" := -JobPlanningLine."Remaining Qty. (Base)";
+    //     "Reserved Quantity (Base)" := -JobPlanningLine."Reserved Qty. (Base)";
+    //     Positive := not ("Remaining Quantity (Base)" < 0);
 
-        OnAfterTransferFromJobNeed(Rec, JobPlanningLine);
-    end;
+    //     OnAfterTransferFromJobNeed(Rec, JobPlanningLine);
+    // end;
 
     procedure TransferFromServiceNeed(ServLine: Record "Service Line")
     var
@@ -613,10 +613,10 @@ table 5530 "Inventory Event Buffer"
     begin
     end;
 
-    [IntegrationEvent(false, false)]
-    local procedure OnAfterTransferFromJobNeed(var InventoryEventBuffer: Record "Inventory Event Buffer"; JobPlanningLine: Record "Job Planning Line")
-    begin
-    end;
+    //TODO JOBS: // [IntegrationEvent(false, false)]
+    // local procedure OnAfterTransferFromJobNeed(var InventoryEventBuffer: Record "Inventory Event Buffer"; JobPlanningLine: Record "Job Planning Line")
+    // begin
+    // end;
 
     [IntegrationEvent(false, false)]
     local procedure OnAfterTransferFromServiceNeed(var InventoryEventBuffer: Record "Inventory Event Buffer"; ServiceLine: Record "Service Line")

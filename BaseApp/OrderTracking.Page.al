@@ -370,15 +370,15 @@ page 99000822 "Order Tracking"
         EndingDate := CurrentServLine."Needed by Date";
     end;
 
-    procedure SetJobPlanningLine(var CurrentJobPlanningLine: Record "Job Planning Line")
-    begin
-        TrackingMgt.SetJobPlanningLine(CurrentJobPlanningLine);
+    //TODO JOBS: // procedure SetJobPlanningLine(var CurrentJobPlanningLine: Record "Job Planning Line")
+    // begin
+    //     TrackingMgt.SetJobPlanningLine(CurrentJobPlanningLine);
 
-        CurrItemNo := CurrentJobPlanningLine."No.";
-        CurrQuantity := CurrentJobPlanningLine."Remaining Qty. (Base)";
-        StartingDate := CurrentJobPlanningLine."Planning Date";
-        EndingDate := CurrentJobPlanningLine."Planning Date";
-    end;
+    //     CurrItemNo := CurrentJobPlanningLine."No.";
+    //     CurrQuantity := CurrentJobPlanningLine."Remaining Qty. (Base)";
+    //     StartingDate := CurrentJobPlanningLine."Planning Date";
+    //     EndingDate := CurrentJobPlanningLine."Planning Date";
+    // end;
 
     local procedure LookupLine()
     var

@@ -178,8 +178,8 @@ codeunit 5522 "Order Planning Mgt."
                     "Demand Type" := DATABASE::"Prod. Order Component";
                 UnplannedDemand."Demand Type"::Service:
                     "Demand Type" := DATABASE::"Service Line";
-                UnplannedDemand."Demand Type"::Job:
-                    "Demand Type" := DATABASE::"Job Planning Line";
+                //TODO JOBS: // UnplannedDemand."Demand Type"::Job:
+                //     "Demand Type" := DATABASE::"Job Planning Line";
                 UnplannedDemand."Demand Type"::Assembly:
                     "Demand Type" := DATABASE::"Assembly Line";
             end;

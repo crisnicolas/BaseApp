@@ -394,7 +394,7 @@ codeunit 5150 "Integration Management"
            DATABASE::"Purchase Header",
            DATABASE::"Purch. Inv. Header",
            DATABASE::"G/L Entry",
-           DATABASE::Job,
+           //TODO JOBS: DATABASE::Job,
            DATABASE::"Time Sheet Detail"]);
     end;
 
@@ -683,7 +683,7 @@ codeunit 5150 "Integration Management"
         DummySalesCrMemoEntityBuffer: Record "Sales Cr. Memo Entity Buffer";
         DummyIncomingDocumentAttachment: Record "Incoming Document Attachment";
         DummyTimeSheetDetail: Record "Time Sheet Detail";
-        DummyJob: Record Job;
+        //TODO JOBS: DummyJob: Record Job;
         GraphMgtGeneralTools: Codeunit "Graph Mgt - General Tools";
         GraphMgtSalesHeader: Codeunit "Graph Mgt - Sales Header";
     begin
@@ -773,9 +773,9 @@ codeunit 5150 "Integration Management"
                   DATABASE::"Time Sheet Detail", DummyTimeSheetDetail.FieldNo(Id));
             DATABASE::"Sales Invoice Line", DATABASE::"Purch. Inv. Line", DATABASE::"Vendor Bank Account":
                 Handled := true;
-            DATABASE::Job:
-                GraphMgtGeneralTools.HandleUpdateReferencedIdFieldOnItem(RecRef, Id, Handled,
-                  DATABASE::Job, DummyJob.FieldNo(Id));
+            //TODO JOBS: // DATABASE::Job:
+            //     GraphMgtGeneralTools.HandleUpdateReferencedIdFieldOnItem(RecRef, Id, Handled,
+            //       DATABASE::Job, DummyJob.FieldNo(Id));
             else
                 OnUpdateReferencedIdField(RecRef, Id, Handled);
         end;

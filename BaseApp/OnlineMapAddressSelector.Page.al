@@ -102,8 +102,8 @@ page 802 "Online Map Address Selector"
                 SelectedTableNo := DATABASE::Customer;
             LookupSelection::Employee:
                 SelectedTableNo := DATABASE::Employee;
-            LookupSelection::Job:
-                SelectedTableNo := DATABASE::Job;
+            //TODO JOBS: // LookupSelection::Job:
+            //     SelectedTableNo := DATABASE::Job;
             LookupSelection::Location:
                 SelectedTableNo := DATABASE::Location;
             LookupSelection::Resource:
@@ -137,8 +137,8 @@ page 802 "Online Map Address Selector"
                 exit(LoadCustomer(LookupCode, Lookup));
             DATABASE::Employee:
                 exit(LoadEmployee(LookupCode, Lookup));
-            DATABASE::Job:
-                exit(LoadJob(LookupCode, Lookup));
+            //TODO JOBS: // DATABASE::Job:
+            //     exit(LoadJob(LookupCode, Lookup));
             DATABASE::Location:
                 exit(LoadLocation(LookupCode, Lookup));
             DATABASE::Resource:
@@ -229,19 +229,19 @@ page 802 "Online Map Address Selector"
 
     local procedure LoadJob(var LookUpCode: Code[20]; LookUp: Boolean): Text[1000]
     var
-        Job: Record Job;
+        //TODO JOBS: Job: Record Job;
         Response: Boolean;
     begin
-        if LookUp then
-            Response := PAGE.RunModal(PAGE::"Job List", Job) = ACTION::LookupOK
-        else
-            Response := Job.Get(LookUpCode);
+        //TODO JOBS: // if LookUp then
+        //     Response := PAGE.RunModal(PAGE::"Job List", Job) = ACTION::LookupOK
+        // else
+        //     Response := Job.Get(LookUpCode);
 
-        if Response then begin
-            LookUpCode := Job."No.";
-            exit(Job.GetPosition);
-        end;
-        Error(Text003, LookUpCode, DATABASE::Job);
+        // if Response then begin
+        //     LookUpCode := Job."No.";
+        //     exit(Job.GetPosition);
+        // end;
+        // Error(Text003, LookUpCode, DATABASE::Job);
     end;
 
     local procedure LoadLocation(var LookUpCode: Code[20]; LookUp: Boolean): Text[1000]

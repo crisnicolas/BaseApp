@@ -51,7 +51,7 @@ page 99000902 "Item Availability Line List"
         ItemLedgerEntry: Record "Item Ledger Entry";
         SalesLine: Record "Sales Line";
         ServLine: Record "Service Line";
-        JobPlanningLine: Record "Job Planning Line";
+        //TODO JOBS:  JobPlanningLine: Record "Job Planning Line";
         PurchLine: Record "Purchase Line";
         TransLine: Record "Transfer Line";
         ReqLine: Record "Requisition Line";
@@ -84,11 +84,11 @@ page 99000902 "Item Availability Line List"
                       Item.FieldNo("Qty. on Service Order"),
                       ServLine.TableCaption,
                       Item."Qty. on Service Order");
-                    InsertEntry(
-                      DATABASE::"Job Planning Line",
-                      Item.FieldNo("Qty. on Job Order"),
-                      JobPlanningLine.TableCaption,
-                      Item."Qty. on Job Order");
+                    //TODO JOBS: // InsertEntry(
+                    //   DATABASE::"Job Planning Line",
+                    //   Item.FieldNo("Qty. on Job Order"),
+                    //   JobPlanningLine.TableCaption,
+                    //   Item."Qty. on Job Order");
                     InsertEntry(
                       DATABASE::"Prod. Order Component",
                       Item.FieldNo("Scheduled Need (Qty.)"),
@@ -272,11 +272,11 @@ page 99000902 "Item Availability Line List"
                     ServLine.FindLinesWithItemToPlan(Item);
                     PAGE.RunModal(0, ServLine);
                 end;
-            DATABASE::"Job Planning Line":
-                begin
-                    JobPlanningLine.FindLinesWithItemToPlan(Item);
-                    PAGE.RunModal(0, JobPlanningLine);
-                end;
+            //TODO JOBS: // DATABASE::"Job Planning Line":
+            //     begin
+            //         JobPlanningLine.FindLinesWithItemToPlan(Item);
+            //         PAGE.RunModal(0, JobPlanningLine);
+            //     end;
             DATABASE::"Purchase Line":
                 begin
                     PurchLine.SetCurrentKey("Document Type", Type, "No.");

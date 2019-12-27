@@ -124,7 +124,7 @@ table 461 "Prepayment Inv. Line Buffer"
         {
             Caption = 'Job No.';
             DataClassification = SystemMetadata;
-            TableRelation = Job;
+            //TODO JOBS: TableRelation = Job;
         }
         field(22; "Amount Incl. VAT"; Decimal)
         {
@@ -176,7 +176,7 @@ table 461 "Prepayment Inv. Line Buffer"
         {
             Caption = 'Job Task No.';
             DataClassification = SystemMetadata;
-            TableRelation = "Job Task";
+            //TODO JOBS: TableRelation = "Job Task";
         }
     }
 

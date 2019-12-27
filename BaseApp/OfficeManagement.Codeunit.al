@@ -394,12 +394,12 @@ codeunit 1630 "Office Management"
 
     local procedure GetHandlerCodeunit(OfficeAddinContext: Record "Office Add-in Context"): Integer
     var
-        OfficeJobsHandler: Codeunit "Office Jobs Handler";
+        //TODO JOBS:  OfficeJobsHandler: Codeunit "Office Jobs Handler";
         HostType: Text;
         ExternalHandler: Integer;
     begin
-        if OfficeJobsHandler.IsJobsHostType(OfficeAddinContext) then
-            exit(Codeunit::"Office Jobs Handler");
+        //TODO JOBS:  // if OfficeJobsHandler.IsJobsHostType(OfficeAddinContext) then
+        //     exit(Codeunit::"Office Jobs Handler");
 
         HostType := GetHostType;
         case HostType of

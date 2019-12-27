@@ -74,13 +74,13 @@ codeunit 311 "Item-Check Avail."
             Rollback := ShowAndHandleAvailabilityPage(ServInvLine.RecordId);
     end;
 
-    procedure JobPlanningLineCheck(JobPlanningLine: Record "Job Planning Line") Rollback: Boolean
-    begin
-        NotificationLifecycleMgt.RecallNotificationsForRecordWithAdditionalContext(
-          JobPlanningLine.RecordId, GetItemAvailabilityNotificationId, true);
-        if JobPlanningLineShowWarning(JobPlanningLine) then
-            Rollback := ShowAndHandleAvailabilityPage(JobPlanningLine.RecordId);
-    end;
+    //TODO JOBS:  // procedure JobPlanningLineCheck(JobPlanningLine: Record "Job Planning Line") Rollback: Boolean
+    // begin
+    //     NotificationLifecycleMgt.RecallNotificationsForRecordWithAdditionalContext(
+    //       JobPlanningLine.RecordId, GetItemAvailabilityNotificationId, true);
+    //     if JobPlanningLineShowWarning(JobPlanningLine) then
+    //         Rollback := ShowAndHandleAvailabilityPage(JobPlanningLine.RecordId);
+    // end;
 
     procedure AssemblyLineCheck(AssemblyLine: Record "Assembly Line") Rollback: Boolean
     begin
@@ -360,42 +360,42 @@ codeunit 311 "Item-Check Avail."
             OldServLine."Needed by Date"));
     end;
 
-    procedure JobPlanningLineShowWarning(JobPlanningLine: Record "Job Planning Line"): Boolean
-    var
-        OldJobPlanningLine: Record "Job Planning Line";
-    begin
-        if not ShowWarningForThisItem(JobPlanningLine."No.") then
-            exit(false);
+    // //TODO JOBS: procedure JobPlanningLineShowWarning(JobPlanningLine: Record "Job Planning Line"): Boolean
+    // var
+    //     OldJobPlanningLine: Record "Job Planning Line";
+    // begin
+    //     if not ShowWarningForThisItem(JobPlanningLine."No.") then
+    //         exit(false);
 
-        OldItemNetChange := 0;
+    //     OldItemNetChange := 0;
 
-        OldJobPlanningLine := JobPlanningLine;
+    //     OldJobPlanningLine := JobPlanningLine;
 
-        if OldJobPlanningLine.Find then // Find previous quantity
-            if (OldJobPlanningLine.Type = OldJobPlanningLine.Type::Item) and
-               (OldJobPlanningLine."No." = JobPlanningLine."No.") and
-               (OldJobPlanningLine."Variant Code" = JobPlanningLine."Variant Code") and
-               (OldJobPlanningLine."Location Code" = JobPlanningLine."Location Code") and
-               (OldJobPlanningLine."Bin Code" = JobPlanningLine."Bin Code")
-            then begin
-                OldItemNetChange := -OldJobPlanningLine."Quantity (Base)";
-                OldJobPlanningLine.CalcFields("Reserved Qty. (Base)");
-                OldItemNetResChange := -OldJobPlanningLine."Reserved Qty. (Base)";
-            end;
+    //     if OldJobPlanningLine.Find then // Find previous quantity
+    //         if (OldJobPlanningLine.Type = OldJobPlanningLine.Type::Item) and
+    //            (OldJobPlanningLine."No." = JobPlanningLine."No.") and
+    //            (OldJobPlanningLine."Variant Code" = JobPlanningLine."Variant Code") and
+    //            (OldJobPlanningLine."Location Code" = JobPlanningLine."Location Code") and
+    //            (OldJobPlanningLine."Bin Code" = JobPlanningLine."Bin Code")
+    //         then begin
+    //             OldItemNetChange := -OldJobPlanningLine."Quantity (Base)";
+    //             OldJobPlanningLine.CalcFields("Reserved Qty. (Base)");
+    //             OldItemNetResChange := -OldJobPlanningLine."Reserved Qty. (Base)";
+    //         end;
 
-        UseOrderPromise := true;
-        exit(
-          ShowWarning(
-            JobPlanningLine."No.",
-            JobPlanningLine."Variant Code",
-            JobPlanningLine."Location Code",
-            JobPlanningLine."Unit of Measure Code",
-            JobPlanningLine."Qty. per Unit of Measure",
-            -JobPlanningLine."Remaining Qty.",
-            OldItemNetChange,
-            JobPlanningLine."Planning Date",
-            OldJobPlanningLine."Planning Date"));
-    end;
+    //     UseOrderPromise := true;
+    //     exit(
+    //       ShowWarning(
+    //         JobPlanningLine."No.",
+    //         JobPlanningLine."Variant Code",
+    //         JobPlanningLine."Location Code",
+    //         JobPlanningLine."Unit of Measure Code",
+    //         JobPlanningLine."Qty. per Unit of Measure",
+    //         -JobPlanningLine."Remaining Qty.",
+    //         OldItemNetChange,
+    //         JobPlanningLine."Planning Date",
+    //         OldJobPlanningLine."Planning Date"));
+    // end;
 
     procedure AsmOrderLineShowWarning(AssemblyLine: Record "Assembly Line"): Boolean
     var
