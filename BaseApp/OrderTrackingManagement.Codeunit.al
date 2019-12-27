@@ -30,7 +30,7 @@ codeunit 99000778 OrderTrackingManagement
         AsmLine: Record "Assembly Line";
         PlanningComponent: Record "Planning Component";
         ServLine: Record "Service Line";
-        JobPlanningLine: Record "Job Planning Line";
+        //TODO JOBS: JobPlanningLine: Record "Job Planning Line";
         ReservEntry: Record "Reservation Entry";
         TempReservEntryList: Record "Reservation Entry" temporary;
         TempOrderTrackingEntry: Record "Order Tracking Entry" temporary;
@@ -46,7 +46,7 @@ codeunit 99000778 OrderTrackingManagement
         ReservePlanningComponent: Codeunit "Plng. Component-Reserve";
         ReserveItemLedgEntry: Codeunit "Item Ledger Entry-Reserve";
         ServLineReserve: Codeunit "Service Line-Reserve";
-        JobPlanningLineReserve: Codeunit "Job Planning Line-Reserve";
+        //TODO JOBS: JobPlanningLineReserve: Codeunit "Job Planning Line-Reserve";
         CaptionText: Text;
         Type: Option " ",Sales,"Req. Line",Purchase,"Item Jnl","BOM Jnl","Item Ledg. Entry","Prod. Order Line","Prod. Order Comp.","Planning Line","Planning Comp.",Transfer,"Service Order";
         ID: Code[20];
@@ -296,32 +296,33 @@ codeunit 99000778 OrderTrackingManagement
         end;
     end;
 
-    procedure SetJobPlanningLine(var CurrentJobPlanningLine: Record "Job Planning Line")
-    var
-        JobUsageLink: Record "Job Usage Link";
-        JobLedgEntry: Record "Job Ledger Entry";
-    begin
-        CurrentJobPlanningLine.TestField(Type, CurrentJobPlanningLine.Type::Item);
-        JobPlanningLine := CurrentJobPlanningLine;
-        ReservEntry."Source Type" := DATABASE::"Job Planning Line";
+    //TODO JOBS: 
+    // procedure SetJobPlanningLine(var CurrentJobPlanningLine: Record "Job Planning Line")
+    // var
+    //     JobUsageLink: Record "Job Usage Link";
+    //     JobLedgEntry: Record "Job Ledger Entry";
+    // begin
+    //     CurrentJobPlanningLine.TestField(Type, CurrentJobPlanningLine.Type::Item);
+    //     JobPlanningLine := CurrentJobPlanningLine;
+    //     ReservEntry."Source Type" := DATABASE::"Job Planning Line";
 
-        ReservEngineMgt.InitFilterAndSortingLookupFor(ReservEntry, false);
-        JobPlanningLineReserve.FilterReservFor(ReservEntry, JobPlanningLine);
+    //     ReservEngineMgt.InitFilterAndSortingLookupFor(ReservEntry, false);
+    //     JobPlanningLineReserve.FilterReservFor(ReservEntry, JobPlanningLine);
 
-        CaptionText := JobPlanningLineReserve.Caption(JobPlanningLine);
+    //     CaptionText := JobPlanningLineReserve.Caption(JobPlanningLine);
 
-        if CurrentJobPlanningLine."Qty. Posted" <> 0 then begin
-            JobUsageLink.SetRange("Job No.", CurrentJobPlanningLine."Job No.");
-            JobUsageLink.SetRange("Job Task No.", CurrentJobPlanningLine."Job Task No.");
-            JobUsageLink.SetRange("Line No.", CurrentJobPlanningLine."Line No.");
-            if JobUsageLink.Find('-') then
-                repeat
-                    JobLedgEntry.Get(JobUsageLink."Entry No.");
-                    if ItemLedgEntry2.Get(JobLedgEntry."Ledger Entry No.") then
-                        ItemLedgEntry2.Mark(true);
-                until JobUsageLink.Next = 0;
-        end;
-    end;
+    //     if CurrentJobPlanningLine."Qty. Posted" <> 0 then begin
+    //         JobUsageLink.SetRange("Job No.", CurrentJobPlanningLine."Job No.");
+    //         JobUsageLink.SetRange("Job Task No.", CurrentJobPlanningLine."Job Task No.");
+    //         JobUsageLink.SetRange("Line No.", CurrentJobPlanningLine."Line No.");
+    //         if JobUsageLink.Find('-') then
+    //             repeat
+    //                 JobLedgEntry.Get(JobUsageLink."Entry No.");
+    //                 if ItemLedgEntry2.Get(JobLedgEntry."Ledger Entry No.") then
+    //                     ItemLedgEntry2.Mark(true);
+    //             until JobUsageLink.Next = 0;
+    //     end;
+    // end;
 
     procedure TrackedQuantity(): Decimal
     var
@@ -738,16 +739,17 @@ codeunit 99000778 OrderTrackingManagement
                     TempOrderTrackingEntry."Starting Date" := ServLine."Needed by Date";
                     TempOrderTrackingEntry."Ending Date" := ServLine."Needed by Date";
                 end;
-            DATABASE::"Job Planning Line":
-                begin
-                    JobPlanningLine.SetRange("Job No.", ID);
-                    JobPlanningLine.SetRange(Status, Subtype);
-                    JobPlanningLine.SetRange("Job Contract Entry No.", RefNo);
-                    if JobPlanningLine.FindFirst then begin
-                        TempOrderTrackingEntry."Starting Date" := JobPlanningLine."Planning Date";
-                        TempOrderTrackingEntry."Ending Date" := JobPlanningLine."Planning Date";
-                    end;
-                end;
+            //TODO JOBS: 
+            // DATABASE::"Job Planning Line":
+            //     begin
+            //         JobPlanningLine.SetRange("Job No.", ID);
+            //         JobPlanningLine.SetRange(Status, Subtype);
+            //         JobPlanningLine.SetRange("Job Contract Entry No.", RefNo);
+            //         if JobPlanningLine.FindFirst then begin
+            //             TempOrderTrackingEntry."Starting Date" := JobPlanningLine."Planning Date";
+            //             TempOrderTrackingEntry."Ending Date" := JobPlanningLine."Planning Date";
+            //         end;
+            //     end;
             else
                 OnInsertOrderTrackingEntry(TempOrderTrackingEntry, Type, Subtype, ID, RefNo, BatchName, ProdOrderLineNo);
         end;

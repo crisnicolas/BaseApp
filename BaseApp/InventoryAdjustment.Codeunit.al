@@ -1756,9 +1756,9 @@ codeunit 5895 "Inventory Adjustment"
             ItemJnlLine."Shortcut Dimension 1 Code" := "Global Dimension 1 Code";
             ItemJnlLine."Shortcut Dimension 2 Code" := "Global Dimension 2 Code";
             ItemJnlLine."Dimension Set ID" := "Dimension Set ID";
-
-            if not SkipUpdateJobItemCost and ("Job No." <> '') then
-                CopyJobToAdjustmentBuf("Job No.");
+            //TODO JOBS: 
+            // if not SkipUpdateJobItemCost and ("Job No." <> '') then
+            //     CopyJobToAdjustmentBuf("Job No.");
 
             OnPostItemJnlLineCopyFromValueEntry(ItemJnlLine, OrigValueEntry);
             ItemJnlPostLine.RunWithCheck(ItemJnlLine);
@@ -2188,22 +2188,23 @@ codeunit 5895 "Inventory Adjustment"
 
     local procedure UpdateJobItemCost()
     var
-        JobsSetup: Record "Jobs Setup";
-        Job: Record Job;
-        UpdateJobItemCost: Report "Update Job Item Cost";
+    //TODO JOBS: 
+    // JobsSetup: Record "Jobs Setup";
+    // Job: Record Job;
+    // UpdateJobItemCost: Report "Update Job Item Cost";
     begin
-        if JobsSetup.Find then
-            if JobsSetup."Automatic Update Job Item Cost" then begin
-                if TempJobToAdjustBuf.FindSet then
-                    repeat
-                        Job.SetRange("No.", TempJobToAdjustBuf."No.");
-                        Clear(UpdateJobItemCost);
-                        UpdateJobItemCost.SetTableView(Job);
-                        UpdateJobItemCost.UseRequestPage := false;
-                        UpdateJobItemCost.SetProperties(true);
-                        UpdateJobItemCost.RunModal;
-                    until TempJobToAdjustBuf.Next = 0;
-            end;
+        // if JobsSetup.Find then
+        //     if JobsSetup."Automatic Update Job Item Cost" then begin
+        //         if TempJobToAdjustBuf.FindSet then
+        //             repeat
+        //                 Job.SetRange("No.", TempJobToAdjustBuf."No.");
+        //                 Clear(UpdateJobItemCost);
+        //                 UpdateJobItemCost.SetTableView(Job);
+        //                 UpdateJobItemCost.UseRequestPage := false;
+        //                 UpdateJobItemCost.SetProperties(true);
+        //                 UpdateJobItemCost.RunModal;
+        //             until TempJobToAdjustBuf.Next = 0;
+        //     end;
     end;
 
     local procedure FetchOpenItemEntriesToExclude(AvgCostAdjmtEntryPoint: Record "Avg. Cost Adjmt. Entry Point"; var ExcludedValueEntry: Record "Value Entry"; var OpenEntries: Record "Integer" temporary; CalendarPeriod: Record Date)

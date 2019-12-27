@@ -29,7 +29,7 @@ codeunit 408 "DimensionManagement"
         DimValueMissingErr: Label '%1 for %2 is missing.', Comment = '%1 = Dimension Value table caption, %2 = Dim Code';
         Text019: Label 'You have changed a dimension.\\Do you want to update the lines?';
         LastErrorMessage: Record "Error Message";
-        //TODO JOBS:TempJobTaskDimBuffer: Record "Job Task Dimension" temporary;
+        //TODO JOBS: TempJobTaskDimBuffer: Record "Job Task Dimension" temporary;
         TempDimSetEntryBuffer: Record "Dimension Set Entry" temporary;
         ErrorMessageMgt: Codeunit "Error Message Management";
         TempDimCombInitialized: Boolean;
@@ -1315,7 +1315,8 @@ codeunit 408 "DimensionManagement"
     var
         CallingTrigger: Option OnInsert,OnModify,OnDelete;
     begin
-        //TODO JOBS:// if DefaultDimension."Table ID" = DATABASE::Job then
+        //TODO JOBS: 
+        // if DefaultDimension."Table ID" = DATABASE::Job then
         //     UpdateJobTaskDim(DefaultDimension, false);
 
         UpdateCostType(DefaultDimension, CallingTrigger::OnInsert);
@@ -1325,7 +1326,8 @@ codeunit 408 "DimensionManagement"
     var
         CallingTrigger: Option OnInsert,OnModify,OnDelete;
     begin
-        //TODO JOBS:// if DefaultDimension."Table ID" = DATABASE::Job then
+        //TODO JOBS: 
+        // if DefaultDimension."Table ID" = DATABASE::Job then
         //     UpdateJobTaskDim(DefaultDimension, false);
 
         UpdateCostType(DefaultDimension, CallingTrigger::OnModify);
@@ -1335,7 +1337,8 @@ codeunit 408 "DimensionManagement"
     var
         CallingTrigger: Option OnInsert,OnModify,OnDelete;
     begin
-        //TODO JOBS:// if DefaultDimension."Table ID" = DATABASE::Job then
+        //TODO JOBS: 
+        // if DefaultDimension."Table ID" = DATABASE::Job then
         //     UpdateJobTaskDim(DefaultDimension, true);
 
         UpdateCostType(DefaultDimension, CallingTrigger::OnDelete);
@@ -1839,9 +1842,10 @@ codeunit 408 "DimensionManagement"
         HighPriorityTableID: array[10] of Integer;
         HighPriorityNo: array[10] of Code[20];
     begin
-        //TODO JOBS:TableID[1] := DATABASE::Job;
+
+        //TODO JOBS: TableID[1] := DATABASE::Job;
         TableID[2] := TypeToTableID3(PurchaseLine.Type);
-        //TODO JOBS:githubNo[1] := PurchaseLine."Job No.";
+        //TODO JOBS: No[1] := PurchaseLine."Job No.";
         No[2] := PurchaseLine."No.";
 
         OnBeforeGetTableIDsForHigherPriorities(DATABASE::"Purchase Line", PurchaseLine, CurrFieldNo, TableID, No);
@@ -1860,7 +1864,8 @@ codeunit 408 "DimensionManagement"
         HighPriorityTableID: array[10] of Integer;
         HighPriorityNo: array[10] of Code[20];
     begin
-        //TODO JOBS:TableID[1] := DATABASE::Job;
+
+        //TODO JOBS: TableID[1] := DATABASE::Job;
         TableID[2] := TypeToTableID3(SalesLine.Type);
         //TODO JOBS:No[1] := SalesLine."Job No.";
         No[2] := SalesLine."No.";
