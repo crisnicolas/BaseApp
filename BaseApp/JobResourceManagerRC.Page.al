@@ -128,14 +128,14 @@ page 9014 "Job Resource Manager RC"
                 RunPageView = WHERE(Recurring = CONST(true));
                 ToolTip = 'View all recurring resource journals.';
             }
-            action(Jobs)
-            {
-                ApplicationArea = Jobs;
-                Caption = 'Jobs';
-                Image = Job;
-                RunObject = Page "Job List";
-                ToolTip = 'Define a project activity by creating a job card with integrated job tasks and job planning lines, structured in two layers. The job task enables you to set up job planning lines and to post consumption to the job. The job planning lines specify the detailed use of resources, items, and various general ledger expenses.';
-            }
+           //TODO: Jobs // action(Jobs)
+            // {
+            //     ApplicationArea = Jobs;
+            //     Caption = 'Jobs';
+            //     Image = Job;
+            //     RunObject = Page "Job List";
+            //     ToolTip = 'Define a project activity by creating a job card with integrated job tasks and job planning lines, structured in two layers. The job task enables you to set up job planning lines and to post consumption to the job. The job planning lines specify the detailed use of resources, items, and various general ledger expenses.';
+            // }
             action("Time Sheets")
             {
                 ApplicationArea = Jobs;
