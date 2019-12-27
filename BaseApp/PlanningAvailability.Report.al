@@ -103,38 +103,39 @@ report 99001048 "Planning Availability"
                 SetRange(Type, Type::Item);
             end;
         }
-        dataitem("Job Planning Line"; "Job Planning Line")
-        {
-            DataItemTableView = SORTING("Job No.", "Job Task No.", "Line No.");
+        //TODO JOBS: 
+        // dataitem("Job Planning Line"; "Job Planning Line")
+        // {
+        //     DataItemTableView = SORTING("Job No.", "Job Task No.", "Line No.");
 
-            trigger OnAfterGetRecord()
-            begin
-                if Selection then begin
-                    NewRecordWithDetails("Planning Date", "No.", Description);
-                    PlanningBuffer."Document Type" := PlanningBuffer."Document Type"::"Job Order";
-                    PlanningBuffer."Document No." := "Job No.";
-                    PlanningBuffer."Gross Requirement" := "Remaining Qty. (Base)";
-                    PlanningBuffer.Insert;
-                end else begin
-                    PlanningBuffer.SetRange("Item No.", "No.");
-                    PlanningBuffer.SetRange(Date, "Planning Date");
-                    if PlanningBuffer.Find('-') then begin
-                        PlanningBuffer."Gross Requirement" := PlanningBuffer."Gross Requirement" + "Remaining Qty. (Base)";
-                        PlanningBuffer.Modify;
-                    end else begin
-                        NewRecordWithDetails("Planning Date", "No.", Description);
-                        PlanningBuffer."Gross Requirement" := "Remaining Qty. (Base)";
-                        PlanningBuffer.Insert;
-                    end;
-                end;
-            end;
+        //     trigger OnAfterGetRecord()
+        //     begin
+        //         if Selection then begin
+        //             NewRecordWithDetails("Planning Date", "No.", Description);
+        //             PlanningBuffer."Document Type" := PlanningBuffer."Document Type"::"Job Order";
+        //             PlanningBuffer."Document No." := "Job No.";
+        //             PlanningBuffer."Gross Requirement" := "Remaining Qty. (Base)";
+        //             PlanningBuffer.Insert;
+        //         end else begin
+        //             PlanningBuffer.SetRange("Item No.", "No.");
+        //             PlanningBuffer.SetRange(Date, "Planning Date");
+        //             if PlanningBuffer.Find('-') then begin
+        //                 PlanningBuffer."Gross Requirement" := PlanningBuffer."Gross Requirement" + "Remaining Qty. (Base)";
+        //                 PlanningBuffer.Modify;
+        //             end else begin
+        //                 NewRecordWithDetails("Planning Date", "No.", Description);
+        //                 PlanningBuffer."Gross Requirement" := "Remaining Qty. (Base)";
+        //                 PlanningBuffer.Insert;
+        //             end;
+        //         end;
+        //     end;
 
-            trigger OnPreDataItem()
-            begin
-                SetRange(Status, Status::Order);
-                SetRange(Type, "Service Line".Type::Item);
-            end;
-        }
+        //     trigger OnPreDataItem()
+        //     begin
+        //         SetRange(Status, Status::Order);
+        //         SetRange(Type, "Service Line".Type::Item);
+        //     end;
+        // }
         dataitem("Purchase Line"; "Purchase Line")
         {
             DataItemTableView = SORTING("Document Type", "Document No.", "Line No.");

@@ -101,7 +101,7 @@ table 99000880 "Order Promising Line"
             var
                 SalesLine: Record "Sales Line";
                 ServLine: Record "Service Line";
-                JobPlanningLine: Record "Job Planning Line";
+            //TODO JOBS: JobPlanningLine: Record "Job Planning Line";
             begin
                 case "Source Type" of
                     "Source Type"::Sales:
@@ -114,13 +114,14 @@ table 99000880 "Order Promising Line"
                             ServLine.Get("Source Subtype", "Source ID", "Source Line No.");
                             "Requested Shipment Date" := ServLine."Needed by Date";
                         end;
-                    "Source Type"::Job:
-                        begin
-                            JobPlanningLine.SetRange("Job No.", "Source ID");
-                            JobPlanningLine.SetRange("Job Contract Entry No.", "Source Line No.");
-                            JobPlanningLine.FindFirst;
-                            "Requested Shipment Date" := JobPlanningLine."Planning Date";
-                        end;
+                //TODO JOBS: 
+                // "Source Type"::Job:
+                //     begin
+                //         JobPlanningLine.SetRange("Job No.", "Source ID");
+                //         JobPlanningLine.SetRange("Job Contract Entry No.", "Source Line No.");
+                //         JobPlanningLine.FindFirst;
+                //         "Requested Shipment Date" := JobPlanningLine."Planning Date";
+                //     end;
                 end;
             end;
         }
@@ -246,26 +247,27 @@ table 99000880 "Order Promising Line"
         OnAfterTransferFromServLine(Rec, ServLine);
     end;
 
-    procedure TransferFromJobPlanningLine(var JobPlanningLine: Record "Job Planning Line")
-    begin
-        "Source Type" := "Source Type"::Job;
-        "Source Subtype" := JobPlanningLine.Status;
-        "Source ID" := JobPlanningLine."Job No.";
-        "Source Line No." := JobPlanningLine."Job Contract Entry No.";
+    //TODO JOBS: 
+    // procedure TransferFromJobPlanningLine(var JobPlanningLine: Record "Job Planning Line")
+    // begin
+    //     "Source Type" := "Source Type"::Job;
+    //     "Source Subtype" := JobPlanningLine.Status;
+    //     "Source ID" := JobPlanningLine."Job No.";
+    //     "Source Line No." := JobPlanningLine."Job Contract Entry No.";
 
-        "Item No." := JobPlanningLine."No.";
-        "Variant Code" := JobPlanningLine."Variant Code";
-        "Location Code" := JobPlanningLine."Location Code";
-        Validate("Requested Delivery Date", JobPlanningLine."Requested Delivery Date");
-        "Original Shipment Date" := JobPlanningLine."Planning Date";
-        Description := JobPlanningLine.Description;
-        Quantity := JobPlanningLine."Remaining Qty.";
-        "Unit of Measure Code" := JobPlanningLine."Unit of Measure Code";
-        "Qty. per Unit of Measure" := JobPlanningLine."Qty. per Unit of Measure";
-        "Quantity (Base)" := JobPlanningLine."Remaining Qty. (Base)";
+    //     "Item No." := JobPlanningLine."No.";
+    //     "Variant Code" := JobPlanningLine."Variant Code";
+    //     "Location Code" := JobPlanningLine."Location Code";
+    //     Validate("Requested Delivery Date", JobPlanningLine."Requested Delivery Date");
+    //     "Original Shipment Date" := JobPlanningLine."Planning Date";
+    //     Description := JobPlanningLine.Description;
+    //     Quantity := JobPlanningLine."Remaining Qty.";
+    //     "Unit of Measure Code" := JobPlanningLine."Unit of Measure Code";
+    //     "Qty. per Unit of Measure" := JobPlanningLine."Qty. per Unit of Measure";
+    //     "Quantity (Base)" := JobPlanningLine."Remaining Qty. (Base)";
 
-        OnAfterTransferFromJobPlanningLine(Rec, JobPlanningLine);
-    end;
+    //     OnAfterTransferFromJobPlanningLine(Rec, JobPlanningLine);
+    // end;
 
     local procedure CalcReqShipDate(SalesLine: Record "Sales Line"): Date
     begin
@@ -330,10 +332,10 @@ table 99000880 "Order Promising Line"
     local procedure OnAfterTransferFromServLine(var OrderPromisingLine: Record "Order Promising Line"; ServiceLine: Record "Service Line")
     begin
     end;
-
-    [IntegrationEvent(false, false)]
-    local procedure OnAfterTransferFromJobPlanningLine(var OrderPromisingLine: Record "Order Promising Line"; JobPlanningLine: Record "Job Planning Line")
-    begin
-    end;
+    //TODO JOBS: 
+    // [IntegrationEvent(false, false)]
+    // local procedure OnAfterTransferFromJobPlanningLine(var OrderPromisingLine: Record "Order Promising Line"; JobPlanningLine: Record "Job Planning Line")
+    // begin
+    // end;
 }
 
