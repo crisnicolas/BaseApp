@@ -76,30 +76,30 @@ report 594 "Get Item Ledger Entries"
                     end;
                 end;
             }
-            dataitem("Job Ledger Entry"; "Job Ledger Entry")
-            {
-                DataItemLink = "Country/Region Code" = FIELD(Code);
-                DataItemTableView = SORTING(Type, "Entry Type", "Country/Region Code", "Source Code", "Posting Date") WHERE(Type = CONST(Item), "Source Code" = FILTER(<> ''), "Entry Type" = CONST(Usage));
+            //TODO JOBS: // dataitem("Job Ledger Entry"; "Job Ledger Entry")
+            // {
+            //     DataItemLink = "Country/Region Code" = FIELD(Code);
+            //     DataItemTableView = SORTING(Type, "Entry Type", "Country/Region Code", "Source Code", "Posting Date") WHERE(Type = CONST(Item), "Source Code" = FILTER(<> ''), "Entry Type" = CONST(Usage));
 
-                trigger OnAfterGetRecord()
-                begin
-                    IntrastatJnlLine2.SetRange("Source Entry No.", "Entry No.");
-                    if IntrastatJnlLine2.FindFirst or (CompanyInfo."Country/Region Code" = "Country/Region Code") then
-                        CurrReport.Skip;
+            //     trigger OnAfterGetRecord()
+            //     begin
+            //         IntrastatJnlLine2.SetRange("Source Entry No.", "Entry No.");
+            //         if IntrastatJnlLine2.FindFirst or (CompanyInfo."Country/Region Code" = "Country/Region Code") then
+            //             CurrReport.Skip;
 
-                    if IsJobService("Job Ledger Entry") then
-                        CurrReport.Skip;
+            //         if IsJobService("Job Ledger Entry") then
+            //             CurrReport.Skip;
 
-                    InsertJobLedgerLine;
-                end;
+            //         InsertJobLedgerLine;
+            //     end;
 
-                trigger OnPreDataItem()
-                begin
-                    SetRange("Posting Date", StartDate, EndDate);
-                    IntrastatJnlLine2.SetCurrentKey("Source Type", "Source Entry No.");
-                    IntrastatJnlLine2.SetRange("Source Type", IntrastatJnlLine2."Source Type"::"Job Entry");
-                end;
-            }
+            //     trigger OnPreDataItem()
+            //     begin
+            //         SetRange("Posting Date", StartDate, EndDate);
+            //         IntrastatJnlLine2.SetCurrentKey("Source Type", "Source Entry No.");
+            //         IntrastatJnlLine2.SetRange("Source Type", IntrastatJnlLine2."Source Type"::"Job Entry");
+            //     end;
+            // }
         }
         dataitem("Value Entry"; "Value Entry")
         {
@@ -305,45 +305,45 @@ report 594 "Get Item Ledger Entries"
 
     local procedure InsertJobLedgerLine()
     begin
-        with IntrastatJnlLine do begin
-            Init;
-            "Line No." := "Line No." + 10000;
+        //TODO JOBS: // with IntrastatJnlLine do begin
+        //     Init;
+        //     "Line No." := "Line No." + 10000;
 
-            Date := "Job Ledger Entry"."Posting Date";
-            "Country/Region Code" := "Job Ledger Entry"."Country/Region Code";
-            "Transaction Type" := "Job Ledger Entry"."Transaction Type";
-            "Transport Method" := "Job Ledger Entry"."Transport Method";
-            Quantity := "Job Ledger Entry"."Quantity (Base)";
-            if Quantity > 0 then
-                Type := Type::Shipment
-            else
-                Type := Type::Receipt;
-            if IntrastatJnlBatch."Amounts in Add. Currency" then
-                Amount := "Job Ledger Entry"."Add.-Currency Line Amount"
-            else
-                Amount := "Job Ledger Entry"."Line Amount (LCY)";
-            "Source Entry No." := "Job Ledger Entry"."Entry No.";
-            "Document No." := "Job Ledger Entry"."Document No.";
-            "Item No." := "Job Ledger Entry"."No.";
-            "Entry/Exit Point" := "Job Ledger Entry"."Entry/Exit Point";
-            Area := "Job Ledger Entry".Area;
-            "Transaction Specification" := "Job Ledger Entry"."Transaction Specification";
-            "Shpt. Method Code" := "Job Ledger Entry"."Shpt. Method Code";
+        //     Date := "Job Ledger Entry"."Posting Date";
+        //     "Country/Region Code" := "Job Ledger Entry"."Country/Region Code";
+        //     "Transaction Type" := "Job Ledger Entry"."Transaction Type";
+        //     "Transport Method" := "Job Ledger Entry"."Transport Method";
+        //     Quantity := "Job Ledger Entry"."Quantity (Base)";
+        //     if Quantity > 0 then
+        //         Type := Type::Shipment
+        //     else
+        //         Type := Type::Receipt;
+        //     if IntrastatJnlBatch."Amounts in Add. Currency" then
+        //         Amount := "Job Ledger Entry"."Add.-Currency Line Amount"
+        //     else
+        //         Amount := "Job Ledger Entry"."Line Amount (LCY)";
+        //     "Source Entry No." := "Job Ledger Entry"."Entry No.";
+        //     "Document No." := "Job Ledger Entry"."Document No.";
+        //     "Item No." := "Job Ledger Entry"."No.";
+        //     "Entry/Exit Point" := "Job Ledger Entry"."Entry/Exit Point";
+        //     Area := "Job Ledger Entry".Area;
+        //     "Transaction Specification" := "Job Ledger Entry"."Transaction Specification";
+        //     "Shpt. Method Code" := "Job Ledger Entry"."Shpt. Method Code";
 
-            if IntrastatJnlBatch."Amounts in Add. Currency" then
-                Amount := Round(Abs(Amount), Currency."Amount Rounding Precision")
-            else
-                Amount := Round(Abs(Amount), GLSetup."Amount Rounding Precision");
+        //     if IntrastatJnlBatch."Amounts in Add. Currency" then
+        //         Amount := Round(Abs(Amount), Currency."Amount Rounding Precision")
+        //     else
+        //         Amount := Round(Abs(Amount), GLSetup."Amount Rounding Precision");
 
-            Validate("Item No.");
-            "Source Type" := "Source Type"::"Job Entry";
-            Validate(Quantity, Round(Abs(Quantity), 0.00001));
+        //     Validate("Item No.");
+        //     "Source Type" := "Source Type"::"Job Entry";
+        //     Validate(Quantity, Round(Abs(Quantity), 0.00001));
 
-            Validate("Cost Regulation %", IndirectCostPctReq);
+        //     Validate("Cost Regulation %", IndirectCostPctReq);
 
-            OnBeforeInsertJobLedgerLine(IntrastatJnlLine, "Job Ledger Entry");
-            Insert;
-        end;
+        //     OnBeforeInsertJobLedgerLine(IntrastatJnlLine, "Job Ledger Entry");
+        //     Insert;
+        // end;
     end;
 
     local procedure GetGLSetup()
@@ -688,20 +688,20 @@ report 594 "Get Item Ledger Entries"
         end;
     end;
 
-    local procedure IsJobService(JobLedgEntry: Record "Job Ledger Entry"): Boolean
-    var
-        Job: Record Job;
-        Customer: Record Customer;
-        VATPostingSetup: Record "VAT Posting Setup";
-    begin
-        if Job.Get(JobLedgEntry."Job No.") then
-            if Customer.Get(Job."Bill-to Customer No.") then;
-        if Item.Get(JobLedgEntry."No.") then
-            if VATPostingSetup.Get(Customer."VAT Bus. Posting Group", Item."VAT Prod. Posting Group") then
-                if VATPostingSetup."EU Service" then
-                    exit(true);
-        exit(false);
-    end;
+    //TODO JOBS: // local procedure IsJobService(JobLedgEntry: Record "Job Ledger Entry"): Boolean
+    // var
+    //     Job: Record Job;
+    //     Customer: Record Customer;
+    //     VATPostingSetup: Record "VAT Posting Setup";
+    // begin
+    //     if Job.Get(JobLedgEntry."Job No.") then
+    //         if Customer.Get(Job."Bill-to Customer No.") then;
+    //     if Item.Get(JobLedgEntry."No.") then
+    //         if VATPostingSetup.Get(Customer."VAT Bus. Posting Group", Item."VAT Prod. Posting Group") then
+    //             if VATPostingSetup."EU Service" then
+    //                 exit(true);
+    //     exit(false);
+    // end;
 
     local procedure IsServiceItem(ItemNo: Code[20]): Boolean
     var
@@ -770,10 +770,10 @@ report 594 "Get Item Ledger Entries"
     begin
     end;
 
-    [IntegrationEvent(false, false)]
-    local procedure OnBeforeInsertJobLedgerLine(var IntrastatJnlLine: Record "Intrastat Jnl. Line"; JobLedgerEntry: Record "Job Ledger Entry")
-    begin
-    end;
+    //TODO JOBS: // [IntegrationEvent(false, false)]
+    // local procedure OnBeforeInsertJobLedgerLine(var IntrastatJnlLine: Record "Intrastat Jnl. Line"; JobLedgerEntry: Record "Job Ledger Entry")
+    // begin
+    // end;
 
     [IntegrationEvent(false, false)]
     local procedure OnBeforeInsertValueEntryLine(var IntrastatJnlLine: Record "Intrastat Jnl. Line"; ItemLedgerEntry: Record "Item Ledger Entry")

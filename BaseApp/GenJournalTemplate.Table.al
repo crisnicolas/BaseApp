@@ -87,11 +87,11 @@ table 80 "Gen. Journal Template"
                             "Source Code" := SourceCodeSetup."IC General Journal";
                             "Page ID" := PAGE::"IC General Journal";
                         end;
-                    Type::Jobs:
-                        begin
-                            "Source Code" := SourceCodeSetup."Job G/L Journal";
-                            "Page ID" := PAGE::"Job G/L Journal";
-                        end;
+                //TODO JOBS: // Type::Jobs:
+                //     begin
+                //         "Source Code" := SourceCodeSetup."Job G/L Journal";
+                //         "Page ID" := PAGE::"Job G/L Journal";
+                //     end;
                 end;
 
                 if Recurring then

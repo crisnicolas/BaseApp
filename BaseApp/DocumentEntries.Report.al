@@ -1445,50 +1445,50 @@ report 35 "Document Entries"
                     SetFilter("Posting Date", PostingDateFilter);
                 end;
             }
-            dataitem("Job Ledger Entry"; "Job Ledger Entry")
-            {
-                DataItemTableView = SORTING("Document No.", "Posting Date");
-                column(PstDate_JobLedgEntry; Format("Posting Date"))
-                {
-                }
-                column(DocNo_JobLedgEntry; "Document No.")
-                {
-                    IncludeCaption = true;
-                }
-                column(Desc_JobLedgEntry; Description)
-                {
-                    IncludeCaption = true;
-                }
-                column(Qty_JobLedgEntry; Quantity)
-                {
-                    IncludeCaption = true;
-                }
-                column(UnitCostLCY_JobLedgEntry; "Unit Cost (LCY)")
-                {
-                    IncludeCaption = true;
-                }
-                column(UnitPriceLCY_JobLedgEntry; "Unit Price (LCY)")
-                {
-                    IncludeCaption = true;
-                }
-                column(EntryNo_JobLedgEntry; "Entry No.")
-                {
-                    IncludeCaption = true;
-                }
-                column(JobLedgEntryPostDtCaption; JobLedgEntryPostDtCaptionLbl)
-                {
-                }
+            // //TODO JOBS: dataitem("Job Ledger Entry"; "Job Ledger Entry")
+            // {
+            //     DataItemTableView = SORTING("Document No.", "Posting Date");
+            //     column(PstDate_JobLedgEntry; Format("Posting Date"))
+            //     {
+            //     }
+            //     column(DocNo_JobLedgEntry; "Document No.")
+            //     {
+            //         IncludeCaption = true;
+            //     }
+            //     column(Desc_JobLedgEntry; Description)
+            //     {
+            //         IncludeCaption = true;
+            //     }
+            //     column(Qty_JobLedgEntry; Quantity)
+            //     {
+            //         IncludeCaption = true;
+            //     }
+            //     column(UnitCostLCY_JobLedgEntry; "Unit Cost (LCY)")
+            //     {
+            //         IncludeCaption = true;
+            //     }
+            //     column(UnitPriceLCY_JobLedgEntry; "Unit Price (LCY)")
+            //     {
+            //         IncludeCaption = true;
+            //     }
+            //     column(EntryNo_JobLedgEntry; "Entry No.")
+            //     {
+            //         IncludeCaption = true;
+            //     }
+            //     column(JobLedgEntryPostDtCaption; JobLedgEntryPostDtCaptionLbl)
+            //     {
+            //     }
 
-                trigger OnPreDataItem()
-                begin
-                    if DocEntry."Table ID" <> DATABASE::"Job Ledger Entry" then
-                        CurrReport.Break;
+            //     trigger OnPreDataItem()
+            //     begin
+            //         if DocEntry."Table ID" <> DATABASE::"Job Ledger Entry" then
+            //             CurrReport.Break;
 
-                    SetCurrentKey("Document No.", "Posting Date");
-                    SetFilter("Document No.", DocNoFilter);
-                    SetFilter("Posting Date", PostingDateFilter);
-                end;
-            }
+            //         SetCurrentKey("Document No.", "Posting Date");
+            //         SetFilter("Document No.", DocNoFilter);
+            //         SetFilter("Posting Date", PostingDateFilter);
+            //     end;
+            // }
             dataitem("Bank Account Ledger Entry"; "Bank Account Ledger Entry")
             {
                 DataItemTableView = SORTING("Document No.", "Posting Date");

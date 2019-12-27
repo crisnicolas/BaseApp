@@ -28,7 +28,7 @@ page 1174 "Document Attachment Factbox"
                         Resource: Record Resource;
                         SalesHeader: Record "Sales Header";
                         PurchaseHeader: Record "Purchase Header";
-                        Job: Record Job;
+                        //TODO JOBS: Job: Record Job;
                         SalesCrMemoHeader: Record "Sales Cr.Memo Header";
                         SalesInvoiceHeader: Record "Sales Invoice Header";
                         PurchInvHeader: Record "Purch. Inv. Header";
@@ -73,12 +73,12 @@ page 1174 "Document Attachment Factbox"
                                     if Resource.Get("No.") then
                                         RecRef.GetTable(Resource);
                                 end;
-                            DATABASE::Job:
-                                begin
-                                    RecRef.Open(DATABASE::Job);
-                                    if Job.Get("No.") then
-                                        RecRef.GetTable(Job);
-                                end;
+                            //TODO JOBS: // DATABASE::Job:
+                            //     begin
+                            //         RecRef.Open(DATABASE::Job);
+                            //         if Job.Get("No.") then
+                            //             RecRef.GetTable(Job);
+                            //     end;
                             DATABASE::"Sales Header":
                                 begin
                                     RecRef.Open(DATABASE::"Sales Header");

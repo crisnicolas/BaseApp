@@ -186,15 +186,15 @@ table 61 "Electronic Document Format"
         CODEUNIT.Run(ElectronicDocumentFormat."Codeunit ID", SalesHeader);
     end;
 
-    procedure ValidateElectronicJobsDocument(Job: Record Job; ElectronicFormat: Code[20])
-    var
-        ElectronicDocumentFormat: Record "Electronic Document Format";
-    begin
-        if not ElectronicDocumentFormat.Get(ElectronicFormat, Usage::"Job Quote") then
-            exit; // no validation required
+    //TODO JOBS: // procedure ValidateElectronicJobsDocument(Job: Record Job; ElectronicFormat: Code[20])
+    // var
+    //     ElectronicDocumentFormat: Record "Electronic Document Format";
+    // begin
+    //     if not ElectronicDocumentFormat.Get(ElectronicFormat, Usage::"Job Quote") then
+    //         exit; // no validation required
 
-        CODEUNIT.Run(ElectronicDocumentFormat."Codeunit ID", Job);
-    end;
+    //     CODEUNIT.Run(ElectronicDocumentFormat."Codeunit ID", Job);
+    // end;
 
     procedure GetAttachmentFileName(DocumentNo: Code[20]; DocumentType: Text; Extension: Code[3]): Text[250]
     var
@@ -223,8 +223,8 @@ table 61 "Electronic Document Format"
                 GetDocumentUsageForSalesHeader(DocumentUsage, DocumentVariant);
             DATABASE::"Service Header":
                 GetDocumentUsageForServiceHeader(DocumentUsage, DocumentVariant);
-            DATABASE::Job:
-                DocumentUsage := Usage::"Job Quote";
+            //TODO JOBS: // DATABASE::Job:
+            //     DocumentUsage := Usage::"Job Quote";
             else
                 Error(UnSupportedTableTypeErr, DocumentRecordRef.Caption);
         end;
@@ -238,7 +238,7 @@ table 61 "Electronic Document Format"
         ServiceInvoiceHeader: Record "Service Invoice Header";
         ServiceCrMemoHeader: Record "Service Cr.Memo Header";
         ServiceHeader: Record "Service Header";
-        Job: Record Job;
+        //TODO JOBS: Job: Record Job;
         DocumentRecordRef: RecordRef;
     begin
         if DocumentVariant.IsRecord then
@@ -278,11 +278,11 @@ table 61 "Electronic Document Format"
                     SalesHeader := DocumentVariant;
                     exit(SalesHeader."No.");
                 end;
-            DATABASE::Job:
-                begin
-                    Job := DocumentVariant;
-                    exit(Job."No.");
-                end;
+            //TODO JOBS: // DATABASE::Job:
+            //     begin
+            //         Job := DocumentVariant;
+            //         exit(Job."No.");
+            //     end;
             else
                 Error(UnSupportedTableTypeErr, DocumentRecordRef.Caption);
         end;
@@ -350,8 +350,8 @@ table 61 "Electronic Document Format"
                 exit(Format(DummyServiceHeader."Document Type"::Invoice));
             DATABASE::"Service Cr.Memo Header":
                 exit(Format(DummyServiceHeader."Document Type"::"Credit Memo"));
-            DATABASE::Job:
-                exit(Format(DummyServiceHeader."Document Type"::Quote));
+            //TODO JOBS: // DATABASE::Job:
+            //     exit(Format(DummyServiceHeader."Document Type"::Quote));
             DATABASE::"Service Header":
                 begin
                     DummyServiceHeader := DocumentVariant;

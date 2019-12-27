@@ -26,8 +26,8 @@ codeunit 1173 "Document Attachment Mgmt"
             DATABASE::Item,
             DATABASE::Employee,
             DATABASE::"Fixed Asset",
-            DATABASE::Resource,
-            DATABASE::Job:
+            DATABASE::Resource:
+                //TODO JOBS: DATABASE::Job:
                 begin
                     FieldRef := RecRef.Field(1);
                     RecNo := FieldRef.Value;
@@ -769,14 +769,14 @@ codeunit 1173 "Document Attachment Mgmt"
         DeleteAttachedDocuments(RecRef);
     end;
 
-    [EventSubscriber(ObjectType::Table, 167, 'OnAfterDeleteEvent', '', false, false)]
-    local procedure DeleteAttachedDocumentsOnAfterDeleteJob(var Rec: Record Job; RunTrigger: Boolean)
-    var
-        RecRef: RecordRef;
-    begin
-        RecRef.GetTable(Rec);
-        DeleteAttachedDocuments(RecRef);
-    end;
+    //TODO JOBS: // [EventSubscriber(ObjectType::Table, 167, 'OnAfterDeleteEvent', '', false, false)]
+    // local procedure DeleteAttachedDocumentsOnAfterDeleteJob(var Rec: Record Job; RunTrigger: Boolean)
+    // var
+    //     RecRef: RecordRef;
+    // begin
+    //     RecRef.GetTable(Rec);
+    //     DeleteAttachedDocuments(RecRef);
+    // end;
 
     [EventSubscriber(ObjectType::Table, 5200, 'OnAfterDeleteEvent', '', false, false)]
     local procedure DeleteAttachedDocumentsOnAfterDeleteEmployee(var Rec: Record Employee; RunTrigger: Boolean)
@@ -874,18 +874,18 @@ codeunit 1173 "Document Attachment Mgmt"
         MoveAttachmentsWithinSameRecordType(MoveFromRecRef, MoveToRecRef);
     end;
 
-    [EventSubscriber(ObjectType::Table, 167, 'OnAfterRenameEvent', '', false, false)]
-    local procedure MoveAttachedDocumentsOnAfterRenameJob(var Rec: Record Job; var xRec: Record Job; RunTrigger: Boolean)
-    var
-        MoveFromRecRef: RecordRef;
-        MoveToRecRef: RecordRef;
-    begin
-        // Moves attached docs when an Job record is renamed [When No. is changed] from old to new rec
-        MoveFromRecRef.GetTable(xRec);
-        MoveToRecRef.GetTable(Rec);
+    //TODO JOBS: // [EventSubscriber(ObjectType::Table, 167, 'OnAfterRenameEvent', '', false, false)]
+    // local procedure MoveAttachedDocumentsOnAfterRenameJob(var Rec: Record Job; var xRec: Record Job; RunTrigger: Boolean)
+    // var
+    //     MoveFromRecRef: RecordRef;
+    //     MoveToRecRef: RecordRef;
+    // begin
+    //     // Moves attached docs when an Job record is renamed [When No. is changed] from old to new rec
+    //     MoveFromRecRef.GetTable(xRec);
+    //     MoveToRecRef.GetTable(Rec);
 
-        MoveAttachmentsWithinSameRecordType(MoveFromRecRef, MoveToRecRef);
-    end;
+    //     MoveAttachmentsWithinSameRecordType(MoveFromRecRef, MoveToRecRef);
+    // end;
 
     procedure IsDuplicateFile(TableID: Integer; DocumentNo: Code[20]; RecDocType: Option Quote,"Order",Invoice,"Credit Memo","Blanket Order","Return Order"; RecLineNo: Integer; FileName: Text; FileExtension: Text): Boolean
     var
@@ -1118,7 +1118,7 @@ codeunit 1173 "Document Attachment Mgmt"
         case MoveFromRecRef.Number of
             DATABASE::Customer,
             DATABASE::Vendor,
-            DATABASE::Job,
+            //TODO JOBS: DATABASE::Job,
             DATABASE::Employee,
             DATABASE::"Fixed Asset",
             DATABASE::Resource,

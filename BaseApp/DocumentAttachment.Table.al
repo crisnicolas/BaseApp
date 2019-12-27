@@ -257,8 +257,8 @@ table 1173 "Document Attachment"
             DATABASE::Item,
             DATABASE::Employee,
             DATABASE::"Fixed Asset",
-            DATABASE::Resource,
-            DATABASE::Job:
+            DATABASE::Resource:
+                //TODO JOBS: DATABASE::Job:
                 begin
                     FieldRef := RecRef.Field(1);
                     RecNo := FieldRef.Value;

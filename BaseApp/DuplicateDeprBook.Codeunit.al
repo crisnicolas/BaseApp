@@ -380,7 +380,7 @@ codeunit 5640 "Duplicate Depr. Book"
                     CreateDim(
                       DimMgt.TypeToTableID1("Account Type"), "Account No.",
                       DimMgt.TypeToTableID1("Bal. Account Type"), "Bal. Account No.",
-                      DATABASE::Job, "Job No.",
+                      167, '',//TODO JOBS: DATABASE::Job, "Job No.",
                       DATABASE::"Salesperson/Purchaser", "Salespers./Purch. Code",
                       DATABASE::Campaign, "Campaign No.");
                 "Line No." := GenJnlLine2."Line No." + 10000;
@@ -421,7 +421,7 @@ codeunit 5640 "Duplicate Depr. Book"
                     CreateDim(
                       DimMgt.TypeToTableID1("Account Type"), "Account No.",
                       DimMgt.TypeToTableID1("Bal. Account Type"), "Bal. Account No.",
-                      DATABASE::Job, "Job No.",
+                      167,'',//TODO JOBS: DATABASE::Job, "Job No.",
                       DATABASE::"Salesperson/Purchaser", "Salespers./Purch. Code",
                       DATABASE::Campaign, "Campaign No.");
                 "Line No." := GenJnlLine2."Line No." + 10000;

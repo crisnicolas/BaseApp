@@ -135,7 +135,7 @@ table 81 "Gen. Journal Line"
                 CreateDim(
                   DimMgt.TypeToTableID1("Account Type"), "Account No.",
                   DimMgt.TypeToTableID1("Bal. Account Type"), "Bal. Account No.",
-                  DATABASE::Job, "Job No.",
+                  167, '',//TODO JOBS: DATABASE::Job, "Job No.",
                   DATABASE::"Salesperson/Purchaser", "Salespers./Purch. Code",
                   DATABASE::Campaign, "Campaign No.");
 
@@ -323,7 +323,7 @@ table 81 "Gen. Journal Line"
                     CreateDim(
                       DimMgt.TypeToTableID1("Bal. Account Type"), "Bal. Account No.",
                       DimMgt.TypeToTableID1("Account Type"), "Account No.",
-                      DATABASE::Job, "Job No.",
+                      167, '',//TODO JOBS: DATABASE::Job, "Job No.",
                       DATABASE::"Salesperson/Purchaser", "Salespers./Purch. Code",
                       DATABASE::Campaign, "Campaign No.");
                     if not ("Account Type" in ["Account Type"::Customer, "Account Type"::Vendor]) then
@@ -366,7 +366,7 @@ table 81 "Gen. Journal Line"
                 CreateDim(
                   DimMgt.TypeToTableID1("Bal. Account Type"), "Bal. Account No.",
                   DimMgt.TypeToTableID1("Account Type"), "Account No.",
-                  DATABASE::Job, "Job No.",
+                  167, '',//TODO JOBS: DATABASE::Job, "Job No.",
                   DATABASE::"Salesperson/Purchaser", "Salespers./Purch. Code",
                   DATABASE::Campaign, "Campaign No.");
 
@@ -599,7 +599,7 @@ table 81 "Gen. Journal Line"
                   DATABASE::"Salesperson/Purchaser", "Salespers./Purch. Code",
                   DimMgt.TypeToTableID1("Account Type"), "Account No.",
                   DimMgt.TypeToTableID1("Bal. Account Type"), "Bal. Account No.",
-                  DATABASE::Job, "Job No.",
+                  167, '',//TODO JOBS: DATABASE::Job, "Job No.",
                   DATABASE::Campaign, "Campaign No.");
             end;
         }
@@ -784,7 +784,7 @@ table 81 "Gen. Journal Line"
         field(42; "Job No."; Code[20])
         {
             Caption = 'Job No.';
-            TableRelation = Job;
+            //TODO JOBS: TableRelation = Job;
 
             trigger OnValidate()
             begin
@@ -796,7 +796,7 @@ table 81 "Gen. Journal Line"
                     Validate("Job Task No.", '');
                 if "Job No." = '' then begin
                     CreateDim(
-                      DATABASE::Job, "Job No.",
+                      167, '',//TODO JOBS: DATABASE::Job, "Job No.",
                       DimMgt.TypeToTableID1("Account Type"), "Account No.",
                       DimMgt.TypeToTableID1("Bal. Account Type"), "Bal. Account No.",
                       DATABASE::"Salesperson/Purchaser", "Salespers./Purch. Code",
@@ -810,12 +810,12 @@ table 81 "Gen. Journal Line"
                     if not ("Bal. Account Type" in ["Bal. Account Type"::"G/L Account", "Bal. Account Type"::"Bank Account"]) then
                         Error(Text016, FieldCaption("Bal. Account Type"));
 
-                Job.Get("Job No.");
-                Job.TestBlocked;
-                "Job Currency Code" := Job."Currency Code";
+                //TODO JOBS: // Job.Get("Job No.");
+                // Job.TestBlocked;
+                // "Job Currency Code" := Job."Currency Code";
 
                 CreateDim(
-                  DATABASE::Job, "Job No.",
+                  167, '',//TODO JOBS: DATABASE::Job, "Job No.",
                   DimMgt.TypeToTableID1("Account Type"), "Account No.",
                   DimMgt.TypeToTableID1("Bal. Account Type"), "Bal. Account No.",
                   DATABASE::"Salesperson/Purchaser", "Salespers./Purch. Code",
@@ -2051,7 +2051,7 @@ table 81 "Gen. Journal Line"
         field(1001; "Job Task No."; Code[20])
         {
             Caption = 'Job Task No.';
-            TableRelation = "Job Task"."Job Task No." WHERE("Job No." = FIELD("Job No."));
+            //TODO JOBS: TableRelation = "Job Task"."Job Task No." WHERE("Job No." = FIELD("Job No."));
 
             trigger OnValidate()
             begin
@@ -2087,21 +2087,21 @@ table 81 "Gen. Journal Line"
         }
         field(1002; "Job Unit Price (LCY)"; Decimal)
         {
-            AccessByPermission = TableData Job = R;
+            //TODO JOBS: AccessByPermission = TableData Job = R;
             AutoFormatType = 2;
             Caption = 'Job Unit Price (LCY)';
             Editable = false;
         }
         field(1003; "Job Total Price (LCY)"; Decimal)
         {
-            AccessByPermission = TableData Job = R;
+            //TODO JOBS: AccessByPermission = TableData Job = R;
             AutoFormatType = 1;
             Caption = 'Job Total Price (LCY)';
             Editable = false;
         }
         field(1004; "Job Quantity"; Decimal)
         {
-            AccessByPermission = TableData Job = R;
+            //TODO JOBS: AccessByPermission = TableData Job = R;
             Caption = 'Job Quantity';
             DecimalPlaces = 0 : 5;
 
@@ -2117,14 +2117,14 @@ table 81 "Gen. Journal Line"
         }
         field(1005; "Job Unit Cost (LCY)"; Decimal)
         {
-            AccessByPermission = TableData Job = R;
+            //TODO JOBS: AccessByPermission = TableData Job = R;
             AutoFormatType = 2;
             Caption = 'Job Unit Cost (LCY)';
             Editable = false;
         }
         field(1006; "Job Line Discount %"; Decimal)
         {
-            AccessByPermission = TableData Job = R;
+            //TODO JOBS: AccessByPermission = TableData Job = R;
             AutoFormatType = 1;
             Caption = 'Job Line Discount %';
 
@@ -2132,7 +2132,7 @@ table 81 "Gen. Journal Line"
             begin
                 if JobTaskIsSet then begin
                     CreateTempJobJnlLine;
-                    TempJobJnlLine.Validate("Line Discount %", "Job Line Discount %");
+                    //TODO JOBS: TempJobJnlLine.Validate("Line Discount %", "Job Line Discount %");
                     UpdatePricesFromJobJnlLine;
                 end;
             end;
@@ -2147,7 +2147,7 @@ table 81 "Gen. Journal Line"
             begin
                 if JobTaskIsSet then begin
                     CreateTempJobJnlLine;
-                    TempJobJnlLine.Validate("Line Discount Amount (LCY)", "Job Line Disc. Amount (LCY)");
+                    //TODO JOBS: TempJobJnlLine.Validate("Line Discount Amount (LCY)", "Job Line Disc. Amount (LCY)");
                     UpdatePricesFromJobJnlLine;
                 end;
             end;
@@ -2159,7 +2159,7 @@ table 81 "Gen. Journal Line"
         }
         field(1009; "Job Line Type"; Option)
         {
-            AccessByPermission = TableData Job = R;
+            //TODO JOBS: AccessByPermission = TableData Job = R;
             Caption = 'Job Line Type';
             OptionCaption = ' ,Budget,Billable,Both Budget and Billable';
             OptionMembers = " ",Budget,Billable,"Both Budget and Billable";
@@ -2172,23 +2172,23 @@ table 81 "Gen. Journal Line"
         }
         field(1010; "Job Unit Price"; Decimal)
         {
-            AccessByPermission = TableData Job = R;
+            //TODO JOBS: AccessByPermission = TableData Job = R;
             AutoFormatExpression = "Job Currency Code";
             AutoFormatType = 2;
             Caption = 'Job Unit Price';
 
             trigger OnValidate()
             begin
-                if JobTaskIsSet then begin
-                    CreateTempJobJnlLine;
-                    TempJobJnlLine.Validate("Unit Price", "Job Unit Price");
-                    UpdatePricesFromJobJnlLine;
-                end;
+                //TODO JOBS: // if JobTaskIsSet then begin
+                //     CreateTempJobJnlLine;
+                //     TempJobJnlLine.Validate("Unit Price", "Job Unit Price");
+                //     UpdatePricesFromJobJnlLine;
+                // end;
             end;
         }
         field(1011; "Job Total Price"; Decimal)
         {
-            AccessByPermission = TableData Job = R;
+            //TODO JOBS: AccessByPermission = TableData Job = R;
             AutoFormatExpression = "Job Currency Code";
             AutoFormatType = 1;
             Caption = 'Job Total Price';
@@ -2196,7 +2196,7 @@ table 81 "Gen. Journal Line"
         }
         field(1012; "Job Unit Cost"; Decimal)
         {
-            AccessByPermission = TableData Job = R;
+            //TODO JOBS:  AccessByPermission = TableData Job = R;
             AutoFormatExpression = "Job Currency Code";
             AutoFormatType = 2;
             Caption = 'Job Unit Cost';
@@ -2204,7 +2204,7 @@ table 81 "Gen. Journal Line"
         }
         field(1013; "Job Total Cost"; Decimal)
         {
-            AccessByPermission = TableData Job = R;
+            //TODO JOBS:  AccessByPermission = TableData Job = R;
             AutoFormatExpression = "Job Currency Code";
             AutoFormatType = 1;
             Caption = 'Job Total Cost';
@@ -2212,7 +2212,7 @@ table 81 "Gen. Journal Line"
         }
         field(1014; "Job Line Discount Amount"; Decimal)
         {
-            AccessByPermission = TableData Job = R;
+            //TODO JOBS: AccessByPermission = TableData Job = R;
             AutoFormatExpression = "Job Currency Code";
             AutoFormatType = 1;
             Caption = 'Job Line Discount Amount';
@@ -2221,14 +2221,14 @@ table 81 "Gen. Journal Line"
             begin
                 if JobTaskIsSet then begin
                     CreateTempJobJnlLine;
-                    TempJobJnlLine.Validate("Line Discount Amount", "Job Line Discount Amount");
+                    //TODO JOBS: TempJobJnlLine.Validate("Line Discount Amount", "Job Line Discount Amount");
                     UpdatePricesFromJobJnlLine;
                 end;
             end;
         }
         field(1015; "Job Line Amount"; Decimal)
         {
-            AccessByPermission = TableData Job = R;
+            //TODO JOBS:  AccessByPermission = TableData Job = R;
             AutoFormatExpression = "Job Currency Code";
             AutoFormatType = 1;
             Caption = 'Job Line Amount';
@@ -2237,21 +2237,21 @@ table 81 "Gen. Journal Line"
             begin
                 if JobTaskIsSet then begin
                     CreateTempJobJnlLine;
-                    TempJobJnlLine.Validate("Line Amount", "Job Line Amount");
+                    //TODO JOBS:     TempJobJnlLine.Validate("Line Amount", "Job Line Amount");
                     UpdatePricesFromJobJnlLine;
                 end;
             end;
         }
         field(1016; "Job Total Cost (LCY)"; Decimal)
         {
-            AccessByPermission = TableData Job = R;
+            //TODO JOBS: AccessByPermission = TableData Job = R;
             AutoFormatType = 1;
             Caption = 'Job Total Cost (LCY)';
             Editable = false;
         }
         field(1017; "Job Line Amount (LCY)"; Decimal)
         {
-            AccessByPermission = TableData Job = R;
+            //TODO JOBS:  AccessByPermission = TableData Job = R;
             AutoFormatType = 1;
             Caption = 'Job Line Amount (LCY)';
             Editable = false;
@@ -2260,7 +2260,7 @@ table 81 "Gen. Journal Line"
             begin
                 if JobTaskIsSet then begin
                     CreateTempJobJnlLine;
-                    TempJobJnlLine.Validate("Line Amount (LCY)", "Job Line Amount (LCY)");
+                    //TODO JOBS:    TempJobJnlLine.Validate("Line Amount (LCY)", "Job Line Amount (LCY)");
                     UpdatePricesFromJobJnlLine;
                 end;
             end;
@@ -2284,67 +2284,67 @@ table 81 "Gen. Journal Line"
         }
         field(1020; "Job Planning Line No."; Integer)
         {
-            AccessByPermission = TableData Job = R;
+            //TODO JOBS:  AccessByPermission = TableData Job = R;
             BlankZero = true;
             Caption = 'Job Planning Line No.';
 
             trigger OnLookup()
             var
-                JobPlanningLine: Record "Job Planning Line";
+            //TODO JOBS: JobPlanningLine: Record "Job Planning Line";
             begin
-                JobPlanningLine.SetRange("Job No.", "Job No.");
-                JobPlanningLine.SetRange("Job Task No.", "Job Task No.");
-                JobPlanningLine.SetRange(Type, JobPlanningLine.Type::"G/L Account");
-                JobPlanningLine.SetRange("No.", "Account No.");
-                JobPlanningLine.SetRange("Usage Link", true);
-                JobPlanningLine.SetRange("System-Created Entry", false);
+                // JobPlanningLine.SetRange("Job No.", "Job No.");
+                // JobPlanningLine.SetRange("Job Task No.", "Job Task No.");
+                // JobPlanningLine.SetRange(Type, JobPlanningLine.Type::"G/L Account");
+                // JobPlanningLine.SetRange("No.", "Account No.");
+                // JobPlanningLine.SetRange("Usage Link", true);
+                // JobPlanningLine.SetRange("System-Created Entry", false);
 
-                if PAGE.RunModal(0, JobPlanningLine) = ACTION::LookupOK then
-                    Validate("Job Planning Line No.", JobPlanningLine."Line No.");
+                // if PAGE.RunModal(0, JobPlanningLine) = ACTION::LookupOK then
+                //     Validate("Job Planning Line No.", JobPlanningLine."Line No.");
             end;
 
             trigger OnValidate()
             var
-                JobPlanningLine: Record "Job Planning Line";
+            //TODO JOBS: JobPlanningLine: Record "Job Planning Line";
             begin
-                if "Job Planning Line No." <> 0 then begin
-                    JobPlanningLine.Get("Job No.", "Job Task No.", "Job Planning Line No.");
-                    JobPlanningLine.TestField("Job No.", "Job No.");
-                    JobPlanningLine.TestField("Job Task No.", "Job Task No.");
-                    JobPlanningLine.TestField(Type, JobPlanningLine.Type::"G/L Account");
-                    JobPlanningLine.TestField("No.", "Account No.");
-                    JobPlanningLine.TestField("Usage Link", true);
-                    JobPlanningLine.TestField("System-Created Entry", false);
-                    "Job Line Type" := JobPlanningLine."Line Type" + 1;
-                    Validate("Job Remaining Qty.", JobPlanningLine."Remaining Qty." - "Job Quantity");
-                end else
-                    Validate("Job Remaining Qty.", 0);
+                // if "Job Planning Line No." <> 0 then begin
+                //     JobPlanningLine.Get("Job No.", "Job Task No.", "Job Planning Line No.");
+                //     JobPlanningLine.TestField("Job No.", "Job No.");
+                //     JobPlanningLine.TestField("Job Task No.", "Job Task No.");
+                //     JobPlanningLine.TestField(Type, JobPlanningLine.Type::"G/L Account");
+                //     JobPlanningLine.TestField("No.", "Account No.");
+                //     JobPlanningLine.TestField("Usage Link", true);
+                //     JobPlanningLine.TestField("System-Created Entry", false);
+                //     "Job Line Type" := JobPlanningLine."Line Type" + 1;
+                //     Validate("Job Remaining Qty.", JobPlanningLine."Remaining Qty." - "Job Quantity");
+                // end else
+                //     Validate("Job Remaining Qty.", 0);
             end;
         }
         field(1030; "Job Remaining Qty."; Decimal)
         {
-            AccessByPermission = TableData Job = R;
+            //TODO JOBS: AccessByPermission = TableData Job = R;
             Caption = 'Job Remaining Qty.';
             DecimalPlaces = 0 : 5;
 
-            trigger OnValidate()
-            var
-                JobPlanningLine: Record "Job Planning Line";
-            begin
-                if ("Job Remaining Qty." <> 0) and ("Job Planning Line No." = 0) then
-                    Error(Text018, FieldCaption("Job Remaining Qty."), FieldCaption("Job Planning Line No."));
+            //TODO JOBS: // trigger OnValidate()
+            // var
+            //     JobPlanningLine: Record "Job Planning Line";
+            // begin
+            //     if ("Job Remaining Qty." <> 0) and ("Job Planning Line No." = 0) then
+            //         Error(Text018, FieldCaption("Job Remaining Qty."), FieldCaption("Job Planning Line No."));
 
-                if "Job Planning Line No." <> 0 then begin
-                    JobPlanningLine.Get("Job No.", "Job Task No.", "Job Planning Line No.");
-                    if JobPlanningLine.Quantity >= 0 then begin
-                        if "Job Remaining Qty." < 0 then
-                            "Job Remaining Qty." := 0;
-                    end else begin
-                        if "Job Remaining Qty." > 0 then
-                            "Job Remaining Qty." := 0;
-                    end;
-                end;
-            end;
+            //     if "Job Planning Line No." <> 0 then begin
+            //         JobPlanningLine.Get("Job No.", "Job Task No.", "Job Planning Line No.");
+            //         if JobPlanningLine.Quantity >= 0 then begin
+            //             if "Job Remaining Qty." < 0 then
+            //                 "Job Remaining Qty." := 0;
+            //         end else begin
+            //             if "Job Remaining Qty." > 0 then
+            //                 "Job Remaining Qty." := 0;
+            //         end;
+            //     end;
+            // end;
         }
         field(1200; "Direct Debit Mandate ID"; Code[35])
         {
@@ -2417,7 +2417,7 @@ table 81 "Gen. Journal Line"
                   DATABASE::Campaign, "Campaign No.",
                   DimMgt.TypeToTableID1("Account Type"), "Account No.",
                   DimMgt.TypeToTableID1("Bal. Account Type"), "Bal. Account No.",
-                  DATABASE::Job, "Job No.",
+                  167, '',//TODO JOBS: DATABASE::Job, "Job No.",
                   DATABASE::"Salesperson/Purchaser", "Salespers./Purch. Code");
             end;
         }
@@ -2814,9 +2814,9 @@ table 81 "Gen. Journal Line"
         GenBusPostingGrp: Record "Gen. Business Posting Group";
         GenProdPostingGrp: Record "Gen. Product Posting Group";
         GLSetup: Record "General Ledger Setup";
-        Job: Record Job;
+        //TODO JOBS:  Job: Record Job;
         SourceCodeSetup: Record "Source Code Setup";
-        TempJobJnlLine: Record "Job Journal Line" temporary;
+        //TODO JOBS:  TempJobJnlLine: Record "Job Journal Line" temporary;
         SalespersonPurchaser: Record "Salesperson/Purchaser";
         NoSeriesMgt: Codeunit NoSeriesManagement;
         CustCheckCreditLimit: Codeunit "Cust-Check Cr. Limit";
@@ -3984,78 +3984,78 @@ table 81 "Gen. Journal Line"
     var
         TmpJobJnlOverallCurrencyFactor: Decimal;
     begin
-        OnBeforeCreateTempJobJnlLine(TempJobJnlLine, Rec, xRec, CurrFieldNo);
+        //TODO JOBS: // OnBeforeCreateTempJobJnlLine(TempJobJnlLine, Rec, xRec, CurrFieldNo);
 
-        TestField("Posting Date");
-        Clear(TempJobJnlLine);
-        TempJobJnlLine.DontCheckStdCost;
-        TempJobJnlLine.Validate("Job No.", "Job No.");
-        TempJobJnlLine.Validate("Job Task No.", "Job Task No.");
-        if CurrFieldNo <> FieldNo("Posting Date") then
-            TempJobJnlLine.Validate("Posting Date", "Posting Date")
-        else
-            TempJobJnlLine.Validate("Posting Date", xRec."Posting Date");
-        TempJobJnlLine.Validate(Type, TempJobJnlLine.Type::"G/L Account");
-        if "Job Currency Code" <> '' then begin
-            if "Posting Date" = 0D then
-                CurrencyDate := WorkDate
-            else
-                CurrencyDate := "Posting Date";
+        // TestField("Posting Date");
+        // Clear(TempJobJnlLine);
+        // TempJobJnlLine.DontCheckStdCost;
+        // TempJobJnlLine.Validate("Job No.", "Job No.");
+        // TempJobJnlLine.Validate("Job Task No.", "Job Task No.");
+        // if CurrFieldNo <> FieldNo("Posting Date") then
+        //     TempJobJnlLine.Validate("Posting Date", "Posting Date")
+        // else
+        //     TempJobJnlLine.Validate("Posting Date", xRec."Posting Date");
+        // TempJobJnlLine.Validate(Type, TempJobJnlLine.Type::"G/L Account");
+        // if "Job Currency Code" <> '' then begin
+        //     if "Posting Date" = 0D then
+        //         CurrencyDate := WorkDate
+        //     else
+        //         CurrencyDate := "Posting Date";
 
-            if "Currency Code" = "Job Currency Code" then
-                "Job Currency Factor" := "Currency Factor"
-            else
-                "Job Currency Factor" := CurrExchRate.ExchangeRate(CurrencyDate, "Job Currency Code");
-            TempJobJnlLine.SetCurrencyFactor("Job Currency Factor");
-        end;
-        TempJobJnlLine.Validate("No.", "Account No.");
-        TempJobJnlLine.Validate(Quantity, "Job Quantity");
+        //     if "Currency Code" = "Job Currency Code" then
+        //         "Job Currency Factor" := "Currency Factor"
+        //     else
+        //         "Job Currency Factor" := CurrExchRate.ExchangeRate(CurrencyDate, "Job Currency Code");
+        //     TempJobJnlLine.SetCurrencyFactor("Job Currency Factor");
+        // end;
+        // TempJobJnlLine.Validate("No.", "Account No.");
+        // TempJobJnlLine.Validate(Quantity, "Job Quantity");
 
-        if "Currency Factor" = 0 then begin
-            if "Job Currency Factor" = 0 then
-                TmpJobJnlOverallCurrencyFactor := 1
-            else
-                TmpJobJnlOverallCurrencyFactor := "Job Currency Factor";
-        end else begin
-            if "Job Currency Factor" = 0 then
-                TmpJobJnlOverallCurrencyFactor := 1 / "Currency Factor"
-            else
-                TmpJobJnlOverallCurrencyFactor := "Job Currency Factor" / "Currency Factor"
-        end;
+        // if "Currency Factor" = 0 then begin
+        //     if "Job Currency Factor" = 0 then
+        //         TmpJobJnlOverallCurrencyFactor := 1
+        //     else
+        //         TmpJobJnlOverallCurrencyFactor := "Job Currency Factor";
+        // end else begin
+        //     if "Job Currency Factor" = 0 then
+        //         TmpJobJnlOverallCurrencyFactor := 1 / "Currency Factor"
+        //     else
+        //         TmpJobJnlOverallCurrencyFactor := "Job Currency Factor" / "Currency Factor"
+        // end;
 
-        if "Job Quantity" <> 0 then
-            TempJobJnlLine.Validate("Unit Cost", ((Amount - "VAT Amount") * TmpJobJnlOverallCurrencyFactor) / "Job Quantity");
+        // if "Job Quantity" <> 0 then
+        //     TempJobJnlLine.Validate("Unit Cost", ((Amount - "VAT Amount") * TmpJobJnlOverallCurrencyFactor) / "Job Quantity");
 
-        if (xRec."Account No." = "Account No.") and (xRec."Job Task No." = "Job Task No.") and ("Job Unit Price" <> 0) then begin
-            if TempJobJnlLine."Cost Factor" = 0 then
-                TempJobJnlLine."Unit Price" := xRec."Job Unit Price";
-            TempJobJnlLine."Line Amount" := xRec."Job Line Amount";
-            TempJobJnlLine."Line Discount %" := xRec."Job Line Discount %";
-            TempJobJnlLine."Line Discount Amount" := xRec."Job Line Discount Amount";
-            TempJobJnlLine.Validate("Unit Price");
-        end;
+        // if (xRec."Account No." = "Account No.") and (xRec."Job Task No." = "Job Task No.") and ("Job Unit Price" <> 0) then begin
+        //     if TempJobJnlLine."Cost Factor" = 0 then
+        //         TempJobJnlLine."Unit Price" := xRec."Job Unit Price";
+        //     TempJobJnlLine."Line Amount" := xRec."Job Line Amount";
+        //     TempJobJnlLine."Line Discount %" := xRec."Job Line Discount %";
+        //     TempJobJnlLine."Line Discount Amount" := xRec."Job Line Discount Amount";
+        //     TempJobJnlLine.Validate("Unit Price");
+        // end;
 
-        OnAfterCreateTempJobJnlLine(TempJobJnlLine, Rec, xRec, CurrFieldNo);
+        // OnAfterCreateTempJobJnlLine(TempJobJnlLine, Rec, xRec, CurrFieldNo);
     end;
 
     procedure UpdatePricesFromJobJnlLine()
     begin
-        "Job Unit Price" := TempJobJnlLine."Unit Price";
-        "Job Total Price" := TempJobJnlLine."Total Price";
-        "Job Line Amount" := TempJobJnlLine."Line Amount";
-        "Job Line Discount Amount" := TempJobJnlLine."Line Discount Amount";
-        "Job Unit Cost" := TempJobJnlLine."Unit Cost";
-        "Job Total Cost" := TempJobJnlLine."Total Cost";
-        "Job Line Discount %" := TempJobJnlLine."Line Discount %";
+        //TODO JOBS:   // "Job Unit Price" := TempJobJnlLine."Unit Price";
+        // "Job Total Price" := TempJobJnlLine."Total Price";
+        // "Job Line Amount" := TempJobJnlLine."Line Amount";
+        // "Job Line Discount Amount" := TempJobJnlLine."Line Discount Amount";
+        // "Job Unit Cost" := TempJobJnlLine."Unit Cost";
+        // "Job Total Cost" := TempJobJnlLine."Total Cost";
+        // "Job Line Discount %" := TempJobJnlLine."Line Discount %";
 
-        "Job Unit Price (LCY)" := TempJobJnlLine."Unit Price (LCY)";
-        "Job Total Price (LCY)" := TempJobJnlLine."Total Price (LCY)";
-        "Job Line Amount (LCY)" := TempJobJnlLine."Line Amount (LCY)";
-        "Job Line Disc. Amount (LCY)" := TempJobJnlLine."Line Discount Amount (LCY)";
-        "Job Unit Cost (LCY)" := TempJobJnlLine."Unit Cost (LCY)";
-        "Job Total Cost (LCY)" := TempJobJnlLine."Total Cost (LCY)";
+        // "Job Unit Price (LCY)" := TempJobJnlLine."Unit Price (LCY)";
+        // "Job Total Price (LCY)" := TempJobJnlLine."Total Price (LCY)";
+        // "Job Line Amount (LCY)" := TempJobJnlLine."Line Amount (LCY)";
+        // "Job Line Disc. Amount (LCY)" := TempJobJnlLine."Line Discount Amount (LCY)";
+        // "Job Unit Cost (LCY)" := TempJobJnlLine."Unit Cost (LCY)";
+        // "Job Total Cost (LCY)" := TempJobJnlLine."Total Cost (LCY)";
 
-        OnAfterUpdatePricesFromJobJnlLine(Rec, TempJobJnlLine);
+        // OnAfterUpdatePricesFromJobJnlLine(Rec, TempJobJnlLine);
     end;
 
     procedure SetHideValidation(NewHideValidationDialog: Boolean)
@@ -4686,7 +4686,7 @@ table 81 "Gen. Journal Line"
         CreateDim(
           DimMgt.TypeToTableID1("Account Type"), "Account No.",
           DimMgt.TypeToTableID1("Bal. Account Type"), "Bal. Account No.",
-          DATABASE::Job, "Job No.",
+          167, '',//TODO JOBS: DATABASE::Job, "Job No.",
           DATABASE::"Salesperson/Purchaser", "Salespers./Purch. Code",
           DATABASE::Campaign, "Campaign No.");
         if not ("Bal. Account Type" in ["Bal. Account Type"::Customer, "Bal. Account Type"::Vendor]) then
@@ -4913,9 +4913,9 @@ table 81 "Gen. Journal Line"
 
     local procedure CopyDimensionsFromJobTaskLine()
     begin
-        "Dimension Set ID" := TempJobJnlLine."Dimension Set ID";
-        "Shortcut Dimension 1 Code" := TempJobJnlLine."Shortcut Dimension 1 Code";
-        "Shortcut Dimension 2 Code" := TempJobJnlLine."Shortcut Dimension 2 Code";
+        //TODO JOBS: // "Dimension Set ID" := TempJobJnlLine."Dimension Set ID";
+        // "Shortcut Dimension 1 Code" := TempJobJnlLine."Shortcut Dimension 1 Code";
+        // "Shortcut Dimension 2 Code" := TempJobJnlLine."Shortcut Dimension 2 Code";
     end;
 
     procedure CopyDocumentFields(DocType: Option; DocNo: Code[20]; ExtDocNo: Text[35]; SourceCode: Code[10]; NoSeriesCode: Code[20])
@@ -6399,20 +6399,20 @@ table 81 "Gen. Journal Line"
     begin
     end;
 
-    [IntegrationEvent(false, false)]
-    local procedure OnAfterCreateTempJobJnlLine(var JobJournalLine: Record "Job Journal Line"; GenJournalLine: Record "Gen. Journal Line"; xGenJournalLine: Record "Gen. Journal Line"; CurrFieldNo: Integer)
-    begin
-    end;
+    //TODO JOBS: // [IntegrationEvent(false, false)]
+    // local procedure OnAfterCreateTempJobJnlLine(var JobJournalLine: Record "Job Journal Line"; GenJournalLine: Record "Gen. Journal Line"; xGenJournalLine: Record "Gen. Journal Line"; CurrFieldNo: Integer)
+    // begin
+    // end;
 
-    [IntegrationEvent(false, false)]
-    local procedure OnBeforeCreateTempJobJnlLine(var JobJournalLine: Record "Job Journal Line"; GenJournalLine: Record "Gen. Journal Line"; xGenJournalLine: Record "Gen. Journal Line"; CurrFieldNo: Integer)
-    begin
-    end;
+    // [IntegrationEvent(false, false)]
+    // local procedure OnBeforeCreateTempJobJnlLine(var JobJournalLine: Record "Job Journal Line"; GenJournalLine: Record "Gen. Journal Line"; xGenJournalLine: Record "Gen. Journal Line"; CurrFieldNo: Integer)
+    // begin
+    // end;
 
-    [IntegrationEvent(false, false)]
-    local procedure OnAfterUpdatePricesFromJobJnlLine(var GenJournalLine: Record "Gen. Journal Line"; JobJournalLine: Record "Job Journal Line")
-    begin
-    end;
+    // [IntegrationEvent(false, false)]
+    // local procedure OnAfterUpdatePricesFromJobJnlLine(var GenJournalLine: Record "Gen. Journal Line"; JobJournalLine: Record "Job Journal Line")
+    // begin
+    // end;
 
     [IntegrationEvent(false, false)]
     local procedure OnAfterCreateDimTableIDs(var GenJournalLine: Record "Gen. Journal Line"; CallingFieldNo: Integer; var TableID: array[10] of Integer; var No: array[10] of Code[20])

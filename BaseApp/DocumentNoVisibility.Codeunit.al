@@ -1,4 +1,4 @@
-codeunit 1400 DocumentNoVisibility
+codeunit 1400 "DocumentNoVisibility"
 {
 
     trigger OnRun()
@@ -447,12 +447,12 @@ codeunit 1400 DocumentNoVisibility
 
     local procedure DetermineJobSeriesNo(): Code[20]
     var
-        JobsSetup: Record "Jobs Setup";
-        Job: Record Job;
+    //TODO JOBS: JobsSetup: Record "Jobs Setup";
+    //TODO JOBS: Job: Record Job;
     begin
-        JobsSetup.Get;
-        CheckNumberSeries(Job, JobsSetup."Job Nos.", Job.FieldNo("No."));
-        exit(JobsSetup."Job Nos.");
+        // JobsSetup.Get;
+        // CheckNumberSeries(Job, JobsSetup."Job Nos.", Job.FieldNo("No."));
+        // exit(JobsSetup."Job Nos.");
     end;
 
     local procedure DetermineContactSeriesNo(): Code[20]

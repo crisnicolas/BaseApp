@@ -14,9 +14,9 @@ codeunit 5520 "Get Unplanned Demand"
           Status, '%1|%2|%3', ProdOrderComp.Status::Planned, ProdOrderComp.Status::"Firm Planned", ProdOrderComp.Status::Released);
         ServLine.SetRange("Document Type", ServLine."Document Type"::Order);
         AsmLine.SetRange("Document Type", AsmLine."Document Type"::Order);
-        JobPlanningLine.SetRange(Status, JobPlanningLine.Status::Order);
+        //TODO JOBS:  JobPlanningLine.SetRange(Status, JobPlanningLine.Status::Order);
 
-        OpenWindow(Text000, SalesLine.Count + ProdOrderComp.Count + ServLine.Count + JobPlanningLine.Count);
+        //TODO JOBS:  OpenWindow(Text000, SalesLine.Count + ProdOrderComp.Count + ServLine.Count + JobPlanningLine.Count);
         GetUnplannedSalesLine(Rec);
         GetUnplannedProdOrderComp(Rec);
         GetUnplannedAsmLine(Rec);
@@ -37,7 +37,7 @@ codeunit 5520 "Get Unplanned Demand"
         ProdOrderComp: Record "Prod. Order Component";
         Text000: Label 'Determining Unplanned Orders @1@@@@@@@';
         ServLine: Record "Service Line";
-        JobPlanningLine: Record "Job Planning Line";
+        //TODO JOBS:  JobPlanningLine: Record "Job Planning Line";
         AsmLine: Record "Assembly Line";
         Window: Dialog;
         WindowUpdateDateTime: DateTime;
@@ -137,24 +137,24 @@ codeunit 5520 "Get Unplanned Demand"
 
     local procedure GetUnplannedJobPlanningLine(var UnplannedDemand: Record "Unplanned Demand")
     var
-        Job: Record Job;
+    //TODO JOBS:    Job: Record Job;
     begin
-        with UnplannedDemand do
-            if JobPlanningLine.Find('-') then
-                repeat
-                    UpdateWindow;
-                    DemandQtyBase := GetJobPlanningLineNeededQty(JobPlanningLine);
-                    if DemandQtyBase > 0 then begin
-                        if not ((JobPlanningLine.Status = "Demand SubType") and
-                                (JobPlanningLine."Job No." = "Demand Order No."))
-                        then begin
-                            Job.Get(JobPlanningLine."Job No.");
-                            InsertUnplannedDemand(
-                              UnplannedDemand, "Demand Type"::Job, JobPlanningLine.Status, JobPlanningLine."Job No.", Job.Status);
-                        end;
-                        InsertJobPlanningLine(UnplannedDemand);
-                    end;
-                until JobPlanningLine.Next = 0;
+        // with UnplannedDemand do
+        //     if JobPlanningLine.Find('-') then
+        //         repeat
+        //             UpdateWindow;
+        //             DemandQtyBase := GetJobPlanningLineNeededQty(JobPlanningLine);
+        //             if DemandQtyBase > 0 then begin
+        //                 if not ((JobPlanningLine.Status = "Demand SubType") and
+        //                         (JobPlanningLine."Job No." = "Demand Order No."))
+        //                 then begin
+        //                     Job.Get(JobPlanningLine."Job No.");
+        //                     InsertUnplannedDemand(
+        //                       UnplannedDemand, "Demand Type"::Job, JobPlanningLine.Status, JobPlanningLine."Job No.", Job.Status);
+        //                 end;
+        //                 InsertJobPlanningLine(UnplannedDemand);
+        //             end;
+        //         until JobPlanningLine.Next = 0;
     end;
 
     local procedure GetSalesLineNeededQty(SalesLine: Record "Sales Line"): Decimal
@@ -202,16 +202,16 @@ codeunit 5520 "Get Unplanned Demand"
         end;
     end;
 
-    local procedure GetJobPlanningLineNeededQty(JobPlanningLine: Record "Job Planning Line"): Decimal
-    begin
-        with JobPlanningLine do begin
-            if Planned or ("No." = '') or (Type <> Type::Item) or IsNonInventoriableItem then
-                exit(0);
+    //TODO JOBS: // local procedure GetJobPlanningLineNeededQty(JobPlanningLine: Record "Job Planning Line"): Decimal
+    // begin
+    //     with JobPlanningLine do begin
+    //         if Planned or ("No." = '') or (Type <> Type::Item) or IsNonInventoriableItem then
+    //             exit(0);
 
-            CalcFields("Reserved Qty. (Base)");
-            exit("Remaining Qty. (Base)" - "Reserved Qty. (Base)");
-        end;
-    end;
+    //         CalcFields("Reserved Qty. (Base)");
+    //         exit("Remaining Qty. (Base)" - "Reserved Qty. (Base)");
+    //     end;
+    // end;
 
     local procedure InsertSalesLine(var UnplannedDemand: Record "Unplanned Demand")
     var
@@ -288,16 +288,16 @@ codeunit 5520 "Get Unplanned Demand"
     var
         UnplannedDemand2: Record "Unplanned Demand";
     begin
-        with UnplannedDemand do begin
-            UnplannedDemand2.Copy(UnplannedDemand);
-            InitRecord(
-              JobPlanningLine."Job Contract Entry No.", 0, JobPlanningLine."No.", JobPlanningLine.Description, JobPlanningLine."Variant Code",
-              JobPlanningLine."Location Code", JobPlanningLine."Bin Code", JobPlanningLine."Unit of Measure Code",
-              JobPlanningLine."Qty. per Unit of Measure", DemandQtyBase, JobPlanningLine."Planning Date");
-            Reserve := JobPlanningLine.Reserve = JobPlanningLine.Reserve::Always;
-            Insert;
-            Copy(UnplannedDemand2);
-        end;
+        //TODO JOBS: // with UnplannedDemand do begin
+        //     UnplannedDemand2.Copy(UnplannedDemand);
+        //     InitRecord(
+        //       JobPlanningLine."Job Contract Entry No.", 0, JobPlanningLine."No.", JobPlanningLine.Description, JobPlanningLine."Variant Code",
+        //       JobPlanningLine."Location Code", JobPlanningLine."Bin Code", JobPlanningLine."Unit of Measure Code",
+        //       JobPlanningLine."Qty. per Unit of Measure", DemandQtyBase, JobPlanningLine."Planning Date");
+        //     Reserve := JobPlanningLine.Reserve = JobPlanningLine.Reserve::Always;
+        //     Insert;
+        //     Copy(UnplannedDemand2);
+        //end;
     end;
 
     local procedure InsertUnplannedDemand(var UnplannedDemand: Record "Unplanned Demand"; DemandType: Integer; DemandSubtype: Integer; DemandOrderNo: Code[20]; DemandStatus: Integer)

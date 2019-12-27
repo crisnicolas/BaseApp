@@ -1253,12 +1253,12 @@ codeunit 12 "Gen. Jnl.-Post Line"
 
     local procedure PostJob(GenJnlLine: Record "Gen. Journal Line"; GLEntry: Record "G/L Entry")
     var
-        JobPostLine: Codeunit "Job Post-Line";
+    //TODO JOBS: JobPostLine: Codeunit "Job Post-Line";
     begin
-        if JobLine then begin
-            JobLine := false;
-            JobPostLine.PostGenJnlLine(GenJnlLine, GLEntry);
-        end;
+        // if JobLine then begin
+        //     JobLine := false;
+        //     JobPostLine.PostGenJnlLine(GenJnlLine, GLEntry);
+        // end;
     end;
 
     procedure StartPosting(GenJnlLine: Record "Gen. Journal Line")

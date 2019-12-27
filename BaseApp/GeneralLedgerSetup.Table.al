@@ -687,7 +687,7 @@ table 98 "General Ledger Setup"
         Dim: Record Dimension;
         GLEntry: Record "G/L Entry";
         ItemLedgerEntry: Record "Item Ledger Entry";
-        JobLedgEntry: Record "Job Ledger Entry";
+        //TODO JOBS: JobLedgEntry: Record "Job Ledger Entry";
         ResLedgEntry: Record "Res. Ledger Entry";
         FALedgerEntry: Record "FA Ledger Entry";
         MaintenanceLedgerEntry: Record "Maintenance Ledger Entry";
@@ -786,8 +786,8 @@ table 98 "General Ledger Setup"
             ErrorMessage := true;
         if ItemLedgerEntry.FindFirst then
             ErrorMessage := true;
-        if JobLedgEntry.FindFirst then
-            ErrorMessage := true;
+        //TODO JOBS: // if JobLedgEntry.FindFirst then
+        //     ErrorMessage := true;
         if ResLedgEntry.FindFirst then
             ErrorMessage := true;
         if FALedgerEntry.FindFirst then

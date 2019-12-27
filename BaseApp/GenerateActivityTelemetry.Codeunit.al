@@ -27,7 +27,7 @@ codeunit 1354 "Generate Activity Telemetry"
         FixedAsset: Record "Fixed Asset";
         Employee: Record Employee;
         Resource: Record Resource;
-        Job: Record Job;
+        //TODO JOBS:  Job: Record Job;
         ServiceItem: Record "Service Item";
         ProductionOrder: Record "Production Order";
         MachineCenter: Record "Machine Center";
@@ -36,7 +36,7 @@ codeunit 1354 "Generate Activity Telemetry"
         GLRegister: Record "G/L Register";
         ItemRegister: Record "Item Register";
         ResourceRegister: Record "Resource Register";
-        JobRegister: Record "Job Register";
+        //TODO JOBS:  JobRegister: Record "Job Register";
         CostRegister: Record "Cost Register";
         CreditTransferRegister: Record "Credit Transfer Register";
         DataMigratorRegistration: Record "Data Migrator Registration";
@@ -69,7 +69,7 @@ codeunit 1354 "Generate Activity Telemetry"
         EmitTelemetryOnRecordCount(FixedAsset.TableName, '000086B');
         EmitTelemetryOnRecordCount(Employee.TableName, '000086C');
         EmitTelemetryOnRecordCount(Resource.TableName, '000086D');
-        EmitTelemetryOnRecordCount(Job.TableName, '000086E');
+        //TODO JOBS: EmitTelemetryOnRecordCount(Job.TableName, '000086E');
         EmitTelemetryOnRecordCount(ServiceItem.TableName, '000086F');
         EmitTelemetryOnRecordCount(ProductionOrder.TableName, '000086G');
         EmitTelemetryOnRecordCount(MachineCenter.TableName, '000086H');
@@ -79,7 +79,7 @@ codeunit 1354 "Generate Activity Telemetry"
         EmitTelemetryOnRecordCount(GLRegister.TableName, '000086K');
         EmitTelemetryOnRecordCount(ItemRegister.TableName, '000086L');
         EmitTelemetryOnRecordCount(ResourceRegister.TableName, '000086M');
-        EmitTelemetryOnRecordCount(JobRegister.TableName, '000086N');
+        //TODO JOBS: EmitTelemetryOnRecordCount(JobRegister.TableName, '000086N');
         EmitTelemetryOnRecordCount(CostRegister.TableName, '000086O');
         EmitTelemetryOnRecordCount(CreditTransferRegister.TableName, '000086P');
         EmitTelemetryOnRecordCount(DataMigratorRegistration.TableName, '000086Q');

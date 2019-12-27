@@ -19,12 +19,12 @@ table 5510 "Employee Time Reg Buffer"
         field(6; "Job No."; Code[20])
         {
             DataClassification = SystemMetadata;
-            TableRelation = "Job";
+            //TODO JOBS: TableRelation = "Job";
         }
         field(7; "Job Task No."; Code[20])
         {
             DataClassification = SystemMetadata;
-            TableRelation = "Job Task"."Job Task No." where("Job No." = field("Job No."));
+            //TODO JOBS: TableRelation = "Job Task"."Job Task No." where("Job No." = field("Job No."));
         }
         field(9; "Cause of Absence Code"; Code[10])
         {

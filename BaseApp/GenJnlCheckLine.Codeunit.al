@@ -556,8 +556,8 @@ codeunit 11 "Gen. Jnl.-Check Line"
             No[1] := "Account No.";
             TableID[2] := DimMgt.TypeToTableID1("Bal. Account Type");
             No[2] := "Bal. Account No.";
-            TableID[3] := DATABASE::Job;
-            No[3] := "Job No.";
+            //TODO JOBS: // TableID[3] := DATABASE::Job;
+            // No[3] := "Job No.";
             TableID[4] := DATABASE::"Salesperson/Purchaser";
             No[4] := "Salespers./Purch. Code";
             TableID[5] := DATABASE::Campaign;

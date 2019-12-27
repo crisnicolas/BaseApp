@@ -62,7 +62,7 @@ table 431 "Handled IC Outbox Sales Line"
         }
         field(45; "Job No."; Code[20])
         {
-            AccessByPermission = TableData Job = R;
+            //TODO JOBS: AccessByPermission = TableData Job = R;
             Caption = 'Job No.';
             Editable = false;
         }

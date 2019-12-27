@@ -105,7 +105,7 @@ table 17 "G/L Entry"
         field(41; "Job No."; Code[20])
         {
             Caption = 'Job No.';
-            TableRelation = Job;
+            //TODO JOBS:  TableRelation = Job;
         }
         field(42; Quantity; Decimal)
         {
