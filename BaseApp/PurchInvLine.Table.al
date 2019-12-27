@@ -167,7 +167,7 @@ table 123 "Purch. Inv. Line"
         field(45; "Job No."; Code[20])
         {
             Caption = 'Job No.';
-            TableRelation = Job;
+            //TODO JOBS:  TableRelation = Job;
         }
         field(54; "Indirect Cost %"; Decimal)
         {
@@ -379,7 +379,7 @@ table 123 "Purch. Inv. Line"
         field(1001; "Job Task No."; Code[20])
         {
             Caption = 'Job Task No.';
-            TableRelation = "Job Task"."Job Task No." WHERE("Job No." = FIELD("Job No."));
+           //TODO JOBS:  TableRelation = "Job Task"."Job Task No." WHERE("Job No." = FIELD("Job No."));
         }
         field(1002; "Job Line Type"; Option)
         {

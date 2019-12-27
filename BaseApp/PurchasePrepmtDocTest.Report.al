@@ -685,8 +685,8 @@ report 412 "Purchase Prepmt. Doc. - Test"
                             AddError(DimMgt.GetDimCombErr);
                         TableID[1] := DimMgt.TypeToTableID3("Purchase Line".Type::"G/L Account");
                         No[1] := "Prepayment Inv. Line Buffer"."G/L Account No.";
-                        TableID[2] := DATABASE::Job;
-                        No[2] := "Prepayment Inv. Line Buffer"."Job No.";
+                        //TODO JOBS: // TableID[2] := DATABASE::Job;
+                        // No[2] := "Prepayment Inv. Line Buffer"."Job No.";
                         if not DimMgt.CheckDimValuePosting(TableID, No, TempPrepmtInvLineBuf."Dimension Set ID") then
                             AddError(DimMgt.GetDimValuePostingErr);
 
@@ -882,7 +882,7 @@ report 412 "Purchase Prepmt. Doc. - Test"
 
                 TableID[1] := DATABASE::Vendor;
                 No[1] := "Pay-to Vendor No.";
-                TableID[2] := DATABASE::Job;
+                //TODO JOBS: TableID[2] := DATABASE::Job;
                 // No[2] := "Job No.";
                 TableID[3] := DATABASE::"Salesperson/Purchaser";
                 No[3] := "Purchaser Code";

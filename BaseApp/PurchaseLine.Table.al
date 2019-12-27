@@ -250,7 +250,7 @@ table 39 "Purchase Line"
 
                 CreateDim(
                   DimMgt.TypeToTableID3(Type), "No.",
-                  DATABASE::Job, "Job No.",
+                  167, '',//TODO JOBS: DATABASE::Job, "Job No.",
                   DATABASE::"Responsibility Center", "Responsibility Center",
                   DATABASE::"Work Center", "Work Center No.");
 
@@ -729,7 +729,7 @@ table 39 "Purchase Line"
 
                 if JobTaskIsSet then begin
                     CreateTempJobJnlLine(false);
-                    TempJobJnlLine.Validate("Unit Cost (LCY)", "Unit Cost (LCY)");
+                    //TODO JOBS:  TempJobJnlLine.Validate("Unit Cost (LCY)", "Unit Cost (LCY)");
                     UpdateJobPrices;
                 end
             end;
@@ -970,47 +970,47 @@ table 39 "Purchase Line"
         field(45; "Job No."; Code[20])
         {
             Caption = 'Job No.';
-            TableRelation = Job;
+            //TODO JOBS:  TableRelation = Job;
 
-            trigger OnValidate()
-            var
-                Job: Record Job;
-            begin
-                TestField("Drop Shipment", false);
-                TestField("Special Order", false);
-                TestField("Receipt No.", '');
-                if "Document Type" = "Document Type"::Order then
-                    TestField("Quantity Received", 0);
+            // trigger OnValidate()
+            // var
+            //     Job: Record Job;
+            // begin
+            //     TestField("Drop Shipment", false);
+            //     TestField("Special Order", false);
+            //     TestField("Receipt No.", '');
+            //     if "Document Type" = "Document Type"::Order then
+            //         TestField("Quantity Received", 0);
 
-                if ReservEntryExist then
-                    TestField("Job No.", '');
+            //     if ReservEntryExist then
+            //         TestField("Job No.", '');
 
-                if "Job No." <> xRec."Job No." then begin
-                    Validate("Job Task No.", '');
-                    Validate("Job Planning Line No.", 0);
-                end;
+            //     if "Job No." <> xRec."Job No." then begin
+            //         Validate("Job Task No.", '');
+            //         Validate("Job Planning Line No.", 0);
+            //     end;
 
-                if "Job No." = '' then begin
-                    CreateDim(
-                      DATABASE::Job, "Job No.",
-                      DimMgt.TypeToTableID3(Type), "No.",
-                      DATABASE::"Responsibility Center", "Responsibility Center",
-                      DATABASE::"Work Center", "Work Center No.");
-                    exit;
-                end;
+            //     if "Job No." = '' then begin
+            //         CreateDim(
+            //           DATABASE::Job, "Job No.",
+            //           DimMgt.TypeToTableID3(Type), "No.",
+            //           DATABASE::"Responsibility Center", "Responsibility Center",
+            //           DATABASE::"Work Center", "Work Center No.");
+            //         exit;
+            //     end;
 
-                if not (Type in [Type::Item, Type::"G/L Account"]) then
-                    FieldError("Job No.", StrSubstNo(Text012, FieldCaption(Type), Type));
-                Job.Get("Job No.");
-                Job.TestBlocked;
-                "Job Currency Code" := Job."Currency Code";
+            //     if not (Type in [Type::Item, Type::"G/L Account"]) then
+            //         FieldError("Job No.", StrSubstNo(Text012, FieldCaption(Type), Type));
+            //     Job.Get("Job No.");
+            //     Job.TestBlocked;
+            //     "Job Currency Code" := Job."Currency Code";
 
-                CreateDim(
-                  DATABASE::Job, "Job No.",
-                  DimMgt.TypeToTableID3(Type), "No.",
-                  DATABASE::"Responsibility Center", "Responsibility Center",
-                  DATABASE::"Work Center", "Work Center No.");
-            end;
+            //     CreateDim(
+            //       DATABASE::Job, "Job No.",
+            //       DimMgt.TypeToTableID3(Type), "No.",
+            //       DATABASE::"Responsibility Center", "Responsibility Center",
+            //       DATABASE::"Work Center", "Work Center No.");
+            // end;
         }
         field(54; "Indirect Cost %"; Decimal)
         {
@@ -1851,58 +1851,58 @@ table 39 "Purchase Line"
         field(1001; "Job Task No."; Code[20])
         {
             Caption = 'Job Task No.';
-            TableRelation = "Job Task"."Job Task No." WHERE("Job No." = FIELD("Job No."));
+            //TODO JOBS: TableRelation = "Job Task"."Job Task No." WHERE("Job No." = FIELD("Job No."));
 
-            trigger OnValidate()
-            begin
-                TestField("Receipt No.", '');
+            // trigger OnValidate()
+            // begin
+            //     TestField("Receipt No.", '');
 
-                if "Job Task No." <> xRec."Job Task No." then begin
-                    Validate("Job Planning Line No.", 0);
-                    if "Document Type" = "Document Type"::Order then
-                        TestField("Quantity Received", 0);
-                end;
+            //     if "Job Task No." <> xRec."Job Task No." then begin
+            //         Validate("Job Planning Line No.", 0);
+            //         if "Document Type" = "Document Type"::Order then
+            //             TestField("Quantity Received", 0);
+            //     end;
 
-                if "Job Task No." = '' then begin
-                    Clear(TempJobJnlLine);
-                    "Job Line Type" := "Job Line Type"::" ";
-                    UpdateJobPrices;
-                    CreateDim(
-                      DimMgt.TypeToTableID3(Type), "No.",
-                      DATABASE::Job, "Job No.",
-                      DATABASE::"Responsibility Center", "Responsibility Center",
-                      DATABASE::"Work Center", "Work Center No.");
-                    exit;
-                end;
+            //     if "Job Task No." = '' then begin
+            //         Clear(TempJobJnlLine);
+            //         "Job Line Type" := "Job Line Type"::" ";
+            //         UpdateJobPrices;
+            //         CreateDim(
+            //           DimMgt.TypeToTableID3(Type), "No.",
+            //           DATABASE::Job, "Job No.",
+            //           DATABASE::"Responsibility Center", "Responsibility Center",
+            //           DATABASE::"Work Center", "Work Center No.");
+            //         exit;
+            //     end;
 
-                JobSetCurrencyFactor;
-                if JobTaskIsSet then begin
-                    CreateTempJobJnlLine(true);
-                    UpdateJobPrices;
-                end;
-                UpdateDimensionsFromJobTask;
-            end;
+            //     JobSetCurrencyFactor;
+            //     if JobTaskIsSet then begin
+            //         CreateTempJobJnlLine(true);
+            //         UpdateJobPrices;
+            //     end;
+            //     UpdateDimensionsFromJobTask;
+            // end;
         }
         field(1002; "Job Line Type"; Option)
         {
-            AccessByPermission = TableData Job = R;
+            //TODO JOBS:  AccessByPermission = TableData Job = R;
             Caption = 'Job Line Type';
             OptionCaption = ' ,Budget,Billable,Both Budget and Billable';
             OptionMembers = " ",Budget,Billable,"Both Budget and Billable";
 
-            trigger OnValidate()
-            begin
-                TestField("Receipt No.", '');
-                if "Document Type" = "Document Type"::Order then
-                    TestField("Quantity Received", 0);
+            //TODO JOBS:   // trigger OnValidate()
+            // begin
+            //     TestField("Receipt No.", '');
+            //     if "Document Type" = "Document Type"::Order then
+            //         TestField("Quantity Received", 0);
 
-                if "Job Planning Line No." <> 0 then
-                    Error(Text048, FieldCaption("Job Line Type"), FieldCaption("Job Planning Line No."));
-            end;
+            //     if "Job Planning Line No." <> 0 then
+            //         Error(Text048, FieldCaption("Job Line Type"), FieldCaption("Job Planning Line No."));
+            // end;
         }
         field(1003; "Job Unit Price"; Decimal)
         {
-            AccessByPermission = TableData Job = R;
+            //TODO JOBS:  AccessByPermission = TableData Job = R;
             BlankZero = true;
             Caption = 'Job Unit Price';
 
@@ -1914,21 +1914,21 @@ table 39 "Purchase Line"
 
                 if JobTaskIsSet then begin
                     CreateTempJobJnlLine(false);
-                    TempJobJnlLine.Validate("Unit Price", "Job Unit Price");
+                    //TODO JOBS:    TempJobJnlLine.Validate("Unit Price", "Job Unit Price");
                     UpdateJobPrices;
                 end;
             end;
         }
         field(1004; "Job Total Price"; Decimal)
         {
-            AccessByPermission = TableData Job = R;
+            //TODO JOBS: AccessByPermission = TableData Job = R;
             BlankZero = true;
             Caption = 'Job Total Price';
             Editable = false;
         }
         field(1005; "Job Line Amount"; Decimal)
         {
-            AccessByPermission = TableData Job = R;
+            //TODO JOBS: AccessByPermission = TableData Job = R;
             AutoFormatExpression = "Job Currency Code";
             AutoFormatType = 1;
             BlankZero = true;
@@ -1942,14 +1942,14 @@ table 39 "Purchase Line"
 
                 if JobTaskIsSet then begin
                     CreateTempJobJnlLine(false);
-                    TempJobJnlLine.Validate("Line Amount", "Job Line Amount");
+                    //TODO JOBS:     TempJobJnlLine.Validate("Line Amount", "Job Line Amount");
                     UpdateJobPrices;
                 end;
             end;
         }
         field(1006; "Job Line Discount Amount"; Decimal)
         {
-            AccessByPermission = TableData Job = R;
+            //TODO JOBS:  AccessByPermission = TableData Job = R;
             AutoFormatExpression = "Job Currency Code";
             AutoFormatType = 1;
             BlankZero = true;
@@ -1963,14 +1963,14 @@ table 39 "Purchase Line"
 
                 if JobTaskIsSet then begin
                     CreateTempJobJnlLine(false);
-                    TempJobJnlLine.Validate("Line Discount Amount", "Job Line Discount Amount");
+                    //TODO JOBS:     TempJobJnlLine.Validate("Line Discount Amount", "Job Line Discount Amount");
                     UpdateJobPrices;
                 end;
             end;
         }
         field(1007; "Job Line Discount %"; Decimal)
         {
-            AccessByPermission = TableData Job = R;
+            //TODO JOBS:  AccessByPermission = TableData Job = R;
             BlankZero = true;
             Caption = 'Job Line Discount %';
             DecimalPlaces = 0 : 5;
@@ -1985,14 +1985,14 @@ table 39 "Purchase Line"
 
                 if JobTaskIsSet then begin
                     CreateTempJobJnlLine(false);
-                    TempJobJnlLine.Validate("Line Discount %", "Job Line Discount %");
+                    //TODO JOBS:     TempJobJnlLine.Validate("Line Discount %", "Job Line Discount %");
                     UpdateJobPrices;
                 end;
             end;
         }
         field(1008; "Job Unit Price (LCY)"; Decimal)
         {
-            AccessByPermission = TableData Job = R;
+            //TODO JOBS:  AccessByPermission = TableData Job = R;
             BlankZero = true;
             Caption = 'Job Unit Price (LCY)';
             Editable = false;
@@ -2005,21 +2005,21 @@ table 39 "Purchase Line"
 
                 if JobTaskIsSet then begin
                     CreateTempJobJnlLine(false);
-                    TempJobJnlLine.Validate("Unit Price (LCY)", "Job Unit Price (LCY)");
+                    //TODO JOBS:    TempJobJnlLine.Validate("Unit Price (LCY)", "Job Unit Price (LCY)");
                     UpdateJobPrices;
                 end;
             end;
         }
         field(1009; "Job Total Price (LCY)"; Decimal)
         {
-            AccessByPermission = TableData Job = R;
+            //TODO JOBS:  AccessByPermission = TableData Job = R;
             BlankZero = true;
             Caption = 'Job Total Price (LCY)';
             Editable = false;
         }
         field(1010; "Job Line Amount (LCY)"; Decimal)
         {
-            AccessByPermission = TableData Job = R;
+            //TODO JOBS:   AccessByPermission = TableData Job = R;
             AutoFormatType = 1;
             BlankZero = true;
             Caption = 'Job Line Amount (LCY)';
@@ -2033,14 +2033,14 @@ table 39 "Purchase Line"
 
                 if JobTaskIsSet then begin
                     CreateTempJobJnlLine(false);
-                    TempJobJnlLine.Validate("Line Amount (LCY)", "Job Line Amount (LCY)");
+                    //TODO JOBS:    TempJobJnlLine.Validate("Line Amount (LCY)", "Job Line Amount (LCY)");
                     UpdateJobPrices;
                 end;
             end;
         }
         field(1011; "Job Line Disc. Amount (LCY)"; Decimal)
         {
-            AccessByPermission = TableData Job = R;
+            //TODO JOBS:    AccessByPermission = TableData Job = R;
             AutoFormatType = 1;
             BlankZero = true;
             Caption = 'Job Line Disc. Amount (LCY)';
@@ -2054,7 +2054,7 @@ table 39 "Purchase Line"
 
                 if JobTaskIsSet then begin
                     CreateTempJobJnlLine(false);
-                    TempJobJnlLine.Validate("Line Discount Amount (LCY)", "Job Line Disc. Amount (LCY)");
+                    //TODO JOBS:     TempJobJnlLine.Validate("Line Discount Amount (LCY)", "Job Line Disc. Amount (LCY)");
                     UpdateJobPrices;
                 end;
             end;
@@ -2070,78 +2070,78 @@ table 39 "Purchase Line"
         }
         field(1019; "Job Planning Line No."; Integer)
         {
-            AccessByPermission = TableData Job = R;
+            //TODO JOBS:   AccessByPermission = TableData Job = R;
             BlankZero = true;
             Caption = 'Job Planning Line No.';
 
-            trigger OnLookup()
-            var
-                JobPlanningLine: Record "Job Planning Line";
-            begin
-                JobPlanningLine.SetRange("Job No.", "Job No.");
-                JobPlanningLine.SetRange("Job Task No.", "Job Task No.");
-                case Type of
-                    Type::"G/L Account":
-                        JobPlanningLine.SetRange(Type, JobPlanningLine.Type::"G/L Account");
-                    Type::Item:
-                        JobPlanningLine.SetRange(Type, JobPlanningLine.Type::Item);
-                end;
-                JobPlanningLine.SetRange("No.", "No.");
-                JobPlanningLine.SetRange("Usage Link", true);
-                JobPlanningLine.SetRange("System-Created Entry", false);
+            // trigger OnLookup()
+            // var
+            //     JobPlanningLine: Record "Job Planning Line";
+            // begin
+            //     JobPlanningLine.SetRange("Job No.", "Job No.");
+            //     JobPlanningLine.SetRange("Job Task No.", "Job Task No.");
+            //     case Type of
+            //         Type::"G/L Account":
+            //             JobPlanningLine.SetRange(Type, JobPlanningLine.Type::"G/L Account");
+            //         Type::Item:
+            //             JobPlanningLine.SetRange(Type, JobPlanningLine.Type::Item);
+            //     end;
+            //     JobPlanningLine.SetRange("No.", "No.");
+            //     JobPlanningLine.SetRange("Usage Link", true);
+            //     JobPlanningLine.SetRange("System-Created Entry", false);
 
-                if PAGE.RunModal(0, JobPlanningLine) = ACTION::LookupOK then
-                    Validate("Job Planning Line No.", JobPlanningLine."Line No.");
-            end;
+            //     if PAGE.RunModal(0, JobPlanningLine) = ACTION::LookupOK then
+            //         Validate("Job Planning Line No.", JobPlanningLine."Line No.");
+            // end;
 
-            trigger OnValidate()
-            var
-                JobPlanningLine: Record "Job Planning Line";
-            begin
-                if "Job Planning Line No." <> 0 then begin
-                    JobPlanningLine.Get("Job No.", "Job Task No.", "Job Planning Line No.");
-                    JobPlanningLine.TestField("Job No.", "Job No.");
-                    JobPlanningLine.TestField("Job Task No.", "Job Task No.");
-                    case Type of
-                        Type::"G/L Account":
-                            JobPlanningLine.TestField(Type, JobPlanningLine.Type::"G/L Account");
-                        Type::Item:
-                            JobPlanningLine.TestField(Type, JobPlanningLine.Type::Item);
-                    end;
-                    JobPlanningLine.TestField("No.", "No.");
-                    JobPlanningLine.TestField("Usage Link", true);
-                    JobPlanningLine.TestField("System-Created Entry", false);
-                    "Job Line Type" := JobPlanningLine."Line Type" + 1;
-                    Validate("Job Remaining Qty.", JobPlanningLine."Remaining Qty." - "Qty. to Invoice");
-                end else
-                    Validate("Job Remaining Qty.", 0);
-            end;
+            // trigger OnValidate()
+            // var
+            //     JobPlanningLine: Record "Job Planning Line";
+            // begin
+            //     if "Job Planning Line No." <> 0 then begin
+            //         JobPlanningLine.Get("Job No.", "Job Task No.", "Job Planning Line No.");
+            //         JobPlanningLine.TestField("Job No.", "Job No.");
+            //         JobPlanningLine.TestField("Job Task No.", "Job Task No.");
+            //         case Type of
+            //             Type::"G/L Account":
+            //                 JobPlanningLine.TestField(Type, JobPlanningLine.Type::"G/L Account");
+            //             Type::Item:
+            //                 JobPlanningLine.TestField(Type, JobPlanningLine.Type::Item);
+            //         end;
+            //         JobPlanningLine.TestField("No.", "No.");
+            //         JobPlanningLine.TestField("Usage Link", true);
+            //         JobPlanningLine.TestField("System-Created Entry", false);
+            //         "Job Line Type" := JobPlanningLine."Line Type" + 1;
+            //         Validate("Job Remaining Qty.", JobPlanningLine."Remaining Qty." - "Qty. to Invoice");
+            //     end else
+            //         Validate("Job Remaining Qty.", 0);
+            // end;
         }
         field(1030; "Job Remaining Qty."; Decimal)
         {
-            AccessByPermission = TableData Job = R;
+            //TODO JOBS: AccessByPermission = TableData Job = R;
             Caption = 'Job Remaining Qty.';
             DecimalPlaces = 0 : 5;
 
-            trigger OnValidate()
-            var
-                JobPlanningLine: Record "Job Planning Line";
-            begin
-                if ("Job Remaining Qty." <> 0) and ("Job Planning Line No." = 0) then
-                    Error(Text047, FieldCaption("Job Remaining Qty."), FieldCaption("Job Planning Line No."));
+            // trigger OnValidate()
+            // var
+            //     JobPlanningLine: Record "Job Planning Line";
+            // begin
+            //     if ("Job Remaining Qty." <> 0) and ("Job Planning Line No." = 0) then
+            //         Error(Text047, FieldCaption("Job Remaining Qty."), FieldCaption("Job Planning Line No."));
 
-                if "Job Planning Line No." <> 0 then begin
-                    JobPlanningLine.Get("Job No.", "Job Task No.", "Job Planning Line No.");
-                    if JobPlanningLine.Quantity >= 0 then begin
-                        if "Job Remaining Qty." < 0 then
-                            "Job Remaining Qty." := 0;
-                    end else begin
-                        if "Job Remaining Qty." > 0 then
-                            "Job Remaining Qty." := 0;
-                    end;
-                end;
-                "Job Remaining Qty. (Base)" := UOMMgt.CalcBaseQty("Job Remaining Qty.", "Qty. per Unit of Measure");
-            end;
+            //     if "Job Planning Line No." <> 0 then begin
+            //         JobPlanningLine.Get("Job No.", "Job Task No.", "Job Planning Line No.");
+            //         if JobPlanningLine.Quantity >= 0 then begin
+            //             if "Job Remaining Qty." < 0 then
+            //                 "Job Remaining Qty." := 0;
+            //         end else begin
+            //             if "Job Remaining Qty." > 0 then
+            //                 "Job Remaining Qty." := 0;
+            //         end;
+            //     end;
+            //     "Job Remaining Qty. (Base)" := UOMMgt.CalcBaseQty("Job Remaining Qty.", "Qty. per Unit of Measure");
+            // end;
         }
         field(1031; "Job Remaining Qty. (Base)"; Decimal)
         {
@@ -2564,7 +2564,7 @@ table 39 "Purchase Line"
                 CreateDim(
                   DATABASE::"Responsibility Center", "Responsibility Center",
                   DimMgt.TypeToTableID3(Type), "No.",
-                  DATABASE::Job, "Job No.",
+                  167, '',//TODO JOBS: DATABASE::Job, "Job No.",
                   DATABASE::"Work Center", "Work Center No.");
             end;
         }
@@ -3088,7 +3088,7 @@ table 39 "Purchase Line"
                 CreateDim(
                   DATABASE::"Work Center", "Work Center No.",
                   DimMgt.TypeToTableID3(Type), "No.",
-                  DATABASE::Job, "Job No.",
+                  167, '',//TODO JOBS: DATABASE::Job, "Job No.",
                   DATABASE::"Responsibility Center", "Responsibility Center");
             end;
         }
@@ -3405,7 +3405,7 @@ table 39 "Purchase Line"
         Location: Record Location;
         GLSetup: Record "General Ledger Setup";
         CalChange: Record "Customized Calendar Change";
-        TempJobJnlLine: Record "Job Journal Line" temporary;
+        //TODO JOBS: TempJobJnlLine: Record "Job Journal Line" temporary;
         PurchSetup: Record "Purchases & Payables Setup";
         SalesTaxCalculate: Codeunit "Sales Tax Calculate";
         ReservEngineMgt: Codeunit "Reservation Engine Mgt.";
@@ -3943,7 +3943,7 @@ table 39 "Purchase Line"
 
         if JobTaskIsSet and not UpdateFromVAT and not "Prepayment Line" then begin
             CreateTempJobJnlLine(false);
-            TempJobJnlLine.Validate("Unit Cost (LCY)", "Unit Cost (LCY)");
+            //TODO JOBS:  TempJobJnlLine.Validate("Unit Cost (LCY)", "Unit Cost (LCY)");
             UpdateJobPrices;
         end;
     end;
@@ -5543,75 +5543,75 @@ table 39 "Purchase Line"
 
     procedure CreateTempJobJnlLine(GetPrices: Boolean)
     begin
-        OnBeforeCreateTempJobJnlLine(TempJobJnlLine, Rec, xRec, GetPrices, CurrFieldNo);
+        //TODO JOBS: // OnBeforeCreateTempJobJnlLine(TempJobJnlLine, Rec, xRec, GetPrices, CurrFieldNo);
 
-        GetPurchHeader;
-        Clear(TempJobJnlLine);
-        TempJobJnlLine.DontCheckStdCost;
-        TempJobJnlLine.Validate("Job No.", "Job No.");
-        TempJobJnlLine.Validate("Job Task No.", "Job Task No.");
-        TempJobJnlLine.Validate("Posting Date", PurchHeader."Posting Date");
-        TempJobJnlLine.SetCurrencyFactor("Job Currency Factor");
-        if Type = Type::"G/L Account" then
-            TempJobJnlLine.Validate(Type, TempJobJnlLine.Type::"G/L Account")
-        else
-            TempJobJnlLine.Validate(Type, TempJobJnlLine.Type::Item);
-        TempJobJnlLine.Validate("No.", "No.");
-        TempJobJnlLine.Validate(Quantity, Quantity);
-        TempJobJnlLine.Validate("Variant Code", "Variant Code");
-        TempJobJnlLine.Validate("Unit of Measure Code", "Unit of Measure Code");
+        // GetPurchHeader;
+        // Clear(TempJobJnlLine);
+        // TempJobJnlLine.DontCheckStdCost;
+        // TempJobJnlLine.Validate("Job No.", "Job No.");
+        // TempJobJnlLine.Validate("Job Task No.", "Job Task No.");
+        // TempJobJnlLine.Validate("Posting Date", PurchHeader."Posting Date");
+        // TempJobJnlLine.SetCurrencyFactor("Job Currency Factor");
+        // if Type = Type::"G/L Account" then
+        //     TempJobJnlLine.Validate(Type, TempJobJnlLine.Type::"G/L Account")
+        // else
+        //     TempJobJnlLine.Validate(Type, TempJobJnlLine.Type::Item);
+        // TempJobJnlLine.Validate("No.", "No.");
+        // TempJobJnlLine.Validate(Quantity, Quantity);
+        // TempJobJnlLine.Validate("Variant Code", "Variant Code");
+        // TempJobJnlLine.Validate("Unit of Measure Code", "Unit of Measure Code");
 
-        if not GetPrices then begin
-            if xRec."Line No." <> 0 then begin
-                TempJobJnlLine."Unit Cost" := xRec."Unit Cost";
-                TempJobJnlLine."Unit Cost (LCY)" := xRec."Unit Cost (LCY)";
-                TempJobJnlLine."Unit Price" := xRec."Job Unit Price";
-                TempJobJnlLine."Line Amount" := xRec."Job Line Amount";
-                TempJobJnlLine."Line Discount %" := xRec."Job Line Discount %";
-                TempJobJnlLine."Line Discount Amount" := xRec."Job Line Discount Amount";
-            end else begin
-                TempJobJnlLine."Unit Cost" := "Unit Cost";
-                TempJobJnlLine."Unit Cost (LCY)" := "Unit Cost (LCY)";
-                TempJobJnlLine."Unit Price" := "Job Unit Price";
-                TempJobJnlLine."Line Amount" := "Job Line Amount";
-                TempJobJnlLine."Line Discount %" := "Job Line Discount %";
-                TempJobJnlLine."Line Discount Amount" := "Job Line Discount Amount";
-            end;
-            TempJobJnlLine.Validate("Unit Price");
-        end else
-            TempJobJnlLine.Validate("Unit Cost (LCY)", "Unit Cost (LCY)");
+        // if not GetPrices then begin
+        //     if xRec."Line No." <> 0 then begin
+        //         TempJobJnlLine."Unit Cost" := xRec."Unit Cost";
+        //         TempJobJnlLine."Unit Cost (LCY)" := xRec."Unit Cost (LCY)";
+        //         TempJobJnlLine."Unit Price" := xRec."Job Unit Price";
+        //         TempJobJnlLine."Line Amount" := xRec."Job Line Amount";
+        //         TempJobJnlLine."Line Discount %" := xRec."Job Line Discount %";
+        //         TempJobJnlLine."Line Discount Amount" := xRec."Job Line Discount Amount";
+        //     end else begin
+        //         TempJobJnlLine."Unit Cost" := "Unit Cost";
+        //         TempJobJnlLine."Unit Cost (LCY)" := "Unit Cost (LCY)";
+        //         TempJobJnlLine."Unit Price" := "Job Unit Price";
+        //         TempJobJnlLine."Line Amount" := "Job Line Amount";
+        //         TempJobJnlLine."Line Discount %" := "Job Line Discount %";
+        //         TempJobJnlLine."Line Discount Amount" := "Job Line Discount Amount";
+        //     end;
+        //     TempJobJnlLine.Validate("Unit Price");
+        // end else
+        //     TempJobJnlLine.Validate("Unit Cost (LCY)", "Unit Cost (LCY)");
 
-        OnAfterCreateTempJobJnlLine(TempJobJnlLine, Rec, xRec, GetPrices, CurrFieldNo);
+        // OnAfterCreateTempJobJnlLine(TempJobJnlLine, Rec, xRec, GetPrices, CurrFieldNo);
     end;
 
     procedure UpdateJobPrices()
     var
         PurchRcptLine: Record "Purch. Rcpt. Line";
     begin
-        if "Receipt No." = '' then begin
-            "Job Unit Price" := TempJobJnlLine."Unit Price";
-            "Job Total Price" := TempJobJnlLine."Total Price";
-            "Job Unit Price (LCY)" := TempJobJnlLine."Unit Price (LCY)";
-            "Job Total Price (LCY)" := TempJobJnlLine."Total Price (LCY)";
-            "Job Line Amount (LCY)" := TempJobJnlLine."Line Amount (LCY)";
-            "Job Line Disc. Amount (LCY)" := TempJobJnlLine."Line Discount Amount (LCY)";
-            "Job Line Amount" := TempJobJnlLine."Line Amount";
-            "Job Line Discount %" := TempJobJnlLine."Line Discount %";
-            "Job Line Discount Amount" := TempJobJnlLine."Line Discount Amount";
-        end else begin
-            PurchRcptLine.Get("Receipt No.", "Receipt Line No.");
-            "Job Unit Price" := PurchRcptLine."Job Unit Price";
-            "Job Total Price" := PurchRcptLine."Job Total Price";
-            "Job Unit Price (LCY)" := PurchRcptLine."Job Unit Price (LCY)";
-            "Job Total Price (LCY)" := PurchRcptLine."Job Total Price (LCY)";
-            "Job Line Amount (LCY)" := PurchRcptLine."Job Line Amount (LCY)";
-            "Job Line Disc. Amount (LCY)" := PurchRcptLine."Job Line Disc. Amount (LCY)";
-            "Job Line Amount" := PurchRcptLine."Job Line Amount";
-            "Job Line Discount %" := PurchRcptLine."Job Line Discount %";
-            "Job Line Discount Amount" := PurchRcptLine."Job Line Discount Amount";
-        end;
+        //TODO JOBS:  // if "Receipt No." = '' then begin
+        //     "Job Unit Price" := TempJobJnlLine."Unit Price";
+        //     "Job Total Price" := TempJobJnlLine."Total Price";
+        //     "Job Unit Price (LCY)" := TempJobJnlLine."Unit Price (LCY)";
+        //     "Job Total Price (LCY)" := TempJobJnlLine."Total Price (LCY)";
+        //     "Job Line Amount (LCY)" := TempJobJnlLine."Line Amount (LCY)";
+        //     "Job Line Disc. Amount (LCY)" := TempJobJnlLine."Line Discount Amount (LCY)";
+        //     "Job Line Amount" := TempJobJnlLine."Line Amount";
+        //     "Job Line Discount %" := TempJobJnlLine."Line Discount %";
+        //     "Job Line Discount Amount" := TempJobJnlLine."Line Discount Amount";
+        // end else begin
+        //     PurchRcptLine.Get("Receipt No.", "Receipt Line No.");
+        //     "Job Unit Price" := PurchRcptLine."Job Unit Price";
+        //     "Job Total Price" := PurchRcptLine."Job Total Price";
+        //     "Job Unit Price (LCY)" := PurchRcptLine."Job Unit Price (LCY)";
+        //     "Job Total Price (LCY)" := PurchRcptLine."Job Total Price (LCY)";
+        //     "Job Line Amount (LCY)" := PurchRcptLine."Job Line Amount (LCY)";
+        //     "Job Line Disc. Amount (LCY)" := PurchRcptLine."Job Line Disc. Amount (LCY)";
+        //     "Job Line Amount" := PurchRcptLine."Job Line Amount";
+        //     "Job Line Discount %" := PurchRcptLine."Job Line Discount %";
+        //     "Job Line Discount Amount" := PurchRcptLine."Job Line Discount Amount";
+        // end;
 
-        OnAfterUpdateJobPrices(Rec, TempJobJnlLine, PurchRcptLine);
+        // OnAfterUpdateJobPrices(Rec, TempJobJnlLine, PurchRcptLine);
     end;
 
     procedure JobSetCurrencyFactor()
@@ -5624,11 +5624,11 @@ table 39 "Purchase Line"
         if IsHandled then
             exit;
 
-        Clear(TempJobJnlLine);
-        TempJobJnlLine.Validate("Job No.", "Job No.");
-        TempJobJnlLine.Validate("Job Task No.", "Job Task No.");
-        TempJobJnlLine.Validate("Posting Date", PurchHeader."Posting Date");
-        "Job Currency Factor" := TempJobJnlLine."Currency Factor";
+        //TODO JOBS: // Clear(TempJobJnlLine);
+        // TempJobJnlLine.Validate("Job No.", "Job No.");
+        // TempJobJnlLine.Validate("Job Task No.", "Job Task No.");
+        // TempJobJnlLine.Validate("Posting Date", PurchHeader."Posting Date");
+        // "Job Currency Factor" := TempJobJnlLine."Currency Factor";
     end;
 
     procedure SetUpdateFromVAT(UpdateFromVAT2: Boolean)
@@ -6022,11 +6022,11 @@ table 39 "Purchase Line"
     begin
         SourceCodeSetup.Get;
         DimSetArrID[1] := "Dimension Set ID";
-        DimSetArrID[2] :=
-          DimMgt.CreateDimSetFromJobTaskDim("Job No.",
-            "Job Task No.", DimValue1, DimValue2);
-        DimMgt.CreateDimForPurchLineWithHigherPriorities(
-          Rec, CurrFieldNo, DimSetArrID[3], DimValue1, DimValue2, SourceCodeSetup.Purchases, DATABASE::Job);
+        //TODO JOBS: // DimSetArrID[2] :=
+        //   DimMgt.CreateDimSetFromJobTaskDim("Job No.",
+        //     "Job Task No.", DimValue1, DimValue2);
+        // DimMgt.CreateDimForPurchLineWithHigherPriorities(
+        //   Rec, CurrFieldNo, DimSetArrID[3], DimValue1, DimValue2, SourceCodeSetup.Purchases, DATABASE::Job);
 
         "Dimension Set ID" :=
           DimMgt.GetCombinedDimensionSetID(
@@ -6506,10 +6506,10 @@ table 39 "Purchase Line"
     begin
     end;
 
-    [IntegrationEvent(false, false)]
-    local procedure OnAfterUpdateJobPrices(var PurchLine: Record "Purchase Line"; JobJnlLine: Record "Job Journal Line"; PurchRcptLine: Record "Purch. Rcpt. Line")
-    begin
-    end;
+    //TODO JOBS: // [IntegrationEvent(false, false)]
+    // local procedure OnAfterUpdateJobPrices(var PurchLine: Record "Purchase Line"; JobJnlLine: Record "Job Journal Line"; PurchRcptLine: Record "Purch. Rcpt. Line")
+    // begin
+    // end;
 
     [IntegrationEvent(false, false)]
     local procedure OnAfterUpdateWithWarehouseReceive(PurchaseHeader: Record "Purchase Header"; var PurchaseLine: Record "Purchase Line")
@@ -6571,10 +6571,10 @@ table 39 "Purchase Line"
     begin
     end;
 
-    [IntegrationEvent(false, false)]
-    local procedure OnBeforeCreateTempJobJnlLine(var TempJobJournalLine: Record "Job Journal Line" temporary; PurchaseLine: Record "Purchase Line"; xPurchaseLine: Record "Purchase Line"; GetPrices: Boolean; CallingFieldNo: Integer)
-    begin
-    end;
+    //TODO JOBS: // [IntegrationEvent(false, false)]
+    // local procedure OnBeforeCreateTempJobJnlLine(var TempJobJournalLine: Record "Job Journal Line" temporary; PurchaseLine: Record "Purchase Line"; xPurchaseLine: Record "Purchase Line"; GetPrices: Boolean; CallingFieldNo: Integer)
+    // begin
+    // end;
 
     [IntegrationEvent(false, false)]
     local procedure OnBeforeGetDefaultBin(var PurchaseLine: Record "Purchase Line"; var IsHandled: Boolean)
@@ -6646,10 +6646,10 @@ table 39 "Purchase Line"
     begin
     end;
 
-    [IntegrationEvent(false, false)]
-    local procedure OnAfterCreateTempJobJnlLine(var JobJournalLine: Record "Job Journal Line"; PurchLine: Record "Purchase Line"; xPurchLine: Record "Purchase Line"; GetPrices: Boolean; CurrFieldNo: Integer)
-    begin
-    end;
+    //TODO JOBS: // [IntegrationEvent(false, false)]
+    // local procedure OnAfterCreateTempJobJnlLine(var JobJournalLine: Record "Job Journal Line"; PurchLine: Record "Purchase Line"; xPurchLine: Record "Purchase Line"; GetPrices: Boolean; CurrFieldNo: Integer)
+    // begin
+    // end;
 
     [IntegrationEvent(false, false)]
     local procedure OnAfterValidateShortcutDimCode(var PurchaseLine: Record "Purchase Line"; var xPurchaseLine: Record "Purchase Line"; FieldNumber: Integer; var ShortcutDimCode: Code[20])

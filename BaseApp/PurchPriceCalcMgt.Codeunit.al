@@ -531,61 +531,61 @@ codeunit 7010 "Purch. Price Calc. Mgt."
     //     end;
     // end;
 
-    procedure FindJobJnlLinePrice(var JobJnlLine: Record "Job Journal Line"; CalledByFieldNo: Integer)
-    var
-        Job: Record Job;
-        IsHandled: Boolean;
-    begin
-        with JobJnlLine do begin
-            SetCurrency("Currency Code", "Currency Factor", "Posting Date");
-            SetVAT(false, 0, '');
-            SetUoM(Abs(Quantity), "Qty. per Unit of Measure");
+    //TODO JOBS: // procedure FindJobJnlLinePrice(var JobJnlLine: Record "Job Journal Line"; CalledByFieldNo: Integer)
+    // var
+    //     Job: Record Job;
+    //     IsHandled: Boolean;
+    // begin
+    //     with JobJnlLine do begin
+    //         SetCurrency("Currency Code", "Currency Factor", "Posting Date");
+    //         SetVAT(false, 0, '');
+    //         SetUoM(Abs(Quantity), "Qty. per Unit of Measure");
 
-            TestField("Qty. per Unit of Measure");
+    //         TestField("Qty. per Unit of Measure");
 
-            case Type of
-                Type::Item:
-                    begin
-                        Item.Get("No.");
-                        PriceInSKU := SKU.Get('', "No.", "Variant Code");
-                        Job.Get("Job No.");
+    //         case Type of
+    //             Type::Item:
+    //                 begin
+    //                     Item.Get("No.");
+    //                     PriceInSKU := SKU.Get('', "No.", "Variant Code");
+    //                     Job.Get("Job No.");
 
-                        FindPurchPrice(
-                          TempPurchPrice, '', "No.", "Variant Code", "Unit of Measure Code", "Country/Region Code", "Posting Date", false);
-                        PricesInCurrency := false;
-                        GLSetup.Get;
+    //                     FindPurchPrice(
+    //                       TempPurchPrice, '', "No.", "Variant Code", "Unit of Measure Code", "Country/Region Code", "Posting Date", false);
+    //                     PricesInCurrency := false;
+    //                     GLSetup.Get;
 
-                        OnFindJobJnlLinePriceOnBeforeCalcBestDirectUnitCost(JobJnlLine, TempPurchPrice);
-                        CalcBestDirectUnitCost(TempPurchPrice);
-                        SetCurrency("Currency Code", "Currency Factor", "Posting Date");
+    //                     OnFindJobJnlLinePriceOnBeforeCalcBestDirectUnitCost(JobJnlLine, TempPurchPrice);
+    //                     CalcBestDirectUnitCost(TempPurchPrice);
+    //                     SetCurrency("Currency Code", "Currency Factor", "Posting Date");
 
-                        if FoundPurchPrice or
-                           not ((CalledByFieldNo = FieldNo(Quantity)) or
-                                ((CalledByFieldNo = FieldNo("Variant Code")) and not PriceInSKU))
-                        then
-                            "Direct Unit Cost (LCY)" := TempPurchPrice."Direct Unit Cost";
-                        OnAfterFindJobJnlLinePriceItem(JobJnlLine);
-                    end;
-                Type::Resource:
-                    begin
-                        ResCost.Init;
-                        ResCost.Code := "No.";
-                        ResCost."Work Type Code" := "Work Type Code";
-                        CODEUNIT.Run(CODEUNIT::"Resource-Find Cost", ResCost);
-                        OnAfterJobJnlLineFindResCost(JobJnlLine, CalledByFieldNo, ResCost);
-                        ConvertPriceLCYToFCY("Currency Code", ResCost."Unit Cost");
-                        "Direct Unit Cost (LCY)" :=
-                          Round(ResCost."Direct Unit Cost" * "Qty. per Unit of Measure", Currency."Unit-Amount Rounding Precision");
-                        Validate("Unit Cost (LCY)",
-                          Round(ResCost."Unit Cost" * "Qty. per Unit of Measure", Currency."Unit-Amount Rounding Precision"));
-                        OnAfterFindJobJnlLinePriceResource(JobJnlLine);
-                    end;
-            end;
-            OnAfterFindJobJnlLinePrice(JobJnlLine, IsHandled);
-            if not IsHandled then
-                Validate("Direct Unit Cost (LCY)");
-        end;
-    end;
+    //                     if FoundPurchPrice or
+    //                        not ((CalledByFieldNo = FieldNo(Quantity)) or
+    //                             ((CalledByFieldNo = FieldNo("Variant Code")) and not PriceInSKU))
+    //                     then
+    //                         "Direct Unit Cost (LCY)" := TempPurchPrice."Direct Unit Cost";
+    //                     OnAfterFindJobJnlLinePriceItem(JobJnlLine);
+    //                 end;
+    //             Type::Resource:
+    //                 begin
+    //                     ResCost.Init;
+    //                     ResCost.Code := "No.";
+    //                     ResCost."Work Type Code" := "Work Type Code";
+    //                     CODEUNIT.Run(CODEUNIT::"Resource-Find Cost", ResCost);
+    //                     OnAfterJobJnlLineFindResCost(JobJnlLine, CalledByFieldNo, ResCost);
+    //                     ConvertPriceLCYToFCY("Currency Code", ResCost."Unit Cost");
+    //                     "Direct Unit Cost (LCY)" :=
+    //                       Round(ResCost."Direct Unit Cost" * "Qty. per Unit of Measure", Currency."Unit-Amount Rounding Precision");
+    //                     Validate("Unit Cost (LCY)",
+    //                       Round(ResCost."Unit Cost" * "Qty. per Unit of Measure", Currency."Unit-Amount Rounding Precision"));
+    //                     OnAfterFindJobJnlLinePriceResource(JobJnlLine);
+    //                 end;
+    //         end;
+    //         OnAfterFindJobJnlLinePrice(JobJnlLine, IsHandled);
+    //         if not IsHandled then
+    //             Validate("Direct Unit Cost (LCY)");
+    //     end;
+    // end;
 
     procedure NoOfPurchLinePrice(var PurchHeader: Record "Purchase Header"; var PurchLine: Record "Purchase Line"; ShowAll: Boolean): Integer
     begin
@@ -685,20 +685,20 @@ codeunit 7010 "Purch. Price Calc. Mgt."
             end;
     end;
 
-    [IntegrationEvent(false, false)]
-    local procedure OnAfterFindJobJnlLinePrice(var JobJournalLine: Record "Job Journal Line"; var IsHandled: Boolean)
-    begin
-    end;
+    //TODO JOBS: // [IntegrationEvent(false, false)]
+    // local procedure OnAfterFindJobJnlLinePrice(var JobJournalLine: Record "Job Journal Line"; var IsHandled: Boolean)
+    // begin
+    // end;
 
-    [IntegrationEvent(false, false)]
-    local procedure OnAfterFindJobJnlLinePriceItem(var JobJournalLine: Record "Job Journal Line")
-    begin
-    end;
+    // [IntegrationEvent(false, false)]
+    // local procedure OnAfterFindJobJnlLinePriceItem(var JobJournalLine: Record "Job Journal Line")
+    // begin
+    // end;
 
-    [IntegrationEvent(false, false)]
-    local procedure OnAfterFindJobJnlLinePriceResource(var JobJournalLine: Record "Job Journal Line")
-    begin
-    end;
+    // [IntegrationEvent(false, false)]
+    // local procedure OnAfterFindJobJnlLinePriceResource(var JobJournalLine: Record "Job Journal Line")
+    // begin
+    // end;
 
     [IntegrationEvent(false, false)]
     local procedure OnAfterFindPurchPrice(var ToPurchPrice: Record "Purchase Price"; FromPurchasePrice: Record "Purchase Price"; VendorNo: Code[20]; ItemNo: Code[20]; VariantCode: Code[10]; UOM: Code[10]; CurrencyCode: Code[10]; StartingDate: Date; ShowAll: Boolean; Qty: Decimal; QtyPerUOM: Decimal)
@@ -735,15 +735,15 @@ codeunit 7010 "Purch. Price Calc. Mgt."
     begin
     end;
 
-    [IntegrationEvent(false, false)]
-    local procedure OnAfterJobJnlLineFindResCost(var JobJournalLine: Record "Job Journal Line"; CalledByFieldNo: Integer; var ResourceCost: Record "Resource Cost")
-    begin
-    end;
+    //TODO JOBS: // [IntegrationEvent(false, false)]
+    // local procedure OnAfterJobJnlLineFindResCost(var JobJournalLine: Record "Job Journal Line"; CalledByFieldNo: Integer; var ResourceCost: Record "Resource Cost")
+    // begin
+    // end;
 
-    [IntegrationEvent(false, false)]
-    local procedure OnAfterJobPlanningLineFindResCost(var JobPlanningLine: Record "Job Planning Line"; CalledByFieldNo: Integer; var ResourceCost: Record "Resource Cost")
-    begin
-    end;
+    // [IntegrationEvent(false, false)]
+    // local procedure OnAfterJobPlanningLineFindResCost(var JobPlanningLine: Record "Job Planning Line"; CalledByFieldNo: Integer; var ResourceCost: Record "Resource Cost")
+    // begin
+    // end;
 
     [IntegrationEvent(false, false)]
     local procedure OnAfterPurchLineLineDiscExists(var PurchaseLine: Record "Purchase Line")
@@ -810,9 +810,9 @@ codeunit 7010 "Purch. Price Calc. Mgt."
     begin
     end;
 
-    [IntegrationEvent(false, false)]
-    local procedure OnFindJobJnlLinePriceOnBeforeCalcBestDirectUnitCost(var JobJournalLine: Record "Job Journal Line"; var TempPurchasePrice: Record "Purchase Price" temporary)
-    begin
-    end;
+    //TODO JOBS: // [IntegrationEvent(false, false)]
+    // local procedure OnFindJobJnlLinePriceOnBeforeCalcBestDirectUnitCost(var JobJournalLine: Record "Job Journal Line"; var TempPurchasePrice: Record "Purchase Price" temporary)
+    // begin
+    // end;
 }
 
