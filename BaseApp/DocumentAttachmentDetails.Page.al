@@ -179,7 +179,7 @@ page 1173 "Document Attachment Details"
             DATABASE::Item,
             DATABASE::Employee,
             DATABASE::"Fixed Asset",
-            DATABASE::Job,
+            //TODO JOBS:DATABASE::Job,
             DATABASE::Resource:
                 begin
                     FieldRef := RecRef.Field(1);

@@ -70,12 +70,12 @@ table 1706 "Deferral Posting Buffer"
             Caption = 'Use Tax';
             DataClassification = SystemMetadata;
         }
-        field(12; "Job No."; Code[20])
-        {
-            Caption = 'Job No.';
-            DataClassification = SystemMetadata;
-            TableRelation = Job;
-        }
+        //TODO JOBS: // field(12; "Job No."; Code[20])
+        // {
+        //     Caption = 'Job No.';
+        //     DataClassification = SystemMetadata;
+        //     TableRelation = Job;
+        // }
         field(13; "Posting Date"; Date)
         {
             Caption = 'Posting Date';
@@ -204,7 +204,7 @@ table 1706 "Deferral Posting Buffer"
         "Global Dimension 1 Code" := SalesLine."Shortcut Dimension 1 Code";
         "Global Dimension 2 Code" := SalesLine."Shortcut Dimension 2 Code";
         "Dimension Set ID" := SalesLine."Dimension Set ID";
-        "Job No." := SalesLine."Job No.";
+        //TODO JOBS:"Job No." := SalesLine."Job No.";
 
         if SalesLine."VAT Calculation Type" = SalesLine."VAT Calculation Type"::"Sales Tax" then begin
             "Tax Area Code" := SalesLine."Tax Area Code";
@@ -235,7 +235,7 @@ table 1706 "Deferral Posting Buffer"
         "Global Dimension 1 Code" := PurchLine."Shortcut Dimension 1 Code";
         "Global Dimension 2 Code" := PurchLine."Shortcut Dimension 2 Code";
         "Dimension Set ID" := PurchLine."Dimension Set ID";
-        "Job No." := PurchLine."Job No.";
+        //TODO JOBS:"Job No." := PurchLine."Job No.";
 
         if PurchLine."VAT Calculation Type" = PurchLine."VAT Calculation Type"::"Sales Tax" then begin
             "Tax Area Code" := PurchLine."Tax Area Code";
@@ -322,7 +322,7 @@ table 1706 "Deferral Posting Buffer"
         SetRange("Tax Liable", DeferralPostBuffer."Tax Liable");
         SetRange("Use Tax", DeferralPostBuffer."Use Tax");
         SetRange("Dimension Set ID", DeferralPostBuffer."Dimension Set ID");
-        SetRange("Job No.", DeferralPostBuffer."Job No.");
+        //TODO JOBS:SetRange("Job No.", DeferralPostBuffer."Job No.");
         SetRange("Deferral Code", DeferralPostBuffer."Deferral Code");
         SetRange("Posting Date", DeferralPostBuffer."Posting Date");
         SetRange("Partial Deferral", DeferralPostBuffer."Partial Deferral");

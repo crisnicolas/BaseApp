@@ -1,4 +1,4 @@
-codeunit 408 DimensionManagement
+codeunit 408 "DimensionManagement"
 {
     Permissions = TableData "Gen. Journal Template" = imd,
                   TableData "Gen. Journal Batch" = imd;
@@ -29,7 +29,7 @@ codeunit 408 DimensionManagement
         DimValueMissingErr: Label '%1 for %2 is missing.', Comment = '%1 = Dimension Value table caption, %2 = Dim Code';
         Text019: Label 'You have changed a dimension.\\Do you want to update the lines?';
         LastErrorMessage: Record "Error Message";
-        TempJobTaskDimBuffer: Record "Job Task Dimension" temporary;
+        //TODO JOBS:TempJobTaskDimBuffer: Record "Job Task Dimension" temporary;
         TempDimSetEntryBuffer: Record "Dimension Set Entry" temporary;
         ErrorMessageMgt: Codeunit "Error Message Management";
         TempDimCombInitialized: Boolean;
@@ -1036,9 +1036,9 @@ codeunit 408 DimensionManagement
         TempDimField: Record "Field" temporary;
         TempDimSetIDField: Record "Field" temporary;
     begin
-        TempDimField.SetFilter(
-          TableNo, '<>%1&<>%2&<>%3',
-          DATABASE::"General Ledger Setup", DATABASE::"Job Task", DATABASE::"Change Global Dim. Header");
+        //TODO JOBS:// TempDimField.SetFilter(
+        //   TableNo, '<>%1&<>%2&<>%3',
+        //   DATABASE::"General Ledger Setup", DATABASE::"Job Task", DATABASE::"Change Global Dim. Header");
         TempDimField.SetFilter(ObsoleteState, '<>%1', TempDimField.ObsoleteState::Removed);
         TempDimField.SetFilter(FieldName, '*Global Dimension*');
         TempDimField.SetRange(Type, TempDimField.Type::Code);
@@ -1134,7 +1134,7 @@ codeunit 408 DimensionManagement
     begin
         // Table 1001 "Job Task" is an exception
         // it has Table 1002 "Job Task Dimension" that implements default dimension behavior
-        InsertObject(TempAllObjWithCaption, DATABASE::"Job Task");
+        //TODO JOBS: InsertObject(TempAllObjWithCaption, DATABASE::"Job Task");
     end;
 
     procedure FindDimFieldInTable(TableNo: Integer; FieldNameFilter: Text; var "Field": Record "Field"): Boolean
@@ -1315,8 +1315,8 @@ codeunit 408 DimensionManagement
     var
         CallingTrigger: Option OnInsert,OnModify,OnDelete;
     begin
-        if DefaultDimension."Table ID" = DATABASE::Job then
-            UpdateJobTaskDim(DefaultDimension, false);
+        //TODO JOBS:// if DefaultDimension."Table ID" = DATABASE::Job then
+        //     UpdateJobTaskDim(DefaultDimension, false);
 
         UpdateCostType(DefaultDimension, CallingTrigger::OnInsert);
     end;
@@ -1325,8 +1325,8 @@ codeunit 408 DimensionManagement
     var
         CallingTrigger: Option OnInsert,OnModify,OnDelete;
     begin
-        if DefaultDimension."Table ID" = DATABASE::Job then
-            UpdateJobTaskDim(DefaultDimension, false);
+        //TODO JOBS:// if DefaultDimension."Table ID" = DATABASE::Job then
+        //     UpdateJobTaskDim(DefaultDimension, false);
 
         UpdateCostType(DefaultDimension, CallingTrigger::OnModify);
     end;
@@ -1335,8 +1335,8 @@ codeunit 408 DimensionManagement
     var
         CallingTrigger: Option OnInsert,OnModify,OnDelete;
     begin
-        if DefaultDimension."Table ID" = DATABASE::Job then
-            UpdateJobTaskDim(DefaultDimension, true);
+        //TODO JOBS:// if DefaultDimension."Table ID" = DATABASE::Job then
+        //     UpdateJobTaskDim(DefaultDimension, true);
 
         UpdateCostType(DefaultDimension, CallingTrigger::OnDelete);
     end;
@@ -1553,166 +1553,166 @@ codeunit 408 DimensionManagement
         exit(true);
     end;
 
-    procedure SaveJobTaskDim(JobNo: Code[20]; JobTaskNo: Code[20]; FieldNumber: Integer; ShortcutDimCode: Code[20])
-    var
-        JobTaskDim: Record "Job Task Dimension";
-    begin
-        GetGLSetup;
-        if ShortcutDimCode <> '' then begin
-            if JobTaskDim.Get(JobNo, JobTaskNo, GLSetupShortcutDimCode[FieldNumber])
-            then begin
-                JobTaskDim.Validate("Dimension Value Code", ShortcutDimCode);
-                JobTaskDim.Modify;
-            end else begin
-                JobTaskDim.Init;
-                JobTaskDim.Validate("Job No.", JobNo);
-                JobTaskDim.Validate("Job Task No.", JobTaskNo);
-                JobTaskDim.Validate("Dimension Code", GLSetupShortcutDimCode[FieldNumber]);
-                JobTaskDim.Validate("Dimension Value Code", ShortcutDimCode);
-                JobTaskDim.Insert;
-            end;
-        end else
-            if JobTaskDim.Get(JobNo, JobTaskNo, GLSetupShortcutDimCode[FieldNumber]) then
-                JobTaskDim.Delete;
-    end;
+    //TODO JOBS:// procedure SaveJobTaskDim(JobNo: Code[20]; JobTaskNo: Code[20]; FieldNumber: Integer; ShortcutDimCode: Code[20])
+    // var
+    //     JobTaskDim: Record "Job Task Dimension";
+    // begin
+    //     GetGLSetup;
+    //     if ShortcutDimCode <> '' then begin
+    //         if JobTaskDim.Get(JobNo, JobTaskNo, GLSetupShortcutDimCode[FieldNumber])
+    //         then begin
+    //             JobTaskDim.Validate("Dimension Value Code", ShortcutDimCode);
+    //             JobTaskDim.Modify;
+    //         end else begin
+    //             JobTaskDim.Init;
+    //             JobTaskDim.Validate("Job No.", JobNo);
+    //             JobTaskDim.Validate("Job Task No.", JobTaskNo);
+    //             JobTaskDim.Validate("Dimension Code", GLSetupShortcutDimCode[FieldNumber]);
+    //             JobTaskDim.Validate("Dimension Value Code", ShortcutDimCode);
+    //             JobTaskDim.Insert;
+    //         end;
+    //     end else
+    //         if JobTaskDim.Get(JobNo, JobTaskNo, GLSetupShortcutDimCode[FieldNumber]) then
+    //             JobTaskDim.Delete;
+    // end;
 
-    procedure SaveJobTaskTempDim(FieldNumber: Integer; ShortcutDimCode: Code[20])
-    begin
-        GetGLSetup;
-        if ShortcutDimCode <> '' then begin
-            if TempJobTaskDimBuffer.Get('', '', GLSetupShortcutDimCode[FieldNumber])
-            then begin
-                TempJobTaskDimBuffer."Dimension Value Code" := ShortcutDimCode;
-                TempJobTaskDimBuffer.Modify;
-            end else begin
-                TempJobTaskDimBuffer.Init;
-                TempJobTaskDimBuffer."Dimension Code" := GLSetupShortcutDimCode[FieldNumber];
-                TempJobTaskDimBuffer."Dimension Value Code" := ShortcutDimCode;
-                TempJobTaskDimBuffer.Insert;
-            end;
-        end else
-            if TempJobTaskDimBuffer.Get('', '', GLSetupShortcutDimCode[FieldNumber]) then
-                TempJobTaskDimBuffer.Delete;
-    end;
+    //TODO JOBS:// procedure SaveJobTaskTempDim(FieldNumber: Integer; ShortcutDimCode: Code[20])
+    // begin
+    //     GetGLSetup;
+    //     if ShortcutDimCode <> '' then begin
+    //         if TempJobTaskDimBuffer.Get('', '', GLSetupShortcutDimCode[FieldNumber])
+    //         then begin
+    //             TempJobTaskDimBuffer."Dimension Value Code" := ShortcutDimCode;
+    //             TempJobTaskDimBuffer.Modify;
+    //         end else begin
+    //             TempJobTaskDimBuffer.Init;
+    //             TempJobTaskDimBuffer."Dimension Code" := GLSetupShortcutDimCode[FieldNumber];
+    //             TempJobTaskDimBuffer."Dimension Value Code" := ShortcutDimCode;
+    //             TempJobTaskDimBuffer.Insert;
+    //         end;
+    //     end else
+    //         if TempJobTaskDimBuffer.Get('', '', GLSetupShortcutDimCode[FieldNumber]) then
+    //             TempJobTaskDimBuffer.Delete;
+    // end;
 
-    procedure InsertJobTaskDim(JobNo: Code[20]; JobTaskNo: Code[20]; var GlobalDim1Code: Code[20]; var GlobalDim2Code: Code[20])
-    var
-        DefaultDim: Record "Default Dimension";
-        JobTaskDim: Record "Job Task Dimension";
-    begin
-        GetGLSetup;
-        DefaultDim.SetRange("Table ID", DATABASE::Job);
-        DefaultDim.SetRange("No.", JobNo);
-        if DefaultDim.FindSet(false, false) then
-            repeat
-                if DefaultDim."Dimension Value Code" <> '' then begin
-                    JobTaskDim.Init;
-                    JobTaskDim."Job No." := JobNo;
-                    JobTaskDim."Job Task No." := JobTaskNo;
-                    JobTaskDim."Dimension Code" := DefaultDim."Dimension Code";
-                    JobTaskDim."Dimension Value Code" := DefaultDim."Dimension Value Code";
-                    JobTaskDim.Insert;
-                    if JobTaskDim."Dimension Code" = GLSetupShortcutDimCode[1] then
-                        GlobalDim1Code := JobTaskDim."Dimension Value Code";
-                    if JobTaskDim."Dimension Code" = GLSetupShortcutDimCode[2] then
-                        GlobalDim2Code := JobTaskDim."Dimension Value Code";
-                end;
-            until DefaultDim.Next = 0;
+    //TODO JOBS:// procedure InsertJobTaskDim(JobNo: Code[20]; JobTaskNo: Code[20]; var GlobalDim1Code: Code[20]; var GlobalDim2Code: Code[20])
+    // var
+    //     DefaultDim: Record "Default Dimension";
+    //     JobTaskDim: Record "Job Task Dimension";
+    // begin
+    //     GetGLSetup;
+    //     DefaultDim.SetRange("Table ID", DATABASE::Job);
+    //     DefaultDim.SetRange("No.", JobNo);
+    //     if DefaultDim.FindSet(false, false) then
+    //         repeat
+    //             if DefaultDim."Dimension Value Code" <> '' then begin
+    //                 JobTaskDim.Init;
+    //                 JobTaskDim."Job No." := JobNo;
+    //                 JobTaskDim."Job Task No." := JobTaskNo;
+    //                 JobTaskDim."Dimension Code" := DefaultDim."Dimension Code";
+    //                 JobTaskDim."Dimension Value Code" := DefaultDim."Dimension Value Code";
+    //                 JobTaskDim.Insert;
+    //                 if JobTaskDim."Dimension Code" = GLSetupShortcutDimCode[1] then
+    //                     GlobalDim1Code := JobTaskDim."Dimension Value Code";
+    //                 if JobTaskDim."Dimension Code" = GLSetupShortcutDimCode[2] then
+    //                     GlobalDim2Code := JobTaskDim."Dimension Value Code";
+    //             end;
+    //         until DefaultDim.Next = 0;
 
-        TempJobTaskDimBuffer.Reset;
-        if TempJobTaskDimBuffer.FindSet then
-            repeat
-                if not JobTaskDim.Get(JobNo, JobTaskNo, TempJobTaskDimBuffer."Dimension Code") then begin
-                    JobTaskDim.Init;
-                    JobTaskDim."Job No." := JobNo;
-                    JobTaskDim."Job Task No." := JobTaskNo;
-                    JobTaskDim."Dimension Code" := TempJobTaskDimBuffer."Dimension Code";
-                    JobTaskDim."Dimension Value Code" := TempJobTaskDimBuffer."Dimension Value Code";
-                    JobTaskDim.Insert;
-                    if JobTaskDim."Dimension Code" = GLSetupShortcutDimCode[1] then
-                        GlobalDim1Code := JobTaskDim."Dimension Value Code";
-                    if JobTaskDim."Dimension Code" = GLSetupShortcutDimCode[2] then
-                        GlobalDim2Code := JobTaskDim."Dimension Value Code";
-                end;
-            until TempJobTaskDimBuffer.Next = 0;
-        TempJobTaskDimBuffer.DeleteAll;
-    end;
+    //     TempJobTaskDimBuffer.Reset;
+    //     if TempJobTaskDimBuffer.FindSet then
+    //         repeat
+    //             if not JobTaskDim.Get(JobNo, JobTaskNo, TempJobTaskDimBuffer."Dimension Code") then begin
+    //                 JobTaskDim.Init;
+    //                 JobTaskDim."Job No." := JobNo;
+    //                 JobTaskDim."Job Task No." := JobTaskNo;
+    //                 JobTaskDim."Dimension Code" := TempJobTaskDimBuffer."Dimension Code";
+    //                 JobTaskDim."Dimension Value Code" := TempJobTaskDimBuffer."Dimension Value Code";
+    //                 JobTaskDim.Insert;
+    //                 if JobTaskDim."Dimension Code" = GLSetupShortcutDimCode[1] then
+    //                     GlobalDim1Code := JobTaskDim."Dimension Value Code";
+    //                 if JobTaskDim."Dimension Code" = GLSetupShortcutDimCode[2] then
+    //                     GlobalDim2Code := JobTaskDim."Dimension Value Code";
+    //             end;
+    //         until TempJobTaskDimBuffer.Next = 0;
+    //     TempJobTaskDimBuffer.DeleteAll;
+    // end;
 
-    local procedure UpdateJobTaskDim(DefaultDimension: Record "Default Dimension"; FromOnDelete: Boolean)
-    var
-        JobTaskDimension: Record "Job Task Dimension";
-        JobTask: Record "Job Task";
-        ConfirmManagement: Codeunit "Confirm Management";
-    begin
-        if DefaultDimension."Table ID" <> DATABASE::Job then
-            exit;
+    //TODO JOBS:// local procedure UpdateJobTaskDim(DefaultDimension: Record "Default Dimension"; FromOnDelete: Boolean)
+    // var
+    //     JobTaskDimension: Record "Job Task Dimension";
+    //     JobTask: Record "Job Task";
+    //     ConfirmManagement: Codeunit "Confirm Management";
+    // begin
+    //     if DefaultDimension."Table ID" <> DATABASE::Job then
+    //         exit;
 
-        JobTask.SetRange("Job No.", DefaultDimension."No.");
-        if JobTask.IsEmpty then
-            exit;
+    //     JobTask.SetRange("Job No.", DefaultDimension."No.");
+    //     if JobTask.IsEmpty then
+    //         exit;
 
-        if not ConfirmManagement.GetResponseOrDefault(Text019, true) then
-            exit;
+    //     if not ConfirmManagement.GetResponseOrDefault(Text019, true) then
+    //         exit;
 
-        JobTaskDimension.SetRange("Job No.", DefaultDimension."No.");
-        JobTaskDimension.SetRange("Dimension Code", DefaultDimension."Dimension Code");
-        JobTaskDimension.DeleteAll(true);
+    //     JobTaskDimension.SetRange("Job No.", DefaultDimension."No.");
+    //     JobTaskDimension.SetRange("Dimension Code", DefaultDimension."Dimension Code");
+    //     JobTaskDimension.DeleteAll(true);
 
-        if FromOnDelete or
-           (DefaultDimension."Value Posting" = DefaultDimension."Value Posting"::"No Code") or
-           (DefaultDimension."Dimension Value Code" = '')
-        then
-            exit;
+    //     if FromOnDelete or
+    //        (DefaultDimension."Value Posting" = DefaultDimension."Value Posting"::"No Code") or
+    //        (DefaultDimension."Dimension Value Code" = '')
+    //     then
+    //         exit;
 
-        if JobTask.FindSet then
-            repeat
-                Clear(JobTaskDimension);
-                JobTaskDimension."Job No." := JobTask."Job No.";
-                JobTaskDimension."Job Task No." := JobTask."Job Task No.";
-                JobTaskDimension."Dimension Code" := DefaultDimension."Dimension Code";
-                JobTaskDimension."Dimension Value Code" := DefaultDimension."Dimension Value Code";
-                JobTaskDimension.Insert(true);
-            until JobTask.Next = 0;
-    end;
+    //     if JobTask.FindSet then
+    //         repeat
+    //             Clear(JobTaskDimension);
+    //             JobTaskDimension."Job No." := JobTask."Job No.";
+    //             JobTaskDimension."Job Task No." := JobTask."Job Task No.";
+    //             JobTaskDimension."Dimension Code" := DefaultDimension."Dimension Code";
+    //             JobTaskDimension."Dimension Value Code" := DefaultDimension."Dimension Value Code";
+    //             JobTaskDimension.Insert(true);
+    //         until JobTask.Next = 0;
+    // end;
 
-    procedure DeleteJobTaskTempDim()
-    begin
-        TempJobTaskDimBuffer.Reset;
-        TempJobTaskDimBuffer.DeleteAll;
-    end;
+    //TODO JOBS:// procedure DeleteJobTaskTempDim()
+    // begin
+    //     TempJobTaskDimBuffer.Reset;
+    //     TempJobTaskDimBuffer.DeleteAll;
+    // end;
 
-    procedure CopyJobTaskDimToJobTaskDim(JobNo: Code[20]; JobTaskNo: Code[20]; NewJobNo: Code[20]; NewJobTaskNo: Code[20])
-    var
-        JobTaskDimension: Record "Job Task Dimension";
-        JobTaskDimension2: Record "Job Task Dimension";
-    begin
-        JobTaskDimension.Reset;
-        JobTaskDimension.SetRange("Job No.", JobNo);
-        JobTaskDimension.SetRange("Job Task No.", JobTaskNo);
-        if JobTaskDimension.FindSet then
-            repeat
-                if not JobTaskDimension2.Get(NewJobNo, NewJobTaskNo, JobTaskDimension."Dimension Code") then begin
-                    JobTaskDimension2.Init;
-                    JobTaskDimension2."Job No." := NewJobNo;
-                    JobTaskDimension2."Job Task No." := NewJobTaskNo;
-                    JobTaskDimension2."Dimension Code" := JobTaskDimension."Dimension Code";
-                    JobTaskDimension2."Dimension Value Code" := JobTaskDimension."Dimension Value Code";
-                    JobTaskDimension2.Insert(true);
-                end else begin
-                    JobTaskDimension2."Dimension Value Code" := JobTaskDimension."Dimension Value Code";
-                    JobTaskDimension2.Modify(true);
-                end;
-            until JobTaskDimension.Next = 0;
+    // procedure CopyJobTaskDimToJobTaskDim(JobNo: Code[20]; JobTaskNo: Code[20]; NewJobNo: Code[20]; NewJobTaskNo: Code[20])
+    // var
+    //     JobTaskDimension: Record "Job Task Dimension";
+    //     JobTaskDimension2: Record "Job Task Dimension";
+    // begin
+    //     JobTaskDimension.Reset;
+    //     JobTaskDimension.SetRange("Job No.", JobNo);
+    //     JobTaskDimension.SetRange("Job Task No.", JobTaskNo);
+    //     if JobTaskDimension.FindSet then
+    //         repeat
+    //             if not JobTaskDimension2.Get(NewJobNo, NewJobTaskNo, JobTaskDimension."Dimension Code") then begin
+    //                 JobTaskDimension2.Init;
+    //                 JobTaskDimension2."Job No." := NewJobNo;
+    //                 JobTaskDimension2."Job Task No." := NewJobTaskNo;
+    //                 JobTaskDimension2."Dimension Code" := JobTaskDimension."Dimension Code";
+    //                 JobTaskDimension2."Dimension Value Code" := JobTaskDimension."Dimension Value Code";
+    //                 JobTaskDimension2.Insert(true);
+    //             end else begin
+    //                 JobTaskDimension2."Dimension Value Code" := JobTaskDimension."Dimension Value Code";
+    //                 JobTaskDimension2.Modify(true);
+    //             end;
+    //         until JobTaskDimension.Next = 0;
 
-        JobTaskDimension2.Reset;
-        JobTaskDimension2.SetRange("Job No.", NewJobNo);
-        JobTaskDimension2.SetRange("Job Task No.", NewJobTaskNo);
-        if JobTaskDimension2.FindSet then
-            repeat
-                if not JobTaskDimension.Get(JobNo, JobTaskNo, JobTaskDimension2."Dimension Code") then
-                    JobTaskDimension2.Delete(true);
-            until JobTaskDimension2.Next = 0;
-    end;
+    //     JobTaskDimension2.Reset;
+    //     JobTaskDimension2.SetRange("Job No.", NewJobNo);
+    //     JobTaskDimension2.SetRange("Job Task No.", NewJobTaskNo);
+    //     if JobTaskDimension2.FindSet then
+    //         repeat
+    //             if not JobTaskDimension.Get(JobNo, JobTaskNo, JobTaskDimension2."Dimension Code") then
+    //                 JobTaskDimension2.Delete(true);
+    //         until JobTaskDimension2.Next = 0;
+    // end;
 
     procedure CheckDimIDConsistency(var DimSetEntry: Record "Dimension Set Entry"; var PostedDimSetEntry: Record "Dimension Set Entry"; DocTableID: Integer; PostedDocTableID: Integer): Boolean
     var
@@ -1839,9 +1839,9 @@ codeunit 408 DimensionManagement
         HighPriorityTableID: array[10] of Integer;
         HighPriorityNo: array[10] of Code[20];
     begin
-        TableID[1] := DATABASE::Job;
+        //TODO JOBS:TableID[1] := DATABASE::Job;
         TableID[2] := TypeToTableID3(PurchaseLine.Type);
-        No[1] := PurchaseLine."Job No.";
+        //TODO JOBS:githubNo[1] := PurchaseLine."Job No.";
         No[2] := PurchaseLine."No.";
 
         OnBeforeGetTableIDsForHigherPriorities(DATABASE::"Purchase Line", PurchaseLine, CurrFieldNo, TableID, No);
@@ -1860,9 +1860,9 @@ codeunit 408 DimensionManagement
         HighPriorityTableID: array[10] of Integer;
         HighPriorityNo: array[10] of Code[20];
     begin
-        TableID[1] := DATABASE::Job;
+        //TODO JOBS:TableID[1] := DATABASE::Job;
         TableID[2] := TypeToTableID3(SalesLine.Type);
-        No[1] := SalesLine."Job No.";
+        //TODO JOBS:No[1] := SalesLine."Job No.";
         No[2] := SalesLine."No.";
 
         OnBeforeGetTableIDsForHigherPriorities(DATABASE::"Sales Line", SalesLine, CurrFieldNo, TableID, No);
@@ -1874,28 +1874,28 @@ codeunit 408 DimensionManagement
                 SalesLine, CurrFieldNo, HighPriorityTableID, HighPriorityNo, SourceCode, DimValue1, DimValue2, 0, 0);
     end;
 
-    procedure CreateDimForJobJournalLineWithHigherPriorities(JobJournalLine: Record "Job Journal Line"; CurrFieldNo: Integer; var DimensionSetID: Integer; var DimValue1: Code[20]; var DimValue2: Code[20]; SourceCode: Code[10]; PriorityTableID: Integer)
-    var
-        TableID: array[10] of Integer;
-        No: array[10] of Code[20];
-        HighPriorityTableID: array[10] of Integer;
-        HighPriorityNo: array[10] of Code[20];
-    begin
-        TableID[1] := DATABASE::Job;
-        TableID[2] := TypeToTableID2(JobJournalLine.Type);
-        TableID[3] := DATABASE::"Resource Group";
-        No[1] := JobJournalLine."Job No.";
-        No[2] := JobJournalLine."No.";
-        No[3] := JobJournalLine."Resource Group No.";
+    //TODO JOBS:// procedure CreateDimForJobJournalLineWithHigherPriorities(JobJournalLine: Record "Job Journal Line"; CurrFieldNo: Integer; var DimensionSetID: Integer; var DimValue1: Code[20]; var DimValue2: Code[20]; SourceCode: Code[10]; PriorityTableID: Integer)
+    // var
+    //     TableID: array[10] of Integer;
+    //     No: array[10] of Code[20];
+    //     HighPriorityTableID: array[10] of Integer;
+    //     HighPriorityNo: array[10] of Code[20];
+    // begin
+    //     TableID[1] := DATABASE::Job;
+    //     TableID[2] := TypeToTableID2(JobJournalLine.Type);
+    //     TableID[3] := DATABASE::"Resource Group";
+    //     No[1] := JobJournalLine."Job No.";
+    //     No[2] := JobJournalLine."No.";
+    //     No[3] := JobJournalLine."Resource Group No.";
 
-        OnBeforeGetTableIDsForHigherPriorities(DATABASE::"Job Journal Line", JobJournalLine, CurrFieldNo, TableID, No);
-        if GetTableIDsForHigherPriorities(
-             TableID, No, HighPriorityTableID, HighPriorityNo, SourceCode, PriorityTableID)
-        then
-            DimensionSetID :=
-              GetRecDefaultDimID(
-                JobJournalLine, CurrFieldNo, HighPriorityTableID, HighPriorityNo, SourceCode, DimValue1, DimValue2, 0, 0);
-    end;
+    //     OnBeforeGetTableIDsForHigherPriorities(DATABASE::"Job Journal Line", JobJournalLine, CurrFieldNo, TableID, No);
+    //     if GetTableIDsForHigherPriorities(
+    //          TableID, No, HighPriorityTableID, HighPriorityNo, SourceCode, PriorityTableID)
+    //     then
+    //         DimensionSetID :=
+    //           GetRecDefaultDimID(
+    //             JobJournalLine, CurrFieldNo, HighPriorityTableID, HighPriorityNo, SourceCode, DimValue1, DimValue2, 0, 0);
+    // end;
 
     local procedure GetTableIDsForHigherPriorities(TableID: array[10] of Integer; No: array[10] of Code[20]; var HighPriorityTableID: array[10] of Integer; var HighPriorityNo: array[10] of Code[20]; SourceCode: Code[10]; PriorityTableID: Integer) Result: Boolean
     var
@@ -2030,28 +2030,28 @@ codeunit 408 DimensionManagement
                 CostAccMgt.UpdateCostTypeFromDefaultDimension(DefaultDimension, GLAcc, CallingTrigger);
     end;
 
-    procedure CreateDimSetFromJobTaskDim(JobNo: Code[20]; JobTaskNo: Code[20]; var GlobalDimVal1: Code[20]; var GlobalDimVal2: Code[20]) NewDimSetID: Integer
-    var
-        JobTaskDimension: Record "Job Task Dimension";
-        DimValue: Record "Dimension Value";
-        TempDimSetEntry: Record "Dimension Set Entry" temporary;
-    begin
-        with JobTaskDimension do begin
-            SetRange("Job No.", JobNo);
-            SetRange("Job Task No.", JobTaskNo);
-            if FindSet then begin
-                repeat
-                    DimValue.Get("Dimension Code", "Dimension Value Code");
-                    TempDimSetEntry."Dimension Code" := "Dimension Code";
-                    TempDimSetEntry."Dimension Value Code" := "Dimension Value Code";
-                    TempDimSetEntry."Dimension Value ID" := DimValue."Dimension Value ID";
-                    TempDimSetEntry.Insert(true);
-                until Next = 0;
-                NewDimSetID := GetDimensionSetID(TempDimSetEntry);
-                UpdateGlobalDimFromDimSetID(NewDimSetID, GlobalDimVal1, GlobalDimVal2);
-            end;
-        end;
-    end;
+    //TODO JOBS:// procedure CreateDimSetFromJobTaskDim(JobNo: Code[20]; JobTaskNo: Code[20]; var GlobalDimVal1: Code[20]; var GlobalDimVal2: Code[20]) NewDimSetID: Integer
+    // var
+    //     JobTaskDimension: Record "Job Task Dimension";
+    //     DimValue: Record "Dimension Value";
+    //     TempDimSetEntry: Record "Dimension Set Entry" temporary;
+    // begin
+    //     with JobTaskDimension do begin
+    //         SetRange("Job No.", JobNo);
+    //         SetRange("Job Task No.", JobTaskNo);
+    //         if FindSet then begin
+    //             repeat
+    //                 DimValue.Get("Dimension Code", "Dimension Value Code");
+    //                 TempDimSetEntry."Dimension Code" := "Dimension Code";
+    //                 TempDimSetEntry."Dimension Value Code" := "Dimension Value Code";
+    //                 TempDimSetEntry."Dimension Value ID" := DimValue."Dimension Value ID";
+    //                 TempDimSetEntry.Insert(true);
+    //             until Next = 0;
+    //             NewDimSetID := GetDimensionSetID(TempDimSetEntry);
+    //             UpdateGlobalDimFromDimSetID(NewDimSetID, GlobalDimVal1, GlobalDimVal2);
+    //         end;
+    //     end;
+    // end;
 
     procedure UpdateGenJnlLineDim(var GenJnlLine: Record "Gen. Journal Line"; DimSetID: Integer)
     begin
