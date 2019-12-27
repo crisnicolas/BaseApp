@@ -396,7 +396,7 @@ table 336 "Tracking Specification"
                 ItemLedgEntry.TestField("Serial No.", "Serial No.");
                 ItemLedgEntry.TestField("Lot No.", "Lot No.");
 
-                OnAfterValidateApplFromItemEntry(Rec, ItemLedgEntry, IsReclass);
+                //TODO JOBS: OnAfterValidateApplFromItemEntry(Rec, ItemLedgEntry, IsReclass);
             end;
         }
         field(5817; Correction; Boolean)
@@ -533,21 +533,22 @@ table 336 "Tracking Specification"
         OnAfterInitFromItemJnlLine(Rec, ItemJnlLine);
     end;
 
-    procedure InitFromJobJnlLine(var JobJnlLine: Record "Job Journal Line")
-    begin
-        Init;
-        SetItemData(
-          JobJnlLine."No.", JobJnlLine.Description, JobJnlLine."Location Code", JobJnlLine."Variant Code", JobJnlLine."Bin Code",
-          JobJnlLine."Qty. per Unit of Measure");
-        SetSource(
-          DATABASE::"Job Journal Line", JobJnlLine."Entry Type", JobJnlLine."Journal Template Name", JobJnlLine."Line No.",
-          JobJnlLine."Journal Batch Name", 0);
-        SetQuantities(
-          JobJnlLine."Quantity (Base)", JobJnlLine.Quantity, JobJnlLine."Quantity (Base)", JobJnlLine.Quantity,
-          JobJnlLine."Quantity (Base)", 0, 0);
+    //TODO JOBS: 
+    // procedure InitFromJobJnlLine(var JobJnlLine: Record "Job Journal Line")
+    // begin
+    //     Init;
+    //     SetItemData(
+    //       JobJnlLine."No.", JobJnlLine.Description, JobJnlLine."Location Code", JobJnlLine."Variant Code", JobJnlLine."Bin Code",
+    //       JobJnlLine."Qty. per Unit of Measure");
+    //     SetSource(
+    //       DATABASE::"Job Journal Line", JobJnlLine."Entry Type", JobJnlLine."Journal Template Name", JobJnlLine."Line No.",
+    //       JobJnlLine."Journal Batch Name", 0);
+    //     SetQuantities(
+    //       JobJnlLine."Quantity (Base)", JobJnlLine.Quantity, JobJnlLine."Quantity (Base)", JobJnlLine.Quantity,
+    //       JobJnlLine."Quantity (Base)", 0, 0);
 
-        OnAfterInitFromJobJnlLine(Rec, JobJnlLine);
-    end;
+    //     OnAfterInitFromJobJnlLine(Rec, JobJnlLine);
+    // end;
 
     procedure InitFromPurchLine(PurchLine: Record "Purchase Line")
     begin
@@ -1152,10 +1153,11 @@ table 336 "Tracking Specification"
     begin
     end;
 
-    [IntegrationEvent(false, false)]
-    local procedure OnAfterInitFromJobJnlLine(var TrackingSpecification: Record "Tracking Specification"; JobJournalLine: Record "Job Journal Line")
-    begin
-    end;
+    //TODO JOBS: 
+    // [IntegrationEvent(false, false)]
+    // local procedure OnAfterInitFromJobJnlLine(var TrackingSpecification: Record "Tracking Specification"; JobJournalLine: Record "Job Journal Line")
+    // begin
+    // end;
 
     [IntegrationEvent(false, false)]
     local procedure OnAfterInitFromPurchLine(var TrackingSpecification: Record "Tracking Specification"; PurchaseLine: Record "Purchase Line")

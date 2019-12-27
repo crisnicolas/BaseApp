@@ -794,7 +794,7 @@ codeunit 5817 "Undo Posting Management"
 
     procedure PostItemJnlLine(var ItemJnlLine: Record "Item Journal Line")
     var
-        Job: Record Job;
+        //TODO JOBS: Job: Record Job;
         ItemJnlLine2: Record "Item Journal Line";
         PostJobConsumptionBeforePurch: Boolean;
     begin
@@ -802,8 +802,8 @@ codeunit 5817 "Undo Posting Management"
         ItemJnlLine2 := ItemJnlLine;
         if ItemJnlLine2."Job No." <> '' then begin
             ItemJnlLine2."Entry Type" := ItemJnlLine2."Entry Type"::"Negative Adjmt.";
-            Job.Get(ItemJnlLine2."Job No.");
-            ItemJnlLine2."Source No." := Job."Bill-to Customer No.";
+            //TODO JOBS: Job.Get(ItemJnlLine2."Job No.");
+            //TODO JOBS: ItemJnlLine2."Source No." := Job."Bill-to Customer No.";
             ItemJnlLine2."Source Type" := ItemJnlLine2."Source Type"::Customer;
             ItemJnlLine2."Discount Amount" := 0;
             PostJobConsumptionBeforePurch := ItemJnlLine2.IsPurchaseReturn;

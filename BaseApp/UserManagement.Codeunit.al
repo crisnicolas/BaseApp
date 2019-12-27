@@ -12,10 +12,10 @@ codeunit 418 "User Management"
                   TableData "Purch. Rcpt. Header" = rm,
                   TableData "Purch. Inv. Header" = rm,
                   TableData "Purch. Cr. Memo Hdr." = rm,
-                  TableData "Job Ledger Entry" = rm,
+                  //TODO JOBS: TableData "Job Ledger Entry" = rm,
                   TableData "Res. Ledger Entry" = rm,
                   TableData "Resource Register" = rm,
-                  TableData "Job Register" = rm,
+                  //TODO JOBS: TableData "Job Register" = rm,
                   TableData "VAT Entry" = rm,
                   TableData "Bank Account Ledger Entry" = rm,
                   TableData "Check Ledger Entry" = rm,
@@ -75,7 +75,7 @@ codeunit 418 "User Management"
                   Tabledata "Detailed CV Ledg. Entry Buffer" = m,
                   Tabledata "VAT Report Archive" = m,
                   Tabledata "Cash Flow Forecast Entry" = m,
-                  Tabledata "Job Planning Line" = m,
+                  //TODO JOBS: Tabledata "Job Planning Line" = m,
                   Tabledata "Cost Type" = m,
                   Tabledata "Cost Allocation Source" = m,
                   Tabledata "Cost Allocation Target" = m,
@@ -195,7 +195,7 @@ codeunit 418 "User Management"
         MyItem: Record "My Item";
         MyAccount: Record "My Account";
         ApplicationAreaSetup: Record "Application Area Setup";
-        MyJob: Record "My Job";
+        //TODO JOBS: MyJob: Record "My Job";
         MyTimeSheets: Record "My Time Sheets";
         CuesAndKpis: Codeunit "Cues and KPIs";
     begin
@@ -281,12 +281,13 @@ codeunit 418 "User Management"
                         RecRef.SetTable(ApplicationAreaSetup);
                         ApplicationAreaSetup.Rename('', '', UserName);
                     end;
-                DATABASE::"My Job":
-                    begin
-                        MyJob.ChangeCompany(Company);
-                        RecRef.SetTable(MyJob);
-                        MyJob.Rename(UserName, MyJob."Job No.");
-                    end;
+                //TODO JOBS: 
+                // DATABASE::"My Job":
+                //     begin
+                //         MyJob.ChangeCompany(Company);
+                //         RecRef.SetTable(MyJob);
+                //         MyJob.Rename(UserName, MyJob."Job No.");
+                //     end;
                 DATABASE::"My Time Sheets":
                     begin
                         MyTimeSheets.ChangeCompany(Company);
@@ -313,8 +314,8 @@ codeunit 418 "User Management"
         OnBeforeRenameUser(OldUserName, NewUserName);
 
         if OldUserName = UserID then
-             if not confirm(CurrentUserQst, true, UserID) then
-                 error('');
+            if not confirm(CurrentUserQst, true, UserID) then
+                error('');
 
         Field.SetFilter(ObsoleteState, '<>%1', Field.ObsoleteState::Removed);
         Field.SetRange(RelationTableNo, DATABASE::User);

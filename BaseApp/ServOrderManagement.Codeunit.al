@@ -320,7 +320,7 @@ codeunit 5900 ServOrderManagement
         ServMgtSetup: Record "Service Mgt. Setup";
         Cust: Record Customer;
         ContBusRel: Record "Contact Business Relation";
-        ContJobResp: Record "Contact Job Responsibility";
+        //TODO JOBS: ContJobResp: Record "Contact Job Responsibility";
         Cont: Record Contact;
         ContactFound: Boolean;
     begin
@@ -338,14 +338,15 @@ codeunit 5900 ServOrderManagement
                 Cont.SetRange("Company No.", ContBusRel."Contact No.");
                 if Cont.Find('-') then
                     repeat
-                        ContJobResp.Reset;
-                        ContJobResp.SetRange("Contact No.", Cont."No.");
-                        ContJobResp.SetRange("Job Responsibility Code", ServMgtSetup."Serv. Job Responsibility Code");
-                        ContactFound := ContJobResp.FindFirst;
+                    //TODO JOBS: 
+                    // ContJobResp.Reset;
+                    // ContJobResp.SetRange("Contact No.", Cont."No.");
+                    // ContJobResp.SetRange("Job Responsibility Code", ServMgtSetup."Serv. Job Responsibility Code");
+                    // ContactFound := ContJobResp.FindFirst;
                     until (Cont.Next = 0) or ContactFound;
             end;
             if ContactFound then begin
-                Cont.Get(ContJobResp."Contact No.");
+                //TODO JOBS: Cont.Get(ContJobResp."Contact No.");
                 exit(Cont."No.");
             end;
         end;

@@ -762,7 +762,7 @@ report 5915 "Service Document - Test"
                                     TableID[1] := DimMgt.TypeToTableID5(Type);
                                     No[1] := "No.";
                                 end;
-                                TableID[2] := DATABASE::Job;
+                                //TODO JOBS: TableID[2] := DATABASE::Job;
                                 No[2] := "Job No.";
                                 if not DimMgt.CheckDimValuePosting(TableID, No, "Dimension Set ID") then
                                     AddError(DimMgt.GetDimValuePostingErr);

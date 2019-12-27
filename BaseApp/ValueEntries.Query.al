@@ -51,15 +51,16 @@ query 266 "Value Entries"
             column(Reason_Code; "Reason Code")
             {
             }
-            column(Job_No; "Job No.")
-            {
-            }
-            column(Job_Task_No; "Job Task No.")
-            {
-            }
-            column(Job_Ledger_Entry_No; "Job Ledger Entry No.")
-            {
-            }
+            //TODO JOBS: 
+            // column(Job_No; "Job No.")
+            // {
+            // }
+            // column(Job_Task_No; "Job Task No.")
+            // {
+            // }
+            // column(Job_Ledger_Entry_No; "Job Ledger Entry No.")
+            // {
+            // }
             column(Valued_Quantity; "Valued Quantity")
             {
             }

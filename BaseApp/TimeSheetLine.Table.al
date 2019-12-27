@@ -52,15 +52,15 @@ table 951 "Time Sheet Line"
         field(6; "Job No."; Code[20])
         {
             Caption = 'Job No.';
-            TableRelation = Job;
+            //TODO JOBS: TableRelation = Job;
 
             trigger OnValidate()
             begin
                 if "Job No." <> '' then begin
                     TestField(Type, Type::Job);
-                    Job.Get("Job No.");
-                    if Job.Blocked = Job.Blocked::All then
-                        Job.TestBlocked;
+                    //TODO JOBS: Job.Get("Job No.");
+                    // if Job.Blocked = Job.Blocked::All then
+                    //     Job.TestBlocked;
                 end;
                 Validate("Job Task No.", '');
                 UpdateApproverID;
@@ -70,15 +70,16 @@ table 951 "Time Sheet Line"
         field(7; "Job Task No."; Code[20])
         {
             Caption = 'Job Task No.';
-            TableRelation = "Job Task"."Job Task No." WHERE("Job No." = FIELD("Job No."));
+            //TODO JOBS: TableRelation = "Job Task"."Job Task No." WHERE("Job No." = FIELD("Job No."));
 
             trigger OnValidate()
             begin
                 if "Job Task No." <> '' then begin
                     TestField(Type, Type::Job);
-                    JobTask.Get("Job No.", "Job Task No.");
-                    JobTask.TestField("Job Task Type", JobTask."Job Task Type"::Posting);
-                    Description := JobTask.Description;
+                    //TODO JOBS: 
+                    // JobTask.Get("Job No.", "Job Task No.");
+                    // JobTask.TestField("Job Task Type", JobTask."Job Task Type"::Posting);
+                    // Description := JobTask.Description;
                 end;
             end;
         }
@@ -225,7 +226,7 @@ table 951 "Time Sheet Line"
         {
             Caption = 'Job Id';
             DataClassification = SystemMetadata;
-            TableRelation = Job.Id;
+            //TODO JOBS: TableRelation = Job.Id;
         }
     }
 
@@ -295,8 +296,8 @@ table 951 "Time Sheet Line"
 
     var
         ResourcesSetup: Record "Resources Setup";
-        Job: Record Job;
-        JobTask: Record "Job Task";
+        //TODO JOBS: Job: Record Job;
+        //TODO JOBS: JobTask: Record "Job Task";
         TimeSheetHeader: Record "Time Sheet Header";
         TimeSheetDetail: Record "Time Sheet Detail";
         Text001: Label 'There is no employee linked with resource %1.';
@@ -337,11 +338,12 @@ table 951 "Time Sheet Line"
     var
         Resource: Record Resource;
     begin
-        Job.Get("Job No.");
-        Job.TestField("Person Responsible");
-        Resource.Get(Job."Person Responsible");
-        Resource.TestField("Time Sheet Owner User ID");
-        exit(Resource."Time Sheet Owner User ID");
+        //TODO JOBS: 
+        // Job.Get("Job No.");
+        // Job.TestField("Person Responsible");
+        // Resource.Get(Job."Person Responsible");
+        // Resource.TestField("Time Sheet Owner User ID");
+        // exit(Resource."Time Sheet Owner User ID");
     end;
 
     procedure UpdateApproverID()
@@ -378,7 +380,7 @@ table 951 "Time Sheet Line"
     procedure ShowLineDetails(ManagerRole: Boolean)
     var
         TimeSheetLineResDetail: Page "Time Sheet Line Res. Detail";
-        TimeSheetLineJobDetail: Page "Time Sheet Line Job Detail";
+        //TODO JOBS: TimeSheetLineJobDetail: Page "Time Sheet Line Job Detail";
         TimeSheetLineServiceDetail: Page "Time Sheet Line Service Detail";
         TimeSheetLineAssembDetail: Page "Time Sheet Line Assemb. Detail";
         TimeSheetLineAbsenceDetail: Page "Time Sheet Line Absence Detail";
@@ -390,12 +392,13 @@ table 951 "Time Sheet Line"
                     if TimeSheetLineResDetail.RunModal = ACTION::OK then
                         TimeSheetLineResDetail.GetRecord(Rec);
                 end;
-            Type::Job:
-                begin
-                    TimeSheetLineJobDetail.SetParameters(Rec, ManagerRole);
-                    if TimeSheetLineJobDetail.RunModal = ACTION::OK then
-                        TimeSheetLineJobDetail.GetRecord(Rec);
-                end;
+            //TODO JOBS: 
+            // Type::Job:
+            //     begin
+            //         TimeSheetLineJobDetail.SetParameters(Rec, ManagerRole);
+            //         if TimeSheetLineJobDetail.RunModal = ACTION::OK then
+            //             TimeSheetLineJobDetail.GetRecord(Rec);
+            //     end;
             Type::Absence:
                 begin
                     TimeSheetLineAbsenceDetail.SetParameters(Rec, ManagerRole);
@@ -437,17 +440,17 @@ table 951 "Time Sheet Line"
     [Scope('OnPrem')]
     procedure UpdateJobId()
     var
-        Job: Record Job;
+    //TODO JOBS: Job: Record Job;
     begin
-        if "Job No." = '' then begin
-            Clear("Job Id");
-            exit;
-        end;
+        // if "Job No." = '' then begin
+        //     Clear("Job Id");
+        //     exit;
+        // end;
 
-        if not Job.Get("Job No.") then
-            exit;
+        // if not Job.Get("Job No.") then
+        //     exit;
 
-        "Job Id" := Job.Id;
+        // "Job Id" := Job.Id;
     end;
 }
 

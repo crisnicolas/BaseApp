@@ -1527,14 +1527,14 @@ report 1306 "Standard Sales - Invoice"
 
     local procedure GetJobTaskDescription(JobNo: Code[20]; JobTaskNo: Code[20]): Text[50]
     var
-        JobTask: Record "Job Task";
+    //TODO JOBS: JobTask: Record "Job Task";
     begin
-        JobTask.SetRange("Job No.", JobNo);
-        JobTask.SetRange("Job Task No.", JobTaskNo);
-        if JobTask.FindFirst then
-            exit(JobTask.Description);
+        // JobTask.SetRange("Job No.", JobNo);
+        // JobTask.SetRange("Job Task No.", JobTaskNo);
+        // if JobTask.FindFirst then
+        //     exit(JobTask.Description);
 
-        exit('');
+        // exit('');
     end;
 
     [IntegrationEvent(false, false)]

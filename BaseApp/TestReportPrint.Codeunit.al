@@ -17,8 +17,8 @@ codeunit 228 "Test Report-Print"
         IntrastatJnlLine: Record "Intrastat Jnl. Line";
         ResJnlTemplate: Record "Res. Journal Template";
         ResJnlLine: Record "Res. Journal Line";
-        JobJnlTemplate: Record "Job Journal Template";
-        JobJnlLine: Record "Job Journal Line";
+        // JobJnlTemplate: Record "Job Journal Template";//TODO JOBS: 
+        //TODO JOBS: JobJnlLine: Record "Job Journal Line";
         FAJnlLine: Record "FA Journal Line";
         FAJnlTemplate: Record "FA Journal Template";
         InsuranceJnlLine: Record "Insurance Journal Line";
@@ -235,23 +235,25 @@ codeunit 228 "Test Report-Print"
         ReportSelection.PrintWithCheck(ReportSelection.Usage::"Invt.Period Test", InvtPeriod, 0);
     end;
 
-    procedure PrintJobJnlBatch(JobJnlBatch: Record "Job Journal Batch")
-    begin
-        JobJnlBatch.SetRecFilter;
-        JobJnlTemplate.Get(JobJnlBatch."Journal Template Name");
-        JobJnlTemplate.TestField("Test Report ID");
-        REPORT.Run(JobJnlTemplate."Test Report ID", true, false, JobJnlBatch);
-    end;
+    //TODO JOBS: 
+    // procedure PrintJobJnlBatch(JobJnlBatch: Record "Job Journal Batch")
+    // begin
+    //     JobJnlBatch.SetRecFilter;
+    //     JobJnlTemplate.Get(JobJnlBatch."Journal Template Name");
+    //     JobJnlTemplate.TestField("Test Report ID");
+    //     REPORT.Run(JobJnlTemplate."Test Report ID", true, false, JobJnlBatch);
+    // end;
 
-    procedure PrintJobJnlLine(var NewJobJnlLine: Record "Job Journal Line")
-    begin
-        JobJnlLine.Copy(NewJobJnlLine);
-        JobJnlLine.SetRange("Journal Template Name", JobJnlLine."Journal Template Name");
-        JobJnlLine.SetRange("Journal Batch Name", JobJnlLine."Journal Batch Name");
-        JobJnlTemplate.Get(JobJnlLine."Journal Template Name");
-        JobJnlTemplate.TestField("Test Report ID");
-        REPORT.Run(JobJnlTemplate."Test Report ID", true, false, JobJnlLine);
-    end;
+    //TODO JOBS: 
+    // procedure PrintJobJnlLine(var NewJobJnlLine: Record "Job Journal Line")
+    // begin
+    //     JobJnlLine.Copy(NewJobJnlLine);
+    //     JobJnlLine.SetRange("Journal Template Name", JobJnlLine."Journal Template Name");
+    //     JobJnlLine.SetRange("Journal Batch Name", JobJnlLine."Journal Batch Name");
+    //     JobJnlTemplate.Get(JobJnlLine."Journal Template Name");
+    //     JobJnlTemplate.TestField("Test Report ID");
+    //     REPORT.Run(JobJnlTemplate."Test Report ID", true, false, JobJnlLine);
+    // end;
 
     local procedure CalcSalesDisc(var SalesHeader: Record "Sales Header")
     var

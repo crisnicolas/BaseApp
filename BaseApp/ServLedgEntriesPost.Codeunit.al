@@ -232,9 +232,10 @@ codeunit 5912 "ServLedgEntries-Post"
             if ServLine."Document No." <> '' then begin
                 if ServHeader."Document Type" = ServHeader."Document Type"::Order then
                     "Service Order No." := ServLine."Document No.";
-                "Job No." := ServLine."Job No.";
-                "Job Task No." := ServLine."Job Task No.";
-                "Job Line Type" := ServLine."Job Line Type";
+                //TODO JOBS: 
+                // "Job No." := ServLine."Job No.";
+                // "Job Task No." := ServLine."Job Task No.";
+                // "Job Line Type" := ServLine."Job Line Type";
             end;
 
             // fill-in Service Order No with the value, taken from the shipment specified in Get Shipment Lines
@@ -390,7 +391,7 @@ codeunit 5912 "ServLedgEntries-Post"
             "Discount %" := ServLine."Line Discount %";
             "Unit Cost" := GetRefinedUnitCost(ServLine);
             "Cost Amount" := Round("Unit Cost" * ServLine.Quantity, Currency."Amount Rounding Precision");
-            "Job Line Type" := "Job Line Type"::" ";
+            //TODO JOBS: "Job Line Type" := "Job Line Type"::" ";
             if ServHeader."Currency Code" = '' then begin
                 "Unit Price" := ServLine."Unit Price";
                 "Discount Amount" := ServLine."Line Discount Amount";
@@ -749,7 +750,7 @@ codeunit 5912 "ServLedgEntries-Post"
             "Global Dimension 2 Code" := ServLine."Shortcut Dimension 2 Code";
             "Dimension Set ID" := ServLine."Dimension Set ID";
             "User ID" := UserId;
-            "Job Line Type" := "Job Line Type"::" ";
+            //TODO JOBS: "Job Line Type" := "Job Line Type"::" ";
 
             Clear(ServDocReg);
             ServDocReg.ServiceDocument(ServHeader."Document Type", ServHeader."No.", ServDocType, ServDocNo);

@@ -1,7 +1,7 @@
 codeunit 950 "Time Sheet Management"
 {
     Permissions = TableData "Time Sheet Posting Entry" = ri,
-                  TableData "Job Planning Line" = r,
+                  //TODO JOBS: TableData "Job Planning Line" = r,
                   TableData Employee = r;
 
     trigger OnRun()
@@ -376,61 +376,62 @@ codeunit 950 "Time Sheet Management"
     procedure CreateLinesFromJobPlanning(TimeSheetHeader: Record "Time Sheet Header") CreatedLinesQty: Integer
     var
         TimeSheetLine: Record "Time Sheet Line";
-        TempJobPlanningLine: Record "Job Planning Line" temporary;
+        //TODO JOBS: TempJobPlanningLine: Record "Job Planning Line" temporary;
         LineNo: Integer;
     begin
         LineNo := TimeSheetHeader.GetLastLineNo;
 
-        FillJobPlanningBuffer(TimeSheetHeader, TempJobPlanningLine);
+        //TODO JOBS: FillJobPlanningBuffer(TimeSheetHeader, TempJobPlanningLine);
 
-        TempJobPlanningLine.Reset;
-        if TempJobPlanningLine.FindSet then
-            repeat
-                LineNo := LineNo + 10000;
-                CreatedLinesQty := CreatedLinesQty + 1;
-                TimeSheetLine.Init;
-                TimeSheetLine."Time Sheet No." := TimeSheetHeader."No.";
-                TimeSheetLine."Line No." := LineNo;
-                TimeSheetLine."Time Sheet Starting Date" := TimeSheetHeader."Starting Date";
-                TimeSheetLine.Validate(Type, TimeSheetLine.Type::Job);
-                TimeSheetLine.Validate("Job No.", TempJobPlanningLine."Job No.");
-                TimeSheetLine.Validate("Job Task No.", TempJobPlanningLine."Job Task No.");
-                TimeSheetLine.Insert;
-            until TempJobPlanningLine.Next = 0;
+        // TempJobPlanningLine.Reset;
+        // if TempJobPlanningLine.FindSet then
+        //     repeat
+        //         LineNo := LineNo + 10000;
+        //         CreatedLinesQty := CreatedLinesQty + 1;
+        //         TimeSheetLine.Init;
+        //         TimeSheetLine."Time Sheet No." := TimeSheetHeader."No.";
+        //         TimeSheetLine."Line No." := LineNo;
+        //         TimeSheetLine."Time Sheet Starting Date" := TimeSheetHeader."Starting Date";
+        //         TimeSheetLine.Validate(Type, TimeSheetLine.Type::Job);
+        //         TimeSheetLine.Validate("Job No.", TempJobPlanningLine."Job No.");
+        //         TimeSheetLine.Validate("Job Task No.", TempJobPlanningLine."Job Task No.");
+        //         TimeSheetLine.Insert;
+        //     until TempJobPlanningLine.Next = 0;
     end;
 
     procedure CalcLinesFromJobPlanning(TimeSheetHeader: Record "Time Sheet Header"): Integer
     var
-        TempJobPlanningLine: Record "Job Planning Line" temporary;
+    //TODO JOBS: TempJobPlanningLine: Record "Job Planning Line" temporary;
     begin
-        FillJobPlanningBuffer(TimeSheetHeader, TempJobPlanningLine);
-        exit(TempJobPlanningLine.Count);
+        // FillJobPlanningBuffer(TimeSheetHeader, TempJobPlanningLine);
+        // exit(TempJobPlanningLine.Count);
     end;
 
-    local procedure FillJobPlanningBuffer(TimeSheetHeader: Record "Time Sheet Header"; var JobPlanningLineBuffer: Record "Job Planning Line")
-    var
-        JobPlanningLine: Record "Job Planning Line";
-        SkipLine: Boolean;
-    begin
-        JobPlanningLine.SetRange(Type, JobPlanningLine.Type::Resource);
-        JobPlanningLine.SetRange("No.", TimeSheetHeader."Resource No.");
-        JobPlanningLine.SetRange("Planning Date", TimeSheetHeader."Starting Date", TimeSheetHeader."Ending Date");
-        if JobPlanningLine.FindSet then
-            repeat
-                SkipLine := false;
-                OnCheckInsertJobPlanningLine(JobPlanningLine, JobPlanningLineBuffer, SkipLine);
-                if not SkipLine then begin
-                    JobPlanningLineBuffer.SetRange("Job No.", JobPlanningLine."Job No.");
-                    JobPlanningLineBuffer.SetRange("Job Task No.", JobPlanningLine."Job Task No.");
-                    if JobPlanningLineBuffer.IsEmpty then begin
-                        JobPlanningLineBuffer."Job No." := JobPlanningLine."Job No.";
-                        JobPlanningLineBuffer."Job Task No." := JobPlanningLine."Job Task No.";
-                        JobPlanningLineBuffer.Insert;
-                    end;
-                end;
-            until JobPlanningLine.Next = 0;
-        JobPlanningLineBuffer.Reset;
-    end;
+    //TODO JOBS: 
+    // local procedure FillJobPlanningBuffer(TimeSheetHeader: Record "Time Sheet Header"; var JobPlanningLineBuffer: Record "Job Planning Line")
+    // var
+    //     JobPlanningLine: Record "Job Planning Line";
+    //     SkipLine: Boolean;
+    // begin
+    //     JobPlanningLine.SetRange(Type, JobPlanningLine.Type::Resource);
+    //     JobPlanningLine.SetRange("No.", TimeSheetHeader."Resource No.");
+    //     JobPlanningLine.SetRange("Planning Date", TimeSheetHeader."Starting Date", TimeSheetHeader."Ending Date");
+    //     if JobPlanningLine.FindSet then
+    //         repeat
+    //             SkipLine := false;
+    //             OnCheckInsertJobPlanningLine(JobPlanningLine, JobPlanningLineBuffer, SkipLine);
+    //             if not SkipLine then begin
+    //                 JobPlanningLineBuffer.SetRange("Job No.", JobPlanningLine."Job No.");
+    //                 JobPlanningLineBuffer.SetRange("Job Task No.", JobPlanningLine."Job Task No.");
+    //                 if JobPlanningLineBuffer.IsEmpty then begin
+    //                     JobPlanningLineBuffer."Job No." := JobPlanningLine."Job No.";
+    //                     JobPlanningLineBuffer."Job Task No." := JobPlanningLine."Job Task No.";
+    //                     JobPlanningLineBuffer.Insert;
+    //                 end;
+    //             end;
+    //         until JobPlanningLine.Next = 0;
+    //     JobPlanningLineBuffer.Reset;
+    // end;
 
     procedure FindTimeSheet(var TimeSheetHeader: Record "Time Sheet Header"; Which: Option Prev,Next): Code[20]
     begin
@@ -658,23 +659,24 @@ codeunit 950 "Time Sheet Management"
         end;
     end;
 
-    procedure CheckJobJnlLine(JobJnlLine: Record "Job Journal Line")
-    var
-        MaxAvailableQty: Decimal;
-    begin
-        with JobJnlLine do begin
-            TestField("Qty. per Unit of Measure");
-            if not CheckTSLineDetailPosting(
-                 "Time Sheet No.",
-                 "Time Sheet Line No.",
-                 "Time Sheet Date",
-                 Quantity,
-                 "Qty. per Unit of Measure",
-                 MaxAvailableQty)
-            then
-                FieldError(Quantity, StrSubstNo(Text004, MaxAvailableQty, "Unit of Measure Code"));
-        end;
-    end;
+    //TODO JOBS: 
+    // procedure CheckJobJnlLine(JobJnlLine: Record "Job Journal Line")
+    // var
+    //     MaxAvailableQty: Decimal;
+    // begin
+    //     with JobJnlLine do begin
+    //         TestField("Qty. per Unit of Measure");
+    //         if not CheckTSLineDetailPosting(
+    //              "Time Sheet No.",
+    //              "Time Sheet Line No.",
+    //              "Time Sheet Date",
+    //              Quantity,
+    //              "Qty. per Unit of Measure",
+    //              MaxAvailableQty)
+    //         then
+    //             FieldError(Quantity, StrSubstNo(Text004, MaxAvailableQty, "Unit of Measure Code"));
+    //     end;
+    // end;
 
     procedure CheckServiceLine(ServiceLine: Record "Service Line")
     var
@@ -874,10 +876,11 @@ codeunit 950 "Time Sheet Management"
         end;
     end;
 
-    [IntegrationEvent(false, false)]
-    local procedure OnCheckInsertJobPlanningLine(JobPlanningLine: Record "Job Planning Line"; var JobPlanningLineBuffer: Record "Job Planning Line"; var SkipLine: Boolean)
-    begin
-    end;
+    //TODO JOBS: 
+    // [IntegrationEvent(false, false)]
+    // local procedure OnCheckInsertJobPlanningLine(JobPlanningLine: Record "Job Planning Line"; var JobPlanningLineBuffer: Record "Job Planning Line"; var SkipLine: Boolean)
+    // begin
+    // end;
 
     [IntegrationEvent(false, false)]
     local procedure OnBeforeToTimeSheetLineInsert(var ToTimeSheetLine: Record "Time Sheet Line"; FromTimeSheetLine: Record "Time Sheet Line")
