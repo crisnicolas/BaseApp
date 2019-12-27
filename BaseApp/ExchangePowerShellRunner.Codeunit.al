@@ -145,7 +145,7 @@ codeunit 1651 "Exchange PowerShell Runner"
         PSRunnerObj := PSRunnerObj.CreateInSandbox;
         NetworkCredential :=
           NetworkCredential.NetworkCredential(OfficeAdminCredentials.Email, OfficeAdminCredentials.GetPassword);
-        PSCred := PSCred.PSCredential(Format(NetworkCredential.UserName), NetworkCredential.SecurePassword);
+        //TODO JOBS:  PSCred := PSCred.PSCredential(Format(NetworkCredential.UserName), NetworkCredential.SecurePassword);
 
         PSRunnerObj.SetExchangeRemoteConnectionInformation(
           PSCred, Uri.Uri(OfficeAdminCredentials.Endpoint), 'Microsoft.Exchange', UseKerberos);
