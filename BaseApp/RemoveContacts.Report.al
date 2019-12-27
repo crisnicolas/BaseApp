@@ -280,9 +280,10 @@ report 5186 "Remove Contacts"
         SegCriteriaManagement.InsertCriteriaFilter(
           "Segment Header".GetFilter("No."), DATABASE::"Interaction Log Entry",
           "Interaction Log Entry".GetFilters, "Interaction Log Entry".GetView(false));
-        SegCriteriaManagement.InsertCriteriaFilter(
-          "Segment Header".GetFilter("No."), DATABASE::"Contact Job Responsibility", "Contact Job Responsibility".GetFilters,
-          "Contact Job Responsibility".GetView(false));
+        //TODO JOBS: 
+        // SegCriteriaManagement.InsertCriteriaFilter(
+        //   "Segment Header".GetFilter("No."), DATABASE::"Contact Job Responsibility", "Contact Job Responsibility".GetFilters,
+        //   "Contact Job Responsibility".GetView(false));
         SegCriteriaManagement.InsertCriteriaFilter(
           "Segment Header".GetFilter("No."), DATABASE::"Contact Industry Group",
           "Contact Industry Group".GetFilters, "Contact Industry Group".GetView(false));
