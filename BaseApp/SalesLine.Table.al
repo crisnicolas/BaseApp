@@ -4296,7 +4296,7 @@ table 37 "Sales Line"
 
     procedure OpenItemTrackingLines()
     var
-        Job: Record Job;
+        //TODO JOBS: Job: Record Job;
         IsHandled: Boolean;
     begin
         IsHandled := false;
@@ -4307,8 +4307,9 @@ table 37 "Sales Line"
         TestField(Type, Type::Item);
         TestField("No.");
         TestField("Quantity (Base)");
-        if "Job Contract Entry No." <> 0 then
-            Error(Text048, TableCaption, Job.TableCaption);
+        //TODO JOBS: 
+        // if "Job Contract Entry No." <> 0 then
+        //     Error(Text048, TableCaption, Job.TableCaption);
         ReserveSalesLine.CallItemTracking(Rec);
     end;
 
@@ -5617,7 +5618,7 @@ table 37 "Sales Line"
 
     local procedure TestJobPlanningLine()
     var
-        JobPostLine: Codeunit "Job Post-Line";
+        //TODO JOBS: JobPostLine: Codeunit "Job Post-Line";
         IsHandled: Boolean;
     begin
         IsHandled := false;
@@ -5628,7 +5629,7 @@ table 37 "Sales Line"
         if "Job Contract Entry No." = 0 then
             exit;
 
-        JobPostLine.TestSalesLine(Rec);
+        //TODO JOBS: JobPostLine.TestSalesLine(Rec);
     end;
 
     procedure BlockDynamicTracking(SetBlock: Boolean)
