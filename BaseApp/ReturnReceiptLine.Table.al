@@ -153,7 +153,7 @@ table 6661 "Return Receipt Line"
         field(45; "Job No."; Code[20])
         {
             Caption = 'Job No.';
-            TableRelation = Job;
+            //TODO JOBS: TableRelation = Job;
         }
         field(52; "Work Type Code"; Code[10])
         {

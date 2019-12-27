@@ -762,12 +762,12 @@ codeunit 333 "Req. Wksh.-Make Order"
         ProdOrderComp: Record "Prod. Order Component";
         SalesLine: Record "Sales Line";
         ServLine: Record "Service Line";
-        JobPlanningLine: Record "Job Planning Line";
+        //TODO JOBS: JobPlanningLine: Record "Job Planning Line";
         AsmLine: Record "Assembly Line";
         ProdOrderCompReserve: Codeunit "Prod. Order Comp.-Reserve";
         SalesLineReserve: Codeunit "Sales Line-Reserve";
         ServLineReserve: Codeunit "Service Line-Reserve";
-        JobPlanningLineReserve: Codeunit "Job Planning Line-Reserve";
+        //TODO JOBS: JobPlanningLineReserve: Codeunit "Job Planning Line-Reserve";
         AsmLineReserve: Codeunit "Assembly Line-Reserve";
         ReservQty: Decimal;
         ReservQtyBase: Decimal;
@@ -806,16 +806,17 @@ codeunit 333 "Req. Wksh.-Make Order"
                         ServLine.Modify;
                     end;
                 end;
-            DATABASE::"Job Planning Line":
-                begin
-                    JobPlanningLine.SetRange("Job Contract Entry No.", ReqLine."Demand Line No.");
-                    JobPlanningLine.FindFirst;
-                    JobPlanningLineReserve.BindToPurchase(JobPlanningLine, PurchLine, ReservQty, ReservQtyBase);
-                    if JobPlanningLine.Reserve = JobPlanningLine.Reserve::Never then begin
-                        JobPlanningLine.Reserve := JobPlanningLine.Reserve::Optional;
-                        JobPlanningLine.Modify;
-                    end;
-                end;
+            //TODO JOBS: 
+            // DATABASE::"Job Planning Line":
+            //     begin
+            //         JobPlanningLine.SetRange("Job Contract Entry No.", ReqLine."Demand Line No.");
+            //         JobPlanningLine.FindFirst;
+            //         JobPlanningLineReserve.BindToPurchase(JobPlanningLine, PurchLine, ReservQty, ReservQtyBase);
+            //         if JobPlanningLine.Reserve = JobPlanningLine.Reserve::Never then begin
+            //             JobPlanningLine.Reserve := JobPlanningLine.Reserve::Optional;
+            //             JobPlanningLine.Modify;
+            //         end;
+            //     end;
             DATABASE::"Assembly Line":
                 begin
                     AsmLine.Get(ReqLine."Demand Subtype", ReqLine."Demand Order No.", ReqLine."Demand Line No.");

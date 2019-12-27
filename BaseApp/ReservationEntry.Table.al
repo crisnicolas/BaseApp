@@ -314,7 +314,7 @@ table 337 "Reservation Entry"
         AssemblyLine: Record "Assembly Line";
         TransLine: Record "Transfer Line";
         ServLine: Record "Service Line";
-        JobJnlLine: Record "Job Journal Line";
+        //TODO JOBS: JobJnlLine: Record "Job Journal Line";
         ExtensionTextCaption: Text[255];
     begin
         case "Source Type" of
@@ -328,8 +328,9 @@ table 337 "Reservation Entry"
                 exit(PurchLine.TableCaption);
             DATABASE::"Item Journal Line":
                 exit(ItemJnlLine.TableCaption);
-            DATABASE::"Job Journal Line":
-                exit(JobJnlLine.TableCaption);
+            //TODO JOBS: 
+            // DATABASE::"Job Journal Line":
+            //     exit(JobJnlLine.TableCaption);
             DATABASE::"Prod. Order Line":
                 exit(ProdOrderLine.TableCaption);
             DATABASE::"Prod. Order Component":
@@ -364,8 +365,9 @@ table 337 "Reservation Entry"
                 exit(31 + "Source Subtype");
             DATABASE::"Item Journal Line":
                 exit(41 + "Source Subtype");
-            DATABASE::"Job Journal Line":
-                exit(51 + "Source Subtype");
+            //TODO JOBS: 
+            // DATABASE::"Job Journal Line":
+            //     exit(51 + "Source Subtype");
             DATABASE::"Prod. Order Line":
                 exit(61 + "Source Subtype");
             DATABASE::"Prod. Order Component":

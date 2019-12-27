@@ -22,7 +22,7 @@ codeunit 99000815 "Reservation-Check Date Confl."
         ReservePlanningComponent: Codeunit "Plng. Component-Reserve";
         ReserveTransLine: Codeunit "Transfer Line-Reserve";
         ServLineReserve: Codeunit "Service Line-Reserve";
-        JobPlanningLineReserve: Codeunit "Job Planning Line-Reserve";
+        //TODO JOBS: JobPlanningLineReserve: Codeunit "Job Planning Line-Reserve";
         ReservMgt: Codeunit "Reservation Management";
         DateConflictMsg: Label 'The change causes a date conflict with an existing reservation on %2 for %1 units.\ \The reservations have been canceled. The production order must be replanned.', Comment = '%1: Field(Reserved Quantity (Base)), %2: Field(Due Date)';
 
@@ -190,18 +190,19 @@ codeunit 99000815 "Reservation-Check Date Confl."
         ReservMgt.AutoTrack(ServLine."Outstanding Qty. (Base)");
     end;
 
-    procedure JobPlanningLineCheck(JobPlanningLine: Record "Job Planning Line"; ForceRequest: Boolean)
-    begin
-        if not JobPlanningLineReserve.FindReservEntry(JobPlanningLine, ReservEntry) then
-            exit;
-        if DateConflict(JobPlanningLine."Planning Date", ForceRequest, ReservEntry) then
-            if ForceRequest then
-                IssueError(JobPlanningLine."Planning Date");
-        UpdateDate(ReservEntry, JobPlanningLine."Planning Date");
-        ReservMgt.SetJobPlanningLine(JobPlanningLine);
-        ReservMgt.ClearSurplus;
-        ReservMgt.AutoTrack(JobPlanningLine."Remaining Qty. (Base)");
-    end;
+    //TODO JOBS: 
+    // procedure JobPlanningLineCheck(JobPlanningLine: Record "Job Planning Line"; ForceRequest: Boolean)
+    // begin
+    //     if not JobPlanningLineReserve.FindReservEntry(JobPlanningLine, ReservEntry) then
+    //         exit;
+    //     if DateConflict(JobPlanningLine."Planning Date", ForceRequest, ReservEntry) then
+    //         if ForceRequest then
+    //             IssueError(JobPlanningLine."Planning Date");
+    //     UpdateDate(ReservEntry, JobPlanningLine."Planning Date");
+    //     ReservMgt.SetJobPlanningLine(JobPlanningLine);
+    //     ReservMgt.ClearSurplus;
+    //     ReservMgt.AutoTrack(JobPlanningLine."Remaining Qty. (Base)");
+    // end;
 
     procedure UpdateDate(var FilterReservEntry: Record "Reservation Entry"; Date: Date)
     var

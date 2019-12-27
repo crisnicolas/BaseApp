@@ -256,7 +256,7 @@ page 497 "Reservation Entries"
         ProdOrderComp: Record "Prod. Order Component";
         PlanningComponent: Record "Planning Component";
         ServLine: Record "Service Line";
-        JobPlanningLine: Record "Job Planning Line";
+        //TODO JOBS: JobPlanningLine: Record "Job Planning Line";
         TransLine: Record "Transfer Line";
         AssemblyHeader: Record "Assembly Header";
         AssemblyLine: Record "Assembly Line";
@@ -343,13 +343,14 @@ page 497 "Reservation Entries"
                         ServLine.SetRange("Line No.", "Source Ref. No.");
                         PAGE.RunModal(0, ServLine);
                     end;
-                DATABASE::"Job Planning Line":
-                    begin
-                        JobPlanningLine.SetRange(Status, "Source Subtype");
-                        JobPlanningLine.SetRange("Job No.", "Source ID");
-                        JobPlanningLine.SetRange("Job Contract Entry No.", "Source Ref. No.");
-                        PAGE.RunModal(0, JobPlanningLine);
-                    end;
+                //TODO JOBS: 
+                // DATABASE::"Job Planning Line":
+                //     begin
+                //         JobPlanningLine.SetRange(Status, "Source Subtype");
+                //         JobPlanningLine.SetRange("Job No.", "Source ID");
+                //         JobPlanningLine.SetRange("Job Contract Entry No.", "Source Ref. No.");
+                //         PAGE.RunModal(0, JobPlanningLine);
+                //     end;
                 DATABASE::"Assembly Header":
                     begin
                         AssemblyHeader.SetRange("Document Type", "Source Subtype");
