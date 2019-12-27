@@ -325,12 +325,12 @@ page 8905 "Purchasing Manager Role Center"
                     Caption = 'Service Orders';
                     RunObject = page "Service Orders";
                 }
-                action("Jobs")
-                {
-                    ApplicationArea = Jobs;
-                    Caption = 'Jobs';
-                    RunObject = page "Job List";
-                }
+                //TODO JOBS:  // action("Jobs")
+                // {
+                //     ApplicationArea = Jobs;
+                //     Caption = 'Jobs';
+                //     RunObject = page "Job List";
+                // }
                 action("Planned Prod. Orders")
                 {
                     ApplicationArea = Manufacturing;

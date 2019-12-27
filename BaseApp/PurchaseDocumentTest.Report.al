@@ -916,8 +916,8 @@ report 402 "Purchase Document - Test"
 
                                     TableID[1] := DimMgt.TypeToTableID3(Type);
                                     No[1] := "No.";
-                                    TableID[2] := DATABASE::Job;
-                                    No[2] := "Job No.";
+                                    //TODO JOBS: // TableID[2] := DATABASE::Job;
+                                    // No[2] := "Job No.";
                                     TableID[3] := DATABASE::"Work Center";
                                     No[3] := "Work Center No.";
                                     if not DimMgt.CheckDimValuePosting(TableID, No, "Dimension Set ID") then
@@ -2101,32 +2101,32 @@ report 402 "Purchase Document - Test"
 
     procedure TestJobFields(var PurchLine: Record "Purchase Line")
     var
-        Job: Record Job;
-        JT: Record "Job Task";
+    //TODO JOBS: Job: Record Job;
+    //TODO JOBS:  JT: Record "Job Task";
     begin
-        with PurchLine do begin
-            if "Job No." = '' then
-                exit;
-            if (Type <> Type::"G/L Account") and (Type <> Type::Item) then
-                exit;
-            if ("Document Type" <> "Document Type"::Invoice) and
-               ("Document Type" <> "Document Type"::"Credit Memo")
-            then
-                exit;
-            if not Job.Get("Job No.") then
-                AddError(StrSubstNo(Text053, Job.TableCaption, "Job No."))
-            else
-                if Job.Blocked > Job.Blocked::" " then
-                    AddError(
-                      StrSubstNo(
-                        Text041, Job.FieldCaption(Blocked), Job.Blocked, Job.TableCaption, "Job No."));
+        // with PurchLine do begin
+        //     if "Job No." = '' then
+        //         exit;
+        //     if (Type <> Type::"G/L Account") and (Type <> Type::Item) then
+        //         exit;
+        //     if ("Document Type" <> "Document Type"::Invoice) and
+        //        ("Document Type" <> "Document Type"::"Credit Memo")
+        //     then
+        //         exit;
+        //     if not Job.Get("Job No.") then
+        //         AddError(StrSubstNo(Text053, Job.TableCaption, "Job No."))
+        //     else
+        //         if Job.Blocked > Job.Blocked::" " then
+        //             AddError(
+        //               StrSubstNo(
+        //                 Text041, Job.FieldCaption(Blocked), Job.Blocked, Job.TableCaption, "Job No."));
 
-            if "Job Task No." = '' then
-                AddError(StrSubstNo(Text006, FieldCaption("Job Task No.")))
-            else
-                if not JT.Get("Job No.", "Job Task No.") then
-                    AddError(StrSubstNo(Text053, JT.TableCaption, "Job Task No."))
-        end;
+        //     if "Job Task No." = '' then
+        //         AddError(StrSubstNo(Text006, FieldCaption("Job Task No.")))
+        //     else
+        //         if not JT.Get("Job No.", "Job Task No.") then
+        //             AddError(StrSubstNo(Text053, JT.TableCaption, "Job Task No."))
+        // end;
     end;
 
     local procedure IsInvtPosting(): Boolean
@@ -2168,8 +2168,8 @@ report 402 "Purchase Document - Test"
         with PurchLine do begin
             TableID[1] := DimMgt.TypeToTableID3(Type);
             No[1] := "No.";
-            TableID[2] := DATABASE::Job;
-            No[2] := "Job No.";
+            //TODO JOBS: // TableID[2] := DATABASE::Job;
+            // No[2] := "Job No.";
             TableID[3] := DATABASE::"Responsibility Center";
             No[3] := "Responsibility Center";
 

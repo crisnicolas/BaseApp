@@ -200,7 +200,7 @@ codeunit 90 "Purch.-Post"
         TempTrackingSpecificationInv: Record "Tracking Specification" temporary;
         TempWhseSplitSpecification: Record "Tracking Specification" temporary;
         TempValueEntryRelation: Record "Value Entry Relation" temporary;
-        Job: Record Job;
+        //TODO JOBS: Job: Record Job;
         TempICGenJnlLine: Record "Gen. Journal Line" temporary;
         TempPrepmtDeductLCYPurchLine: Record "Purchase Line" temporary;
         TempSKU: Record "Stockkeeping Unit" temporary;
@@ -220,7 +220,7 @@ codeunit 90 "Purch.-Post"
         WhsePostRcpt: Codeunit "Whse.-Post Receipt";
         WhsePostShpt: Codeunit "Whse.-Post Shipment";
         CostCalcMgt: Codeunit "Cost Calculation Management";
-        JobPostLine: Codeunit "Job Post-Line";
+        //TODO JOBS:   JobPostLine: Codeunit "Job Post-Line";
         ServItemMgt: Codeunit ServItemManagement;
         DeferralUtilities: Codeunit "Deferral Utilities";
         UOMMgt: Codeunit "Unit of Measure Management";
@@ -567,9 +567,9 @@ codeunit 90 "Purch.-Post"
             RemQtyToBeInvoicedBase := "Qty. to Invoice (Base)";
 
             // Job Credit Memo Item Qty Check
-            if IsCreditDocType then
-                if ("Job No." <> '') and (Type = Type::Item) and ("Qty. to Invoice" <> 0) then
-                    JobPostLine.CheckItemQuantityPurchCredit(PurchHeader, PurchLine);
+            //TODO JOBS: // if IsCreditDocType then
+            //     if ("Job No." <> '') and (Type = Type::Item) and ("Qty. to Invoice" <> 0) then
+            //         JobPostLine.CheckItemQuantityPurchCredit(PurchHeader, PurchLine);
 
             PostItemTrackingLine(PurchHeader, PurchLine);
 
@@ -681,10 +681,10 @@ codeunit 90 "Purch.-Post"
         if (PurchLine."No." <> '') and not PurchLine."System-Created Entry" then begin
             GLAcc.Get(PurchLine."No.");
             GLAcc.TestField("Direct Posting");
-            if (PurchLine."Job No." <> '') and (PurchLine."Qty. to Invoice" <> 0) then begin
-                CreateJobPurchLine(JobPurchLine, PurchLine, PurchHeader."Prices Including VAT");
-                JobPostLine.PostJobOnPurchaseLine(PurchHeader, PurchInvHeader, PurchCrMemoHeader, JobPurchLine, SrcCode);
-            end;
+            //TODO JOBS: // if (PurchLine."Job No." <> '') and (PurchLine."Qty. to Invoice" <> 0) then begin
+            //     CreateJobPurchLine(JobPurchLine, PurchLine, PurchHeader."Prices Including VAT");
+            //     JobPostLine.PostJobOnPurchaseLine(PurchHeader, PurchInvHeader, PurchCrMemoHeader, JobPurchLine, SrcCode);
+            // end;
             if (PurchLine."IC Partner Code" <> '') and PurchHeader.Invoice then
                 InsertICGenJnlLine(PurchHeader, xPurchLine, ICGenJnlLineNo);
 
@@ -4622,38 +4622,38 @@ codeunit 90 "Purch.-Post"
         if IsHandled then
             exit;
 
-        with PurchLine do
-            if "Job No." <> '' then begin
-                ItemJournalLine."Entry Type" := ItemJournalLine."Entry Type"::"Negative Adjmt.";
-                Job.Get("Job No.");
-                ItemJournalLine."Source No." := Job."Bill-to Customer No.";
-                if PurchHeader.Invoice then begin
-                    ItemLedgEntry.Reset;
-                    ItemLedgEntry.SetRange("Document Type", ItemLedgEntry."Document Type"::"Purchase Return Shipment");
-                    ItemLedgEntry.SetRange("Document No.", PurchHeader."Last Return Shipment No.");
-                    ItemLedgEntry.SetRange("Item No.", "No.");
-                    ItemLedgEntry.SetRange("Entry Type", ItemLedgEntry."Entry Type"::"Negative Adjmt.");
-                    ItemLedgEntry.SetRange("Completely Invoiced", false);
-                    if ItemLedgEntry.FindFirst then
-                        ItemJournalLine."Item Shpt. Entry No." := ItemLedgEntry."Entry No.";
-                end;
-                ItemJournalLine."Source Type" := ItemJournalLine."Source Type"::Customer;
-                ItemJournalLine."Discount Amount" := 0;
+        //TODO JOBS: // with PurchLine do
+        //     if "Job No." <> '' then begin
+        //         ItemJournalLine."Entry Type" := ItemJournalLine."Entry Type"::"Negative Adjmt.";
+        //         Job.Get("Job No.");
+        //         ItemJournalLine."Source No." := Job."Bill-to Customer No.";
+        //         if PurchHeader.Invoice then begin
+        //             ItemLedgEntry.Reset;
+        //             ItemLedgEntry.SetRange("Document Type", ItemLedgEntry."Document Type"::"Purchase Return Shipment");
+        //             ItemLedgEntry.SetRange("Document No.", PurchHeader."Last Return Shipment No.");
+        //             ItemLedgEntry.SetRange("Item No.", "No.");
+        //             ItemLedgEntry.SetRange("Entry Type", ItemLedgEntry."Entry Type"::"Negative Adjmt.");
+        //             ItemLedgEntry.SetRange("Completely Invoiced", false);
+        //             if ItemLedgEntry.FindFirst then
+        //                 ItemJournalLine."Item Shpt. Entry No." := ItemLedgEntry."Entry No.";
+        //         end;
+        //         ItemJournalLine."Source Type" := ItemJournalLine."Source Type"::Customer;
+        //         ItemJournalLine."Discount Amount" := 0;
 
-                GetAppliedItemLedgEntryNo(ItemJournalLine, "Quantity Received");
+        //         GetAppliedItemLedgEntryNo(ItemJournalLine, "Quantity Received");
 
-                if QtyToBeReceived <> 0 then
-                    CopyJobConsumptionReservation(
-                      TempReservationEntry, TempPurchReservEntry, ItemJournalLine, TempTrackingSpecification,
-                      PurchItemLedgEntryNo, IsNonInventoriableItem);
+        //         if QtyToBeReceived <> 0 then
+        //             CopyJobConsumptionReservation(
+        //               TempReservationEntry, TempPurchReservEntry, ItemJournalLine, TempTrackingSpecification,
+        //               PurchItemLedgEntryNo, IsNonInventoriableItem);
 
-                ItemJnlPostLine.RunPostWithReservation(ItemJournalLine, TempReservationEntry);
+        //         ItemJnlPostLine.RunPostWithReservation(ItemJournalLine, TempReservationEntry);
 
-                if QtyToBeInvoiced <> 0 then begin
-                    "Qty. to Invoice" := QtyToBeInvoiced;
-                    JobPostLine.PostJobOnPurchaseLine(PurchHeader, PurchInvHeader, PurchCrMemoHeader, PurchLine, SrcCode);
-                end;
-            end;
+        //         if QtyToBeInvoiced <> 0 then begin
+        //             "Qty. to Invoice" := QtyToBeInvoiced;
+        //             JobPostLine.PostJobOnPurchaseLine(PurchHeader, PurchInvHeader, PurchCrMemoHeader, PurchLine, SrcCode);
+        //         end;
+        //     end;
     end;
 
     local procedure CopyJobConsumptionReservation(var TempReservEntryJobCons: Record "Reservation Entry" temporary; var TempReservEntryPurchase: Record "Reservation Entry" temporary; var ItemJournalLine: Record "Item Journal Line"; var TempTrackingSpecification: Record "Tracking Specification" temporary; PurchItemLedgEntryNo: Integer; IsNonInventoriableItem: Boolean)
@@ -6024,7 +6024,7 @@ codeunit 90 "Purch.-Post"
         Clear(WhsePostRcpt);
         Clear(WhsePostShpt);
         Clear(GenJnlPostLine);
-        Clear(JobPostLine);
+        //TODO JOBS: Clear(JobPostLine);
         Clear(ItemJnlPostLine);
         Clear(WhseJnlPostLine);
     end;
@@ -6133,10 +6133,10 @@ codeunit 90 "Purch.-Post"
 
                 GLEntryNo := PostInvoicePostBufferLine(PurchHeader, TempInvoicePostBuffer);
 
-                if (TempInvoicePostBuffer."Job No." <> '') and
-                   (TempInvoicePostBuffer.Type = TempInvoicePostBuffer.Type::"G/L Account")
-                then
-                    JobPostLine.PostPurchaseGLAccounts(TempInvoicePostBuffer, GLEntryNo);
+            //TODO JOBS:  // if (TempInvoicePostBuffer."Job No." <> '') and
+            //    (TempInvoicePostBuffer.Type = TempInvoicePostBuffer.Type::"G/L Account")
+            // then
+            //     JobPostLine.PostPurchaseGLAccounts(TempInvoicePostBuffer, GLEntryNo);
 
             until TempInvoicePostBuffer.Next(-1) = 0;
 

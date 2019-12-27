@@ -193,7 +193,7 @@ table 5110 "Purchase Line Archive"
         field(45; "Job No."; Code[20])
         {
             Caption = 'Job No.';
-            TableRelation = Job;
+            //TODO JOBS:  TableRelation = Job;
         }
         field(54; "Indirect Cost %"; Decimal)
         {

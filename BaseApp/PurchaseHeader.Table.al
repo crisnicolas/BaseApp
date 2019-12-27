@@ -3846,7 +3846,7 @@ table 38 "Purchase Header"
         if TempPurchaseLine.FindSet then
             repeat
                 PurchaseLine.CreateDim(DATABASE::"G/L Account", TempPurchaseLine."No.",
-                  DATABASE::Job, TempPurchaseLine."Job No.",
+                  167, '',//TODO JOBS: DATABASE::Job, TempPurchaseLine."Job No.",
                   DATABASE::"Responsibility Center", TempPurchaseLine."Responsibility Center",
                   DATABASE::"Work Center", TempPurchaseLine."Work Center No.");
             until TempPurchaseLine.Next = 0;

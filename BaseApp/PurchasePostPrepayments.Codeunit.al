@@ -1148,8 +1148,8 @@ codeunit 444 "Purchase-Post Prepayments"
         No[1] := PurchLine."Work Center No.";
         TableID[2] := DATABASE::"G/L Account";
         No[2] := PurchLine."No.";
-        TableID[3] := DATABASE::Job;
-        No[3] := PurchLine."Job No.";
+        // TableID[3] := DATABASE::Job;
+        //TODO JOBS: // No[3] := PurchLine."Job No.";
         TableID[4] := DATABASE::"Responsibility Center";
         No[4] := PurchLine."Responsibility Center";
         PurchLine."Shortcut Dimension 1 Code" := '';
