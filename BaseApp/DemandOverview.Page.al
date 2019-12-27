@@ -67,12 +67,12 @@ page 5830 "Demand Overview"
                     var
                         SalesHeader: Record "Sales Header";
                         ProdOrder: Record "Production Order";
-                        Job: Record Job;
+                        //TODO JOBS:Job: Record Job;
                         ServHeader: Record "Service Header";
                         AsmHeader: Record "Assembly Header";
                         SalesList: Page "Sales List";
                         ProdOrderList: Page "Production Order List";
-                        JobList: Page "Job List";
+                        //TODO JOBS:JobList: Page "Job List";
                         ServiceOrders: Page "Service Orders";
                         AsmOrders: Page "Assembly Orders";
                     begin
@@ -113,18 +113,18 @@ page 5830 "Demand Overview"
                                     end;
                                     exit(false);
                                 end;
-                            DemandType::Jobs:
-                                begin
-                                    Job.SetRange(Status, Job.Status::Open);
-                                    JobList.SetTableView(Job);
-                                    JobList.LookupMode := true;
-                                    if JobList.RunModal = ACTION::LookupOK then begin
-                                        JobList.GetRecord(Job);
-                                        Text := Job."No.";
-                                        exit(true);
-                                    end;
-                                    exit(false);
-                                end;
+                            //TODO JOBS:// DemandType::Jobs:
+                            //     begin
+                            //         Job.SetRange(Status, Job.Status::Open);
+                            //         JobList.SetTableView(Job);
+                            //         JobList.LookupMode := true;
+                            //         if JobList.RunModal = ACTION::LookupOK then begin
+                            //             JobList.GetRecord(Job);
+                            //             Text := Job."No.";
+                            //             exit(true);
+                            //         end;
+                            //         exit(false);
+                            //     end;
                             DemandType::Assembly:
                                 begin
                                     AsmHeader.SetRange("Document Type", AsmHeader."Document Type"::Order);
@@ -649,8 +649,8 @@ page 5830 "Demand Overview"
                 Text := Text001;
             DATABASE::"Service Line":
                 Text := Text005;
-            DATABASE::"Job Planning Line":
-                Text := Text006;
+            //TODO JOBS:// DATABASE::"Job Planning Line":
+            //     Text := Text006;
             DATABASE::"Prod. Order Line":
                 Text := Text002;
             DATABASE::"Prod. Order Component":
