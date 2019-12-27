@@ -10,39 +10,39 @@ table 9057 "Job Cue"
         }
         field(2; "Jobs w/o Resource"; Integer)
         {
-            CalcFormula = Count (Job WHERE("Scheduled Res. Qty." = FILTER(0)));
+            //TODO: Jobs CalcFormula = Count (Job WHERE("Scheduled Res. Qty." = FILTER(0)));
             Caption = 'Jobs w/o Resource';
             Editable = false;
             FieldClass = FlowField;
         }
         field(3; "Upcoming Invoices"; Integer)
         {
-            CalcFormula = Count (Job WHERE(Status = FILTER(<> Completed),
-                                           "Next Invoice Date" = FIELD("Date Filter")));
+            //TODO: JobsCalcFormula = Count (Job WHERE(Status = FILTER(<> Completed),
+            //                              "Next Invoice Date" = FIELD("Date Filter")));
             Caption = 'Upcoming Invoices';
             Editable = false;
             FieldClass = FlowField;
         }
         field(4; "Invoices Due - Not Created"; Integer)
         {
-            CalcFormula = Count (Job WHERE(Status = CONST(Open),
-                                           "Next Invoice Date" = FIELD("Date Filter2")));
+            //TODO: Jobs// CalcFormula = Count (Job WHERE(Status = CONST(Open),
+            //                                "Next Invoice Date" = FIELD("Date Filter2")));
             Caption = 'Invoices Due - Not Created';
             Editable = false;
             FieldClass = FlowField;
         }
         field(5; "WIP Not Posted"; Integer)
         {
-            CalcFormula = Count (Job WHERE("WIP Entries Exist" = CONST(true)));
+            //TODO: JobsCalcFormula = Count (Job WHERE("WIP Entries Exist" = CONST(true)));
             Caption = 'WIP Not Posted';
             Editable = false;
             FieldClass = FlowField;
         }
         field(6; "Completed - WIP Not Calculated"; Integer)
         {
-            CalcFormula = Count (Job WHERE(Status = FILTER(Completed),
-                                           "WIP Completion Calculated" = CONST(false),
-                                           "WIP Completion Posted" = CONST(false)));
+            //TODO: Jobs// CalcFormula = Count (Job WHERE(Status = FILTER(Completed),
+            //                                "WIP Completion Calculated" = CONST(false),
+            //                                "WIP Completion Posted" = CONST(false)));
             Caption = 'Completed - WIP Not Calculated';
             Editable = false;
             FieldClass = FlowField;
@@ -66,7 +66,7 @@ table 9057 "Job Cue"
         }
         field(9; "Jobs Over Budget"; Integer)
         {
-            CalcFormula = Count (Job WHERE("Over Budget" = FILTER(= true)));
+            //TODO: JobsCalcFormula = Count (Job WHERE("Over Budget" = FILTER(= true)));
             Caption = 'Jobs Over Budget';
             Editable = false;
             FieldClass = FlowField;

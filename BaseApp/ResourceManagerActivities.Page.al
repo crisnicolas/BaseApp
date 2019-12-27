@@ -21,7 +21,7 @@ page 9067 "Resource Manager Activities"
                 field("Jobs w/o Resource"; "Jobs w/o Resource")
                 {
                     ApplicationArea = Jobs;
-                    DrillDownPageID = "Job List";
+                    //TODO: Jobs DrillDownPageID = "Job List";
                     ToolTip = 'Specifies the number of jobs without an assigned resource that are displayed in the Job Cue on the Role Center. The documents are filtered by today''s date.';
                 }
                 field("Unassigned Resource Groups"; "Unassigned Resource Groups")
