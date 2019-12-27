@@ -877,7 +877,7 @@ page 8907 "Sales & Marketing Manager RC"
                     {
                         ApplicationArea = RelationshipMgmt;
                         Caption = 'Job Responsibilities';
-                        RunObject = page "Job Responsibilities";
+                        //TODO JOBS: RunObject = page "Job Responsibilities";
                     }
                     action("Organizational Levels")
                     {

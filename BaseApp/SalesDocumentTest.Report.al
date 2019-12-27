@@ -938,7 +938,7 @@ report 202 "Sales Document - Test"
 
                                     TableID[1] := DimMgt.TypeToTableID3(Type);
                                     No[1] := "No.";
-                                    TableID[2] := DATABASE::Job;
+                                    //TODO JOBS: TableID[2] := DATABASE::Job;
                                     No[2] := "Job No.";
                                     if not DimMgt.CheckDimValuePosting(TableID, No, "Dimension Set ID") then
                                         AddError(DimMgt.GetDimValuePostingErr);
@@ -2043,7 +2043,7 @@ report 202 "Sales Document - Test"
         with SalesLine do begin
             TableID[1] := DimMgt.TypeToTableID3(Type);
             No[1] := "No.";
-            TableID[2] := DATABASE::Job;
+            //TODO JOBS: TableID[2] := DATABASE::Job;
             No[2] := "Job No.";
             TableID[3] := DATABASE::"Responsibility Center";
             No[3] := "Responsibility Center";

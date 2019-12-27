@@ -97,10 +97,11 @@ codeunit 5701 "Item Subst."
                 TempSalesLine.Validate(Quantity, SaveQty);
                 TempSalesLine.Validate("Unit of Measure Code", OldSalesUOM);
 
-                TempSalesLine.CreateDim(
-                  DimMgt.TypeToTableID3(TempSalesLine.Type), TempSalesLine."No.",
-                  167, '',//TODO JOBS: DATABASE::Job, TempSalesLine."Job No.",
-                  DATABASE::"Responsibility Center", TempSalesLine."Responsibility Center");
+                //TODO JOBS: 
+                // TempSalesLine.CreateDim(
+                //   DimMgt.TypeToTableID3(TempSalesLine.Type), TempSalesLine."No.",
+                //   167, '',DATABASE::Job, TempSalesLine."Job No.",
+                //   DATABASE::"Responsibility Center", TempSalesLine."Responsibility Center");
 
                 OnItemSubstGetOnAfterSubstSalesLineItem(TempSalesLine);
 

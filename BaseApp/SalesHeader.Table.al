@@ -3295,7 +3295,7 @@ table 36 "Sales Header"
     procedure UpdateSalesLinesByFieldNo(ChangedFieldNo: Integer; AskQuestion: Boolean)
     var
         "Field": Record "Field";
-        JobTransferLine: Codeunit "Job Transfer Line";
+        //TODO JOBS: JobTransferLine: Codeunit "Job Transfer Line";
         EnvironmentInfo: Codeunit "Environment Information";
         Question: Text[250];
         NotRunningOnSaaS: Boolean;
@@ -3357,8 +3357,9 @@ table 36 "Sales Header"
                             if SalesLine.Type <> SalesLine.Type::" " then begin
                                 SalesLine.Validate("Unit Price");
                                 SalesLine.Validate("Unit Cost (LCY)");
-                                if SalesLine."Job No." <> '' then
-                                    JobTransferLine.FromSalesHeaderToPlanningLine(SalesLine, "Currency Factor");
+                                //TODO JOBS: 
+                                // if SalesLine."Job No." <> '' then
+                                //     JobTransferLine.FromSalesHeaderToPlanningLine(SalesLine, "Currency Factor");
                             end;
                         FieldNo("Transaction Type"):
                             SalesLine.Validate("Transaction Type", "Transaction Type");
@@ -4586,9 +4587,10 @@ table 36 "Sales Header"
         TempSalesLine.MarkedOnly(false);
         if TempSalesLine.FindSet then
             repeat
-                SalesLine.CreateDim(DATABASE::"G/L Account", TempSalesLine."No.",
-                  DATABASE::Job, TempSalesLine."Job No.",
-                  DATABASE::"Responsibility Center", TempSalesLine."Responsibility Center");
+            //TODO JOBS: 
+            // SalesLine.CreateDim(DATABASE::"G/L Account", TempSalesLine."No.",
+            //   DATABASE::Job, TempSalesLine."Job No.",
+            //   DATABASE::"Responsibility Center", TempSalesLine."Responsibility Center");
             until TempSalesLine.Next = 0;
     end;
 
