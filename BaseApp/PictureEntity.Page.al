@@ -37,7 +37,8 @@ page 5468 "Picture Entity"
                     Caption = 'contentType';
                     Editable = false;
                 }
-                field(content; Content)
+                // field(content; Content)//TODO comment/uncomment
+                field(contentA; Content)
                 {
                     ApplicationArea = All;
                     Caption = 'content';

@@ -900,7 +900,8 @@ page 190 "Incoming Documents"
         AutomaticCreationActionsAreEnabled := "Data Exchange Type" <> '';
     end;
 
-    [IntegrationEvent(TRUE, TRUE)]
+    // [IntegrationEvent(TRUE, TRUE)]//TODO comment/uncomment
+    [IntegrationEvent(TRUE, false)]//TODO comment/uncomment
     local procedure OnCloseIncomingDocumentsFromActions(var IncomingDocument: Record "Incoming Document")
     begin
     end;

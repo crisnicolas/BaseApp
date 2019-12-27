@@ -50,7 +50,8 @@ page 5512 "G/L Entry Attachments Entity"
                         GraphMgtAttachmentBuffer.RegisterFieldSet(FieldNo("Byte Size"), TempFieldBuffer);
                     end;
                 }
-                field(content; Content)
+                // field(content; Content)//TODO comment/uncomment
+                field(contentA; Content)//TODO comment/uncomment
                 {
                     ApplicationArea = All;
                     Caption = 'content', Locked = true;

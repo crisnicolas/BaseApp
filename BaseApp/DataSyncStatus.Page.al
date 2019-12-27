@@ -12,25 +12,26 @@ page 6250 "Data Sync Status"
     {
         area(content)
         {
-            part("Data Migration Status"; "Data Migration Overview")
-            {
-                ApplicationArea = All;
-                Visible = ShowMigrationErrors;
-            }
-            part("Migration Errors"; "Data Migration Error")
-            {
-                ApplicationArea = All;
-                Caption = 'Migration Errors';
-                SubPageView = WHERE("Destination Table ID" = FILTER(> 0));
-                Visible = ShowMigrationErrors;
-            }
-            part("Posting Errors"; "Data Migration Error")
-            {
-                ApplicationArea = All;
-                Caption = 'Posting Errors';
-                SubPageView = WHERE("Destination Table ID" = FILTER(= 0));
-                Visible = NOT ShowMigrationErrors;
-            }
+            //TODO comment/uncomment
+            // part("Data Migration Status"; "Data Migration Overview")
+            // {
+            //     ApplicationArea = All;
+            //     Visible = ShowMigrationErrors;
+            // }
+            // part("Migration Errors"; "Data Migration Error")
+            // {
+            //     ApplicationArea = All;
+            //     Caption = 'Migration Errors';
+            //     SubPageView = WHERE("Destination Table ID" = FILTER(> 0));
+            //     Visible = ShowMigrationErrors;
+            // }
+            // part("Posting Errors"; "Data Migration Error")
+            // {
+            //     ApplicationArea = All;
+            //     Caption = 'Posting Errors';
+            //     SubPageView = WHERE("Destination Table ID" = FILTER(= 0));
+            //     Visible = NOT ShowMigrationErrors;
+            // }
         }
     }
 

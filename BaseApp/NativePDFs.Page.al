@@ -23,7 +23,8 @@ page 2821 "Native - PDFs"
                     ApplicationArea = All;
                     Caption = 'fileName', Locked = true;
                 }
-                field(content; Content)
+                // field(content; Content)//TODO comment/uncomment
+                field(contentA; Content)//TODO comment/uncomment
                 {
                     ApplicationArea = All;
                     Caption = 'content', Locked = true;

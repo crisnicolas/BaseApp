@@ -18,7 +18,8 @@ page 5447 "Automation Extension Upload"
         {
             repeater(Group)
             {
-                field(content; Content)
+                // field(content; Content)//TODO comment/uncomment
+                field(contentA; Content)//TODO comment/uncomment
                 {
                     ApplicationArea = All;
                     Caption = 'content', Locked = true;

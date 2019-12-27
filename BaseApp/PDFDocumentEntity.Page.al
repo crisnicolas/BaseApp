@@ -15,7 +15,8 @@ page 5529 "PDF Document Entity"
         {
             repeater(Group)
             {
-                field(content; Content)
+                // field(content; Content)//TODO comment/uncomment
+                field(contentA; Content)//TODO comment/uncomment
                 {
                     ApplicationArea = All;
                     Caption = 'content', Locked = true;

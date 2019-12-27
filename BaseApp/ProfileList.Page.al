@@ -11,7 +11,7 @@ page 9171 "Profile List"
     UsageCategory = Lists;
     DeleteAllowed = false;
     InsertAllowed = false;
-    SourceTableView = sorting(Caption);
+    // SourceTableView = sorting(Caption);//TODO comment/uncomment
 
     layout
     {

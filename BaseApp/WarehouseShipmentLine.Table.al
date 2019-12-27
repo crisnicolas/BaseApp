@@ -448,7 +448,7 @@ table 7321 "Warehouse Shipment Line"
         {
             MaintainSQLIndex = false;
             ObsoleteState = Pending;
-            ObsoleteReason = 'Key4 is being replaced by Key13. Option field "Source Document" is being replaced by Enum field "Warehouse Source Document"'
+            ObsoleteReason = 'Key4 is being replaced by Key13. Option field "Source Document" is being replaced by Enum field "Warehouse Source Document"';
         }
         key(Key13; "No.", "Warehouse Source Document", "Source No.")
         {

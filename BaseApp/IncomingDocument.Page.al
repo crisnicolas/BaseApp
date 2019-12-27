@@ -1128,7 +1128,8 @@ page 189 "Incoming Document"
         ReplaceMainAttachmentEnabled := CanReplaceMainAttachment;
     end;
 
-    [IntegrationEvent(TRUE, TRUE)]
+    // [IntegrationEvent(TRUE, TRUE)]//TODO comment/uncomment
+    [IntegrationEvent(TRUE, false)]//TODO comment/uncomment
     local procedure OnCloseIncomingDocumentFromAction(var IncomingDocument: Record "Incoming Document")
     begin
     end;

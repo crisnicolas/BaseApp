@@ -11,7 +11,8 @@ page 5433 "Automation - RS Package File"
         {
             repeater(Group)
             {
-                field(content; Content)
+                // field(content; Content)//TODO comment/uncomment
+                field(contentA; Content)//TODO comment/uncomment
                 {
                     ApplicationArea = All;
                     Caption = 'Content', Locked = true;
