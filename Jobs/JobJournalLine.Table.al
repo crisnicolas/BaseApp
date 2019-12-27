@@ -1584,16 +1584,16 @@ table 210 "Job Journal Line"
         PurchPriceCalcMgt: Codeunit "Purch. Price Calc. Mgt.";
     begin
         if RetrieveCostPrice and ("No." <> '') then begin
-            SalesPriceCalcMgt.FindJobJnlLinePrice(JobJnlLine, CalledByFieldNo);
+            //TODO: Jobs  SalesPriceCalcMgt.FindJobJnlLinePrice(JobJnlLine, CalledByFieldNo);
 
-            if Type <> Type::"G/L Account" then
-                PurchPriceCalcMgt.FindJobJnlLinePrice(JobJnlLine, CalledByFieldNo)
-            else begin
-                // Because the SalesPriceCalcMgt.FindJobJnlLinePrice function also retrieves costs for G/L Account,
-                // cost and total cost need to get updated again.
-                UpdateUnitCost;
-                UpdateTotalCost;
-            end;
+            // if Type <> Type::"G/L Account" then
+            //     PurchPriceCalcMgt.FindJobJnlLinePrice(JobJnlLine, CalledByFieldNo)
+            // else begin
+            //     // Because the SalesPriceCalcMgt.FindJobJnlLinePrice function also retrieves costs for G/L Account,
+            //     // cost and total cost need to get updated again.
+            //     UpdateUnitCost;
+            //     UpdateTotalCost;
+            // end;
         end;
     end;
 
@@ -1709,11 +1709,11 @@ table 210 "Job Journal Line"
           DATABASE::"Resource Group", "Resource Group No.");
         if "Job Task No." <> '' then begin
             DimensionSetIDArr[1] := "Dimension Set ID";
-            DimensionSetIDArr[2] :=
-              DimMgt.CreateDimSetFromJobTaskDim("Job No.",
-                "Job Task No.", "Shortcut Dimension 1 Code", "Shortcut Dimension 2 Code");
-            DimMgt.CreateDimForJobJournalLineWithHigherPriorities(
-              Rec, CurrFieldNo, DimensionSetIDArr[3], "Shortcut Dimension 1 Code", "Shortcut Dimension 2 Code", "Source Code", DATABASE::Job);
+            //TODO: Jobs // DimensionSetIDArr[2] :=
+            //   DimMgt.CreateDimSetFromJobTaskDim("Job No.",
+            //     "Job Task No.", "Shortcut Dimension 1 Code", "Shortcut Dimension 2 Code");
+            // DimMgt.CreateDimForJobJournalLineWithHigherPriorities(
+            //   Rec, CurrFieldNo, DimensionSetIDArr[3], "Shortcut Dimension 1 Code", "Shortcut Dimension 2 Code", "Source Code", DATABASE::Job);
             "Dimension Set ID" :=
               DimMgt.GetCombinedDimensionSetID(
                 DimensionSetIDArr, "Shortcut Dimension 1 Code", "Shortcut Dimension 2 Code");

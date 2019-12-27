@@ -90,7 +90,7 @@ page 276 "Job Journal Batches"
 
                     trigger OnAction()
                     begin
-                        ReportPrint.PrintJobJnlBatch(Rec);
+                        //TODO: Jobs ReportPrint.PrintJobJnlBatch(Rec);
                     end;
                 }
                 action("P&ost")

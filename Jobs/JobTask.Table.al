@@ -426,7 +426,7 @@ table 1001 "Job Task"
         Job.TestField("Bill-to Customer No.");
         Cust.Get(Job."Bill-to Customer No.");
 
-        DimMgt.InsertJobTaskDim("Job No.", "Job Task No.", "Global Dimension 1 Code", "Global Dimension 2 Code");
+        //TODO: Jobs  DimMgt.InsertJobTaskDim("Job No.", "Job Task No.", "Global Dimension 1 Code", "Global Dimension 2 Code");
 
         CalcFields("Schedule (Total Cost)", "Usage (Total Cost)");
         Job.UpdateOverBudgetValue("Job No.", true, "Usage (Total Cost)");
@@ -526,18 +526,18 @@ table 1001 "Job Task"
         OnBeforeValidateShortcutDimCode(Rec, xRec, FieldNumber, ShortcutDimCode);
 
         DimMgt.ValidateDimValueCode(FieldNumber, ShortcutDimCode);
-        if JobTask2.Get("Job No.", "Job Task No.") then begin
-            DimMgt.SaveJobTaskDim("Job No.", "Job Task No.", FieldNumber, ShortcutDimCode);
-            Modify;
-        end else
-            DimMgt.SaveJobTaskTempDim(FieldNumber, ShortcutDimCode);
+        //TODO: Jobs // if JobTask2.Get("Job No.", "Job Task No.") then begin
+        //     DimMgt.SaveJobTaskDim("Job No.", "Job Task No.", FieldNumber, ShortcutDimCode);
+        //     Modify;
+        // end else
+        //     DimMgt.SaveJobTaskTempDim(FieldNumber, ShortcutDimCode);
 
         OnAfterValidateShortcutDimCode(Rec, xRec, FieldNumber, ShortcutDimCode);
     end;
 
     procedure ClearTempDim()
     begin
-        DimMgt.DeleteJobTaskTempDim;
+        //TODO: Jobs DimMgt.DeleteJobTaskTempDim;
     end;
 
     procedure ApplyPurchaseLineFilters(var PurchLine: Record "Purchase Line"; JobNo: Code[20]; JobTaskNo: Code[20])
@@ -550,7 +550,7 @@ table 1001 "Job Task"
         else
             PurchLine.SetRange("Job Task No.", JobTaskNo);
     end;
-    
+
     [IntegrationEvent(false, false)]
     local procedure OnAfterValidateShortcutDimCode(var JobTask: Record "Job Task"; var xJobTask: Record "Job Task"; FieldNumber: Integer; var ShortcutDimCode: Code[20])
     begin

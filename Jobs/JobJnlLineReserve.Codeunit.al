@@ -120,11 +120,11 @@ codeunit 99000844 "Job Jnl. Line-Reserve"
                (not TempReservEntry.IsEmpty)
             then begin
                 if PointerChanged then begin
-                    ReservMgt.SetJobJnlLine(OldJobJnlLine);
+                    //TODO: Jobs ReservMgt.SetJobJnlLine(OldJobJnlLine);
                     ReservMgt.DeleteReservEntries(true, 0);
-                    ReservMgt.SetJobJnlLine(NewJobJnlLine);
+                    //TODO: Jobs ReservMgt.SetJobJnlLine(NewJobJnlLine);
                 end else begin
-                    ReservMgt.SetJobJnlLine(NewJobJnlLine);
+                    //TODO: Jobs ReservMgt.SetJobJnlLine(NewJobJnlLine);
                     ReservMgt.DeleteReservEntries(true, 0);
                 end;
                 ReservMgt.AutoTrack(NewJobJnlLine."Quantity (Base)");
@@ -143,7 +143,7 @@ codeunit 99000844 "Job Jnl. Line-Reserve"
             if "Line No." = 0 then
                 if not JobJnlLine.Get("Journal Template Name", "Journal Batch Name", "Line No.") then
                     exit;
-            ReservMgt.SetJobJnlLine(NewJobJnlLine);
+            //TODO: Jobs ReservMgt.SetJobJnlLine(NewJobJnlLine);
             if "Qty. per Unit of Measure" <> OldJobJnlLine."Qty. per Unit of Measure" then
                 ReservMgt.ModifyUnitOfMeasure;
             if "Quantity (Base)" * OldJobJnlLine."Quantity (Base)" < 0 then
@@ -174,7 +174,7 @@ codeunit 99000844 "Job Jnl. Line-Reserve"
             if not ReservEntryExist(JobJnlLine) then
                 exit(true);
 
-            ReservMgt.SetJobJnlLine(JobJnlLine);
+            //TODO: Jobs ReservMgt.SetJobJnlLine(JobJnlLine);
             if ReservMgt.DeleteItemTrackingConfirm then
                 DeleteItemTracking := true;
         end;
@@ -186,7 +186,7 @@ codeunit 99000844 "Job Jnl. Line-Reserve"
     begin
         with JobJnlLine do
             if Type = Type::Item then begin
-                ReservMgt.SetJobJnlLine(JobJnlLine);
+               //TODO: Jobs  ReservMgt.SetJobJnlLine(JobJnlLine);
                 if DeleteItemTracking then
                     ReservMgt.SetItemTrackingHandling(1); // Allow Deletion
                 ReservMgt.DeleteReservEntries(true, 0);
@@ -198,7 +198,7 @@ codeunit 99000844 "Job Jnl. Line-Reserve"
         TrackingSpecification: Record "Tracking Specification";
         ItemTrackingLines: Page "Item Tracking Lines";
     begin
-        TrackingSpecification.InitFromJobJnlLine(JobJnlLine);
+        //TODO: Jobs TrackingSpecification.InitFromJobJnlLine(JobJnlLine);
         if IsReclass then
             ItemTrackingLines.SetFormRunMode(1);
         ItemTrackingLines.SetSourceSpec(TrackingSpecification, JobJnlLine."Posting Date");

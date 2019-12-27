@@ -407,9 +407,9 @@ codeunit 1002 "Job Create-Invoice"
         if SalesLine."Job Task No." <> '' then begin
             SourceCodeSetup.Get;
             DimSetIDArr[1] := SalesLine."Dimension Set ID";
-            DimSetIDArr[2] :=
-              DimMgt.CreateDimSetFromJobTaskDim(
-                SalesLine."Job No.", SalesLine."Job Task No.", SalesLine."Shortcut Dimension 1 Code", SalesLine."Shortcut Dimension 2 Code");
+            //TODO: Jobs // DimSetIDArr[2] :=
+            //   DimMgt.CreateDimSetFromJobTaskDim(
+            //     SalesLine."Job No.", SalesLine."Job Task No.", SalesLine."Shortcut Dimension 1 Code", SalesLine."Shortcut Dimension 2 Code");
             DimSetIDArr[3] := GetLedgEntryDimSetID(JobPlanningLine);
             DimSetIDArr[4] := GetJobLedgEntryDimSetID(JobPlanningLine);
             DimMgt.CreateDimForSalesLineWithHigherPriorities(

@@ -105,7 +105,7 @@ page 1032 "Available - Job Planning Lines"
                     begin
                         ReservEntry.LockTable;
                         UpdateReservMgt;
-                        ReservMgt.JobPlanningLineUpdateValues(Rec, QtyToReserve, QtyToReserveBase, QtyReservedThisLine, QtyReservedThisLineBase);
+                        //TODO: Jobs ReservMgt.JobPlanningLineUpdateValues(Rec, QtyToReserve, QtyToReserveBase, QtyReservedThisLine, QtyReservedThisLineBase);
                         ReservMgt.CalculateRemainingQty(NewQtyReservedThisLine, NewQtyReservedThisLineBase);
                         ReservMgt.CopySign(NewQtyReservedThisLine, QtyToReserve);
                         ReservMgt.CopySign(NewQtyReservedThisLineBase, QtyToReserveBase);
@@ -164,7 +164,7 @@ page 1032 "Available - Job Planning Lines"
 
     trigger OnAfterGetRecord()
     begin
-        ReservMgt.JobPlanningLineUpdateValues(Rec, QtyToReserve, QtyToReserveBase, QtyReservedThisLine, QtyReservedThisLineBase);
+        //TODO: Jobs ReservMgt.JobPlanningLineUpdateValues(Rec, QtyToReserve, QtyToReserveBase, QtyReservedThisLine, QtyReservedThisLineBase);
     end;
 
     trigger OnOpenPage()
@@ -320,7 +320,7 @@ page 1032 "Available - Job Planning Lines"
         ReservEntry := CurrentReservEntry;
 
         Clear(ReservMgt);
-        ReservMgt.SetJobPlanningLine(JobPlanningLine);
+        //TODO: Jobs  ReservMgt.SetJobPlanningLine(JobPlanningLine);
         ReservEngineMgt.InitFilterAndSortingFor(ReservEntry, true);
         JobPlanningLineReserve.FilterReservFor(ReservEntry, JobPlanningLine);
         CaptionText := JobPlanningLineReserve.Caption(JobPlanningLine);
@@ -419,8 +419,8 @@ page 1032 "Available - Job Planning Lines"
                 ReservMgt.SetTransferLine(TransLine, ReservEntry."Source Subtype");
             DATABASE::"Service Line":
                 ReservMgt.SetServLine(ServLine);
-            DATABASE::"Job Planning Line":
-                ReservMgt.SetJobPlanningLine(JobPlanningLine);
+            //TODO: Jobs // DATABASE::"Job Planning Line":
+            //     ReservMgt.SetJobPlanningLine(JobPlanningLine);
             DATABASE::"Assembly Header":
                 ReservMgt.SetAssemblyHeader(AssemblyHeader);
         end;

@@ -215,14 +215,14 @@ codeunit 1032 "Job Planning Line-Reserve"
             if (NewJobPlanningLine."No." <> OldJobPlanningLine."No.") or
                FindReservEntry(NewJobPlanningLine, ReservEntry)
             then begin
-                if (NewJobPlanningLine."No." <> OldJobPlanningLine."No.") or (NewJobPlanningLine.Type <> OldJobPlanningLine.Type) then begin
-                    ReservMgt.SetJobPlanningLine(OldJobPlanningLine);
-                    ReservMgt.DeleteReservEntries(true, 0);
-                    ReservMgt.SetJobPlanningLine(NewJobPlanningLine);
-                end else begin
-                    ReservMgt.SetJobPlanningLine(NewJobPlanningLine);
-                    ReservMgt.DeleteReservEntries(true, 0);
-                end;
+                //TODO: Jobs // if (NewJobPlanningLine."No." <> OldJobPlanningLine."No.") or (NewJobPlanningLine.Type <> OldJobPlanningLine.Type) then begin
+                //     ReservMgt.SetJobPlanningLine(OldJobPlanningLine);
+                //     ReservMgt.DeleteReservEntries(true, 0);
+                //     ReservMgt.SetJobPlanningLine(NewJobPlanningLine);
+                // end else begin
+                //     ReservMgt.SetJobPlanningLine(NewJobPlanningLine);
+                //     ReservMgt.DeleteReservEntries(true, 0);
+                // end;
                 ReservMgt.AutoTrack(NewJobPlanningLine."Remaining Qty. (Base)");
             end;
 
@@ -251,7 +251,7 @@ codeunit 1032 "Job Planning Line-Reserve"
             if "Line No." = 0 then
                 if not JobPlanningLine.Get("Job No.", "Job Task No.", "Line No.") then
                     exit;
-            ReservMgt.SetJobPlanningLine(NewJobPlanningLine);
+            //TODO: Jobs ReservMgt.SetJobPlanningLine(NewJobPlanningLine);
             if "Qty. per Unit of Measure" <> OldJobPlanningLine."Qty. per Unit of Measure" then
                 ReservMgt.ModifyUnitOfMeasure;
             if "Remaining Qty. (Base)" * OldJobPlanningLine."Remaining Qty. (Base)" < 0 then
@@ -324,7 +324,7 @@ codeunit 1032 "Job Planning Line-Reserve"
             TrackedQty -= (xTransferQty - TransferQty);
             UnTrackedQty := JobPlanningLine."Remaining Qty. (Base)" - TrackedQty;
             if TransferQty > UnTrackedQty then begin
-                ReservMgt.SetJobPlanningLine(JobPlanningLine);
+                //TODO: Jobs ReservMgt.SetJobPlanningLine(JobPlanningLine);
                 ReservMgt.DeleteReservEntries(false, JobPlanningLine."Remaining Qty. (Base)");
             end;
         end;
@@ -334,7 +334,7 @@ codeunit 1032 "Job Planning Line-Reserve"
     procedure DeleteLine(var JobPlanningLine: Record "Job Planning Line")
     begin
         with JobPlanningLine do begin
-            ReservMgt.SetJobPlanningLine(JobPlanningLine);
+           //TODO: Jobs  ReservMgt.SetJobPlanningLine(JobPlanningLine);
             ReservMgt.DeleteReservEntries(true, 0);
             CalcFields("Reserved Qty. (Base)");
             AssignForPlanning(JobPlanningLine);

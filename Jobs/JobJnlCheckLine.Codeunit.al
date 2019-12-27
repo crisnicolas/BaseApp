@@ -42,8 +42,8 @@ codeunit 1011 "Job Jnl.-Check Line"
             if not UserSetupManagement.IsPostingDateValid("Posting Date") then
                 FieldError("Posting Date", Text001);
 
-            if "Time Sheet No." <> '' then
-                TimeSheetMgt.CheckJobJnlLine(JobJnlLine);
+            //TODO: Jobs // if "Time Sheet No." <> '' then
+            //     TimeSheetMgt.CheckJobJnlLine(JobJnlLine);
 
             CheckDim(JobJnlLine);
 

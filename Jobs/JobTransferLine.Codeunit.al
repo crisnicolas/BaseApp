@@ -402,7 +402,7 @@ codeunit 1004 "Job Transfer Line"
         JobPlanningLine."System-Created Entry" := true;
 
         // Function call to retrieve cost factor. Prices will be overwritten.
-        SalesPriceCalcMgt.JobPlanningLineFindJTPrice(JobPlanningLine);
+        //TODO: Jobs SalesPriceCalcMgt.JobPlanningLineFindJTPrice(JobPlanningLine);
 
         // Amounts
         JobPlanningLine.Quantity := JobLedgEntry.Quantity;

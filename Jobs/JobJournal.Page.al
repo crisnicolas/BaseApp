@@ -602,7 +602,7 @@
 
                     trigger OnAction()
                     begin
-                        ReportPrint.PrintJobJnlLine(Rec);
+                        //TODO: Jobs ReportPrint.PrintJobJnlLine(Rec);
                     end;
                 }
                 action("P&ost")

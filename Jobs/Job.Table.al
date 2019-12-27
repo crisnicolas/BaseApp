@@ -1,4 +1,4 @@
-table 167 Job
+table 167 "Job"
 {
     Caption = 'Job';
     DataCaptionFields = "No.", Description;
@@ -749,7 +749,7 @@ table 167 Job
         JobItemPrice: Record "Job Item Price";
         JobGLAccPrice: Record "Job G/L Account Price";
     begin
-        MoveEntries.MoveJobEntries(Rec);
+        //TODO: Jobs MoveEntries.MoveJobEntries(Rec);
 
         JobTask.SetCurrentKey("Job No.");
         JobTask.SetRange("Job No.", "No.");
@@ -1435,14 +1435,14 @@ table 167 Job
         TimeSheetLine.SetCurrentKey(Type, "Job No.");
         TimeSheetLine.SetRange(Type, TimeSheetLine.Type::Job);
         TimeSheetLine.SetRange("Job No.", "No.");
-        if not TimeSheetLine.IsEmpty then
-            TimeSheetLine.ModifyAll("Job Id", Id);
+        //TODO: Jobs    // if not TimeSheetLine.IsEmpty then
+        //     TimeSheetLine.ModifyAll("Job Id", Id);
 
         TimeSheetDetail.SetCurrentKey(Type, "Job No.");
         TimeSheetDetail.SetRange(Type, TimeSheetLine.Type::Job);
         TimeSheetDetail.SetRange("Job No.", "No.");
-        if not TimeSheetDetail.IsEmpty then
-            TimeSheetDetail.ModifyAll("Job Id", Id);
+        //TODO: Jobs // if not TimeSheetDetail.IsEmpty then
+        //     TimeSheetDetail.ModifyAll("Job Id", Id);
     end;
 
     [IntegrationEvent(false, false)]

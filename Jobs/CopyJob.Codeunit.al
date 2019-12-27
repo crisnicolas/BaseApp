@@ -275,10 +275,10 @@ codeunit 1006 "Copy Job"
     var
         DimensionManagement: Codeunit DimensionManagement;
     begin
-        DimensionManagement.CopyJobTaskDimToJobTaskDim(SourceJobTask."Job No.",
-          SourceJobTask."Job Task No.",
-          TargetJobTask."Job No.",
-          TargetJobTask."Job Task No.");
+        //TODO: Jobs // DimensionManagement.CopyJobTaskDimToJobTaskDim(SourceJobTask."Job No.",
+        //   SourceJobTask."Job Task No.",
+        //   TargetJobTask."Job No.",
+        //   TargetJobTask."Job Task No.");
     end;
 
     local procedure ExchangeJobPlanningLineAmounts(var JobPlanningLine: Record "Job Planning Line"; CurrencyCode: Code[10])

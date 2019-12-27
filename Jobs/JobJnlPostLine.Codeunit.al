@@ -377,7 +377,7 @@ codeunit 1012 "Job Jnl.-Post Line"
     begin
         with ResJnlLine do begin
             Init;
-            CopyFromJobJnlLine(JobJnlLine2);
+            //TODO: Jobs CopyFromJobJnlLine(JobJnlLine2);
             ResLedgEntry.LockTable;
             ResJnlPostLine.RunWithCheck(ResJnlLine);
             JobJnlLine2."Resource Group No." := "Resource Group No.";
@@ -430,7 +430,7 @@ codeunit 1012 "Job Jnl.-Post Line"
     begin
         with ItemJnlLine do begin
             Init;
-            CopyFromJobJnlLine(JobJnlLine2);
+            //TODO: Jobs CopyFromJobJnlLine(JobJnlLine2);
 
             "Source Type" := "Source Type"::Customer;
             "Source No." := Job."Bill-to Customer No.";

@@ -62,19 +62,19 @@ codeunit 1016 "Jobs-Send"
            (DocumentSendingProfile."E-Mail Attachment" <> DocumentSendingProfile."E-Mail Attachment"::PDF)
         then begin
             ElectronicDocumentFormat.ValidateElectronicFormat(DocumentSendingProfile."E-Mail Format");
-            ElectronicDocumentFormat.ValidateElectronicJobsDocument(Job, DocumentSendingProfile."E-Mail Format");
+            //TODO: Jobs ElectronicDocumentFormat.ValidateElectronicJobsDocument(Job, DocumentSendingProfile."E-Mail Format");
         end;
 
         if (DocumentSendingProfile.Disk <> DocumentSendingProfile.Disk::No) and
            (DocumentSendingProfile.Disk <> DocumentSendingProfile.Disk::PDF)
         then begin
             ElectronicDocumentFormat.ValidateElectronicFormat(DocumentSendingProfile."Disk Format");
-            ElectronicDocumentFormat.ValidateElectronicJobsDocument(Job, DocumentSendingProfile."Disk Format");
+            //TODO: Jobs  ElectronicDocumentFormat.ValidateElectronicJobsDocument(Job, DocumentSendingProfile."Disk Format");
         end;
 
         if DocumentSendingProfile."Electronic Document" <> DocumentSendingProfile."Electronic Document"::No then begin
             ElectronicDocumentFormat.ValidateElectronicFormat(DocumentSendingProfile."Electronic Format");
-            ElectronicDocumentFormat.ValidateElectronicJobsDocument(Job, DocumentSendingProfile."Electronic Format");
+            //TODO: Jobs  ElectronicDocumentFormat.ValidateElectronicJobsDocument(Job, DocumentSendingProfile."Electronic Format");
         end;
     end;
 }

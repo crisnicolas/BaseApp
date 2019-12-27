@@ -1223,8 +1223,8 @@ table 1003 "Job Planning Line"
         if not (Status in [Status::Order]) then
             exit;
 
-        if ItemCheckAvail.JobPlanningLineCheck(Rec) then
-            ItemCheckAvail.RaiseUpdateInterruptedError;
+        //TODO: Jobs // if ItemCheckAvail.JobPlanningLineCheck(Rec) then
+        //     ItemCheckAvail.RaiseUpdateInterruptedError;
     end;
 
     local procedure GetLocation(LocationCode: Code[10])
@@ -1561,16 +1561,16 @@ table 1003 "Job Planning Line"
         PurchPriceCalcMgt: Codeunit "Purch. Price Calc. Mgt.";
     begin
         if RetrieveCostPrice and ("No." <> '') then begin
-            SalesPriceCalcMgt.FindJobPlanningLinePrice(JobPlanningLine, CalledByFieldNo);
+            //TODO: Jobs SalesPriceCalcMgt.FindJobPlanningLinePrice(JobPlanningLine, CalledByFieldNo);
 
-            if Type <> Type::"G/L Account" then
-                PurchPriceCalcMgt.FindJobPlanningLinePrice(JobPlanningLine, CalledByFieldNo)
-            else begin
-                // Because the SalesPriceCalcMgt.FindJobJnlLinePrice function also retrieves costs for G/L Account,
-                // cost and total cost need to get updated again.
-                UpdateUnitCost;
-                UpdateTotalCost;
-            end;
+            // if Type <> Type::"G/L Account" then
+            //     PurchPriceCalcMgt.FindJobPlanningLinePrice(JobPlanningLine, CalledByFieldNo)
+            // else begin
+            //     // Because the SalesPriceCalcMgt.FindJobJnlLinePrice function also retrieves costs for G/L Account,
+            //     // cost and total cost need to get updated again.
+            //     UpdateUnitCost;
+            //     UpdateTotalCost;
+            // end;
         end;
     end;
 
@@ -1832,12 +1832,12 @@ table 1003 "Job Planning Line"
         if (CurrFieldNo <> CalledByFieldNo) and (CurrFieldNo <> 0) then
             exit;
         case CalledByFieldNo of
-            FieldNo("Planning Date"), FieldNo("Planned Delivery Date"):
-                if (xRec."Planning Date" <> "Planning Date") and
-                   (Quantity <> 0) and
-                   (Reserve <> Reserve::Never)
-                then
-                    ReservationCheckDateConfl.JobPlanningLineCheck(Rec, true);
+            //TODO: Jobs  // FieldNo("Planning Date"), FieldNo("Planned Delivery Date"):
+            //     if (xRec."Planning Date" <> "Planning Date") and
+            //        (Quantity <> 0) and
+            //        (Reserve <> Reserve::Never)
+            //     then
+            //         ReservationCheckDateConfl.JobPlanningLineCheck(Rec, true);
             FieldNo(Quantity):
                 JobPlanningLineReserve.VerifyQuantity(Rec, xRec);
             FieldNo("Usage Link"):
@@ -1874,7 +1874,7 @@ table 1003 "Job Planning Line"
         TestField("No.");
         TestField(Reserve);
         TestField("Usage Link");
-        Reservation.SetJobPlanningLine(Rec);
+        //TODO: Jobs Reservation.SetJobPlanningLine(Rec);
         Reservation.RunModal;
     end;
 
@@ -1906,7 +1906,7 @@ table 1003 "Job Planning Line"
             FieldError(Reserve);
         JobPlanningLineReserve.ReservQuantity(Rec, QtyToReserve, QtyToReserveBase);
         if QtyToReserveBase <> 0 then begin
-            ReservMgt.SetJobPlanningLine(Rec);
+            //TODO: Jobs ReservMgt.SetJobPlanningLine(Rec);
             TestField("Planning Date");
             ReservMgt.AutoReserve(FullAutoReservation, '', "Planning Date", QtyToReserve, QtyToReserveBase);
             Find;
@@ -1925,7 +1925,7 @@ table 1003 "Job Planning Line"
     var
         OrderTrackingForm: Page "Order Tracking";
     begin
-        OrderTrackingForm.SetJobPlanningLine(Rec);
+        //TODO: Jobs OrderTrackingForm.SetJobPlanningLine(Rec);
         OrderTrackingForm.RunModal;
     end;
 
