@@ -290,7 +290,7 @@ page 1190 "Create Payment"
             CreateDim(
               DimMgt.TypeToTableID1("Account Type"), "Account No.",
               DimMgt.TypeToTableID1("Bal. Account Type"), "Bal. Account No.",
-              DATABASE::Job, "Job No.",
+              167, '',//TODO JOBS: DATABASE::Job, "Job No.",
               DATABASE::"Salesperson/Purchaser", "Salespers./Purch. Code",
               DATABASE::Campaign, "Campaign No.");
             if NewDimensionID <> "Dimension Set ID" then begin

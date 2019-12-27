@@ -288,8 +288,8 @@ codeunit 8616 "Config. Management"
                 exit(PAGE::"Interaction Groups");
             DATABASE::"Interaction Template":
                 exit(PAGE::"Interaction Templates");
-            DATABASE::"Job Responsibility":
-                exit(PAGE::"Job Responsibilities");
+            //TODO JOBS: // DATABASE::"Job Responsibility":
+            //     exit(PAGE::"Job Responsibilities");
             DATABASE::"Organizational Level":
                 exit(PAGE::"Organizational Levels");
             DATABASE::"Campaign Status":
@@ -412,10 +412,10 @@ codeunit 8616 "Config. Management"
                 exit(PAGE::"Resource Groups");
             DATABASE::"Work Type":
                 exit(PAGE::"Work Types");
-            DATABASE::"Jobs Setup":
-                exit(PAGE::"Jobs Setup");
-            DATABASE::"Job Posting Group":
-                exit(PAGE::"Job Posting Groups");
+            //TODO JOBS: // DATABASE::"Jobs Setup":
+            //     exit(PAGE::"Jobs Setup");
+            // DATABASE::"Job Posting Group":
+            //     exit(PAGE::"Job Posting Groups");
             DATABASE::"FA Setup":
                 exit(PAGE::"Fixed Asset Setup");
             DATABASE::"Fixed Asset":
@@ -739,7 +739,7 @@ codeunit 8616 "Config. Management"
           DATABASE::Item,
           DATABASE::"Resource Group",
           DATABASE::Resource,
-          DATABASE::Job,
+          //TODO JOBS: DATABASE::Job,
           DATABASE::"Bank Account",
           DATABASE::Employee,
           DATABASE::"Fixed Asset",

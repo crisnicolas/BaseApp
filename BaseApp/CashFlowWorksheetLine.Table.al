@@ -153,9 +153,9 @@ table 846 "Cash Flow Worksheet Line"
             ELSE
             IF ("Source Type" = CONST("Cash Flow Manual Revenue")) "Cash Flow Manual Revenue"
             ELSE
-            IF ("Source Type" = CONST("G/L Budget")) "G/L Account"
-            ELSE
-            IF ("Source Type" = CONST(Job)) Job."No.";
+            IF ("Source Type" = CONST("G/L Budget")) "G/L Account";
+            //TODO JOBS: // ELSE
+            // IF ("Source Type" = CONST(Job)) Job."No.";
             ValidateTableRelation = false;
 
             trigger OnValidate()

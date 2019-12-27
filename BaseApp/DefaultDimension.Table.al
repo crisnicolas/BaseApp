@@ -278,8 +278,8 @@ table 352 "Default Dimension"
                 UpdateResGrGlobalDimCode(GlobalDimCodeNo, AccNo, NewDimValue);
             DATABASE::Resource:
                 UpdateResGlobalDimCode(GlobalDimCodeNo, AccNo, NewDimValue);
-            DATABASE::Job:
-                UpdateJobGlobalDimCode(GlobalDimCodeNo, AccNo, NewDimValue);
+            //TODO JOBS: // DATABASE::Job:
+            //     UpdateJobGlobalDimCode(GlobalDimCodeNo, AccNo, NewDimValue);
             DATABASE::"Bank Account":
                 UpdateBankGlobalDimCode(GlobalDimCodeNo, AccNo, NewDimValue);
             DATABASE::Employee:
@@ -397,20 +397,20 @@ table 352 "Default Dimension"
         end;
     end;
 
-    local procedure UpdateJobGlobalDimCode(GlobalDimCodeNo: Integer; JobNo: Code[20]; NewDimValue: Code[20])
-    var
-        Job: Record Job;
-    begin
-        if Job.Get(JobNo) then begin
-            case GlobalDimCodeNo of
-                1:
-                    Job."Global Dimension 1 Code" := NewDimValue;
-                2:
-                    Job."Global Dimension 2 Code" := NewDimValue;
-            end;
-            Job.Modify(true);
-        end;
-    end;
+    //TODO JOBS: // local procedure UpdateJobGlobalDimCode(GlobalDimCodeNo: Integer; JobNo: Code[20]; NewDimValue: Code[20])
+    // var
+    //     Job: Record Job;
+    // begin
+    //     if Job.Get(JobNo) then begin
+    //         case GlobalDimCodeNo of
+    //             1:
+    //                 Job."Global Dimension 1 Code" := NewDimValue;
+    //             2:
+    //                 Job."Global Dimension 2 Code" := NewDimValue;
+    //         end;
+    //         Job.Modify(true);
+    //     end;
+    // end;
 
     local procedure UpdateBankGlobalDimCode(GlobalDimCodeNo: Integer; BankAccNo: Code[20]; NewDimValue: Code[20])
     var

@@ -111,8 +111,8 @@ codeunit 481 "Check Dimensions"
         with PurchLine do begin
             TableIDArr[1] := DimMgt.TypeToTableID3(Type);
             NumberArr[1] := "No.";
-            TableIDArr[2] := DATABASE::Job;
-            NumberArr[2] := "Job No.";
+            //TODO JOBS: // TableIDArr[2] := DATABASE::Job;
+            // NumberArr[2] := "Job No.";
             TableIDArr[3] := DATABASE::"Work Center";
             NumberArr[3] := "Work Center No.";
             OnCheckDimValuePostingOnAfterCreateDimTableIDs(PurchLine, TableIDArr, NumberArr);
@@ -250,8 +250,8 @@ codeunit 481 "Check Dimensions"
         with SalesLine do begin
             TableIDArr[1] := DimMgt.TypeToTableID3(Type);
             NumberArr[1] := "No.";
-            TableIDArr[2] := DATABASE::Job;
-            NumberArr[2] := "Job No.";
+            //TODO JOBS: // TableIDArr[2] := DATABASE::Job;
+            // NumberArr[2] := "Job No.";
             DimMgt.SetSourceCode(DATABASE::"Sales Line");
             OnCheckDimValuePostingOnAfterCreateDimTableIDs(SalesLine, TableIDArr, NumberArr);
 

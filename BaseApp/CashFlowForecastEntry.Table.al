@@ -132,9 +132,9 @@ table 847 "Cash Flow Forecast Entry"
             ELSE
             IF ("Source Type" = CONST("Cash Flow Manual Revenue")) "Cash Flow Manual Revenue"
             ELSE
-            IF ("Source Type" = CONST("G/L Budget")) "G/L Account"
-            ELSE
-            IF ("Source Type" = CONST(Job)) Job."No.";
+            IF ("Source Type" = CONST("G/L Budget")) "G/L Account";
+            //TODO JOBS: // ELSE
+            // IF ("Source Type" = CONST(Job)) Job."No.";
         }
         field(35; "G/L Budget Name"; Code[10])
         {

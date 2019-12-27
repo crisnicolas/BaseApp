@@ -78,8 +78,8 @@ table 87 "Date Compr. Register"
             ELSE
             IF ("Table ID" = CONST(203)) "Resource Register"
             ELSE
-            IF ("Table ID" = CONST(169)) "Job Register"
-            ELSE
+            //TODO JOBS: // IF ("Table ID" = CONST(169)) "Job Register"
+            // ELSE
             IF ("Table ID" = CONST(5601)) "FA Register"
             ELSE
             IF ("Table ID" = CONST(5629)) "Insurance Register"

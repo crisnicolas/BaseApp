@@ -1,11 +1,11 @@
-table 18 Customer
+table 18 "Customer"
 {
     Caption = 'Customer';
     DataCaptionFields = "No.", Name;
     DrillDownPageID = "Customer List";
     LookupPageID = "Customer Lookup";
     Permissions = TableData "Cust. Ledger Entry" = r,
-                  TableData Job = r,
+                  //TODO JOBS: TableData Job = r,
                   TableData "VAT Registration Log" = rd,
                   TableData "Service Header" = r,
                   TableData "Service Ledger Entry" = r,
@@ -1618,7 +1618,7 @@ table 18 Customer
     var
         CampaignTargetGr: Record "Campaign Target Group";
         ContactBusRel: Record "Contact Business Relation";
-        Job: Record Job;
+        //TODO JOBS: Job: Record Job;
         SocialListeningSearchTopic: Record "Social Listening Search Topic";
         StdCustSalesCode: Record "Standard Customer Sales Code";
         CustomReportSelection: Record "Custom Report Selection";
@@ -1639,9 +1639,9 @@ table 18 Customer
             else
                 Error(Text009);
 
-        Job.SetRange("Bill-to Customer No.", "No.");
-        if not Job.IsEmpty then
-            Error(Text015, TableCaption, "No.", Job.TableCaption);
+        //TODO JOBS: // Job.SetRange("Bill-to Customer No.", "No.");
+        // if not Job.IsEmpty then
+        //     Error(Text015, TableCaption, "No.", Job.TableCaption);
 
         MoveEntries.MoveCustEntries(Rec);
 

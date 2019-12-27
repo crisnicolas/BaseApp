@@ -438,22 +438,22 @@ page 5050 "Contact Card"
                     Caption = 'P&erson';
                     Enabled = PersonGroupEnabled;
                     Image = User;
-                    action("Job Responsibilities")
-                    {
-                        ApplicationArea = RelationshipMgmt;
-                        Caption = 'Job Responsibilities';
-                        Image = Job;
-                        ToolTip = 'View or edit the contact''s job responsibilities.';
+                    //TODO JOBS: // action("Job Responsibilities")
+                    // {
+                    //     ApplicationArea = RelationshipMgmt;
+                    //     Caption = 'Job Responsibilities';
+                    //     Image = Job;
+                    //     ToolTip = 'View or edit the contact''s job responsibilities.';
 
-                        trigger OnAction()
-                        var
-                            ContJobResp: Record "Contact Job Responsibility";
-                        begin
-                            TestField(Type, Type::Person);
-                            ContJobResp.SetRange("Contact No.", "No.");
-                            PAGE.RunModal(PAGE::"Contact Job Responsibilities", ContJobResp);
-                        end;
-                    }
+                    //     trigger OnAction()
+                    //     var
+                    //         ContJobResp: Record "Contact Job Responsibility";
+                    //     begin
+                    //         TestField(Type, Type::Person);
+                    //         ContJobResp.SetRange("Contact No.", "No.");
+                    //         PAGE.RunModal(PAGE::"Contact Job Responsibilities", ContJobResp);
+                    //     end;
+                    // }
                 }
                 action("Pro&files")
                 {

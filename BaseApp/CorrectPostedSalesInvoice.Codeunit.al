@@ -14,8 +14,8 @@ codeunit 1303 "Correct Posted Sales Invoice"
         CreateCopyDocument(Rec, SalesHeader, SalesHeader."Document Type"::"Credit Memo", false);
         OnAfterCreateCorrectiveSalesCrMemo(Rec, SalesHeader, CancellingOnly);
 
-        if SalesInvoiceLinesContainJob("No.") then
-            CreateAndProcessJobPlanningLines(SalesHeader);
+        //TODO JOBS: // if SalesInvoiceLinesContainJob("No.") then
+        //     CreateAndProcessJobPlanningLines(SalesHeader);
 
         CODEUNIT.Run(CODEUNIT::"Sales-Post", SalesHeader);
         SetTrackInfoForCancellation(Rec);
@@ -170,40 +170,40 @@ codeunit 1303 "Correct Posted Sales Invoice"
         InvoiceNotification.Recall;
     end;
 
-    local procedure CreateAndProcessJobPlanningLines(SalesHeader: Record "Sales Header")
-    var
-        SalesLine: Record "Sales Line";
-    begin
-        SalesLine.SetRange("Document No.", SalesHeader."No.");
-        SalesLine.SetRange("Document Type", SalesHeader."Document Type");
-        SalesLine.SetFilter("Job Contract Entry No.", '<>0');
-        if SalesLine.FindSet then
-            repeat
-                SalesLine."Job Contract Entry No." := CreateJobPlanningLine(SalesHeader, SalesLine);
-                SalesLine.Modify;
-            until SalesLine.Next = 0;
-    end;
+    //TODO JOBS: // local procedure CreateAndProcessJobPlanningLines(SalesHeader: Record "Sales Header")
+    // var
+    //     SalesLine: Record "Sales Line";
+    // begin
+    //     SalesLine.SetRange("Document No.", SalesHeader."No.");
+    //     SalesLine.SetRange("Document Type", SalesHeader."Document Type");
+    //     SalesLine.SetFilter("Job Contract Entry No.", '<>0');
+    //     if SalesLine.FindSet then
+    //         repeat
+    //             SalesLine."Job Contract Entry No." := CreateJobPlanningLine(SalesHeader, SalesLine);
+    //             SalesLine.Modify;
+    //         until SalesLine.Next = 0;
+    // end;
 
-    local procedure CreateJobPlanningLine(SalesHeader: Record "Sales Header"; SalesLine: Record "Sales Line"): Integer
-    var
-        FromJobPlanningLine: Record "Job Planning Line";
-        ToJobPlanningLine: Record "Job Planning Line";
-        JobPlanningLineInvoice: Record "Job Planning Line Invoice";
-    begin
-        FromJobPlanningLine.SetCurrentKey("Job Contract Entry No.");
-        FromJobPlanningLine.SetRange("Job Contract Entry No.", SalesLine."Job Contract Entry No.");
-        FromJobPlanningLine.FindFirst;
+    //TODO JOBS: // local procedure CreateJobPlanningLine(SalesHeader: Record "Sales Header"; SalesLine: Record "Sales Line"): Integer
+    // var
+    //     FromJobPlanningLine: Record "Job Planning Line";
+    //     ToJobPlanningLine: Record "Job Planning Line";
+    //     JobPlanningLineInvoice: Record "Job Planning Line Invoice";
+    // begin
+    //     FromJobPlanningLine.SetCurrentKey("Job Contract Entry No.");
+    //     FromJobPlanningLine.SetRange("Job Contract Entry No.", SalesLine."Job Contract Entry No.");
+    //     FromJobPlanningLine.FindFirst;
 
-        ToJobPlanningLine.InitFromJobPlanningLine(FromJobPlanningLine, -SalesLine.Quantity);
-        JobPlanningLineInvoice.InitFromJobPlanningLine(ToJobPlanningLine);
-        JobPlanningLineInvoice.InitFromSales(SalesHeader, SalesHeader."Posting Date", SalesLine."Line No.");
-        JobPlanningLineInvoice.Insert;
+    //     ToJobPlanningLine.InitFromJobPlanningLine(FromJobPlanningLine, -SalesLine.Quantity);
+    //     JobPlanningLineInvoice.InitFromJobPlanningLine(ToJobPlanningLine);
+    //     JobPlanningLineInvoice.InitFromSales(SalesHeader, SalesHeader."Posting Date", SalesLine."Line No.");
+    //     JobPlanningLineInvoice.Insert;
 
-        ToJobPlanningLine.UpdateQtyToTransfer;
-        ToJobPlanningLine.Insert;
+    //     ToJobPlanningLine.UpdateQtyToTransfer;
+    //     ToJobPlanningLine.Insert;
 
-        exit(ToJobPlanningLine."Job Contract Entry No.");
-    end;
+    //     exit(ToJobPlanningLine."Job Contract Entry No.");
+    // end;
 
     [Scope('OnPrem')]
     procedure CancelPostedInvoiceStartNewInvoice(var SalesInvoiceHeader: Record "Sales Invoice Header"; var SalesHeader: Record "Sales Header")
@@ -228,7 +228,7 @@ codeunit 1303 "Correct Posted Sales Invoice"
         TestIfInvoiceIsPaid(SalesInvoiceHeader);
         TestIfCustomerIsBlocked(SalesInvoiceHeader, SalesInvoiceHeader."Sell-to Customer No.");
         TestIfCustomerIsBlocked(SalesInvoiceHeader, SalesInvoiceHeader."Bill-to Customer No.");
-        TestIfJobPostingIsAllowed(SalesInvoiceHeader."No.");
+        //TODO JOBS: TestIfJobPostingIsAllowed(SalesInvoiceHeader."No.");
         TestCustomerDimension(SalesInvoiceHeader, SalesInvoiceHeader."Bill-to Customer No.");
         TestDimensionOnHeader(SalesInvoiceHeader);
         TestSalesLines(SalesInvoiceHeader);
@@ -433,19 +433,19 @@ codeunit 1303 "Correct Posted Sales Invoice"
             ErrorHelperHeader(ErrorType::SerieNumInv, SalesInvoiceHeader);
     end;
 
-    local procedure TestIfJobPostingIsAllowed(SalesInvoiceNo: Code[20])
-    var
-        SalesInvoiceLine: Record "Sales Invoice Line";
-        Job: Record Job;
-    begin
-        SalesInvoiceLine.SetFilter("Document No.", SalesInvoiceNo);
-        SalesInvoiceLine.SetFilter("Job No.", '<>%1', '');
-        if SalesInvoiceLine.FindSet then
-            repeat
-                Job.Get(SalesInvoiceLine."Job No.");
-                Job.TestBlocked;
-            until SalesInvoiceLine.Next = 0;
-    end;
+    //TODO JOBS: // local procedure TestIfJobPostingIsAllowed(SalesInvoiceNo: Code[20])
+    // var
+    //     SalesInvoiceLine: Record "Sales Invoice Line";
+    //     Job: Record Job;
+    // begin
+    //     SalesInvoiceLine.SetFilter("Document No.", SalesInvoiceNo);
+    //     SalesInvoiceLine.SetFilter("Job No.", '<>%1', '');
+    //     if SalesInvoiceLine.FindSet then
+    //         repeat
+    //             Job.Get(SalesInvoiceLine."Job No.");
+    //             Job.TestBlocked;
+    //         until SalesInvoiceLine.Next = 0;
+    // end;
 
     local procedure TestExternalDocument(SalesInvoiceHeader: Record "Sales Invoice Header")
     var

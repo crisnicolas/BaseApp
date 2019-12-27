@@ -188,7 +188,7 @@ page 99000896 "Available - Transfer Lines"
         PlanningComponent: Record "Planning Component";
         TransLine: Record "Transfer Line";
         ServiceInvLine: Record "Service Line";
-        JobPlanningLine: Record "Job Planning Line";
+        //TODO JOBS: JobPlanningLine: Record "Job Planning Line";
         ReservMgt: Codeunit "Reservation Management";
         ReservEngineMgt: Codeunit "Reservation Engine Mgt.";
         ReserveSalesLine: Codeunit "Sales Line-Reserve";
@@ -199,7 +199,7 @@ page 99000896 "Available - Transfer Lines"
         ReservePlanningComponent: Codeunit "Plng. Component-Reserve";
         ReserveTransLine: Codeunit "Transfer Line-Reserve";
         ReserveServiceInvLine: Codeunit "Service Line-Reserve";
-        JobPlanningLineReserve: Codeunit "Job Planning Line-Reserve";
+        //TODO JOBS: JobPlanningLineReserve: Codeunit "Job Planning Line-Reserve";
         AssemblyLineReserve: Codeunit "Assembly Line-Reserve";
         AssemblyHeaderReserve: Codeunit "Assembly Header-Reserve";
         QtyToReserve: Decimal;
@@ -319,19 +319,19 @@ page 99000896 "Available - Transfer Lines"
         SetInbound(ReservMgt.IsPositive);
     end;
 
-    procedure SetJobPlanningLine(var CurrentJobPlanningLine: Record "Job Planning Line"; CurrentReservEntry: Record "Reservation Entry")
-    begin
-        CurrentJobPlanningLine.TestField(Type, CurrentJobPlanningLine.Type::Item);
-        JobPlanningLine := CurrentJobPlanningLine;
-        ReservEntry := CurrentReservEntry;
+    //TODO JOBS: // procedure SetJobPlanningLine(var CurrentJobPlanningLine: Record "Job Planning Line"; CurrentReservEntry: Record "Reservation Entry")
+    // begin
+    //     CurrentJobPlanningLine.TestField(Type, CurrentJobPlanningLine.Type::Item);
+    //     JobPlanningLine := CurrentJobPlanningLine;
+    //     ReservEntry := CurrentReservEntry;
 
-        Clear(ReservMgt);
-        ReservMgt.SetJobPlanningLine(JobPlanningLine);
-        ReservEngineMgt.InitFilterAndSortingFor(ReservEntry, true);
-        JobPlanningLineReserve.FilterReservFor(ReservEntry, JobPlanningLine);
-        CaptionText := JobPlanningLineReserve.Caption(JobPlanningLine);
-        SetInbound(ReservMgt.IsPositive);
-    end;
+    //     Clear(ReservMgt);
+    //     ReservMgt.SetJobPlanningLine(JobPlanningLine);
+    //     ReservEngineMgt.InitFilterAndSortingFor(ReservEntry, true);
+    //     JobPlanningLineReserve.FilterReservFor(ReservEntry, JobPlanningLine);
+    //     CaptionText := JobPlanningLineReserve.Caption(JobPlanningLine);
+    //     SetInbound(ReservMgt.IsPositive);
+    // end;
 
     local procedure CreateReservation(ReserveQuantity: Decimal; ReserveQuantityBase: Decimal)
     var
@@ -415,11 +415,11 @@ page 99000896 "Available - Transfer Lines"
                     PlanningComponent.Find;
                     SetPlanningComponent(PlanningComponent, ReservEntry);
                 end;
-            DATABASE::"Job Planning Line":
-                begin
-                    JobPlanningLine.Find;
-                    SetJobPlanningLine(JobPlanningLine, ReservEntry);
-                end;
+        //TODO JOBS: // DATABASE::"Job Planning Line":
+        //     begin
+        //         JobPlanningLine.Find;
+        //         SetJobPlanningLine(JobPlanningLine, ReservEntry);
+        //     end;
         end;
 
         OnAfterUpdateReservFrom(ReservEntry);
@@ -449,8 +449,8 @@ page 99000896 "Available - Transfer Lines"
                 ReservMgt.SetPlanningComponent(PlanningComponent);
             DATABASE::"Service Line":
                 ReservMgt.SetServLine(ServiceInvLine);
-            DATABASE::"Job Planning Line":
-                ReservMgt.SetJobPlanningLine(JobPlanningLine);
+        //TODO JOBS: // DATABASE::"Job Planning Line":
+        //     ReservMgt.SetJobPlanningLine(JobPlanningLine);
         end;
 
         OnAfterUpdateReservMgt(ReservEntry);

@@ -18,7 +18,7 @@ codeunit 100 "Calc. G/L Acc. Where-Used"
         GenJnlBatch: Record "Gen. Journal Batch";
         CustPostingGr: Record "Customer Posting Group";
         VendPostingGr: Record "Vendor Posting Group";
-        JobPostingGr: Record "Job Posting Group";
+        //TODO JOBS: JobPostingGr: Record "Job Posting Group";
         GenJnlAlloc: Record "Gen. Jnl. Allocation";
         GenPostingSetup: Record "General Posting Setup";
         BankAccPostingGr: Record "Bank Account Posting Group";
@@ -59,11 +59,11 @@ codeunit 100 "Calc. G/L Acc. Where-Used"
                         VendPostingGr.Code := CopyStr("Key 1", 1, MaxStrLen(VendPostingGr.Code));
                         PAGE.Run(0, VendPostingGr);
                     end;
-                DATABASE::"Job Posting Group":
-                    begin
-                        JobPostingGr.Code := CopyStr("Key 1", 1, MaxStrLen(JobPostingGr.Code));
-                        PAGE.Run(0, JobPostingGr);
-                    end;
+                //TODO JOBS: // DATABASE::"Job Posting Group":
+                //     begin
+                //         JobPostingGr.Code := CopyStr("Key 1", 1, MaxStrLen(JobPostingGr.Code));
+                //         PAGE.Run(0, JobPostingGr);
+                //     end;
                 DATABASE::"Gen. Jnl. Allocation":
                     begin
                         GenJnlAlloc."Journal Template Name" := CopyStr("Key 1", 1, MaxStrLen(GenJnlAlloc."Journal Template Name"));
@@ -274,7 +274,7 @@ codeunit 100 "Calc. G/L Acc. Where-Used"
         AddTable(TableBuffer, DATABASE::"Gen. Journal Batch");
         AddTable(TableBuffer, DATABASE::"Customer Posting Group");
         AddTable(TableBuffer, DATABASE::"Vendor Posting Group");
-        AddTable(TableBuffer, DATABASE::"Job Posting Group");
+        //TODO JOBS: AddTable(TableBuffer, DATABASE::"Job Posting Group");
         AddTable(TableBuffer, DATABASE::"Gen. Jnl. Allocation");
         AddTable(TableBuffer, DATABASE::"General Posting Setup");
         AddTable(TableBuffer, DATABASE::"Bank Account Posting Group");

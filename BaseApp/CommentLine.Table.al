@@ -25,8 +25,8 @@ table 97 "Comment Line"
             ELSE
             IF ("Table Name" = CONST(Resource)) Resource
             ELSE
-            IF ("Table Name" = CONST(Job)) Job
-            ELSE
+            //TODO JOBS: // IF ("Table Name" = CONST(Job)) Job
+            // ELSE
             IF ("Table Name" = CONST("Resource Group")) "Resource Group"
             ELSE
             IF ("Table Name" = CONST("Bank Account")) "Bank Account"

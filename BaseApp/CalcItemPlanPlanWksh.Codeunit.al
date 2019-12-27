@@ -198,7 +198,7 @@ codeunit 5431 "Calc. Item Plan - Plan Wksh."
         PurchaseLine: Record "Purchase Line";
         ProdOrderLine: Record "Prod. Order Line";
         PlanningAssignment: Record "Planning Assignment";
-        JobPlanningLine: Record "Job Planning Line";
+        //TODO JOBS: JobPlanningLine: Record "Job Planning Line";
         IsHandled: Boolean;
     begin
         IsHandled := false;
@@ -248,8 +248,8 @@ codeunit 5431 "Calc. Item Plan - Plan Wksh."
         if ServLine.LinesWithItemToPlanExist(Item) then
             exit(MPS);
 
-        if JobPlanningLine.LinesWithItemToPlanExist(Item) then
-            exit(MPS);
+        //TODO JOBS: // if JobPlanningLine.LinesWithItemToPlanExist(Item) then
+        //     exit(MPS);
 
         ProdOrderLine.SetCurrentKey("Item No.");
         ProdOrderLine.SetRange("MPS Order", true);

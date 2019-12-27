@@ -1205,11 +1205,11 @@ codeunit 8611 "Config. Package Management"
                     "Processing Order" += 1;
                 DATABASE::"Custom Report Layout": // Moving Layouts to be on the top
                     "Processing Order" := 0;
-                // Moving Jobs tables down so contacts table can be processed first
-                DATABASE::Job, DATABASE::"Job Task", DATABASE::"Job Planning Line", DATABASE::"Job Journal Line",
-              DATABASE::"Job Journal Batch", DATABASE::"Job Posting Group", DATABASE::"Job Journal Template",
-              DATABASE::"Job Responsibility":
-                    "Processing Order" += 4;
+            //TODO JOBS: //     // Moving Jobs tables down so contacts table can be processed first
+            //     DATABASE::Job, DATABASE::"Job Task", DATABASE::"Job Planning Line", DATABASE::"Job Journal Line",
+            //   DATABASE::"Job Journal Batch", DATABASE::"Job Posting Group", DATABASE::"Job Journal Template",
+            //   DATABASE::"Job Responsibility":
+            //         "Processing Order" += 4;
             end;
     end;
 

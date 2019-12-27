@@ -73,26 +73,26 @@ report 5198 "Add Contacts"
                         CurrReport.Break;
                 end;
             }
-            dataitem("Contact Job Responsibility"; "Contact Job Responsibility")
-            {
-                DataItemLink = "Contact No." = FIELD("No.");
-                DataItemTableView = SORTING("Contact No.", "Job Responsibility Code");
-                RequestFilterFields = "Job Responsibility Code";
+            //TODO JOBS: // dataitem("Contact Job Responsibility"; "Contact Job Responsibility")
+            // {
+            //     DataItemLink = "Contact No." = FIELD("No.");
+            //     DataItemTableView = SORTING("Contact No.", "Job Responsibility Code");
+            //     RequestFilterFields = "Job Responsibility Code";
 
-                trigger OnAfterGetRecord()
-                begin
-                    ContactOK := true;
-                    CurrReport.Break;
-                end;
+            //     trigger OnAfterGetRecord()
+            //     begin
+            //         ContactOK := true;
+            //         CurrReport.Break;
+            //     end;
 
-                trigger OnPreDataItem()
-                begin
-                    if ContactOK and (GetFilters <> '') then
-                        ContactOK := false
-                    else
-                        CurrReport.Break;
-                end;
-            }
+            //     trigger OnPreDataItem()
+            //     begin
+            //         if ContactOK and (GetFilters <> '') then
+            //             ContactOK := false
+            //         else
+            //             CurrReport.Break;
+            //     end;
+            // }
             dataitem("Contact Industry Group"; "Contact Industry Group")
             {
                 DataItemLink = "Contact No." = FIELD("Company No.");
@@ -287,9 +287,9 @@ report 5198 "Add Contacts"
         SegCriteriaManagement.InsertCriteriaFilter(
           "Segment Header".GetFilter("No."), DATABASE::"Interaction Log Entry",
           "Interaction Log Entry".GetFilters, "Interaction Log Entry".GetView(false));
-        SegCriteriaManagement.InsertCriteriaFilter(
-          "Segment Header".GetFilter("No."), DATABASE::"Contact Job Responsibility", "Contact Job Responsibility".GetFilters,
-          "Contact Job Responsibility".GetView(false));
+        //TODO JOBS: // SegCriteriaManagement.InsertCriteriaFilter(
+        //   "Segment Header".GetFilter("No."), DATABASE::"Contact Job Responsibility", "Contact Job Responsibility".GetFilters,
+        //   "Contact Job Responsibility".GetView(false));
         SegCriteriaManagement.InsertCriteriaFilter(
           "Segment Header".GetFilter("No."), DATABASE::"Contact Industry Group",
           "Contact Industry Group".GetFilters, "Contact Industry Group".GetView(false));

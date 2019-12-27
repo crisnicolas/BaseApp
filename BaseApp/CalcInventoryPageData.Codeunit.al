@@ -144,8 +144,8 @@ codeunit 5531 "Calc. Inventory Page Data"
                     TransferProdOrderComp(FromInvtEventBuf, InventoryPageData, SourceSubtype, SourceID);
                 DATABASE::"Service Line":
                     TransferServiceLine(FromInvtEventBuf, InventoryPageData, SourceSubtype, SourceID);
-                DATABASE::"Job Planning Line":
-                    TransferJobPlanningLine(FromInvtEventBuf, InventoryPageData, SourceID);
+                //TODO JOBS: // DATABASE::"Job Planning Line":
+                //     TransferJobPlanningLine(FromInvtEventBuf, InventoryPageData, SourceID);
                 DATABASE::"Requisition Line":
                     TransferReqLine(FromInvtEventBuf, InventoryPageData, SourceID, SourceBatchName, SourceRefNo);
                 DATABASE::"Planning Component":
@@ -360,22 +360,22 @@ codeunit 5531 "Calc. Inventory Page Data"
         end;
     end;
 
-    local procedure TransferJobPlanningLine(InventoryEventBuffer: Record "Inventory Event Buffer"; var InventoryPageData: Record "Inventory Page Data"; SourceID: Code[20])
-    var
-        Job: Record Job;
-    begin
-        with InventoryEventBuffer do begin
-            Job.Get(SourceID);
-            RecRef.GetTable(Job);
-            InventoryPageData."Source Document ID" := RecRef.RecordId;
-            InventoryPageData."Document No." := Job."No.";
-            InventoryPageData.Type := InventoryPageData.Type::Job;
-            InventoryPageData.Description := Job."Bill-to Customer No.";
-            InventoryPageData.Source := StrSubstNo(Text1003, Format(Job.Status));
-            InventoryPageData."Gross Requirement" := "Remaining Quantity (Base)";
-            InventoryPageData."Reserved Requirement" := "Reserved Quantity (Base)";
-        end;
-    end;
+    //TODO JOBS: // local procedure TransferJobPlanningLine(InventoryEventBuffer: Record "Inventory Event Buffer"; var InventoryPageData: Record "Inventory Page Data"; SourceID: Code[20])
+    // var
+    //     Job: Record Job;
+    // begin
+    //     with InventoryEventBuffer do begin
+    //         Job.Get(SourceID);
+    //         RecRef.GetTable(Job);
+    //         InventoryPageData."Source Document ID" := RecRef.RecordId;
+    //         InventoryPageData."Document No." := Job."No.";
+    //         InventoryPageData.Type := InventoryPageData.Type::Job;
+    //         InventoryPageData.Description := Job."Bill-to Customer No.";
+    //         InventoryPageData.Source := StrSubstNo(Text1003, Format(Job.Status));
+    //         InventoryPageData."Gross Requirement" := "Remaining Quantity (Base)";
+    //         InventoryPageData."Reserved Requirement" := "Reserved Quantity (Base)";
+    //     end;
+    // end;
 
     local procedure TransferReqLine(InventoryEventBuffer: Record "Inventory Event Buffer"; var InventoryPageData: Record "Inventory Page Data"; SourceID: Code[20]; SourceBatchName: Code[10]; SourceRefNo: Integer)
     var

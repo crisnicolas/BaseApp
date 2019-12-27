@@ -391,7 +391,7 @@ report 6250 "Auto Posting Errors"
                             No[1] := "Account No.";
                             TableID[2] := DimMgt.TypeToTableID1("Bal. Account Type");
                             No[2] := "Bal. Account No.";
-                            TableID[3] := DATABASE::Job;
+                            //TODO JOBS: TableID[3] := DATABASE::Job;
                             No[3] := "Job No.";
                             TableID[4] := DATABASE::"Salesperson/Purchaser";
                             No[4] := "Salespers./Purch. Code";
@@ -1602,26 +1602,26 @@ report 6250 "Auto Posting Errors"
 
     local procedure TestJobFields(var GenJnlLine: Record "Gen. Journal Line")
     var
-        Job: Record Job;
-        JobTask: Record "Job Task";
+    //TODO JOBS: Job: Record Job;
+    //TODO JOBS: JobTask: Record "Job Task";
     begin
-        with GenJnlLine do begin
-            if ("Job No." = '') or ("Account Type" <> "Account Type"::"G/L Account") then
-                exit;
-            if not Job.Get("Job No.") then
-                AddError(StrSubstNo(Text071Txt, Job.TableCaption, "Job No."))
-            else
-                if Job.Blocked > Job.Blocked::" " then
-                    AddError(
-                      StrSubstNo(
-                        Text072Txt, Job.FieldCaption(Blocked), Job.Blocked, Job.TableCaption, "Job No."));
+        //TODO JOBS: // with GenJnlLine do begin
+        //     if ("Job No." = '') or ("Account Type" <> "Account Type"::"G/L Account") then
+        //         exit;
+        //     if not Job.Get("Job No.") then
+        //         AddError(StrSubstNo(Text071Txt, Job.TableCaption, "Job No."))
+        //     else
+        //         if Job.Blocked > Job.Blocked::" " then
+        //             AddError(
+        //               StrSubstNo(
+        //                 Text072Txt, Job.FieldCaption(Blocked), Job.Blocked, Job.TableCaption, "Job No."));
 
-            if "Job Task No." = '' then
-                AddError(StrSubstNo(Text002Txt, FieldCaption("Job Task No.")))
-            else
-                if not JobTask.Get("Job No.", "Job Task No.") then
-                    AddError(StrSubstNo(Text071Txt, JobTask.TableCaption, "Job Task No."))
-        end;
+        //     if "Job Task No." = '' then
+        //         AddError(StrSubstNo(Text002Txt, FieldCaption("Job Task No.")))
+        //     else
+        //         if not JobTask.Get("Job No.", "Job Task No.") then
+        //             AddError(StrSubstNo(Text071Txt, JobTask.TableCaption, "Job Task No."))
+        // end;
     end;
 
     local procedure CheckFADocNo(GenJnlLine: Record "Gen. Journal Line")

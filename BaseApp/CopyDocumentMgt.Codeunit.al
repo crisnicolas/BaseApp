@@ -296,7 +296,7 @@ codeunit 6620 "Copy Document Mgt."
         if MoveNegLines then begin
             OnBeforeDeleteNegSalesLines(FromDocType, FromDocNo, ToSalesHeader);
             DeleteSalesLinesWithNegQty(FromSalesHeader, false);
-            LinkJobPlanningLine(ToSalesHeader);
+            //TODO JOBS: LinkJobPlanningLine(ToSalesHeader);
         end;
 
         OnCopySalesDocOnAfterCopySalesDocLines(
@@ -1322,8 +1322,8 @@ codeunit 6620 "Copy Document Mgt."
             ToSalesLine."Job Contract Entry No." := FromSalesLine."Job Contract Entry No.";
         end;
 
-        if CopyJobData then
-            CopySalesJobFields(ToSalesLine, ToSalesHeader, FromSalesLine);
+        //TODO JOBS: // if CopyJobData then
+        //     CopySalesJobFields(ToSalesLine, ToSalesHeader, FromSalesLine);
 
         CopySalesLineExtText(ToSalesHeader, ToSalesLine, FromSalesHeader, FromSalesLine, DocLineNo, NextLineNo);
 
@@ -3809,27 +3809,27 @@ codeunit 6620 "Copy Document Mgt."
         AddPurchDocLine(TempDocPurchaseLine, TempPurchLineBuf."Line No.", DocNo, FromPurchLine."Line No.");
     end;
 
-    local procedure CreateJobPlanningLine(SalesHeader: Record "Sales Header"; SalesLine: Record "Sales Line"; JobContractEntryNo: Integer): Integer
-    var
-        JobPlanningLine: Record "Job Planning Line";
-        NewJobPlanningLine: Record "Job Planning Line";
-        JobPlanningLineInvoice: Record "Job Planning Line Invoice";
-    begin
-        JobPlanningLine.SetCurrentKey("Job Contract Entry No.");
-        JobPlanningLine.SetRange("Job Contract Entry No.", JobContractEntryNo);
-        if JobPlanningLine.FindFirst then begin
-            NewJobPlanningLine.InitFromJobPlanningLine(JobPlanningLine, SalesLine.Quantity);
+    //TODO JOBS: // local procedure CreateJobPlanningLine(SalesHeader: Record "Sales Header"; SalesLine: Record "Sales Line"; JobContractEntryNo: Integer): Integer
+    // var
+    //     JobPlanningLine: Record "Job Planning Line";
+    //     NewJobPlanningLine: Record "Job Planning Line";
+    //     JobPlanningLineInvoice: Record "Job Planning Line Invoice";
+    // begin
+    //     JobPlanningLine.SetCurrentKey("Job Contract Entry No.");
+    //     JobPlanningLine.SetRange("Job Contract Entry No.", JobContractEntryNo);
+    //     if JobPlanningLine.FindFirst then begin
+    //         NewJobPlanningLine.InitFromJobPlanningLine(JobPlanningLine, SalesLine.Quantity);
 
-            JobPlanningLineInvoice.InitFromJobPlanningLine(NewJobPlanningLine);
-            JobPlanningLineInvoice.InitFromSales(SalesHeader, SalesHeader."Posting Date", SalesLine."Line No.");
-            JobPlanningLineInvoice.Insert;
+    //         JobPlanningLineInvoice.InitFromJobPlanningLine(NewJobPlanningLine);
+    //         JobPlanningLineInvoice.InitFromSales(SalesHeader, SalesHeader."Posting Date", SalesLine."Line No.");
+    //         JobPlanningLineInvoice.Insert;
 
-            NewJobPlanningLine.UpdateQtyToTransfer;
-            NewJobPlanningLine.Insert;
-        end;
+    //         NewJobPlanningLine.UpdateQtyToTransfer;
+    //         NewJobPlanningLine.Insert;
+    //     end;
 
-        exit(NewJobPlanningLine."Job Contract Entry No.");
-    end;
+    //     exit(NewJobPlanningLine."Job Contract Entry No.");
+    // end;
 
     local procedure SplitPstdPurchLinesPerILE(ToPurchHeader: Record "Purchase Header"; FromPurchHeader: Record "Purchase Header"; var ItemLedgEntry: Record "Item Ledger Entry"; var FromPurchLineBuf: Record "Purchase Line"; FromPurchLine: Record "Purchase Line"; var TempDocPurchaseLine: Record "Purchase Line" temporary; var NextLineNo: Integer; var CopyItemTrkg: Boolean; var MissingExCostRevLink: Boolean; FillExactCostRevLink: Boolean; FromShptOrRcpt: Boolean): Boolean
     var
@@ -4742,45 +4742,45 @@ codeunit 6620 "Copy Document Mgt."
             Message(Text);
     end;
 
-    local procedure LinkJobPlanningLine(SalesHeader: Record "Sales Header")
-    var
-        SalesLine: Record "Sales Line";
-        JobPlanningLine: Record "Job Planning Line";
-        JobPlanningLineInvoice: Record "Job Planning Line Invoice";
-    begin
-        JobPlanningLine.SetCurrentKey("Job Contract Entry No.");
-        SalesLine.SetRange("Document Type", SalesHeader."Document Type");
-        SalesLine.SetRange("Document No.", SalesHeader."No.");
-        repeat
-            JobPlanningLine.SetRange("Job Contract Entry No.", SalesLine."Job Contract Entry No.");
-            if JobPlanningLine.FindFirst then begin
-                JobPlanningLineInvoice."Job No." := JobPlanningLine."Job No.";
-                JobPlanningLineInvoice."Job Task No." := JobPlanningLine."Job Task No.";
-                JobPlanningLineInvoice."Job Planning Line No." := JobPlanningLine."Line No.";
-                case SalesHeader."Document Type" of
-                    SalesHeader."Document Type"::Invoice:
-                        begin
-                            JobPlanningLineInvoice."Document Type" := JobPlanningLineInvoice."Document Type"::Invoice;
-                            JobPlanningLineInvoice."Quantity Transferred" := SalesLine.Quantity;
-                        end;
-                    SalesHeader."Document Type"::"Credit Memo":
-                        begin
-                            JobPlanningLineInvoice."Document Type" := JobPlanningLineInvoice."Document Type"::"Credit Memo";
-                            JobPlanningLineInvoice."Quantity Transferred" := -SalesLine.Quantity;
-                        end;
-                    else
-                        exit;
-                end;
-                JobPlanningLineInvoice."Document No." := SalesHeader."No.";
-                JobPlanningLineInvoice."Line No." := SalesLine."Line No.";
-                JobPlanningLineInvoice."Transferred Date" := SalesHeader."Posting Date";
-                JobPlanningLineInvoice.Insert;
+    //TODO JOBS: // local procedure LinkJobPlanningLine(SalesHeader: Record "Sales Header")
+    // var
+    //     SalesLine: Record "Sales Line";
+    //     JobPlanningLine: Record "Job Planning Line";
+    //     JobPlanningLineInvoice: Record "Job Planning Line Invoice";
+    // begin
+    //     JobPlanningLine.SetCurrentKey("Job Contract Entry No.");
+    //     SalesLine.SetRange("Document Type", SalesHeader."Document Type");
+    //     SalesLine.SetRange("Document No.", SalesHeader."No.");
+    //     repeat
+    //         JobPlanningLine.SetRange("Job Contract Entry No.", SalesLine."Job Contract Entry No.");
+    //         if JobPlanningLine.FindFirst then begin
+    //             JobPlanningLineInvoice."Job No." := JobPlanningLine."Job No.";
+    //             JobPlanningLineInvoice."Job Task No." := JobPlanningLine."Job Task No.";
+    //             JobPlanningLineInvoice."Job Planning Line No." := JobPlanningLine."Line No.";
+    //             case SalesHeader."Document Type" of
+    //                 SalesHeader."Document Type"::Invoice:
+    //                     begin
+    //                         JobPlanningLineInvoice."Document Type" := JobPlanningLineInvoice."Document Type"::Invoice;
+    //                         JobPlanningLineInvoice."Quantity Transferred" := SalesLine.Quantity;
+    //                     end;
+    //                 SalesHeader."Document Type"::"Credit Memo":
+    //                     begin
+    //                         JobPlanningLineInvoice."Document Type" := JobPlanningLineInvoice."Document Type"::"Credit Memo";
+    //                         JobPlanningLineInvoice."Quantity Transferred" := -SalesLine.Quantity;
+    //                     end;
+    //                 else
+    //                     exit;
+    //             end;
+    //             JobPlanningLineInvoice."Document No." := SalesHeader."No.";
+    //             JobPlanningLineInvoice."Line No." := SalesLine."Line No.";
+    //             JobPlanningLineInvoice."Transferred Date" := SalesHeader."Posting Date";
+    //             JobPlanningLineInvoice.Insert;
 
-                JobPlanningLine.UpdateQtyToTransfer;
-                JobPlanningLine.Modify;
-            end;
-        until SalesLine.Next = 0;
-    end;
+    //             JobPlanningLine.UpdateQtyToTransfer;
+    //             JobPlanningLine.Modify;
+    //         end;
+    //     until SalesLine.Next = 0;
+    // end;
 
     local procedure GetQtyOfPurchILENotShipped(ItemLedgerEntryNo: Integer): Decimal
     var
@@ -6788,23 +6788,23 @@ codeunit 6620 "Copy Document Mgt."
         OnAfterInitPurchLineFields(ToPurchLine);
     end;
 
-    local procedure CopySalesJobFields(var ToSalesLine: Record "Sales Line"; ToSalesHeader: Record "Sales Header"; FromSalesLine: Record "Sales Line")
-    var
-        IsHandled: Boolean;
-    begin
-        IsHandled := false;
-        OnBeforeCopySalesJobFields(ToSalesLine, FromSalesLine, IsHandled);
-        if IsHandled then
-            exit;
+    //TODO JOBS: // local procedure CopySalesJobFields(var ToSalesLine: Record "Sales Line"; ToSalesHeader: Record "Sales Header"; FromSalesLine: Record "Sales Line")
+    // var
+    //     IsHandled: Boolean;
+    // begin
+    //     IsHandled := false;
+    //     OnBeforeCopySalesJobFields(ToSalesLine, FromSalesLine, IsHandled);
+    //     if IsHandled then
+    //         exit;
 
-        ToSalesLine."Job No." := FromSalesLine."Job No.";
-        ToSalesLine."Job Task No." := FromSalesLine."Job Task No.";
-        if ToSalesHeader."Document Type" = ToSalesHeader."Document Type"::Invoice then
-            ToSalesLine."Job Contract Entry No." :=
-              CreateJobPlanningLine(ToSalesHeader, ToSalesLine, FromSalesLine."Job Contract Entry No.")
-        else
-            ToSalesLine."Job Contract Entry No." := FromSalesLine."Job Contract Entry No.";
-    end;
+    //     ToSalesLine."Job No." := FromSalesLine."Job No.";
+    //     ToSalesLine."Job Task No." := FromSalesLine."Job Task No.";
+    //     if ToSalesHeader."Document Type" = ToSalesHeader."Document Type"::Invoice then
+    //         ToSalesLine."Job Contract Entry No." :=
+    //           CreateJobPlanningLine(ToSalesHeader, ToSalesLine, FromSalesLine."Job Contract Entry No.")
+    //     else
+    //         ToSalesLine."Job Contract Entry No." := FromSalesLine."Job Contract Entry No.";
+    // end;
 
     local procedure CopySalesLineExtText(ToSalesHeader: Record "Sales Header"; var ToSalesLine: Record "Sales Line"; FromSalesHeader: Record "Sales Header"; FromSalesLine: Record "Sales Line"; DocLineNo: Integer; var NextLineNo: Integer)
     var

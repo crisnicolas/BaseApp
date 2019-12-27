@@ -1,4 +1,4 @@
-table 5050 Contact
+table 5050 "Contact"
 {
     Caption = 'Contact';
     DataCaptionFields = "No.", Name;
@@ -13,7 +13,7 @@ table 5050 Contact
                   TableData "Contact Web Source" = rd,
                   TableData "Rlshp. Mgt. Comment Line" = rd,
                   TableData "Interaction Log Entry" = rm,
-                  TableData "Contact Job Responsibility" = rd,
+                  //TODO JOBS: TableData "Contact Job Responsibility" = rd,
                   TableData "To-do" = rm,
                   TableData "Contact Profile Answer" = rd,
                   TableData Opportunity = rm,
@@ -492,13 +492,13 @@ table 5050 Contact
             Editable = false;
             FieldClass = FlowField;
         }
-        field(5069; "No. of Job Responsibilities"; Integer)
-        {
-            CalcFormula = Count ("Contact Job Responsibility" WHERE("Contact No." = FIELD("No.")));
-            Caption = 'No. of Job Responsibilities';
-            Editable = false;
-            FieldClass = FlowField;
-        }
+        //TODO JOBS: // field(5069; "No. of Job Responsibilities"; Integer)
+        // {
+        //     CalcFormula = Count ("Contact Job Responsibility" WHERE("Contact No." = FIELD("No.")));
+        //     Caption = 'No. of Job Responsibilities';
+        //     Editable = false;
+        //     FieldClass = FlowField;
+        // }
         field(5070; "No. of Industry Groups"; Integer)
         {
             CalcFormula = Count ("Contact Industry Group" WHERE("Contact No." = FIELD("Company No.")));
@@ -823,7 +823,7 @@ table 5050 Contact
         SegLine: Record "Segment Line";
         ContIndustGrp: Record "Contact Industry Group";
         ContactWebSource: Record "Contact Web Source";
-        ContJobResp: Record "Contact Job Responsibility";
+        //TODO JOBS: ContJobResp: Record "Contact Job Responsibility";
         ContMailingGrp: Record "Contact Mailing Group";
         ContProfileAnswer: Record "Contact Profile Answer";
         RMCommentLine: Record "Rlshp. Mgt. Comment Line";
@@ -907,9 +907,9 @@ table 5050 Contact
                 end;
             Type::Person:
                 begin
-                    ContJobResp.SetRange("Contact No.", "No.");
-                    if not ContJobResp.IsEmpty then
-                        ContJobResp.DeleteAll;
+                    //TODO JOBS: // ContJobResp.SetRange("Contact No.", "No.");
+                    // if not ContJobResp.IsEmpty then
+                    //     ContJobResp.DeleteAll;
 
                     InteractLogEntry.SetCurrentKey("Contact Company No.", "Contact No.");
                     InteractLogEntry.SetRange("Contact Company No.", "Company No.");
@@ -1219,7 +1219,7 @@ table 5050 Contact
                 begin
                     if Type <> xRec.Type then begin
                         TestField("Organizational Level Code", '');
-                        TestField("No. of Job Responsibilities", 0);
+                       //TODO JOBS:  TestField("No. of Job Responsibilities", 0);
                     end;
                     "First Name" := '';
                     "Middle Name" := '';

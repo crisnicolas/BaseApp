@@ -1,4 +1,4 @@
-codeunit 99000889 AvailabilityManagement
+codeunit 99000889 "AvailabilityManagement"
 {
     Permissions = TableData "Sales Line" = r,
                   TableData "Purchase Line" = r,
@@ -18,7 +18,7 @@ codeunit 99000889 AvailabilityManagement
         Item: Record Item;
         SalesLine: Record "Sales Line";
         ServLine: Record "Service Line";
-        JobPlanningLine: Record "Job Planning Line";
+        //TODO JOBS: JobPlanningLine: Record "Job Planning Line";
         AvailToPromise: Codeunit "Available to Promise";
         UOMMgt: Codeunit "Unit of Measure Management";
         CaptionText: Text;
@@ -66,23 +66,23 @@ codeunit 99000889 AvailabilityManagement
             until ServLine.Next = 0;
     end;
 
-    procedure SetJob(var OrderPromisingLine: Record "Order Promising Line"; var Job: Record Job)
+    procedure SetJob(var OrderPromisingLine: Record "Order Promising Line")//TODO JOBS: ; var Job: Record Job)
     begin
-        CaptionText := Text003;
-        OrderPromisingLine.DeleteAll;
-        JobPlanningLine.SetRange("Job No.", Job."No.");
-        JobPlanningLine.SetRange(Status, Job.Status);
-        JobPlanningLine.SetRange(Type, JobPlanningLine.Type::Item);
-        JobPlanningLine.SetFilter("Remaining Qty.", '>0');
-        if JobPlanningLine.Find('-') then
-            repeat
-                if JobPlanningLineIsInventoryItem then begin
-                    OrderPromisingLine."Entry No." := OrderPromisingLine.GetLastEntryNo + 10000;
-                    OrderPromisingLine.TransferFromJobPlanningLine(JobPlanningLine);
-                    JobPlanningLine.CalcFields("Reserved Qty. (Base)");
-                    InsertPromisingLine(OrderPromisingLine, JobPlanningLine."Remaining Qty. (Base)" - JobPlanningLine."Reserved Qty. (Base)");
-                end;
-            until JobPlanningLine.Next = 0;
+        //TODO JOBS: // CaptionText := Text003;
+        // OrderPromisingLine.DeleteAll;
+        // JobPlanningLine.SetRange("Job No.", Job."No.");
+        // JobPlanningLine.SetRange(Status, Job.Status);
+        // JobPlanningLine.SetRange(Type, JobPlanningLine.Type::Item);
+        // JobPlanningLine.SetFilter("Remaining Qty.", '>0');
+        // if JobPlanningLine.Find('-') then
+        //     repeat
+        //         if JobPlanningLineIsInventoryItem then begin
+        //             OrderPromisingLine."Entry No." := OrderPromisingLine.GetLastEntryNo + 10000;
+        //             OrderPromisingLine.TransferFromJobPlanningLine(JobPlanningLine);
+        //             JobPlanningLine.CalcFields("Reserved Qty. (Base)");
+        //             InsertPromisingLine(OrderPromisingLine, JobPlanningLine."Remaining Qty. (Base)" - JobPlanningLine."Reserved Qty. (Base)");
+        //         end;
+        //     until JobPlanningLine.Next = 0;
     end;
 
     local procedure InsertPromisingLine(var OrderPromisingLine: Record "Order Promising Line"; UnavailableQty: Decimal)
@@ -146,7 +146,7 @@ codeunit 99000889 AvailabilityManagement
     var
         SalesLine: Record "Sales Line";
         ServLine: Record "Service Line";
-        JobPlanningLine: Record "Job Planning Line";
+        //TODO JOBS: JobPlanningLine: Record "Job Planning Line";
         CapableToPromise: Codeunit "Capable to Promise";
         QtyReservedTotal: Decimal;
         OldCTPQty: Decimal;
@@ -204,32 +204,32 @@ codeunit 99000889 AvailabilityManagement
                                 else
                                     Validate("Earliest Shipment Date", "Original Shipment Date");
                             end;
-                        "Source Type"::Job:
-                            begin
-                                Clear("Earliest Shipment Date");
-                                Clear("Planned Delivery Date");
-                                JobPlanningLine.Reset;
-                                JobPlanningLine.SetRange(Status, "Source Subtype");
-                                JobPlanningLine.SetRange("Job No.", "Source ID");
-                                JobPlanningLine.SetRange("Job Contract Entry No.", "Source Line No.");
-                                JobPlanningLine.CalcFields("Reserved Quantity");
-                                QtyReservedTotal := JobPlanningLine."Reserved Quantity";
-                                CapableToPromise.RemoveReqLines(JobPlanningLine."Job No.", JobPlanningLine."Job Contract Entry No.", 0, false);
-                                JobPlanningLine.CalcFields("Reserved Quantity");
-                                OldCTPQty := QtyReservedTotal - JobPlanningLine."Reserved Quantity";
-                                FeasibleDate :=
-                                  CapableToPromise.CalcCapableToPromise(
-                                    "Item No.", "Variant Code", "Location Code",
-                                    "Original Shipment Date",
-                                    "Unavailable Quantity" + OldCTPQty, "Unit of Measure Code",
-                                    OrderPromisingID, "Source Line No.",
-                                    LastValidLine, CompanyInfo."Check-Avail. Time Bucket",
-                                    CompanyInfo."Check-Avail. Period Calc.");
-                                if FeasibleDate <> "Original Shipment Date" then
-                                    Validate("Earliest Shipment Date", FeasibleDate)
-                                else
-                                    Validate("Earliest Shipment Date", "Original Shipment Date");
-                            end;
+                    //TODO JOBS: // "Source Type"::Job:
+                    //     begin
+                    //         Clear("Earliest Shipment Date");
+                    //         Clear("Planned Delivery Date");
+                    //         JobPlanningLine.Reset;
+                    //         JobPlanningLine.SetRange(Status, "Source Subtype");
+                    //         JobPlanningLine.SetRange("Job No.", "Source ID");
+                    //         JobPlanningLine.SetRange("Job Contract Entry No.", "Source Line No.");
+                    //         JobPlanningLine.CalcFields("Reserved Quantity");
+                    //         QtyReservedTotal := JobPlanningLine."Reserved Quantity";
+                    //         CapableToPromise.RemoveReqLines(JobPlanningLine."Job No.", JobPlanningLine."Job Contract Entry No.", 0, false);
+                    //         JobPlanningLine.CalcFields("Reserved Quantity");
+                    //         OldCTPQty := QtyReservedTotal - JobPlanningLine."Reserved Quantity";
+                    //         FeasibleDate :=
+                    //           CapableToPromise.CalcCapableToPromise(
+                    //             "Item No.", "Variant Code", "Location Code",
+                    //             "Original Shipment Date",
+                    //             "Unavailable Quantity" + OldCTPQty, "Unit of Measure Code",
+                    //             OrderPromisingID, "Source Line No.",
+                    //             LastValidLine, CompanyInfo."Check-Avail. Time Bucket",
+                    //             CompanyInfo."Check-Avail. Period Calc.");
+                    //         if FeasibleDate <> "Original Shipment Date" then
+                    //             Validate("Earliest Shipment Date", FeasibleDate)
+                    //         else
+                    //             Validate("Earliest Shipment Date", "Original Shipment Date");
+                    //     end;
                     end;
                     OnAfterCaseCalcCapableToPromise(OrderPromisingLine, CompanyInfo, OrderPromisingID, LastValidLine);
                     Modify;
@@ -298,7 +298,7 @@ codeunit 99000889 AvailabilityManagement
         ReservMgt: Codeunit "Reservation Management";
         SalesLineReserve: Codeunit "Sales Line-Reserve";
         ServLineReserve: Codeunit "Service Line-Reserve";
-        JobPlanningLineReserve: Codeunit "Job Planning Line-Reserve";
+        //TODO JOBS: JobPlanningLineReserve: Codeunit "Job Planning Line-Reserve";
         FullAutoReservation: Boolean;
         QtyToReserve: Decimal;
         QtyToReserveBase: Decimal;
@@ -346,28 +346,28 @@ codeunit 99000889 AvailabilityManagement
 
                     ServLine.Modify;
                 end;
-            OrderPromisingLine2."Source Type"::Job:
-                begin
-                    JobPlanningLine.SetRange(Status, OrderPromisingLine2."Source Subtype");
-                    JobPlanningLine.SetRange("Job No.", OrderPromisingLine2."Source ID");
-                    JobPlanningLine.SetRange("Job Contract Entry No.", OrderPromisingLine2."Source Line No.");
-                    JobPlanningLine.FindFirst;
-                    if OrderPromisingLine2."Earliest Shipment Date" <> 0D then
-                        JobPlanningLine.Validate("Planning Date", OrderPromisingLine2."Earliest Shipment Date");
+        //TODO JOBS: // OrderPromisingLine2."Source Type"::Job:
+        //     begin
+        //         JobPlanningLine.SetRange(Status, OrderPromisingLine2."Source Subtype");
+        //         JobPlanningLine.SetRange("Job No.", OrderPromisingLine2."Source ID");
+        //         JobPlanningLine.SetRange("Job Contract Entry No.", OrderPromisingLine2."Source Line No.");
+        //         JobPlanningLine.FindFirst;
+        //         if OrderPromisingLine2."Earliest Shipment Date" <> 0D then
+        //             JobPlanningLine.Validate("Planning Date", OrderPromisingLine2."Earliest Shipment Date");
 
-                    JobPlanningLineReserve.ReservQuantity(JobPlanningLine, QtyToReserve, QtyToReserveBase);
-                    if (JobPlanningLine."Planning Date" <> 0D) and
-                       (JobPlanningLine.Reserve = JobPlanningLine.Reserve::Always) and
-                       (QtyToReserveBase <> 0)
-                    then begin
-                        ReservMgt.SetJobPlanningLine(JobPlanningLine);
-                        ReservMgt.AutoReserve(
-                          FullAutoReservation, '', JobPlanningLine."Planning Date", QtyToReserve, QtyToReserveBase);
-                        JobPlanningLine.CalcFields("Reserved Quantity");
-                    end;
+        //         JobPlanningLineReserve.ReservQuantity(JobPlanningLine, QtyToReserve, QtyToReserveBase);
+        //         if (JobPlanningLine."Planning Date" <> 0D) and
+        //            (JobPlanningLine.Reserve = JobPlanningLine.Reserve::Always) and
+        //            (QtyToReserveBase <> 0)
+        //         then begin
+        //             ReservMgt.SetJobPlanningLine(JobPlanningLine);
+        //             ReservMgt.AutoReserve(
+        //               FullAutoReservation, '', JobPlanningLine."Planning Date", QtyToReserve, QtyToReserveBase);
+        //             JobPlanningLine.CalcFields("Reserved Quantity");
+        //         end;
 
-                    JobPlanningLine.Modify;
-                end;
+        //         JobPlanningLine.Modify;
+        //     end;
         end;
         OnAfterUpdateSourceLine(OrderPromisingLine2);
     end;
@@ -384,10 +384,10 @@ codeunit 99000889 AvailabilityManagement
         ReqLine: Record "Requisition Line";
         SalesLine2: Record "Sales Line";
         ServLine2: Record "Service Line";
-        JobPlanningLine2: Record "Job Planning Line";
+        //TODO JOBS: JobPlanningLine2: Record "Job Planning Line";
         SalesLineReserve: Codeunit "Sales Line-Reserve";
         ServLineReserve: Codeunit "Service Line-Reserve";
-        JobPlanningLineReserve: Codeunit "Job Planning Line-Reserve";
+        //TODO JOBS: JobPlanningLineReserve: Codeunit "Job Planning Line-Reserve";
         ReservQty: Decimal;
         ReservQtyBase: Decimal;
         NeededQty: Decimal;
@@ -412,17 +412,17 @@ codeunit 99000889 AvailabilityManagement
                     NeededQty := ServLine2."Outstanding Quantity" - ServLine2."Reserved Quantity";
                     NeededQtyBase := ServLine2."Outstanding Qty. (Base)" - ServLine2."Reserved Qty. (Base)";
                 end;
-            OrderPromisingLine."Source Type"::Job:
-                begin
-                    JobPlanningLine2.SetRange(Status, OrderPromisingLine."Source Subtype");
-                    JobPlanningLine2.SetRange("Job No.", OrderPromisingLine."Source ID");
-                    JobPlanningLine2.SetRange("Job Contract Entry No.", OrderPromisingLine."Source Line No.");
-                    JobPlanningLine2.FindFirst;
+        //TODO JOBS: // OrderPromisingLine."Source Type"::Job:
+        //     begin
+        //         JobPlanningLine2.SetRange(Status, OrderPromisingLine."Source Subtype");
+        //         JobPlanningLine2.SetRange("Job No.", OrderPromisingLine."Source ID");
+        //         JobPlanningLine2.SetRange("Job Contract Entry No.", OrderPromisingLine."Source Line No.");
+        //         JobPlanningLine2.FindFirst;
 
-                    JobPlanningLine2.CalcFields("Reserved Quantity", "Reserved Qty. (Base)");
-                    NeededQty := JobPlanningLine2."Remaining Qty." - JobPlanningLine2."Reserved Quantity";
-                    NeededQtyBase := JobPlanningLine2."Remaining Qty. (Base)" - JobPlanningLine2."Reserved Qty. (Base)";
-                end;
+        //         JobPlanningLine2.CalcFields("Reserved Quantity", "Reserved Qty. (Base)");
+        //         NeededQty := JobPlanningLine2."Remaining Qty." - JobPlanningLine2."Reserved Quantity";
+        //         NeededQtyBase := JobPlanningLine2."Remaining Qty. (Base)" - JobPlanningLine2."Reserved Qty. (Base)";
+        //     end;
         end;
 
         OnCreateReservationsAfterFirstCASE(OrderPromisingLine, NeededQty, NeededQtyBase);
@@ -458,14 +458,14 @@ codeunit 99000889 AvailabilityManagement
                             ServLine2.Modify;
                         end;
                     end;
-                OrderPromisingLine."Source Type"::Job:
-                    begin
-                        JobPlanningLineReserve.BindToRequisition(JobPlanningLine2, ReqLine, ReservQty, ReservQtyBase);
-                        if JobPlanningLine2.Reserve = JobPlanningLine2.Reserve::Never then begin
-                            JobPlanningLine2.Reserve := JobPlanningLine2.Reserve::Optional;
-                            JobPlanningLine2.Modify;
-                        end;
-                    end;
+            //TODO JOBS: // OrderPromisingLine."Source Type"::Job:
+            //     begin
+            //         JobPlanningLineReserve.BindToRequisition(JobPlanningLine2, ReqLine, ReservQty, ReservQtyBase);
+            //         if JobPlanningLine2.Reserve = JobPlanningLine2.Reserve::Never then begin
+            //             JobPlanningLine2.Reserve := JobPlanningLine2.Reserve::Optional;
+            //             JobPlanningLine2.Modify;
+            //         end;
+            //     end;
             end;
             OnCreateReservationsAfterSecondCASE(OrderPromisingLine, ReqLine, ReservQty, ReservQtyBase);
         end;
@@ -473,7 +473,7 @@ codeunit 99000889 AvailabilityManagement
 
     local procedure JobPlanningLineIsInventoryItem(): Boolean
     begin
-        Item.Get(JobPlanningLine."No.");
+        //TODO JOBS: Item.Get(JobPlanningLine."No.");
         exit(Item.Type = Item.Type::Inventory);
     end;
 

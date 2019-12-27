@@ -4,7 +4,7 @@ report 86 "Adjust Add. Reporting Currency"
     Permissions = TableData "G/L Entry" = im,
                   TableData "Item Ledger Entry" = m,
                   TableData "G/L Register" = im,
-                  TableData "Job Ledger Entry" = m,
+                  //TODO JOBS: TableData "Job Ledger Entry" = m,
                   TableData "VAT Entry" = m,
                   TableData "Dimension Set ID Filter Line" = imd,
                   TableData "Value Entry" = m;
@@ -175,29 +175,29 @@ report 86 "Adjust Add. Reporting Currency"
                   Text006);
             end;
         }
-        dataitem("Job Ledger Entry"; "Job Ledger Entry")
-        {
-            DataItemTableView = SORTING("Job No.", "Posting Date");
+        //TODO JOBS: // dataitem("Job Ledger Entry"; "Job Ledger Entry")
+        // {
+        //     DataItemTableView = SORTING("Job No.", "Posting Date");
 
-            trigger OnAfterGetRecord()
-            begin
-                if OldJobLedgEntry."Job No." <> "Job No." then begin
-                    Window.Update(1, "Job No.");
-                    OldJobLedgEntry := "Job Ledger Entry";
-                end;
+        //     trigger OnAfterGetRecord()
+        //     begin
+        //         if OldJobLedgEntry."Job No." <> "Job No." then begin
+        //             Window.Update(1, "Job No.");
+        //             OldJobLedgEntry := "Job Ledger Entry";
+        //         end;
 
-                "Additional-Currency Total Cost" := ExchangeAmtLCYToFCY("Posting Date", "Total Cost (LCY)", false);
-                "Add.-Currency Total Price" := ExchangeAmtLCYToFCY("Posting Date", "Total Price (LCY)", false);
-                Modify;
-            end;
+        //         "Additional-Currency Total Cost" := ExchangeAmtLCYToFCY("Posting Date", "Total Cost (LCY)", false);
+        //         "Add.-Currency Total Price" := ExchangeAmtLCYToFCY("Posting Date", "Total Price (LCY)", false);
+        //         Modify;
+        //     end;
 
-            trigger OnPreDataItem()
-            begin
-                Window.Open(
-                  Text007 +
-                  Text008);
-            end;
-        }
+        //     trigger OnPreDataItem()
+        //     begin
+        //         Window.Open(
+        //           Text007 +
+        //           Text008);
+        //     end;
+        // }
         dataitem("Prod. Order Line"; "Prod. Order Line")
         {
             DataItemTableView = SORTING(Status, "Prod. Order No.", "Line No.");
@@ -376,7 +376,7 @@ report 86 "Adjust Add. Reporting Currency"
         SourceCodeSetup: Record "Source Code Setup";
         OldGLEntry: Record "G/L Entry";
         OldValueEntry: Record "Value Entry";
-        OldJobLedgEntry: Record "Job Ledger Entry";
+        //TODO JOBS: OldJobLedgEntry: Record "Job Ledger Entry";
         OldProdOrderLine: Record "Prod. Order Line";
         OldCostEntry: Record "Cost Entry";
         CurrExchRate: Record "Currency Exchange Rate";

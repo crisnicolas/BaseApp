@@ -17,7 +17,7 @@ table 483 "Change Global Dim. Log Entry"
                   TableData "Purch. Inv. Line" = rm,
                   TableData "Purch. Cr. Memo Hdr." = rm,
                   TableData "Purch. Cr. Memo Line" = rm,
-                  TableData "Job Ledger Entry" = rm,
+                  //TODO JOBS: TableData "Job Ledger Entry" = rm,
                   TableData "Res. Ledger Entry" = rm,
                   TableData "Bank Account Ledger Entry" = rm,
                   TableData "Phys. Inventory Ledger Entry" = rm,
@@ -25,7 +25,7 @@ table 483 "Change Global Dim. Log Entry"
                   TableData "Issued Fin. Charge Memo Header" = rm,
                   TableData "Detailed Cust. Ledg. Entry" = rm,
                   TableData "Detailed Vendor Ledg. Entry" = rm,
-                  TableData "Job WIP G/L Entry" = rm,
+                  //TODO JOBS: TableData "Job WIP G/L Entry" = rm,
                   TableData "Employee Ledger Entry" = rm,
                   TableData "Detailed Employee Ledger Entry" = rm,
                   TableData "Production Order" = rm,
@@ -286,8 +286,8 @@ table 483 "Change Global Dim. Log Entry"
                 DimensionCode := GeneralLedgerSetup."Global Dimension 2 Code";
         end;
         if "Dim. Set ID Field No." = 0 then begin
-            if RecRef.Number = DATABASE::"Job Task" then
-                exit(FindJobTaskDimensionValueCode(RecRef, DimensionCode));
+            //TODO JOBS: // if RecRef.Number = DATABASE::"Job Task" then
+            //     exit(FindJobTaskDimensionValueCode(RecRef, DimensionCode));
             exit(FindDefaultDimensionValueCode(RecRef, DimensionCode));
         end;
         exit(FindDimSetDimensionValueCode(RecRef, DimensionCode));
@@ -315,16 +315,16 @@ table 483 "Change Global Dim. Log Entry"
         exit('');
     end;
 
-    local procedure FindJobTaskDimensionValueCode(RecRef: RecordRef; DimensionCode: Code[20]): Code[20]
-    var
-        JobTask: Record "Job Task";
-        JobTaskDimension: Record "Job Task Dimension";
-    begin
-        RecRef.SetTable(JobTask);
-        if JobTaskDimension.Get(JobTask."Job No.", JobTask."Job Task No.", DimensionCode) then
-            exit(JobTaskDimension."Dimension Value Code");
-        exit('');
-    end;
+    //TODO JOBS: // local procedure FindJobTaskDimensionValueCode(RecRef: RecordRef; DimensionCode: Code[20]): Code[20]
+    // var
+    //     JobTask: Record "Job Task";
+    //     JobTaskDimension: Record "Job Task Dimension";
+    // begin
+    //     RecRef.SetTable(JobTask);
+    //     if JobTaskDimension.Get(JobTask."Job No.", JobTask."Job Task No.", DimensionCode) then
+    //         exit(JobTaskDimension."Dimension Value Code");
+    //     exit('');
+    // end;
 
     local procedure FindParentTable(RecRef: RecordRef): Integer
     var

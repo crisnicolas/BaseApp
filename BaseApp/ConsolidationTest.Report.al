@@ -187,8 +187,8 @@ report 1826 "Consolidation - Test"
                                     No[1] := "G/L Account No.";
                                     TableID[2] := DATABASE::"G/L Account";
                                     No[2] := "Bal. Account No.";
-                                    TableID[3] := DATABASE::Job;
-                                    No[3] := "Job No.";
+                                    //TODO JOBS: // TableID[3] := DATABASE::Job;
+                                    // No[3] := "Job No.";
                                     CheckFinished := DimMgt.CheckDimBufferValuePosting(TempDimBufIn, TableID, No);
                                     if not CheckFinished then
                                         AddError(StrSubstNo(

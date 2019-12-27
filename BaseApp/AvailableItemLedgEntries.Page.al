@@ -220,7 +220,7 @@
         PlanningComponent: Record "Planning Component";
         TransLine: Record "Transfer Line";
         ServiceLine: Record "Service Line";
-        JobPlanningLine: Record "Job Planning Line";
+        //TODO JOBS: JobPlanningLine: Record "Job Planning Line";
         AssemblyLine: Record "Assembly Line";
         AssemblyHeader: Record "Assembly Header";
         ReservMgt: Codeunit "Reservation Management";
@@ -234,7 +234,7 @@
         ReserveItemLedgEntry: Codeunit "Item Ledger Entry-Reserve";
         ReserveTransLine: Codeunit "Transfer Line-Reserve";
         ReserveServiceLine: Codeunit "Service Line-Reserve";
-        JobPlanningLineReserve: Codeunit "Job Planning Line-Reserve";
+        //TODO JOBS: JobPlanningLineReserve: Codeunit "Job Planning Line-Reserve";
         AssemblyLineReserve: Codeunit "Assembly Line-Reserve";
         AssemblyHeaderReserve: Codeunit "Assembly Header-Reserve";
         QtyToReserve: Decimal;
@@ -344,18 +344,18 @@
         CaptionText := ReserveServiceLine.Caption(ServiceLine);
     end;
 
-    procedure SetJobPlanningLine(var CurrentJobPlanningLine: Record "Job Planning Line"; CurrentReservEntry: Record "Reservation Entry")
-    begin
-        CurrentJobPlanningLine.TestField(Type, CurrentJobPlanningLine.Type::Item);
-        JobPlanningLine := CurrentJobPlanningLine;
-        ReservEntry := CurrentReservEntry;
+    //TODO JOBS: // procedure SetJobPlanningLine(var CurrentJobPlanningLine: Record "Job Planning Line"; CurrentReservEntry: Record "Reservation Entry")
+    // begin
+    //     CurrentJobPlanningLine.TestField(Type, CurrentJobPlanningLine.Type::Item);
+    //     JobPlanningLine := CurrentJobPlanningLine;
+    //     ReservEntry := CurrentReservEntry;
 
-        Clear(ReservMgt);
-        ReservMgt.SetJobPlanningLine(JobPlanningLine);
-        ReservEngineMgt.InitFilterAndSortingFor(ReservEntry, true);
-        JobPlanningLineReserve.FilterReservFor(ReservEntry, JobPlanningLine);
-        CaptionText := JobPlanningLineReserve.Caption(JobPlanningLine);
-    end;
+    //     Clear(ReservMgt);
+    //     ReservMgt.SetJobPlanningLine(JobPlanningLine);
+    //     ReservEngineMgt.InitFilterAndSortingFor(ReservEntry, true);
+    //     JobPlanningLineReserve.FilterReservFor(ReservEntry, JobPlanningLine);
+    //     CaptionText := JobPlanningLineReserve.Caption(JobPlanningLine);
+    // end;
 
     procedure SetTotalAvailQty(TotalAvailQty2: Decimal)
     begin
@@ -469,11 +469,11 @@
                     ServiceLine.Find;
                     SetServiceLine(ServiceLine, ReservEntry);
                 end;
-            DATABASE::"Job Planning Line":
-                begin
-                    JobPlanningLine.Find;
-                    SetJobPlanningLine(JobPlanningLine, ReservEntry);
-                end;
+            //TODO JOBS: // DATABASE::"Job Planning Line":
+            //     begin
+            //         JobPlanningLine.Find;
+            //         SetJobPlanningLine(JobPlanningLine, ReservEntry);
+            //     end;
             DATABASE::"Assembly Line":
                 begin
                     AssemblyLine.Find;
@@ -509,8 +509,8 @@
                 ReservMgt.SetTransferLine(TransLine, ReservEntry."Source Subtype");
             DATABASE::"Service Line":
                 ReservMgt.SetServLine(ServiceLine);
-            DATABASE::"Job Planning Line":
-                ReservMgt.SetJobPlanningLine(JobPlanningLine);
+            //TODO JOBS: // DATABASE::"Job Planning Line":
+            //     ReservMgt.SetJobPlanningLine(JobPlanningLine);
             DATABASE::"Assembly Line":
                 ReservMgt.SetAssemblyLine(AssemblyLine);
             DATABASE::"Assembly Header":

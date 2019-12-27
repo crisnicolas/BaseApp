@@ -196,7 +196,7 @@ page 6503 "Avail. - Item Tracking Lines"
         PlanningComponent: Record "Planning Component";
         TransLine: Record "Transfer Line";
         ServiceInvLine: Record "Service Line";
-        JobPlanningLine: Record "Job Planning Line";
+        //TODO JOBS: JobPlanningLine: Record "Job Planning Line";
         AssemblyHeader: Record "Assembly Header";
         AssemblyLine: Record "Assembly Line";
         AssemblyLineReserve: Codeunit "Assembly Line-Reserve";
@@ -212,7 +212,7 @@ page 6503 "Avail. - Item Tracking Lines"
         ReservePlanningComponent: Codeunit "Plng. Component-Reserve";
         ReserveTransLine: Codeunit "Transfer Line-Reserve";
         ReserveServiceInvLine: Codeunit "Service Line-Reserve";
-        JobPlanningLineReserve: Codeunit "Job Planning Line-Reserve";
+        //TODO JOBS: JobPlanningLineReserve: Codeunit "Job Planning Line-Reserve";
         QtyToReserve: Decimal;
         CaptionText: Text;
         EnableReservations: Boolean;
@@ -332,18 +332,18 @@ page 6503 "Avail. - Item Tracking Lines"
         CaptionText := ReserveServiceInvLine.Caption(ServiceInvLine);
     end;
 
-    procedure SetJobPlanningLine(var CurrentJobPlanningLine: Record "Job Planning Line"; CurrentReservEntry: Record "Reservation Entry")
-    begin
-        CurrentJobPlanningLine.TestField(Type, CurrentJobPlanningLine.Type::Item);
-        JobPlanningLine := CurrentJobPlanningLine;
-        ReservEntry := CurrentReservEntry;
+    //TODO JOBS: // procedure SetJobPlanningLine(var CurrentJobPlanningLine: Record "Job Planning Line"; CurrentReservEntry: Record "Reservation Entry")
+    // begin
+    //     CurrentJobPlanningLine.TestField(Type, CurrentJobPlanningLine.Type::Item);
+    //     JobPlanningLine := CurrentJobPlanningLine;
+    //     ReservEntry := CurrentReservEntry;
 
-        Clear(ReservMgt);
-        ReservMgt.SetJobPlanningLine(JobPlanningLine);
-        ReservEngineMgt.InitFilterAndSortingFor(ReservEntry, true);
-        JobPlanningLineReserve.FilterReservFor(ReservEntry, JobPlanningLine);
-        CaptionText := JobPlanningLineReserve.Caption(JobPlanningLine);
-    end;
+    //     Clear(ReservMgt);
+    //     ReservMgt.SetJobPlanningLine(JobPlanningLine);
+    //     ReservEngineMgt.InitFilterAndSortingFor(ReservEntry, true);
+    //     JobPlanningLineReserve.FilterReservFor(ReservEntry, JobPlanningLine);
+    //     CaptionText := JobPlanningLineReserve.Caption(JobPlanningLine);
+    // end;
 
     procedure SetItemTrackingLine(LookupType: Integer; LookupSubtype: Integer; CurrentReservEntry: Record "Reservation Entry"; SearchForSupply: Boolean; AvailabilityDate: Date)
     begin
@@ -401,11 +401,11 @@ page 6503 "Avail. - Item Tracking Lines"
                     ServiceInvLine.Find;
                     SetServiceInvLine(ServiceInvLine, ReservEntry);
                 end;
-            DATABASE::"Job Planning Line":
-                begin
-                    JobPlanningLine.Find;
-                    SetJobPlanningLine(JobPlanningLine, ReservEntry);
-                end;
+        //TODO JOBS: // DATABASE::"Job Planning Line":
+        //     begin
+        //         JobPlanningLine.Find;
+        //         SetJobPlanningLine(JobPlanningLine, ReservEntry);
+        //     end;
         end;
     end;
 

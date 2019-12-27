@@ -199,7 +199,7 @@ page 925 "Available - Assembly Headers"
         PlanningComponent: Record "Planning Component";
         TransLine: Record "Transfer Line";
         ServiceLine: Record "Service Line";
-        JobPlanningLine: Record "Job Planning Line";
+        //TODO JOBS: JobPlanningLine: Record "Job Planning Line";
         AssemblyLine: Record "Assembly Line";
         AssemblyHeader: Record "Assembly Header";
         ReservMgt: Codeunit "Reservation Management";
@@ -210,7 +210,7 @@ page 925 "Available - Assembly Headers"
         ProdOrderCompReserve: Codeunit "Prod. Order Comp.-Reserve";
         TransLineReserve: Codeunit "Transfer Line-Reserve";
         ServiceLineReserve: Codeunit "Service Line-Reserve";
-        JobPlanningLineReserve: Codeunit "Job Planning Line-Reserve";
+        //TODO JOBS: JobPlanningLineReserve: Codeunit "Job Planning Line-Reserve";
         AssemblyHeaderReserve: Codeunit "Assembly Header-Reserve";
         AssemblyLineReserve: Codeunit "Assembly Line-Reserve";
         PurchLineReserve: Codeunit "Purch. Line-Reserve";
@@ -323,18 +323,18 @@ page 925 "Available - Assembly Headers"
         CaptionText := ServiceLineReserve.Caption(ServiceLine);
     end;
 
-    procedure SetJobPlanningLine(var CurrentJobPlanningLine: Record "Job Planning Line"; CurrentReservEntry: Record "Reservation Entry")
-    begin
-        CurrentJobPlanningLine.TestField(Type, CurrentJobPlanningLine.Type::Item);
-        JobPlanningLine := CurrentJobPlanningLine;
-        ReservEntry := CurrentReservEntry;
+    //TODO JOBS: // procedure SetJobPlanningLine(var CurrentJobPlanningLine: Record "Job Planning Line"; CurrentReservEntry: Record "Reservation Entry")
+    // begin
+    //     CurrentJobPlanningLine.TestField(Type, CurrentJobPlanningLine.Type::Item);
+    //     JobPlanningLine := CurrentJobPlanningLine;
+    //     ReservEntry := CurrentReservEntry;
 
-        Clear(ReservMgt);
-        ReservMgt.SetJobPlanningLine(JobPlanningLine);
-        ReservEngineMgt.InitFilterAndSortingFor(ReservEntry, true);
-        JobPlanningLineReserve.FilterReservFor(ReservEntry, JobPlanningLine);
-        CaptionText := JobPlanningLineReserve.Caption(JobPlanningLine);
-    end;
+    //     Clear(ReservMgt);
+    //     ReservMgt.SetJobPlanningLine(JobPlanningLine);
+    //     ReservEngineMgt.InitFilterAndSortingFor(ReservEntry, true);
+    //     JobPlanningLineReserve.FilterReservFor(ReservEntry, JobPlanningLine);
+    //     CaptionText := JobPlanningLineReserve.Caption(JobPlanningLine);
+    // end;
 
     procedure SetAssemblyHeader(var CurrentAsmHeader: Record "Assembly Header"; CurrentReservEntry: Record "Reservation Entry")
     begin
@@ -424,11 +424,11 @@ page 925 "Available - Assembly Headers"
                     ServiceLine.Find;
                     SetServiceInvLine(ServiceLine, ReservEntry);
                 end;
-            DATABASE::"Job Planning Line":
-                begin
-                    JobPlanningLine.Find;
-                    SetJobPlanningLine(JobPlanningLine, ReservEntry);
-                end;
+        //TODO JOBS: // DATABASE::"Job Planning Line":
+        //     begin
+        //         JobPlanningLine.Find;
+        //         SetJobPlanningLine(JobPlanningLine, ReservEntry);
+        //     end;
         end;
 
         OnAfterUpdateReservFrom(ReservEntry);
@@ -454,8 +454,8 @@ page 925 "Available - Assembly Headers"
                 ReservMgt.SetTransferLine(TransLine, ReservEntry."Source Subtype");
             DATABASE::"Service Line":
                 ReservMgt.SetServLine(ServiceLine);
-            DATABASE::"Job Planning Line":
-                ReservMgt.SetJobPlanningLine(JobPlanningLine);
+            //TODO JOBS: // DATABASE::"Job Planning Line":
+            //     ReservMgt.SetJobPlanningLine(JobPlanningLine);
             DATABASE::"Assembly Line":
                 ReservMgt.SetAssemblyLine(AssemblyLine);
         end;

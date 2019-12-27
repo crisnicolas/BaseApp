@@ -71,25 +71,25 @@ page 971 "Activity Details FactBox"
 
     local procedure LookupActivity()
     var
-        Job: Record Job;
+        //TODO JOBS: Job: Record Job;
         CauseOfAbsence: Record "Cause of Absence";
         ServiceHeader: Record "Service Header";
         AssemblyHeader: Record "Assembly Header";
-        JobList: Page "Job List";
+        //TODO JOBS: JobList: Page "Job List";
         CausesOfAbsence: Page "Causes of Absence";
         ServiceOrders: Page "Service Orders";
         AssemblyOrders: Page "Assembly Orders";
     begin
         case Type of
-            Type::Job:
-                begin
-                    Clear(JobList);
-                    if "Job No." <> '' then begin
-                        Job.Get("Job No.");
-                        JobList.SetRecord(Job);
-                    end;
-                    JobList.RunModal;
-                end;
+            //TODO JOBS: // Type::Job:
+            //     begin
+            //         Clear(JobList);
+            //         if "Job No." <> '' then begin
+            //             Job.Get("Job No.");
+            //             JobList.SetRecord(Job);
+            //         end;
+            //         JobList.RunModal;
+            //     end;
             Type::Absence:
                 begin
                     Clear(CausesOfAbsence);
@@ -120,17 +120,17 @@ page 971 "Activity Details FactBox"
 
     local procedure LookupSubActivity()
     var
-        JobTask: Record "Job Task";
-        JobTaskList: Page "Job Task List";
+    //TODO JOBS: JobTask: Record "Job Task";
+    //TODO JOBS: JobTaskList: Page "Job Task List";
     begin
-        if Type = Type::Job then begin
-            Clear(JobTaskList);
-            if "Job Task No." <> '' then begin
-                JobTask.Get("Job No.", "Job Task No.");
-                JobTaskList.SetRecord(JobTask);
-            end;
-            JobTaskList.RunModal;
-        end;
+        //TODO JOBS: // if Type = Type::Job then begin
+        //     Clear(JobTaskList);
+        //     if "Job Task No." <> '' then begin
+        //         JobTask.Get("Job No.", "Job Task No.");
+        //         JobTaskList.SetRecord(JobTask);
+        //     end;
+        //     JobTaskList.RunModal;
+        // end;
     end;
 }
 

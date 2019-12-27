@@ -7,13 +7,13 @@ codeunit 2 "Company-Initialize"
                   TableData "Purchases & Payables Setup" = i,
                   TableData "Inventory Setup" = i,
                   TableData "Resources Setup" = i,
-                  TableData "Jobs Setup" = i,
+                  //TODO JOBS: TableData "Jobs Setup" = i,
                   TableData "Tax Setup" = i,
                   TableData "VAT Report Setup" = i,
                   TableData "Cash Flow Setup" = i,
                   TableData "Social Listening Setup" = i,
                   TableData "Assembly Setup" = i,
-                  TableData "Job WIP Method" = i,
+                  //TODO JOBS: TableData "Job WIP Method" = i,
                   TableData "Cost Accounting Setup" = i,
                   TableData "Data Migration Setup" = i,
                   TableData "Marketing Setup" = i,
@@ -45,7 +45,7 @@ codeunit 2 "Company-Initialize"
         InitSourceCodeSetup;
         InitStandardTexts;
         InitReportSelection;
-        InitJobWIPMethods;
+        //TODO JOBS: InitJobWIPMethods;
         InitBankExportImportSetup;
         InitDocExchServiceSetup;
         BankPmtApplRule.InsertDefaultMatchingRules;
@@ -199,7 +199,7 @@ codeunit 2 "Company-Initialize"
         PurchSetup: Record "Purchases & Payables Setup";
         InvtSetup: Record "Inventory Setup";
         ResourcesSetup: Record "Resources Setup";
-        JobsSetup: Record "Jobs Setup";
+        //TODO JOBS: JobsSetup: Record "Jobs Setup";
         HumanResourcesSetup: Record "Human Resources Setup";
         MarketingSetup: Record "Marketing Setup";
         InteractionTemplateSetup: Record "Interaction Template Setup";
@@ -272,11 +272,11 @@ codeunit 2 "Company-Initialize"
                 Insert;
             end;
 
-        with JobsSetup do
-            if not FindFirst then begin
-                Init;
-                Insert;
-            end;
+        //TODO JOBS: // with JobsSetup do
+        //     if not FindFirst then begin
+        //         Init;
+        //         Insert;
+        //     end;
 
         with FASetup do
             if not FindFirst then begin
@@ -390,9 +390,9 @@ codeunit 2 "Company-Initialize"
                 InsertSourceCode("Production Journal", Text092, PageName(PAGE::"Production Journal"));
                 InsertSourceCode("Capacity Journal", Text070, PageName(PAGE::"Capacity Journal"));
                 InsertSourceCode("Resource Journal", Text022, PageName(PAGE::"Resource Journal"));
-                InsertSourceCode("Job Journal", Text023, PageName(PAGE::"Job Journal"));
-                InsertSourceCode("Job G/L Journal", Text096, PageName(PAGE::"Job G/L Journal"));
-                InsertSourceCode("Job G/L WIP", Text097, Text098);
+                //TODO JOBS: // InsertSourceCode("Job Journal", Text023, PageName(PAGE::"Job Journal"));
+                // InsertSourceCode("Job G/L Journal", Text096, PageName(PAGE::"Job G/L Journal"));
+                // InsertSourceCode("Job G/L WIP", Text097, Text098);
                 InsertSourceCode("Sales Entry Application", Text024, Text025);
                 InsertSourceCode("Unapplied Sales Entry Appln.", Text086, Text087);
                 InsertSourceCode("Unapplied Purch. Entry Appln.", Text088, Text089);
@@ -472,23 +472,23 @@ codeunit 2 "Company-Initialize"
         ReportSelectionMgt.InitReportSelectionWhse;
     end;
 
-    local procedure InitJobWIPMethods()
-    var
-        JobWIPMethod: Record "Job WIP Method";
-    begin
-        if not JobWIPMethod.FindFirst then begin
-            InsertJobWIPMethod(Text101, Text101, JobWIPMethod."Recognized Costs"::"At Completion",
-              JobWIPMethod."Recognized Sales"::"At Completion", 4);
-            InsertJobWIPMethod(Text102, Text102, JobWIPMethod."Recognized Costs"::"Cost of Sales",
-              JobWIPMethod."Recognized Sales"::"Contract (Invoiced Price)", 2);
-            InsertJobWIPMethod(Text103, Text103, JobWIPMethod."Recognized Costs"::"Cost Value",
-              JobWIPMethod."Recognized Sales"::"Contract (Invoiced Price)", 0);
-            InsertJobWIPMethod(Text104, Text104, JobWIPMethod."Recognized Costs"::"Usage (Total Cost)",
-              JobWIPMethod."Recognized Sales"::"Sales Value", 1);
-            InsertJobWIPMethod(Text106, Text105, JobWIPMethod."Recognized Costs"::"Usage (Total Cost)",
-              JobWIPMethod."Recognized Sales"::"Percentage of Completion", 3);
-        end;
-    end;
+    //TODO JOBS: // local procedure InitJobWIPMethods()
+    // var
+    //     JobWIPMethod: Record "Job WIP Method";
+    // begin
+    //     if not JobWIPMethod.FindFirst then begin
+    //         InsertJobWIPMethod(Text101, Text101, JobWIPMethod."Recognized Costs"::"At Completion",
+    //           JobWIPMethod."Recognized Sales"::"At Completion", 4);
+    //         InsertJobWIPMethod(Text102, Text102, JobWIPMethod."Recognized Costs"::"Cost of Sales",
+    //           JobWIPMethod."Recognized Sales"::"Contract (Invoiced Price)", 2);
+    //         InsertJobWIPMethod(Text103, Text103, JobWIPMethod."Recognized Costs"::"Cost Value",
+    //           JobWIPMethod."Recognized Sales"::"Contract (Invoiced Price)", 0);
+    //         InsertJobWIPMethod(Text104, Text104, JobWIPMethod."Recognized Costs"::"Usage (Total Cost)",
+    //           JobWIPMethod."Recognized Sales"::"Sales Value", 1);
+    //         InsertJobWIPMethod(Text106, Text105, JobWIPMethod."Recognized Costs"::"Usage (Total Cost)",
+    //           JobWIPMethod."Recognized Sales"::"Percentage of Completion", 3);
+    //     end;
+    // end;
 
     local procedure InitBankExportImportSetup()
     var
@@ -704,22 +704,22 @@ codeunit 2 "Company-Initialize"
         if ClientAddIn.Insert then;
     end;
 
-    local procedure InsertJobWIPMethod("Code": Code[20]; Description: Text[50]; RecognizedCosts: Option; RecognizedSales: Option; SystemDefinedIndex: Integer)
-    var
-        JobWIPMethod: Record "Job WIP Method";
-    begin
-        JobWIPMethod.Init;
-        JobWIPMethod.Code := Code;
-        JobWIPMethod.Description := Description;
-        JobWIPMethod."WIP Cost" := true;
-        JobWIPMethod."WIP Sales" := true;
-        JobWIPMethod."Recognized Costs" := RecognizedCosts;
-        JobWIPMethod."Recognized Sales" := RecognizedSales;
-        JobWIPMethod.Valid := true;
-        JobWIPMethod."System Defined" := true;
-        JobWIPMethod."System-Defined Index" := SystemDefinedIndex;
-        JobWIPMethod.Insert;
-    end;
+    //TODO JOBS: // local procedure InsertJobWIPMethod("Code": Code[20]; Description: Text[50]; RecognizedCosts: Option; RecognizedSales: Option; SystemDefinedIndex: Integer)
+    // var
+    //     JobWIPMethod: Record "Job WIP Method";
+    // begin
+    //     JobWIPMethod.Init;
+    //     JobWIPMethod.Code := Code;
+    //     JobWIPMethod.Description := Description;
+    //     JobWIPMethod."WIP Cost" := true;
+    //     JobWIPMethod."WIP Sales" := true;
+    //     JobWIPMethod."Recognized Costs" := RecognizedCosts;
+    //     JobWIPMethod."Recognized Sales" := RecognizedSales;
+    //     JobWIPMethod.Valid := true;
+    //     JobWIPMethod."System Defined" := true;
+    //     JobWIPMethod."System-Defined Index" := SystemDefinedIndex;
+    //     JobWIPMethod.Insert;
+    // end;
 
     local procedure InsertBankExportImportSetup(CodeTxt: Text[20]; NameTxt: Text[100]; DirectionOpt: Option; CodeunitID: Integer; XMLPortID: Integer; CheckCodeunitID: Integer)
     var

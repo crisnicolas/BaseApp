@@ -119,8 +119,8 @@ codeunit 841 "Cash Flow Management"
                 ShowFA(SourceNo);
             CFWorksheetLine."Source Type"::"G/L Budget":
                 ShowGLBudget(BudgetName, SourceNo);
-            CFWorksheetLine."Source Type"::Job:
-                ShowJob(SourceNo, DocumentDate, DocumentNo);
+            //TODO JOBS: // CFWorksheetLine."Source Type"::Job:
+            //     ShowJob(SourceNo, DocumentDate, DocumentNo);
             CFWorksheetLine."Source Type"::Tax:
                 ShowTax(SourceNo, DocumentDate);
             CFWorksheetLine."Source Type"::"Azure AI":
@@ -279,23 +279,23 @@ codeunit 841 "Cash Flow Management"
         exit('')
     end;
 
-    local procedure ShowJob(SourceNo: Code[20]; DocumentDate: Date; DocumentNo: Code[20])
-    var
-        JobPlanningLine: Record "Job Planning Line";
-        JobPlanningLines: Page "Job Planning Lines";
-    begin
-        JobPlanningLine.SetRange("Job No.", SourceNo);
-        JobPlanningLine.SetRange("Document Date", DocumentDate);
-        JobPlanningLine.SetRange("Document No.", DocumentNo);
-        JobPlanningLine.SetFilter("Line Type",
-          StrSubstNo('%1|%2',
-            JobPlanningLine."Line Type"::Billable,
-            JobPlanningLine."Line Type"::"Both Budget and Billable"));
-        if not JobPlanningLine.FindFirst then
-            Error(SourceDataDoesNotExistErr, JobPlanningLines.Caption, SourceNo);
-        JobPlanningLines.SetTableView(JobPlanningLine);
-        JobPlanningLines.Run;
-    end;
+    //TODO JOBS: // local procedure ShowJob(SourceNo: Code[20]; DocumentDate: Date; DocumentNo: Code[20])
+    // var
+    //     JobPlanningLine: Record "Job Planning Line";
+    //     JobPlanningLines: Page "Job Planning Lines";
+    // begin
+    //     JobPlanningLine.SetRange("Job No.", SourceNo);
+    //     JobPlanningLine.SetRange("Document Date", DocumentDate);
+    //     JobPlanningLine.SetRange("Document No.", DocumentNo);
+    //     JobPlanningLine.SetFilter("Line Type",
+    //       StrSubstNo('%1|%2',
+    //         JobPlanningLine."Line Type"::Billable,
+    //         JobPlanningLine."Line Type"::"Both Budget and Billable"));
+    //     if not JobPlanningLine.FindFirst then
+    //         Error(SourceDataDoesNotExistErr, JobPlanningLines.Caption, SourceNo);
+    //     JobPlanningLines.SetTableView(JobPlanningLine);
+    //     JobPlanningLines.Run;
+    // end;
 
     local procedure ShowTax(SourceNo: Code[20]; TaxPayableDate: Date)
     var

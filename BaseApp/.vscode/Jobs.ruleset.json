@@ -1,0 +1,11 @@
+{
+    "name": "FA ruleset",
+    "description": ".",
+    "rules": [
+        {
+            "id": "AL0432",
+            "action": "None",
+            "justification": "So that I can see the other rules..."
+        }
+    ]
+}

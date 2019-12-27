@@ -477,14 +477,14 @@ Page 1 "Company Information"
                         RunObject = Page "Human Resources Setup";
                                         ToolTip = 'Set up number series for creating new employee cards and define if employment time is measured by days or hours.';
                     }
-                    action("Jobs Setup")
-                    {
-                        ApplicationArea = Advanced;
-                        Caption = 'Jobs Setup';
-                        Image = Job;
-                        RunObject = Page "Jobs Setup";
-                                        ToolTip = 'Define your accounting policies for jobs, such as which WIP method to use and whether to update job item costs automatically.';
-                    }
+                    //TODO JOBS: // action("Jobs Setup")
+                    // {
+                    //     ApplicationArea = Advanced;
+                    //     Caption = 'Jobs Setup';
+                    //     Image = Job;
+                    //     RunObject = Page "Jobs Setup";
+                    //                     ToolTip = 'Define your accounting policies for jobs, such as which WIP method to use and whether to update job item costs automatically.';
+                    // }
                 }
                 action("No. Series")
                 {

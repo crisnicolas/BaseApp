@@ -26,7 +26,7 @@ codeunit 5400 "Available Management"
     local procedure CalcAvailableQty(var Item: Record Item; CalcAvailable: Boolean; PlannedOrderReceiptDate: Date) AvailableQty: Decimal
     var
         CopyOfItem: Record Item;
-        JobPlanningLine: Record "Job Planning Line";
+    //TODO JOBS: JobPlanningLine: Record "Job Planning Line";
     begin
         CopyOfItem.Copy(Item);
         with CopyOfItem do begin
@@ -51,8 +51,8 @@ codeunit 5400 "Available Management"
               "Qty. on Assembly Order",
               "Qty. on Purch. Return");
 
-            if JobPlanningLine.ReadPermission then
-                CalcFields("Qty. on Job Order");
+            //TODO JOBS: // if JobPlanningLine.ReadPermission then
+            //     CalcFields("Qty. on Job Order");
 
             AvailableQty :=
               Inventory +

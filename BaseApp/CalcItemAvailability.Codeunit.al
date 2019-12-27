@@ -39,7 +39,7 @@ codeunit 5530 "Calc. Item Availability"
     begin
         TryGetSalesOrdersDemandEntries(InvtEventBuf, Item);
         TryGetServOrdersDemandEntries(InvtEventBuf, Item);
-        TryGetJobOrdersDemandEntries(InvtEventBuf, Item);
+        //TODO JOBS: TryGetJobOrdersDemandEntries(InvtEventBuf, Item);
         TryGetPurchRetOrderDemandEntries(InvtEventBuf, Item);
         TryGetProdOrderCompDemandEntries(InvtEventBuf, Item);
         TryGetTransOrderDemandEntries(InvtEventBuf, Item);
@@ -201,21 +201,21 @@ codeunit 5530 "Calc. Item Availability"
         exit(true);
     end;
 
-    local procedure TryGetJobOrdersDemandEntries(var InvtEventBuf: Record "Inventory Event Buffer"; var Item: Record Item): Boolean
-    var
-        JobPlanningLine: Record "Job Planning Line";
-    begin
-        if not JobPlanningLine.ReadPermission then
-            exit(false);
+    //TODO JOBS: // local procedure TryGetJobOrdersDemandEntries(var InvtEventBuf: Record "Inventory Event Buffer"; var Item: Record Item): Boolean
+    // var
+    //     JobPlanningLine: Record "Job Planning Line";
+    // begin
+    //     if not JobPlanningLine.ReadPermission then
+    //         exit(false);
 
-        if JobPlanningLine.FindLinesWithItemToPlan(Item) then
-            repeat
-                InvtEventBuf.TransferFromJobNeed(JobPlanningLine);
-                InsertEntry(InvtEventBuf);
-            until JobPlanningLine.Next = 0;
+    //     if JobPlanningLine.FindLinesWithItemToPlan(Item) then
+    //         repeat
+    //             InvtEventBuf.TransferFromJobNeed(JobPlanningLine);
+    //             InsertEntry(InvtEventBuf);
+    //         until JobPlanningLine.Next = 0;
 
-        exit(true);
-    end;
+    //     exit(true);
+    // end;
 
     local procedure TryGetPurchRetOrderDemandEntries(var InvtEventBuf: Record "Inventory Event Buffer"; var Item: Record Item): Boolean
     var
@@ -730,7 +730,7 @@ codeunit 5530 "Calc. Item Availability"
         ProdForecastEntry: Record "Production Forecast Entry";
         ReqLine: Record "Requisition Line";
         ServiceLine: Record "Service Line";
-        JobPlngLine: Record "Job Planning Line";
+        //TODO JOBS: JobPlngLine: Record "Job Planning Line";
         AssemblyHeader: Record "Assembly Header";
         AssemblyLine: Record "Assembly Line";
         RecRef: RecordRef;
@@ -821,15 +821,15 @@ codeunit 5530 "Calc. Item Availability"
                     SourceID := ServiceLine."Document No.";
                     SourceRefNo := ServiceLine."Line No.";
                 end;
-            DATABASE::"Job Planning Line":
-                begin
-                    RecRef.SetTable(JobPlngLine);
-                    SourceType := DATABASE::"Job Planning Line";
-                    JobPlngLine.Get(JobPlngLine."Job No.", JobPlngLine."Job Task No.", JobPlngLine."Line No.");
-                    SourceSubtype := JobPlngLine.Status;
-                    SourceID := JobPlngLine."Job No.";
-                    SourceRefNo := JobPlngLine."Job Contract Entry No.";
-                end;
+            //TODO JOBS: // DATABASE::"Job Planning Line":
+            //     begin
+            //         RecRef.SetTable(JobPlngLine);
+            //         SourceType := DATABASE::"Job Planning Line";
+            //         JobPlngLine.Get(JobPlngLine."Job No.", JobPlngLine."Job Task No.", JobPlngLine."Line No.");
+            //         SourceSubtype := JobPlngLine.Status;
+            //         SourceID := JobPlngLine."Job No.";
+            //         SourceRefNo := JobPlngLine."Job Contract Entry No.";
+            //     end;
             DATABASE::"Production Forecast Entry":
                 begin
                     RecRef.SetTable(ProdForecastEntry);

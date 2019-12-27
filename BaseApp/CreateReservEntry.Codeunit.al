@@ -451,8 +451,8 @@ codeunit 99000830 "Create Reserv. Entry"
                         Sign := -1
                     else
                         Sign := 1;
-            DATABASE::"Job Journal Line":
-                Sign := -1;
+            //TODO JOBS: // DATABASE::"Job Journal Line":
+            //     Sign := -1;
             DATABASE::"Item Ledger Entry":
                 Sign := 1;
             DATABASE::"Prod. Order Line":
@@ -475,8 +475,8 @@ codeunit 99000830 "Create Reserv. Entry"
                     Sign := 1
                 else
                     Sign := -1;
-            DATABASE::"Job Planning Line":
-                Sign := -1;
+            //TODO JOBS: // DATABASE::"Job Planning Line":
+            //     Sign := -1;
             DATABASE::"Phys. Invt. Order Line":
                 begin
                     if ReservEntry.Positive then
@@ -516,10 +516,10 @@ codeunit 99000830 "Create Reserv. Entry"
                 // Item Journal Lines with Entry Type Transfer can carry reservations during posting:
                 IsError := (ReservEntry."Source Subtype" <> 4) and
                   (ReservEntry."Source Ref. No." <> 0);
-            DATABASE::"Job Journal Line":
-                IsError := ReservEntry.Binding = ReservEntry.Binding::"Order-to-Order";
-            DATABASE::"Job Planning Line":
-                IsError := ReservEntry."Source Subtype" <> 2;
+            //TODO JOBS: // DATABASE::"Job Journal Line":
+            //     IsError := ReservEntry.Binding = ReservEntry.Binding::"Order-to-Order";
+            // DATABASE::"Job Planning Line":
+            //     IsError := ReservEntry."Source Subtype" <> 2;
             else
                 OnAfterCheckValidity(ReservEntry, IsError);
         end;
@@ -837,7 +837,7 @@ codeunit 99000830 "Create Reserv. Entry"
                     ReachedEndOfResvEntries := true;
             until ReachedEndOfResvEntries or (ReservEntry."Source Ref. No." <> CurrSourceRefNo);
 
-            // iterate over each set of Source Ref No.
+        // iterate over each set of Source Ref No.
         until ReservEntry."Source Ref. No." = CurrSourceRefNo;
     end;
 

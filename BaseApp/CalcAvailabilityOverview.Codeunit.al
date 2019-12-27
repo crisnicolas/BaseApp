@@ -197,7 +197,7 @@ codeunit 5830 "Calc. Availability Overview"
     begin
         GetSalesOrdersDemandDates(AvailabilityCalcOverview);
         GetServOrdersDemandDates(AvailabilityCalcOverview);
-        GetJobOrdersDemandDates(AvailabilityCalcOverview);
+        //TODO JOBS: GetJobOrdersDemandDates(AvailabilityCalcOverview);
         GetPurchRetOrderDemandDates(AvailabilityCalcOverview);
         GetProdOrderCompDemandDates(AvailabilityCalcOverview);
         GetTransOrderDemandDates(AvailabilityCalcOverview);
@@ -233,7 +233,7 @@ codeunit 5830 "Calc. Availability Overview"
 
         GetSalesOrdersDemandEntries(AvailabilityCalcOverview);
         GetServOrdersDemandEntries(AvailabilityCalcOverview);
-        GetJobOrdersDemandEntries(AvailabilityCalcOverview);
+        //TODO JOBS: GetJobOrdersDemandEntries(AvailabilityCalcOverview);
         GetPurchRetOrderDemandEntries(AvailabilityCalcOverview);
         GetProdOrderCompDemandEntries(AvailabilityCalcOverview);
         GetTransOrderDemandEntries(AvailabilityCalcOverview);
@@ -279,7 +279,7 @@ codeunit 5830 "Calc. Availability Overview"
         exit(true in
           [SalesOrderDemandExists(Item),
            ServOrderDemandExists(Item),
-           JobOrderDemandExists(Item),
+           //TODO JOBS: JobOrderDemandExists(Item),
            PurchRetOrderDemandExists(Item),
            ProdOrderCompDemandExists(Item),
            TransOrderDemandExists(Item),
@@ -430,29 +430,29 @@ codeunit 5830 "Calc. Availability Overview"
         end;
     end;
 
-    local procedure GetJobOrdersDemandDates(var AvailabilityCalcOverview: Record "Availability Calc. Overview")
-    var
-        JobPlanningLine: Record "Job Planning Line";
-    begin
-        with JobPlanningLine do begin
-            FilterLinesWithItemToPlan(Item);
-            if FindFirst then
-                repeat
-                    SetRange("Location Code", "Location Code");
-                    SetRange("Variant Code", "Variant Code");
-                    SetRange("Planning Date", "Planning Date");
+    //TODO JOBS: // local procedure GetJobOrdersDemandDates(var AvailabilityCalcOverview: Record "Availability Calc. Overview")
+    // var
+    //     JobPlanningLine: Record "Job Planning Line";
+    // begin
+    //     with JobPlanningLine do begin
+    //         FilterLinesWithItemToPlan(Item);
+    //         if FindFirst then
+    //             repeat
+    //                 SetRange("Location Code", "Location Code");
+    //                 SetRange("Variant Code", "Variant Code");
+    //                 SetRange("Planning Date", "Planning Date");
 
-                    InsertEntry(
-                      AvailabilityCalcOverview,
-                      AvailabilityCalcOverview.Type::"As of Date", "Planning Date", "Location Code", "Variant Code", 0, 0, 0, 0, '', '', 0);
+    //                 InsertEntry(
+    //                   AvailabilityCalcOverview,
+    //                   AvailabilityCalcOverview.Type::"As of Date", "Planning Date", "Location Code", "Variant Code", 0, 0, 0, 0, '', '', 0);
 
-                    FindLast;
-                    SetFilter("Location Code", Item.GetFilter("Location Filter"));
-                    SetFilter("Variant Code", Item.GetFilter("Variant Filter"));
-                    SetFilter("Planning Date", Item.GetFilter("Date Filter"));
-                until Next = 0;
-        end;
-    end;
+    //                 FindLast;
+    //                 SetFilter("Location Code", Item.GetFilter("Location Filter"));
+    //                 SetFilter("Variant Code", Item.GetFilter("Variant Filter"));
+    //                 SetFilter("Planning Date", Item.GetFilter("Date Filter"));
+    //             until Next = 0;
+    //     end;
+    // end;
 
     local procedure GetPurchRetOrderDemandDates(var AvailabilityCalcOverview: Record "Availability Calc. Overview")
     var
@@ -706,24 +706,24 @@ codeunit 5830 "Calc. Availability Overview"
         end;
     end;
 
-    local procedure GetJobOrdersDemandEntries(var AvailabilityCalcOverview: Record "Availability Calc. Overview")
-    var
-        JobPlanningLine: Record "Job Planning Line";
-        Job: Record Job;
-    begin
-        with JobPlanningLine do begin
-            if FindLinesWithItemToPlan(Item) then
-                repeat
-                    Job.Get("Job No.");
-                    CalcFields("Reserved Qty. (Base)");
-                    InsertEntry(
-                      AvailabilityCalcOverview,
-                      AvailabilityCalcOverview.Type::Demand, "Planning Date", "Location Code", "Variant Code",
-                      -"Remaining Qty. (Base)", -"Reserved Qty. (Base)",
-                      DATABASE::"Job Planning Line", Status, "Job No.", Job."Bill-to Name", DemandType::Job);
-                until Next = 0;
-        end;
-    end;
+    //TODO JOBS: // local procedure GetJobOrdersDemandEntries(var AvailabilityCalcOverview: Record "Availability Calc. Overview")
+    // var
+    //     JobPlanningLine: Record "Job Planning Line";
+    //     Job: Record Job;
+    // begin
+    //     with JobPlanningLine do begin
+    //         if FindLinesWithItemToPlan(Item) then
+    //             repeat
+    //                 Job.Get("Job No.");
+    //                 CalcFields("Reserved Qty. (Base)");
+    //                 InsertEntry(
+    //                   AvailabilityCalcOverview,
+    //                   AvailabilityCalcOverview.Type::Demand, "Planning Date", "Location Code", "Variant Code",
+    //                   -"Remaining Qty. (Base)", -"Reserved Qty. (Base)",
+    //                   DATABASE::"Job Planning Line", Status, "Job No.", Job."Bill-to Name", DemandType::Job);
+    //             until Next = 0;
+    //     end;
+    // end;
 
     local procedure GetPurchRetOrderDemandEntries(var AvailabilityCalcOverview: Record "Availability Calc. Overview")
     var
@@ -851,12 +851,12 @@ codeunit 5830 "Calc. Availability Overview"
         exit(ServLine.LinesWithItemToPlanExist(Item));
     end;
 
-    local procedure JobOrderDemandExists(var Item: Record Item): Boolean
-    var
-        JobPlanningLine: Record "Job Planning Line";
-    begin
-        exit(JobPlanningLine.LinesWithItemToPlanExist(Item));
-    end;
+    //TODO JOBS: // local procedure JobOrderDemandExists(var Item: Record Item): Boolean
+    // var
+    //     JobPlanningLine: Record "Job Planning Line";
+    // begin
+    //     exit(JobPlanningLine.LinesWithItemToPlanExist(Item));
+    // end;
 
     local procedure PurchRetOrderDemandExists(var Item: Record Item): Boolean
     var
@@ -907,7 +907,7 @@ codeunit 5830 "Calc. Availability Overview"
         Item: Record Item;
         SalesLine: Record "Sales Line";
         ServLine: Record "Service Line";
-        JobPlanningLine: Record "Job Planning Line";
+        //TODO JOBS: JobPlanningLine: Record "Job Planning Line";
         ProdOrderComp: Record "Prod. Order Component";
         AsmLine: Record "Assembly Line";
         Found: Boolean;
@@ -947,15 +947,15 @@ codeunit 5830 "Calc. Availability Overview"
                         end else
                             Found := true;
                     end;
-            DemandType::Job:
-                with JobPlanningLine do
-                    if LinesWithItemToPlanExist(Item) then begin
-                        if DemandNo <> '' then begin
-                            SetRange("Job No.", DemandNo);
-                            Found := not IsEmpty;
-                        end else
-                            Found := true;
-                    end;
+            //TODO JOBS: // DemandType::Job:
+            //     with JobPlanningLine do
+            //         if LinesWithItemToPlanExist(Item) then begin
+            //             if DemandNo <> '' then begin
+            //                 SetRange("Job No.", DemandNo);
+            //                 Found := not IsEmpty;
+            //             end else
+            //                 Found := true;
+            //         end;
             DemandType::Assembly:
                 with AsmLine do
                     if LinesWithItemToPlanExist(Item, "Document Type"::Order) then begin

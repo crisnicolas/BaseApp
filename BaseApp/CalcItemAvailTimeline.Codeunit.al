@@ -153,7 +153,7 @@ codeunit 5540 "Calc. Item Avail. Timeline"
         ReqLine: Record "Requisition Line";
         TransHeader: Record "Transfer Header";
         ServHeader: Record "Service Header";
-        Job: Record Job;
+        //TODO JOBS: Job: Record Job;
         ProdOrder: Record "Production Order";
         ProdForecastName: Record "Production Forecast Name";
         ProdForecastEntry: Record "Production Forecast Entry";
@@ -220,14 +220,14 @@ codeunit 5540 "Calc. Item Avail. Timeline"
                         TempToTimelineEvent.Description :=
                           StrSubstNo('%1 %2 %3', TXT014, ServHeader."No.", ServHeader."Ship-to Name");
                     end;
-                DATABASE::"Job Planning Line":
-                    begin
-                        Job.Get(SourceID);
-                        RecRef.GetTable(Job);
-                        TempToTimelineEvent."Source Document ID" := RecRef.RecordId;
-                        TempToTimelineEvent.Description :=
-                          StrSubstNo('%1 %2 %3', Job.TableCaption, Job."No.", Job."Bill-to Customer No.");
-                    end;
+                //TODO JOBS: // DATABASE::"Job Planning Line":
+                //     begin
+                //         Job.Get(SourceID);
+                //         RecRef.GetTable(Job);
+                //         TempToTimelineEvent."Source Document ID" := RecRef.RecordId;
+                //         TempToTimelineEvent.Description :=
+                //           StrSubstNo('%1 %2 %3', Job.TableCaption, Job."No.", Job."Bill-to Customer No.");
+                //     end;
                 DATABASE::"Requisition Line":
                     begin
                         ReqLine.Get(SourceID, SourceBatchName, SourceRefNo);

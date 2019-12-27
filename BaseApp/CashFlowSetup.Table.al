@@ -100,7 +100,7 @@ table 843 "Cash Flow Setup"
         }
         field(12; "Job CF Account No."; Code[20])
         {
-            AccessByPermission = TableData "Job Planning Line" = R;
+            //TODO JOBS: AccessByPermission = TableData "Job Planning Line" = R;
             Caption = 'Job CF Account No.';
             TableRelation = "Cash Flow Account";
 

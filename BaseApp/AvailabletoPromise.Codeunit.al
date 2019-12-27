@@ -288,7 +288,7 @@ codeunit 5790 "Available to Promise"
         UpdatePlanningIssuesAvail(AvailabilityAtDate, Item);
         UpdateSalesOrderAvail(AvailabilityAtDate, Item);
         UpdateServOrderAvail(AvailabilityAtDate, Item);
-        UpdateJobOrderAvail(AvailabilityAtDate, Item);
+        //TODO JOBS: UpdateJobOrderAvail(AvailabilityAtDate, Item);
         UpdateTransOrderShptAvail(AvailabilityAtDate, Item);
         UpdateAsmOrderAvail(AvailabilityAtDate, Item);
         UpdateAsmCompAvail(AvailabilityAtDate, Item);
@@ -582,17 +582,17 @@ codeunit 5790 "Available to Promise"
                 until Next = 0;
     end;
 
-    local procedure UpdateJobOrderAvail(var AvailabilityAtDate: Record "Availability at Date"; var Item: Record Item)
-    var
-        JobPlanningLine: Record "Job Planning Line";
-    begin
-        with JobPlanningLine do
-            if FindLinesWithItemToPlan(Item) then
-                repeat
-                    CalcFields("Reserved Qty. (Base)");
-                    UpdateGrossRequirement(AvailabilityAtDate, "Planning Date", "Remaining Qty. (Base)" - "Reserved Qty. (Base)");
-                until Next = 0;
-    end;
+    //TODO JOBS: // local procedure UpdateJobOrderAvail(var AvailabilityAtDate: Record "Availability at Date"; var Item: Record Item)
+    // var
+    //     JobPlanningLine: Record "Job Planning Line";
+    // begin
+    //     with JobPlanningLine do
+    //         if FindLinesWithItemToPlan(Item) then
+    //             repeat
+    //                 CalcFields("Reserved Qty. (Base)");
+    //                 UpdateGrossRequirement(AvailabilityAtDate, "Planning Date", "Remaining Qty. (Base)" - "Reserved Qty. (Base)");
+    //             until Next = 0;
+    // end;
 
     local procedure UpdateTransOrderShptAvail(var AvailabilityAtDate: Record "Availability at Date"; var Item: Record Item)
     var

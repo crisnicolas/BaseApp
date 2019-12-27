@@ -44,11 +44,11 @@ page 9130 "Contact Statistics FactBox"
             group(Segmentation)
             {
                 Caption = 'Segmentation';
-                field("No. of Job Responsibilities"; "No. of Job Responsibilities")
-                {
-                    ApplicationArea = RelationshipMgmt;
-                    ToolTip = 'Specifies the number of job responsibilities for this contact. This field is valid for persons only and is not editable.';
-                }
+                //TODO JOBS: // field("No. of Job Responsibilities"; "No. of Job Responsibilities")
+                // {
+                //     ApplicationArea = RelationshipMgmt;
+                //     ToolTip = 'Specifies the number of job responsibilities for this contact. This field is valid for persons only and is not editable.';
+                // }
                 field("No. of Industry Groups"; "No. of Industry Groups")
                 {
                     ApplicationArea = RelationshipMgmt;

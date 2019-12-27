@@ -115,7 +115,7 @@ codeunit 1751 "Data Classification Eval. Data"
         ClassifyDateComprRegister;
         ClassifyEmployeeAbsence;
         ClassifyWorkflowStepInstanceArchive;
-        ClassifyMyJob;
+        //TODO JOBS: ClassifyMyJob;
         ClassifyAlternativeAddress;
         ClassifyWorkflowStepArgument;
         ClassifyPageDataPersonalization;
@@ -221,7 +221,7 @@ codeunit 1751 "Data Classification Eval. Data"
         ClassifyVATRegistrationLog;
         ClassifyRequisitionLine;
         ClassifyServiceCrMemoLine;
-        ClassifyJobRegister;
+        //TODO JOBS: ClassifyJobRegister;
         ClassifyResourceRegister;
         ClassifyReturnReceiptLine;
         ClassifyReturnReceiptHeader;
@@ -242,9 +242,9 @@ codeunit 1751 "Data Classification Eval. Data"
         ClassifyCostEntry;
         ClassifyCostType;
         ClassifyReversalEntry;
-        ClassifyJobLedgerEntry;
+        //TODO JOBS:  ClassifyJobLedgerEntry;
         ClassifyTimeSheetLineArchive;
-        ClassifyJob;
+        //TODO JOBS: ClassifyJob;
         ClassifyResCapacityEntry;
         ClassifyResource;
         ClassifyIncomingDocument;
@@ -272,7 +272,7 @@ codeunit 1751 "Data Classification Eval. Data"
     local procedure ClassifyTablesPart3()
     begin
         ClassifyHandledICOutboxSalesHeader;
-        ClassifyJobPlanningLine;
+        //TODO JOBS: ClassifyJobPlanningLine;
         ClassifyGenJournalLine;
         ClassifyPrinterSelection;
         ClassifyTimeSheetChartSetup;
@@ -364,9 +364,9 @@ codeunit 1751 "Data Classification Eval. Data"
         SetTableFieldsToNormal(DATABASE::"Resource Unit of Measure");
         SetTableFieldsToNormal(DATABASE::"Res. Journal Template");
         SetTableFieldsToNormal(DATABASE::"Res. Journal Line");
-        SetTableFieldsToNormal(DATABASE::"Job Posting Group");
-        SetTableFieldsToNormal(DATABASE::"Job Journal Template");
-        SetTableFieldsToNormal(DATABASE::"Job Journal Line");
+        //TODO JOBS: // SetTableFieldsToNormal(DATABASE::"Job Posting Group");
+        // SetTableFieldsToNormal(DATABASE::"Job Journal Template");
+        // SetTableFieldsToNormal(DATABASE::"Job Journal Line");
         SetTableFieldsToNormal(DATABASE::"Journal User Preferences");
         SetTableFieldsToNormal(DATABASE::"Business Unit");
         SetTableFieldsToNormal(DATABASE::"Gen. Jnl. Allocation");
@@ -376,7 +376,7 @@ codeunit 1751 "Data Classification Eval. Data"
         SetTableFieldsToNormal(DATABASE::"Gen. Journal Batch");
         SetTableFieldsToNormal(DATABASE::"Item Journal Batch");
         SetTableFieldsToNormal(DATABASE::"Res. Journal Batch");
-        SetTableFieldsToNormal(DATABASE::"Job Journal Batch");
+        //TODO JOBS: SetTableFieldsToNormal(DATABASE::"Job Journal Batch");
         SetTableFieldsToNormal(DATABASE::"Source Code Setup");
         SetTableFieldsToNormal(DATABASE::"Req. Wksh. Template");
         SetTableFieldsToNormal(DATABASE::"Requisition Wksh. Name");
@@ -405,7 +405,7 @@ codeunit 1751 "Data Classification Eval. Data"
         SetTableFieldsToNormal(DATABASE::"Bank Account Statement");
         SetTableFieldsToNormal(DATABASE::"Bank Account Statement Line");
         SetTableFieldsToNormal(DATABASE::"Bank Account Posting Group");
-        SetTableFieldsToNormal(DATABASE::"Job Journal Quantity");
+        //TODO JOBS: SetTableFieldsToNormal(DATABASE::"Job Journal Quantity");
         SetTableFieldsToNormal(DATABASE::"Custom Address Format");
         SetTableFieldsToNormal(DATABASE::"Custom Address Format Line");
     end;
@@ -437,7 +437,7 @@ codeunit 1751 "Data Classification Eval. Data"
         SetTableFieldsToNormal(DATABASE::"Purchases & Payables Setup");
         SetTableFieldsToNormal(DATABASE::"Inventory Setup");
         SetTableFieldsToNormal(DATABASE::"Resources Setup");
-        SetTableFieldsToNormal(DATABASE::"Jobs Setup");
+        //TODO JOBS: SetTableFieldsToNormal(DATABASE::"Jobs Setup");
         SetTableFieldsToNormal(DATABASE::"Tax Area Translation");
         SetTableFieldsToNormal(DATABASE::"Tax Area");
         SetTableFieldsToNormal(DATABASE::"Tax Area Line");
@@ -564,17 +564,17 @@ codeunit 1751 "Data Classification Eval. Data"
         SetTableFieldsToNormal(DATABASE::"Time Sheet Detail Archive");
         SetTableFieldsToNormal(DATABASE::"Time Sheet Cmt. Line Archive");
         SetTableFieldsToNormal(DATABASE::"Document Search Result");
-        SetTableFieldsToNormal(DATABASE::"Job Task");
-        SetTableFieldsToNormal(DATABASE::"Job Task Dimension");
-        SetTableFieldsToNormal(DATABASE::"Job WIP Method");
-        SetTableFieldsToNormal(DATABASE::"Job WIP Warning");
-        SetTableFieldsToNormal(DATABASE::"Job Resource Price");
-        SetTableFieldsToNormal(DATABASE::"Job Item Price");
-        SetTableFieldsToNormal(DATABASE::"Job G/L Account Price");
-        SetTableFieldsToNormal(DATABASE::"Job Usage Link");
-        SetTableFieldsToNormal(DATABASE::"Job WIP Total");
-        SetTableFieldsToNormal(DATABASE::"Job Planning Line Invoice");
-        SetTableFieldsToNormal(DATABASE::"Job Planning Line - Calendar");
+        //TODO JOBS: // SetTableFieldsToNormal(DATABASE::"Job Task");
+        // SetTableFieldsToNormal(DATABASE::"Job Task Dimension");
+        // SetTableFieldsToNormal(DATABASE::"Job WIP Method");
+        // SetTableFieldsToNormal(DATABASE::"Job WIP Warning");
+        // SetTableFieldsToNormal(DATABASE::"Job Resource Price");
+        // SetTableFieldsToNormal(DATABASE::"Job Item Price");
+        // SetTableFieldsToNormal(DATABASE::"Job G/L Account Price");
+        // SetTableFieldsToNormal(DATABASE::"Job Usage Link");
+        // SetTableFieldsToNormal(DATABASE::"Job WIP Total");
+        // SetTableFieldsToNormal(DATABASE::"Job Planning Line Invoice");
+        // SetTableFieldsToNormal(DATABASE::"Job Planning Line - Calendar");
         SetTableFieldsToNormal(DATABASE::"Additional Fee Setup");
         SetTableFieldsToNormal(DATABASE::"Sorting Table");
         SetTableFieldsToNormal(DATABASE::"Reminder Terms Translation");
@@ -655,7 +655,7 @@ codeunit 1751 "Data Classification Eval. Data"
         SetTableFieldsToNormal(DATABASE::"Office Invoice");
         SetTableFieldsToNormal(DATABASE::"Office Add-in");
         SetTableFieldsToNormal(DATABASE::"Office Admin. Credentials");
-        SetTableFieldsToNormal(DATABASE::"Office Job Journal");
+        //TODO JOBS: SetTableFieldsToNormal(DATABASE::"Office Job Journal");
         SetTableFieldsToNormal(DATABASE::"Office Document Selection");
         SetTableFieldsToNormal(DATABASE::"Office Suggested Line Item");
         SetTableFieldsToNormal(DATABASE::"Invoiced Booking Item");
@@ -735,8 +735,8 @@ codeunit 1751 "Data Classification Eval. Data"
         SetTableFieldsToNormal(DATABASE::Attachment);
         SetTableFieldsToNormal(DATABASE::"Interaction Group");
         SetTableFieldsToNormal(DATABASE::"Interaction Template");
-        SetTableFieldsToNormal(DATABASE::"Job Responsibility");
-        SetTableFieldsToNormal(DATABASE::"Contact Job Responsibility");
+        //TODO JOBS: // SetTableFieldsToNormal(DATABASE::"Job Responsibility");
+        // SetTableFieldsToNormal(DATABASE::"Contact Job Responsibility");
         SetTableFieldsToNormal(DATABASE::Salutation);
         SetTableFieldsToNormal(DATABASE::"Salutation Formula");
         SetTableFieldsToNormal(DATABASE::"Organizational Level");
@@ -1132,7 +1132,7 @@ codeunit 1751 "Data Classification Eval. Data"
         SetTableFieldsToNormal(DATABASE::"Finance Cue");
         SetTableFieldsToNormal(DATABASE::"Purchase Cue");
         SetTableFieldsToNormal(DATABASE::"Manufacturing Cue");
-        SetTableFieldsToNormal(DATABASE::"Job Cue");
+        //TODO JOBS: SetTableFieldsToNormal(DATABASE::"Job Cue");
         SetTableFieldsToNormal(DATABASE::"Warehouse Worker WMS Cue");
         SetTableFieldsToNormal(DATABASE::"Administration Cue");
         SetTableFieldsToNormal(DATABASE::"SB Owner Cue");
@@ -1256,9 +1256,9 @@ codeunit 1751 "Data Classification Eval. Data"
         SetTableFieldsToNormal(DATABASE::"Assembly Header");
         SetTableFieldsToNormal(DATABASE::"Time Sheet Posting Entry");
         SetTableFieldsToNormal(DATABASE::"Payment Registration Setup");
-        SetTableFieldsToNormal(DATABASE::"Job WIP Entry");
-        SetTableFieldsToNormal(DATABASE::"Job WIP G/L Entry");
-        SetTableFieldsToNormal(DATABASE::"Job Entry No.");
+        //TODO JOBS: // SetTableFieldsToNormal(DATABASE::"Job WIP Entry");
+        // SetTableFieldsToNormal(DATABASE::"Job WIP G/L Entry");
+        // SetTableFieldsToNormal(DATABASE::"Job Entry No.");
         SetTableFieldsToNormal(DATABASE::"User Task");
         SetTableFieldsToNormal(DATABASE::"User Task Group");
         SetTableFieldsToNormal(DATABASE::"User Task Group Member");
@@ -2183,15 +2183,15 @@ codeunit 1751 "Data Classification Eval. Data"
         SetFieldToPersonal(TableNo, DummyWorkflowStepInstanceArchive.FieldNo("Created By User ID"));
     end;
 
-    local procedure ClassifyMyJob()
-    var
-        DummyMyJob: Record "My Job";
-        TableNo: Integer;
-    begin
-        TableNo := DATABASE::"My Job";
-        SetTableFieldsToNormal(TableNo);
-        SetFieldToPersonal(TableNo, DummyMyJob.FieldNo("User ID"));
-    end;
+    //TODO JOBS: // local procedure ClassifyMyJob()
+    // var
+    //     DummyMyJob: Record "My Job";
+    //     TableNo: Integer;
+    // begin
+    //     TableNo := DATABASE::"My Job";
+    //     SetTableFieldsToNormal(TableNo);
+    //     SetFieldToPersonal(TableNo, DummyMyJob.FieldNo("User ID"));
+    // end;
 
     local procedure ClassifyAlternativeAddress()
     var
@@ -3272,9 +3272,9 @@ codeunit 1751 "Data Classification Eval. Data"
         TableNo := DATABASE::"Service Ledger Entry";
         SetTableFieldsToNormal(TableNo);
         SetFieldToCompanyConfidential(TableNo, DummyServiceLedgerEntry.FieldNo("Dimension Set ID"));
-        SetFieldToCompanyConfidential(TableNo, DummyServiceLedgerEntry.FieldNo("Job Posted"));
-        SetFieldToCompanyConfidential(TableNo, DummyServiceLedgerEntry.FieldNo("Job Line Type"));
-        SetFieldToCompanyConfidential(TableNo, DummyServiceLedgerEntry.FieldNo("Job Task No."));
+        //TODO JOBS: // SetFieldToCompanyConfidential(TableNo, DummyServiceLedgerEntry.FieldNo("Job Posted"));
+        // SetFieldToCompanyConfidential(TableNo, DummyServiceLedgerEntry.FieldNo("Job Line Type"));
+        // SetFieldToCompanyConfidential(TableNo, DummyServiceLedgerEntry.FieldNo("Job Task No."));
         SetFieldToCompanyConfidential(TableNo, DummyServiceLedgerEntry.FieldNo(Amount));
         SetFieldToCompanyConfidential(TableNo, DummyServiceLedgerEntry.FieldNo("Applies-to Entry No."));
         SetFieldToCompanyConfidential(TableNo, DummyServiceLedgerEntry.FieldNo("Apply Until Entry No."));
@@ -3291,7 +3291,7 @@ codeunit 1751 "Data Classification Eval. Data"
         SetFieldToCompanyConfidential(TableNo, DummyServiceLedgerEntry.FieldNo("Location Code"));
         SetFieldToCompanyConfidential(TableNo, DummyServiceLedgerEntry.FieldNo("Gen. Prod. Posting Group"));
         SetFieldToCompanyConfidential(TableNo, DummyServiceLedgerEntry.FieldNo("Gen. Bus. Posting Group"));
-        SetFieldToCompanyConfidential(TableNo, DummyServiceLedgerEntry.FieldNo("Job No."));
+        //TODO JOBS:  SetFieldToCompanyConfidential(TableNo, DummyServiceLedgerEntry.FieldNo("Job No."));
         SetFieldToCompanyConfidential(TableNo, DummyServiceLedgerEntry.FieldNo("Service Order No."));
         SetFieldToCompanyConfidential(TableNo, DummyServiceLedgerEntry.FieldNo("Service Order Type"));
         SetFieldToCompanyConfidential(TableNo, DummyServiceLedgerEntry.FieldNo(Description));
@@ -3974,11 +3974,11 @@ codeunit 1751 "Data Classification Eval. Data"
         SetFieldToCompanyConfidential(TableNo, DummyValueEntry.FieldNo("Order No."));
         SetFieldToCompanyConfidential(TableNo, DummyValueEntry.FieldNo("Order Type"));
         SetFieldToCompanyConfidential(TableNo, DummyValueEntry.FieldNo("Dimension Set ID"));
-        SetFieldToCompanyConfidential(TableNo, DummyValueEntry.FieldNo("Job Ledger Entry No."));
+        //TODO JOBS: SetFieldToCompanyConfidential(TableNo, DummyValueEntry.FieldNo("Job Ledger Entry No."));
         SetFieldToCompanyConfidential(TableNo, DummyValueEntry.FieldNo("Variant Code"));
         SetFieldToCompanyConfidential(TableNo, DummyValueEntry.FieldNo("Document Line No."));
         SetFieldToCompanyConfidential(TableNo, DummyValueEntry.FieldNo("Document Type"));
-        SetFieldToCompanyConfidential(TableNo, DummyValueEntry.FieldNo("Job No."));
+        //TODO JOBS: SetFieldToCompanyConfidential(TableNo, DummyValueEntry.FieldNo("Job No."));
         SetFieldToCompanyConfidential(TableNo, DummyValueEntry.FieldNo("Cost per Unit (ACY)"));
         SetFieldToCompanyConfidential(TableNo, DummyValueEntry.FieldNo("Cost Posted to G/L (ACY)"));
         SetFieldToCompanyConfidential(TableNo, DummyValueEntry.FieldNo("Cost Amount (Actual) (ACY)"));
@@ -4001,7 +4001,7 @@ codeunit 1751 "Data Classification Eval. Data"
         SetFieldToCompanyConfidential(TableNo, DummyValueEntry.FieldNo("Salespers./Purch. Code"));
         SetFieldToCompanyConfidential(TableNo, DummyValueEntry.FieldNo("Average Cost Exception"));
         SetFieldToCompanyConfidential(TableNo, DummyValueEntry.FieldNo("Sales Amount (Actual)"));
-        SetFieldToCompanyConfidential(TableNo, DummyValueEntry.FieldNo("Job Task No."));
+        //TODO JOBS:  SetFieldToCompanyConfidential(TableNo, DummyValueEntry.FieldNo("Job Task No."));
         SetFieldToCompanyConfidential(TableNo, DummyValueEntry.FieldNo("Cost per Unit"));
         SetFieldToCompanyConfidential(TableNo, DummyValueEntry.FieldNo("Invoiced Quantity"));
         SetFieldToCompanyConfidential(TableNo, DummyValueEntry.FieldNo("Item Ledger Entry Quantity"));
@@ -4342,15 +4342,15 @@ codeunit 1751 "Data Classification Eval. Data"
         SetFieldToPersonal(TableNo, DummyServiceCrMemoLine.FieldNo("Tax Area Code"));
     end;
 
-    local procedure ClassifyJobRegister()
-    var
-        DummyJobRegister: Record "Job Register";
-        TableNo: Integer;
-    begin
-        TableNo := DATABASE::"Job Register";
-        SetTableFieldsToNormal(TableNo);
-        SetFieldToPersonal(TableNo, DummyJobRegister.FieldNo("User ID"));
-    end;
+    //TODO JOBS: // local procedure ClassifyJobRegister()
+    // var
+    //     DummyJobRegister: Record "Job Register";
+    //     TableNo: Integer;
+    // begin
+    //     TableNo := DATABASE::"Job Register";
+    //     SetTableFieldsToNormal(TableNo);
+    //     SetFieldToPersonal(TableNo, DummyJobRegister.FieldNo("User ID"));
+    // end;
 
     local procedure ClassifyResourceRegister()
     var
@@ -4742,88 +4742,88 @@ codeunit 1751 "Data Classification Eval. Data"
         SetFieldToCompanyConfidential(TableNo, DummyReversalEntry.FieldNo("Line No."));
     end;
 
-    local procedure ClassifyJobLedgerEntry()
-    var
-        DummyJobLedgerEntry: Record "Job Ledger Entry";
-        TableNo: Integer;
-    begin
-        TableNo := DATABASE::"Job Ledger Entry";
-        SetTableFieldsToNormal(TableNo);
-        SetFieldToCompanyConfidential(TableNo, DummyJobLedgerEntry.FieldNo("Total Price"));
-        SetFieldToCompanyConfidential(TableNo, DummyJobLedgerEntry.FieldNo("Posted Service Shipment No."));
-        SetFieldToCompanyConfidential(TableNo, DummyJobLedgerEntry.FieldNo("Service Order No."));
-        SetFieldToCompanyConfidential(TableNo, DummyJobLedgerEntry.FieldNo("Line Amount (LCY)"));
-        SetFieldToCompanyConfidential(TableNo, DummyJobLedgerEntry.FieldNo("Qty. per Unit of Measure"));
-        SetFieldToCompanyConfidential(TableNo, DummyJobLedgerEntry.FieldNo("Line Type"));
-        SetFieldToCompanyConfidential(TableNo, DummyJobLedgerEntry.FieldNo("Variant Code"));
-        SetFieldToCompanyConfidential(TableNo, DummyJobLedgerEntry.FieldNo("Transaction Specification"));
-        SetFieldToCompanyConfidential(TableNo, DummyJobLedgerEntry.FieldNo("Ledger Entry No."));
-        SetFieldToCompanyConfidential(TableNo, DummyJobLedgerEntry.FieldNo("External Document No."));
-        SetFieldToCompanyConfidential(TableNo, DummyJobLedgerEntry.FieldNo("Description 2"));
-        SetFieldToCompanyConfidential(TableNo, DummyJobLedgerEntry.FieldNo("Quantity (Base)"));
-        SetFieldToCompanyConfidential(TableNo, DummyJobLedgerEntry.FieldNo("Bin Code"));
-        SetFieldToCompanyConfidential(TableNo, DummyJobLedgerEntry.FieldNo("Reason Code"));
-        SetFieldToCompanyConfidential(TableNo, DummyJobLedgerEntry.FieldNo("Add.-Currency Line Amount"));
-        SetFieldToCompanyConfidential(TableNo, DummyJobLedgerEntry.FieldNo("Add.-Currency Total Price"));
-        SetFieldToCompanyConfidential(TableNo, DummyJobLedgerEntry.FieldNo("Additional-Currency Total Cost"));
-        SetFieldToCompanyConfidential(TableNo, DummyJobLedgerEntry.FieldNo("No. Series"));
-        SetFieldToCompanyConfidential(TableNo, DummyJobLedgerEntry.FieldNo("Dimension Set ID"));
-        SetFieldToCompanyConfidential(TableNo, DummyJobLedgerEntry.FieldNo(Area));
-        SetFieldToCompanyConfidential(TableNo, DummyJobLedgerEntry.FieldNo("Unit Cost"));
-        SetFieldToCompanyConfidential(TableNo, DummyJobLedgerEntry.FieldNo("Document Date"));
-        SetFieldToCompanyConfidential(TableNo, DummyJobLedgerEntry.FieldNo("Entry/Exit Point"));
-        SetFieldToCompanyConfidential(TableNo, DummyJobLedgerEntry.FieldNo("Gen. Prod. Posting Group"));
-        SetFieldToCompanyConfidential(TableNo, DummyJobLedgerEntry.FieldNo("Gen. Bus. Posting Group"));
-        SetFieldToCompanyConfidential(TableNo, DummyJobLedgerEntry.FieldNo("Country/Region Code"));
-        SetFieldToCompanyConfidential(TableNo, DummyJobLedgerEntry.FieldNo("Transport Method"));
-        SetFieldToCompanyConfidential(TableNo, DummyJobLedgerEntry.FieldNo("Transaction Type"));
-        SetFieldToCompanyConfidential(TableNo, DummyJobLedgerEntry.FieldNo("Job Task No."));
-        SetFieldToCompanyConfidential(TableNo, DummyJobLedgerEntry.FieldNo("Journal Batch Name"));
-        SetFieldToCompanyConfidential(TableNo, DummyJobLedgerEntry.FieldNo("Original Unit Cost (LCY)"));
-        SetFieldToCompanyConfidential(TableNo, DummyJobLedgerEntry.FieldNo("Entry Type"));
-        SetFieldToCompanyConfidential(TableNo, DummyJobLedgerEntry.FieldNo("Amt. Posted to G/L"));
-        SetFieldToCompanyConfidential(TableNo, DummyJobLedgerEntry.FieldNo("Amt. to Post to G/L"));
-        SetFieldToCompanyConfidential(TableNo, DummyJobLedgerEntry.FieldNo("Ledger Entry Type"));
-        SetFieldToCompanyConfidential(TableNo, DummyJobLedgerEntry.FieldNo("DateTime Adjusted"));
-        SetFieldToCompanyConfidential(TableNo, DummyJobLedgerEntry.FieldNo(Adjusted));
-        SetFieldToCompanyConfidential(TableNo, DummyJobLedgerEntry.FieldNo("Original Total Cost (ACY)"));
-        SetFieldToCompanyConfidential(TableNo, DummyJobLedgerEntry.FieldNo("Original Total Cost"));
-        SetFieldToCompanyConfidential(TableNo, DummyJobLedgerEntry.FieldNo("Original Unit Cost"));
-        SetFieldToCompanyConfidential(TableNo, DummyJobLedgerEntry.FieldNo("Original Total Cost (LCY)"));
-        SetFieldToCompanyConfidential(TableNo, DummyJobLedgerEntry.FieldNo("Source Code"));
-        SetFieldToPersonal(TableNo, DummyJobLedgerEntry.FieldNo("User ID"));
-        SetFieldToCompanyConfidential(TableNo, DummyJobLedgerEntry.FieldNo("Line Discount %"));
-        SetFieldToCompanyConfidential(TableNo, DummyJobLedgerEntry.FieldNo("Lot No."));
-        SetFieldToCompanyConfidential(TableNo, DummyJobLedgerEntry.FieldNo("Serial No."));
-        SetFieldToCompanyConfidential(TableNo, DummyJobLedgerEntry.FieldNo("Customer Price Group"));
-        SetFieldToCompanyConfidential(TableNo, DummyJobLedgerEntry.FieldNo("Work Type Code"));
-        SetFieldToCompanyConfidential(TableNo, DummyJobLedgerEntry.FieldNo("Global Dimension 2 Code"));
-        SetFieldToCompanyConfidential(TableNo, DummyJobLedgerEntry.FieldNo("Global Dimension 1 Code"));
-        SetFieldToCompanyConfidential(TableNo, DummyJobLedgerEntry.FieldNo("Job Posting Group"));
-        SetFieldToCompanyConfidential(TableNo, DummyJobLedgerEntry.FieldNo("Currency Factor"));
-        SetFieldToCompanyConfidential(TableNo, DummyJobLedgerEntry.FieldNo("Currency Code"));
-        SetFieldToCompanyConfidential(TableNo, DummyJobLedgerEntry.FieldNo("Line Discount Amount (LCY)"));
-        SetFieldToCompanyConfidential(TableNo, DummyJobLedgerEntry.FieldNo("Line Discount Amount"));
-        SetFieldToCompanyConfidential(TableNo, DummyJobLedgerEntry.FieldNo("Line Amount"));
-        SetFieldToCompanyConfidential(TableNo, DummyJobLedgerEntry.FieldNo("Location Code"));
-        SetFieldToCompanyConfidential(TableNo, DummyJobLedgerEntry.FieldNo("Unit Price"));
-        SetFieldToCompanyConfidential(TableNo, DummyJobLedgerEntry.FieldNo("Total Cost"));
-        SetFieldToCompanyConfidential(TableNo, DummyJobLedgerEntry.FieldNo("Unit of Measure Code"));
-        SetFieldToCompanyConfidential(TableNo, DummyJobLedgerEntry.FieldNo("Resource Group No."));
-        SetFieldToCompanyConfidential(TableNo, DummyJobLedgerEntry.FieldNo("Total Price (LCY)"));
-        SetFieldToCompanyConfidential(TableNo, DummyJobLedgerEntry.FieldNo("Unit Price (LCY)"));
-        SetFieldToCompanyConfidential(TableNo, DummyJobLedgerEntry.FieldNo("Total Cost (LCY)"));
-        SetFieldToCompanyConfidential(TableNo, DummyJobLedgerEntry.FieldNo("Unit Cost (LCY)"));
-        SetFieldToCompanyConfidential(TableNo, DummyJobLedgerEntry.FieldNo("Direct Unit Cost (LCY)"));
-        SetFieldToCompanyConfidential(TableNo, DummyJobLedgerEntry.FieldNo(Quantity));
-        SetFieldToCompanyConfidential(TableNo, DummyJobLedgerEntry.FieldNo(Description));
-        SetFieldToCompanyConfidential(TableNo, DummyJobLedgerEntry.FieldNo("No."));
-        SetFieldToCompanyConfidential(TableNo, DummyJobLedgerEntry.FieldNo(Type));
-        SetFieldToCompanyConfidential(TableNo, DummyJobLedgerEntry.FieldNo("Document No."));
-        SetFieldToCompanyConfidential(TableNo, DummyJobLedgerEntry.FieldNo("Posting Date"));
-        SetFieldToCompanyConfidential(TableNo, DummyJobLedgerEntry.FieldNo("Job No."));
-        SetFieldToCompanyConfidential(TableNo, DummyJobLedgerEntry.FieldNo("Entry No."));
-    end;
+    //TODO JOBS: // local procedure ClassifyJobLedgerEntry()
+    // var
+    //     DummyJobLedgerEntry: Record "Job Ledger Entry";
+    //     TableNo: Integer;
+    // begin
+    //     TableNo := DATABASE::"Job Ledger Entry";
+    //     SetTableFieldsToNormal(TableNo);
+    //     SetFieldToCompanyConfidential(TableNo, DummyJobLedgerEntry.FieldNo("Total Price"));
+    //     SetFieldToCompanyConfidential(TableNo, DummyJobLedgerEntry.FieldNo("Posted Service Shipment No."));
+    //     SetFieldToCompanyConfidential(TableNo, DummyJobLedgerEntry.FieldNo("Service Order No."));
+    //     SetFieldToCompanyConfidential(TableNo, DummyJobLedgerEntry.FieldNo("Line Amount (LCY)"));
+    //     SetFieldToCompanyConfidential(TableNo, DummyJobLedgerEntry.FieldNo("Qty. per Unit of Measure"));
+    //     SetFieldToCompanyConfidential(TableNo, DummyJobLedgerEntry.FieldNo("Line Type"));
+    //     SetFieldToCompanyConfidential(TableNo, DummyJobLedgerEntry.FieldNo("Variant Code"));
+    //     SetFieldToCompanyConfidential(TableNo, DummyJobLedgerEntry.FieldNo("Transaction Specification"));
+    //     SetFieldToCompanyConfidential(TableNo, DummyJobLedgerEntry.FieldNo("Ledger Entry No."));
+    //     SetFieldToCompanyConfidential(TableNo, DummyJobLedgerEntry.FieldNo("External Document No."));
+    //     SetFieldToCompanyConfidential(TableNo, DummyJobLedgerEntry.FieldNo("Description 2"));
+    //     SetFieldToCompanyConfidential(TableNo, DummyJobLedgerEntry.FieldNo("Quantity (Base)"));
+    //     SetFieldToCompanyConfidential(TableNo, DummyJobLedgerEntry.FieldNo("Bin Code"));
+    //     SetFieldToCompanyConfidential(TableNo, DummyJobLedgerEntry.FieldNo("Reason Code"));
+    //     SetFieldToCompanyConfidential(TableNo, DummyJobLedgerEntry.FieldNo("Add.-Currency Line Amount"));
+    //     SetFieldToCompanyConfidential(TableNo, DummyJobLedgerEntry.FieldNo("Add.-Currency Total Price"));
+    //     SetFieldToCompanyConfidential(TableNo, DummyJobLedgerEntry.FieldNo("Additional-Currency Total Cost"));
+    //     SetFieldToCompanyConfidential(TableNo, DummyJobLedgerEntry.FieldNo("No. Series"));
+    //     SetFieldToCompanyConfidential(TableNo, DummyJobLedgerEntry.FieldNo("Dimension Set ID"));
+    //     SetFieldToCompanyConfidential(TableNo, DummyJobLedgerEntry.FieldNo(Area));
+    //     SetFieldToCompanyConfidential(TableNo, DummyJobLedgerEntry.FieldNo("Unit Cost"));
+    //     SetFieldToCompanyConfidential(TableNo, DummyJobLedgerEntry.FieldNo("Document Date"));
+    //     SetFieldToCompanyConfidential(TableNo, DummyJobLedgerEntry.FieldNo("Entry/Exit Point"));
+    //     SetFieldToCompanyConfidential(TableNo, DummyJobLedgerEntry.FieldNo("Gen. Prod. Posting Group"));
+    //     SetFieldToCompanyConfidential(TableNo, DummyJobLedgerEntry.FieldNo("Gen. Bus. Posting Group"));
+    //     SetFieldToCompanyConfidential(TableNo, DummyJobLedgerEntry.FieldNo("Country/Region Code"));
+    //     SetFieldToCompanyConfidential(TableNo, DummyJobLedgerEntry.FieldNo("Transport Method"));
+    //     SetFieldToCompanyConfidential(TableNo, DummyJobLedgerEntry.FieldNo("Transaction Type"));
+    //     SetFieldToCompanyConfidential(TableNo, DummyJobLedgerEntry.FieldNo("Job Task No."));
+    //     SetFieldToCompanyConfidential(TableNo, DummyJobLedgerEntry.FieldNo("Journal Batch Name"));
+    //     SetFieldToCompanyConfidential(TableNo, DummyJobLedgerEntry.FieldNo("Original Unit Cost (LCY)"));
+    //     SetFieldToCompanyConfidential(TableNo, DummyJobLedgerEntry.FieldNo("Entry Type"));
+    //     SetFieldToCompanyConfidential(TableNo, DummyJobLedgerEntry.FieldNo("Amt. Posted to G/L"));
+    //     SetFieldToCompanyConfidential(TableNo, DummyJobLedgerEntry.FieldNo("Amt. to Post to G/L"));
+    //     SetFieldToCompanyConfidential(TableNo, DummyJobLedgerEntry.FieldNo("Ledger Entry Type"));
+    //     SetFieldToCompanyConfidential(TableNo, DummyJobLedgerEntry.FieldNo("DateTime Adjusted"));
+    //     SetFieldToCompanyConfidential(TableNo, DummyJobLedgerEntry.FieldNo(Adjusted));
+    //     SetFieldToCompanyConfidential(TableNo, DummyJobLedgerEntry.FieldNo("Original Total Cost (ACY)"));
+    //     SetFieldToCompanyConfidential(TableNo, DummyJobLedgerEntry.FieldNo("Original Total Cost"));
+    //     SetFieldToCompanyConfidential(TableNo, DummyJobLedgerEntry.FieldNo("Original Unit Cost"));
+    //     SetFieldToCompanyConfidential(TableNo, DummyJobLedgerEntry.FieldNo("Original Total Cost (LCY)"));
+    //     SetFieldToCompanyConfidential(TableNo, DummyJobLedgerEntry.FieldNo("Source Code"));
+    //     SetFieldToPersonal(TableNo, DummyJobLedgerEntry.FieldNo("User ID"));
+    //     SetFieldToCompanyConfidential(TableNo, DummyJobLedgerEntry.FieldNo("Line Discount %"));
+    //     SetFieldToCompanyConfidential(TableNo, DummyJobLedgerEntry.FieldNo("Lot No."));
+    //     SetFieldToCompanyConfidential(TableNo, DummyJobLedgerEntry.FieldNo("Serial No."));
+    //     SetFieldToCompanyConfidential(TableNo, DummyJobLedgerEntry.FieldNo("Customer Price Group"));
+    //     SetFieldToCompanyConfidential(TableNo, DummyJobLedgerEntry.FieldNo("Work Type Code"));
+    //     SetFieldToCompanyConfidential(TableNo, DummyJobLedgerEntry.FieldNo("Global Dimension 2 Code"));
+    //     SetFieldToCompanyConfidential(TableNo, DummyJobLedgerEntry.FieldNo("Global Dimension 1 Code"));
+    //     SetFieldToCompanyConfidential(TableNo, DummyJobLedgerEntry.FieldNo("Job Posting Group"));
+    //     SetFieldToCompanyConfidential(TableNo, DummyJobLedgerEntry.FieldNo("Currency Factor"));
+    //     SetFieldToCompanyConfidential(TableNo, DummyJobLedgerEntry.FieldNo("Currency Code"));
+    //     SetFieldToCompanyConfidential(TableNo, DummyJobLedgerEntry.FieldNo("Line Discount Amount (LCY)"));
+    //     SetFieldToCompanyConfidential(TableNo, DummyJobLedgerEntry.FieldNo("Line Discount Amount"));
+    //     SetFieldToCompanyConfidential(TableNo, DummyJobLedgerEntry.FieldNo("Line Amount"));
+    //     SetFieldToCompanyConfidential(TableNo, DummyJobLedgerEntry.FieldNo("Location Code"));
+    //     SetFieldToCompanyConfidential(TableNo, DummyJobLedgerEntry.FieldNo("Unit Price"));
+    //     SetFieldToCompanyConfidential(TableNo, DummyJobLedgerEntry.FieldNo("Total Cost"));
+    //     SetFieldToCompanyConfidential(TableNo, DummyJobLedgerEntry.FieldNo("Unit of Measure Code"));
+    //     SetFieldToCompanyConfidential(TableNo, DummyJobLedgerEntry.FieldNo("Resource Group No."));
+    //     SetFieldToCompanyConfidential(TableNo, DummyJobLedgerEntry.FieldNo("Total Price (LCY)"));
+    //     SetFieldToCompanyConfidential(TableNo, DummyJobLedgerEntry.FieldNo("Unit Price (LCY)"));
+    //     SetFieldToCompanyConfidential(TableNo, DummyJobLedgerEntry.FieldNo("Total Cost (LCY)"));
+    //     SetFieldToCompanyConfidential(TableNo, DummyJobLedgerEntry.FieldNo("Unit Cost (LCY)"));
+    //     SetFieldToCompanyConfidential(TableNo, DummyJobLedgerEntry.FieldNo("Direct Unit Cost (LCY)"));
+    //     SetFieldToCompanyConfidential(TableNo, DummyJobLedgerEntry.FieldNo(Quantity));
+    //     SetFieldToCompanyConfidential(TableNo, DummyJobLedgerEntry.FieldNo(Description));
+    //     SetFieldToCompanyConfidential(TableNo, DummyJobLedgerEntry.FieldNo("No."));
+    //     SetFieldToCompanyConfidential(TableNo, DummyJobLedgerEntry.FieldNo(Type));
+    //     SetFieldToCompanyConfidential(TableNo, DummyJobLedgerEntry.FieldNo("Document No."));
+    //     SetFieldToCompanyConfidential(TableNo, DummyJobLedgerEntry.FieldNo("Posting Date"));
+    //     SetFieldToCompanyConfidential(TableNo, DummyJobLedgerEntry.FieldNo("Job No."));
+    //     SetFieldToCompanyConfidential(TableNo, DummyJobLedgerEntry.FieldNo("Entry No."));
+    // end;
 
     local procedure ClassifyTimeSheetLineArchive()
     var
@@ -4836,22 +4836,22 @@ codeunit 1751 "Data Classification Eval. Data"
         SetFieldToPersonal(TableNo, DummyTimeSheetLineArchive.FieldNo("Approver ID"));
     end;
 
-    local procedure ClassifyJob()
-    var
-        DummyJob: Record Job;
-        TableNo: Integer;
-    begin
-        TableNo := DATABASE::Job;
-        SetTableFieldsToNormal(TableNo);
-        SetFieldToPersonal(TableNo, DummyJob.FieldNo("Bill-to Name 2"));
-        SetFieldToPersonal(TableNo, DummyJob.FieldNo("Bill-to Post Code"));
-        SetFieldToPersonal(TableNo, DummyJob.FieldNo("Bill-to County"));
-        SetFieldToPersonal(TableNo, DummyJob.FieldNo("Bill-to City"));
-        SetFieldToPersonal(TableNo, DummyJob.FieldNo("Bill-to Address 2"));
-        SetFieldToPersonal(TableNo, DummyJob.FieldNo("Bill-to Address"));
-        SetFieldToPersonal(TableNo, DummyJob.FieldNo("Bill-to Name"));
-        SetFieldToPersonal(TableNo, DummyJob.FieldNo("Bill-to Contact"));
-    end;
+    //TODO JOBS: // local procedure ClassifyJob()
+    // var
+    //     DummyJob: Record Job;
+    //     TableNo: Integer;
+    // begin
+    //     TableNo := DATABASE::Job;
+    //     SetTableFieldsToNormal(TableNo);
+    //     SetFieldToPersonal(TableNo, DummyJob.FieldNo("Bill-to Name 2"));
+    //     SetFieldToPersonal(TableNo, DummyJob.FieldNo("Bill-to Post Code"));
+    //     SetFieldToPersonal(TableNo, DummyJob.FieldNo("Bill-to County"));
+    //     SetFieldToPersonal(TableNo, DummyJob.FieldNo("Bill-to City"));
+    //     SetFieldToPersonal(TableNo, DummyJob.FieldNo("Bill-to Address 2"));
+    //     SetFieldToPersonal(TableNo, DummyJob.FieldNo("Bill-to Address"));
+    //     SetFieldToPersonal(TableNo, DummyJob.FieldNo("Bill-to Name"));
+    //     SetFieldToPersonal(TableNo, DummyJob.FieldNo("Bill-to Contact"));
+    // end;
 
     local procedure ClassifyResCapacityEntry()
     var
@@ -5440,15 +5440,15 @@ codeunit 1751 "Data Classification Eval. Data"
         SetFieldToCompanyConfidential(TableNo, DummyFALedgerEntry.FieldNo("Entry No."));
     end;
 
-    local procedure ClassifyJobPlanningLine()
-    var
-        DummyJobPlanningLine: Record "Job Planning Line";
-        TableNo: Integer;
-    begin
-        TableNo := DATABASE::"Job Planning Line";
-        SetTableFieldsToNormal(TableNo);
-        SetFieldToPersonal(TableNo, DummyJobPlanningLine.FieldNo("User ID"));
-    end;
+    //TODO JOBS: // local procedure ClassifyJobPlanningLine()
+    // var
+    //     DummyJobPlanningLine: Record "Job Planning Line";
+    //     TableNo: Integer;
+    // begin
+    //     TableNo := DATABASE::"Job Planning Line";
+    //     SetTableFieldsToNormal(TableNo);
+    //     SetFieldToPersonal(TableNo, DummyJobPlanningLine.FieldNo("User ID"));
+    // end;
 
     local procedure ClassifyGenJournalLine()
     var

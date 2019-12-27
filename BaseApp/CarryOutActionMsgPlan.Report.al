@@ -461,7 +461,7 @@ report 99001020 "Carry Out Action Msg. - Plan."
         SalesLine: Record "Sales Line";
         ProdOrderComp: Record "Prod. Order Component";
         ServLine: Record "Service Line";
-        JobPlanningLine: Record "Job Planning Line";
+        //TODO JOBS: JobPlanningLine: Record "Job Planning Line";
         AsmLine: Record "Assembly Line";
         ReqLine2: Record "Requisition Line";
     begin
@@ -526,24 +526,24 @@ report 99001020 "Carry Out Action Msg. - Plan."
                           "Demand Quantity (Base)",
                           -ServLine.SignedXX(ServLine."Outstanding Qty. (Base)" - ServLine."Reserved Qty. (Base)"))
                     end;
-                DATABASE::"Job Planning Line":
-                    begin
-                        JobPlanningLine.SetRange("Job Contract Entry No.", "Demand Line No.");
-                        JobPlanningLine.FindFirst;
-                        JobPlanningLine.TestField(Type, JobPlanningLine.Type::Item);
-                        JobPlanningLine.TestField("Job No.");
-                        JobPlanningLine.TestField(Status, JobPlanningLine.Status::Order);
-                        if not (("Demand Date" = WorkDate) and (JobPlanningLine."Planning Date" in [0D, WorkDate])) then
-                            TestField("Demand Date", JobPlanningLine."Planning Date");
-                        TestField("No.", JobPlanningLine."No.");
-                        TestField("Qty. per UOM (Demand)", JobPlanningLine."Qty. per Unit of Measure");
-                        TestField("Variant Code", JobPlanningLine."Variant Code");
-                        TestField("Location Code", JobPlanningLine."Location Code");
-                        JobPlanningLine.CalcFields("Reserved Qty. (Base)");
-                        TestField(
-                          "Demand Quantity (Base)",
-                          JobPlanningLine."Remaining Qty. (Base)" - JobPlanningLine."Reserved Qty. (Base)")
-                    end;
+                //TODO JOBS: // DATABASE::"Job Planning Line":
+                //     begin
+                //         JobPlanningLine.SetRange("Job Contract Entry No.", "Demand Line No.");
+                //         JobPlanningLine.FindFirst;
+                //         JobPlanningLine.TestField(Type, JobPlanningLine.Type::Item);
+                //         JobPlanningLine.TestField("Job No.");
+                //         JobPlanningLine.TestField(Status, JobPlanningLine.Status::Order);
+                //         if not (("Demand Date" = WorkDate) and (JobPlanningLine."Planning Date" in [0D, WorkDate])) then
+                //             TestField("Demand Date", JobPlanningLine."Planning Date");
+                //         TestField("No.", JobPlanningLine."No.");
+                //         TestField("Qty. per UOM (Demand)", JobPlanningLine."Qty. per Unit of Measure");
+                //         TestField("Variant Code", JobPlanningLine."Variant Code");
+                //         TestField("Location Code", JobPlanningLine."Location Code");
+                //         JobPlanningLine.CalcFields("Reserved Qty. (Base)");
+                //         TestField(
+                //           "Demand Quantity (Base)",
+                //           JobPlanningLine."Remaining Qty. (Base)" - JobPlanningLine."Reserved Qty. (Base)")
+                //     end;
                 DATABASE::"Assembly Line":
                     begin
                         AsmLine.Get("Demand Subtype", "Demand Order No.", "Demand Line No.");
