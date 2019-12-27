@@ -25,7 +25,7 @@ page 7386 "Registered Invt. Movement List"
                     ApplicationArea = Warehouse;
                     ToolTip = 'Specifies the same as the field with the same name in the Registered Whse. Activity Hdr. table.';
                 }
-                field("Source Document"; "Source Document")
+                field("Source Document"; "Warehouse Source Document")
                 {
                     ApplicationArea = Warehouse;
                     ToolTip = 'Specifies the type of document that the line relates to.';

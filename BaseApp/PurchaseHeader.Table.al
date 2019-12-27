@@ -3438,12 +3438,12 @@ table 38 "Purchase Header"
         TestField(Status, Status::Released);
 
         WhseRequest.Reset;
-        WhseRequest.SetCurrentKey("Source Document", "Source No.");
+        WhseRequest.SetCurrentKey("Warehouse Source Document", "Source No.");
         case "Document Type" of
             "Document Type"::Order:
-                WhseRequest.SetRange("Source Document", WhseRequest."Source Document"::"Purchase Order");
+                WhseRequest.SetRange("Warehouse Source Document", WhseRequest."Warehouse Source Document"::"Purchase Order");
             "Document Type"::"Return Order":
-                WhseRequest.SetRange("Source Document", WhseRequest."Source Document"::"Purchase Return Order");
+                WhseRequest.SetRange("Warehouse Source Document", WhseRequest."Warehouse Source Document"::"Purchase Return Order");
         end;
         WhseRequest.SetRange("Source No.", "No.");
         REPORT.RunModal(REPORT::"Create Invt Put-away/Pick/Mvmt", true, false, WhseRequest);

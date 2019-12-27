@@ -43,6 +43,13 @@ table 7341 "Posted Invt. Put-away Line"
             Caption = 'Source Document';
             OptionCaption = ',Sales Order,,,Sales Return Order,Purchase Order,,,Purchase Return Order,Inbound Transfer,Outbound Transfer,Prod. Consumption,Prod. Output';
             OptionMembers = ,"Sales Order",,,"Sales Return Order","Purchase Order",,,"Purchase Return Order","Inbound Transfer","Outbound Transfer","Prod. Consumption","Prod. Output";
+            ObsoleteState = Pending;
+            ObsoleteReason = 'Option field "Source Document" is being replaced by Enum field "Warehouse Source Document"';
+        }
+        field(90; "Warehouse Source Document"; Enum "Warehouse Source Document")
+        {
+            BlankZero = true;
+            Caption = 'Source Document';
         }
         field(11; "Location Code"; Code[10])
         {

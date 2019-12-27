@@ -56,7 +56,7 @@ page 7387 "Reg. Invt. Movement Lines"
                     ToolTip = 'Specifies the number of the subline on the related inventory movement.';
                     Visible = false;
                 }
-                field("Source Document"; "Source Document")
+                field("Source Document"; "Warehouse Source Document")
                 {
                     ApplicationArea = Warehouse;
                     ToolTip = 'Specifies the type of document that the line relates to.';

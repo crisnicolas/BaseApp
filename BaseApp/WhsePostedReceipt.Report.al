@@ -78,7 +78,7 @@ report 7308 "Whse. - Posted Receipt"
                     {
                         IncludeCaption = true;
                     }
-                    column(SourceDoc_PostedWhseRcpLine; "Source Document")
+                    column(SourceDoc_PostedWhseRcpLine; "Warehouse Source Document")
                     {
                         IncludeCaption = true;
                     }

@@ -21,11 +21,10 @@ page 7378 "Invt. Pick Subform"
                     ToolTip = 'Specifies the action type for the warehouse activity line.';
                     Visible = false;
                 }
-                field("Source Document"; "Source Document")
+                field("Source Document"; "Warehouse Source Document")
                 {
                     ApplicationArea = Warehouse;
                     BlankZero = true;
-                    OptionCaption = ' ,Sales Order,,,,,,,Purchase Return Order,,Outbound Transfer,Prod. Consumption';
                     ToolTip = 'Specifies the type of document that the line relates to.';
                     Visible = false;
                 }

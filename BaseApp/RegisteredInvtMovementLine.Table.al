@@ -42,6 +42,13 @@ table 7345 "Registered Invt. Movement Line"
             Caption = 'Source Document';
             OptionCaption = ',Sales Order,,,Sales Return Order,Purchase Order,,,Purchase Return Order,Inbound Transfer,Outbound Transfer,Prod. Consumption,Prod. Output,,,,,,,,Assembly Consumption,Assembly Order';
             OptionMembers = ,"Sales Order",,,"Sales Return Order","Purchase Order",,,"Purchase Return Order","Inbound Transfer","Outbound Transfer","Prod. Consumption","Prod. Output",,,,,,,,"Assembly Consumption","Assembly Order";
+            ObsoleteState = Pending;
+            ObsoleteReason = 'Option field "Source Document" is being replaced by Enum field "Warehouse Source Document"';
+        }
+        field(90; "Warehouse Source Document"; Enum "Warehouse Source Document")
+        {
+            BlankZero = true;
+            Caption = 'Warehouse Source Document';
         }
         field(11; "Location Code"; Code[10])
         {

@@ -63,7 +63,7 @@ report 7309 "Whse. - Posted Shipment"
                 column(SourceNo_PostedWhseShptLineCaption; "Posted Whse. Shipment Line".FieldCaption("Source No."))
                 {
                 }
-                column(SourceDoc_PostedWhseShptLineCaption; "Posted Whse. Shipment Line".FieldCaption("Source Document"))
+                column(SourceDoc_PostedWhseShptLineCaption; "Posted Whse. Shipment Line".FieldCaption("Warehouse Source Document"))
                 {
                 }
                 column(ZoneCode_PostedWhseShptLineCaption; "Posted Whse. Shipment Line".FieldCaption("Zone Code"))
@@ -107,7 +107,7 @@ report 7309 "Whse. - Posted Shipment"
                     column(SourceNo_PostedWhseShptLine; "Source No.")
                     {
                     }
-                    column(SourceDoc_PostedWhseShptLine; "Source Document")
+                    column(SourceDoc_PostedWhseShptLine; "Warehouse Source Document")
                     {
                     }
                     column(ZoneCode_PostedWhseShptLine; "Zone Code")

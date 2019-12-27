@@ -117,7 +117,7 @@ page 7318 "Warehouse Entries"
                     ToolTip = 'Specifies the source subtype of the document to which the warehouse entry line relates.';
                     Visible = false;
                 }
-                field("Source Document"; "Source Document")
+                field("Source Document"; "Warehouse Source Document")
                 {
                     ApplicationArea = Warehouse;
                     ToolTip = 'Specifies the type of document that the line relates to.';

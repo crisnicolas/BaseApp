@@ -50,6 +50,13 @@ table 5773 "Registered Whse. Activity Line"
             Caption = 'Source Document';
             OptionCaption = ',Sales Order,,,Sales Return Order,Purchase Order,,,Purchase Return Order,Inbound Transfer,Outbound Transfer,Prod. Consumption,,,,,,,Service Order,,Assembly Consumption,Assembly Order';
             OptionMembers = ,"Sales Order",,,"Sales Return Order","Purchase Order",,,"Purchase Return Order","Inbound Transfer","Outbound Transfer","Prod. Consumption",,,,,,,"Service Order",,"Assembly Consumption","Assembly Order";
+            ObsoleteState = Pending;
+            ObsoleteReason = 'Option field "Source Document" is being replaced by Enum field "Warehouse Source Document"';
+        }
+        field(90; "Warehouse Source Document"; Enum "Warehouse Source Document")
+        {
+            BlankZero = true;
+            Caption = 'Source Document';
         }
         field(11; "Location Code"; Code[10])
         {

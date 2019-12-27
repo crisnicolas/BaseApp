@@ -29,7 +29,7 @@ page 7397 "Posted Invt. Pick Lines"
                     ToolTip = 'Specifies the action type for the inventory pick line. For posted inventory pick lines, the action type is always Take, meaning that the items are being taken out of the bin.';
                     Visible = false;
                 }
-                field("Source Document"; "Source Document")
+                field("Source Document"; "Warehouse Source Document")
                 {
                     ApplicationArea = Warehouse;
                     ToolTip = 'Specifies the type of document that the line relates to.';

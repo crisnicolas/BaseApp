@@ -56,6 +56,14 @@ table 7326 "Whse. Worksheet Line"
             Editable = false;
             OptionCaption = ',Sales Order,,,Sales Return Order,Purchase Order,,,Purchase Return Order,Inbound Transfer,Outbound Transfer,Prod. Consumption,,,,,,,,,Assembly Consumption,Assembly Order';
             OptionMembers = ,"Sales Order",,,"Sales Return Order","Purchase Order",,,"Purchase Return Order","Inbound Transfer","Outbound Transfer","Prod. Consumption",,,,,,,,,"Assembly Consumption","Assembly Order";
+            ObsoleteState = Pending;
+            ObsoleteReason = 'Option field "Source Document" is being replaced by Enum field "Warehouse Source Document"';
+        }
+        field(90; "Warehouse Source Document"; enum "Warehouse Source Document")
+        {
+            BlankZero = true;
+            Caption = 'Warehouse Source Document';
+            Editable = false;
         }
         field(10; "Location Code"; Code[10])
         {
@@ -530,6 +538,12 @@ table 7326 "Whse. Worksheet Line"
         key(Key8; "Worksheet Template Name", Name, "Location Code", "Source Document", "Source No.")
         {
             MaintainSQLIndex = false;
+            ObsoleteState = Pending;
+            ObsoleteReason = 'Key8 is being replaced by Key13. Option field "Source Document" is being replaced by Enum field "Warehouse Source Document"';
+        }
+        key(Key13; "Worksheet Template Name", Name, "Location Code", "Warehouse Source Document", "Source No.")
+        {
+            MaintainSQLIndex = false;
         }
         key(Key9; "Worksheet Template Name", Name, "Location Code", "To Bin Code")
         {
@@ -770,7 +784,7 @@ table 7326 "Whse. Worksheet Line"
                   "Worksheet Template Name", Name, "Location Code", "Item No.");
             SortingMethod::Document:
                 WhseWkshLine.SetCurrentKey(
-                  "Worksheet Template Name", Name, "Location Code", "Source Document", "Source No.");
+                  "Worksheet Template Name", Name, "Location Code", "Warehouse Source Document", "Source No.");
             SortingMethod::"Shelf/Bin No.":
                 begin
                     GetLocation(LocationCode);
@@ -1335,7 +1349,7 @@ table 7326 "Whse. Worksheet Line"
                   "Worksheet Template Name", Name, "Location Code", "Item No.");
             SortMethod::Document:
                 WhseWorksheetLine2.SetCurrentKey(
-                  "Worksheet Template Name", Name, "Location Code", "Source Document", "Source No.");
+                  "Worksheet Template Name", Name, "Location Code", "Warehouse Source Document", "Source No.");
             SortMethod::"Shelf/Bin No.":
                 begin
                     GetLocation("Location Code");

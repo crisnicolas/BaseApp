@@ -50,7 +50,7 @@ report 7301 "Movement List"
                 {
                     IncludeCaption = true;
                 }
-                column(SourceDoc_WhseActivLine; "Warehouse Activity Line"."Source Document")
+                column(SourceDoc_WhseActivLine; "Warehouse Activity Line"."Warehouse Source Document")
                 {
                     IncludeCaption = true;
                 }

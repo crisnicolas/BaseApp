@@ -59,6 +59,13 @@ table 5768 "Whse. Cross-Dock Opportunity"
             Editable = false;
             OptionCaption = ',Sales Order,Sales Return Order,Purchase Order,Purchase Return Order,Inbound Transfer,Outbound Transfer,Prod. Consumption,Prod. Output,Item Ledger Entry,,,,,,,,,,,Assembly Consumption,Assembly Order';
             OptionMembers = ,"Sales Order","Sales Return Order","Purchase Order","Purchase Return Order","Inbound Transfer","Outbound Transfer","Prod. Consumption","Prod. Output","Item Ledger Entry",,,,,,,,,,,"Assembly Consumption","Assembly Order";
+            ObsoleteState = Pending;
+            ObsoleteReason = 'This Option field will be replaced by Enum field "From Warehouse Source Document"';
+        }
+        field(100; "From Warehouse Source Document"; Enum "Warehouse Source Document")
+        {
+            Caption = 'From Warehouse Source Document';
+            Editable = false;
         }
         field(11; "To Source Type"; Integer)
         {
@@ -93,6 +100,13 @@ table 5768 "Whse. Cross-Dock Opportunity"
             Caption = 'To Source Document';
             OptionCaption = ',Sales Order,,,,,,,Purchase Return Order,,Outbound Transfer,Prod. Order Comp.,,,,,,,Service Order,,Assembly Consumption,Assembly Order';
             OptionMembers = ,"Sales Order",,,,,,,"Purchase Return Order",,"Outbound Transfer","Prod. Order Comp.",,,,,,,"Service Order",,"Assembly Consumption","Assembly Order";
+            ObsoleteState = Pending;
+            ObsoleteReason = 'This Option field will be replaced by Enum field "To Warehouse Source Document"';
+        }
+        field(160; "To Warehouse Source Document"; Enum "Warehouse Source Document")
+        {
+            BlankZero = true;
+            Caption = 'To Source Document';
         }
         field(17; "Item No."; Code[20])
         {

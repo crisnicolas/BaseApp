@@ -24,6 +24,7 @@ codeunit 5770 "Whse.-Service Release"
                 exit;
 
             WhseRqst."Source Document" := WhseRqst."Source Document"::"Service Order";
+            WhseRqst."Warehouse Source Document" := WhseRqst."Warehouse Source Document"::"Service Order";
 
             ServiceLine.SetCurrentKey("Document Type", "Document No.", "Location Code");
             ServiceLine.SetRange("Document Type", "Document Type");

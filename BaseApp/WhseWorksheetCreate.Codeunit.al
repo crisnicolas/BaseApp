@@ -42,6 +42,7 @@ codeunit 7311 "Whse. Worksheet-Create"
             WhseWkshLine."Source No." := "Source No.";
             WhseWkshLine."Source Line No." := "Source Line No.";
             WhseWkshLine."Source Document" := WhseMgt.GetSourceDocument("Source Type", "Source Subtype");
+            WhseWkshLine."Warehouse Source Document" := WhseMgt.GetSourceDocument("Source Type", "Source Subtype");
             WhseWkshLine."Location Code" := "Location Code";
             WhseWkshLine."Item No." := "Item No.";
             WhseWkshLine."Variant Code" := "Variant Code";
@@ -147,6 +148,7 @@ codeunit 7311 "Whse. Worksheet-Create"
             WhseWkshLine."Source Line No." := "Prod. Order Line No.";
             WhseWkshLine."Source Subline No." := "Line No.";
             WhseWkshLine."Source Document" := WhseMgt.GetSourceDocument(WhseWkshLine."Source Type", WhseWkshLine."Source Subtype");
+            WhseWkshLine."Warehouse Source Document" := WhseMgt.GetSourceDocument(WhseWkshLine."Source Type", WhseWkshLine."Source Subtype");
             WhseWkshLine."Location Code" := "Location Code";
             WhseWkshLine."Item No." := "Item No.";
             WhseWkshLine."Variant Code" := "Variant Code";
@@ -233,6 +235,7 @@ codeunit 7311 "Whse. Worksheet-Create"
             WhseWkshLine."Source Line No." := "Line No.";
             WhseWkshLine."Source Subline No." := 0;
             WhseWkshLine."Source Document" := WhseMgt.GetSourceDocument(WhseWkshLine."Source Type", WhseWkshLine."Source Subtype");
+            WhseWkshLine."Warehouse Source Document" := WhseMgt.GetSourceDocument(WhseWkshLine."Source Type", WhseWkshLine."Source Subtype");
             WhseWkshLine."Location Code" := "Location Code";
             TestField(Type, Type::Item);
             WhseWkshLine."Item No." := "No.";
@@ -284,6 +287,7 @@ codeunit 7311 "Whse. Worksheet-Create"
             WhseWkshLine."Source No." := "Source No.";
             WhseWkshLine."Source Line No." := "Source Line No.";
             WhseWkshLine."Source Document" := WhseMgt.GetSourceDocument("Source Type", "Source Subtype");
+            WhseWkshLine."Warehouse Source Document" := WhseMgt.GetSourceDocument("Source Type", "Source Subtype");
             WhseWkshLine."Location Code" := "Location Code";
             WhseWkshLine."Item No." := "Item No.";
             WhseWkshLine."Variant Code" := "Variant Code";

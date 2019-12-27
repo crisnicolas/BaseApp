@@ -81,7 +81,7 @@ report 7317 "Whse. - Shipment"
                     {
                         IncludeCaption = true;
                     }
-                    column(SourceDoc_WhseShptLine; "Source Document")
+                    column(SourceDoc_WhseShptLine; "Warehouse Source Document")
                     {
                         IncludeCaption = true;
                     }

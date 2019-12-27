@@ -26,9 +26,15 @@ codeunit 5771 "Whse.-Sales Release"
             if not IsHandled then
                 case "Document Type" of
                     "Document Type"::Order:
-                        WhseRqst."Source Document" := WhseRqst."Source Document"::"Sales Order";
+                        begin
+                            WhseRqst."Source Document" := WhseRqst."Source Document"::"Sales Order";
+                            WhseRqst."Warehouse Source Document" := WhseRqst."Warehouse Source Document"::"Sales Order";
+                        end;
                     "Document Type"::"Return Order":
-                        WhseRqst."Source Document" := WhseRqst."Source Document"::"Sales Return Order";
+                        begin
+                            WhseRqst."Source Document" := WhseRqst."Source Document"::"Sales Return Order";
+                            WhseRqst."Warehouse Source Document" := WhseRqst."Warehouse Source Document"::"Sales Return Order";
+                        end;
                     else
                         exit;
                 end;

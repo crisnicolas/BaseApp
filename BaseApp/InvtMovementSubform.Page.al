@@ -21,11 +21,10 @@ page 7383 "Invt. Movement Subform"
                     ApplicationArea = Warehouse;
                     ToolTip = 'Specifies the action type for the warehouse activity line.';
                 }
-                field("Source Document"; "Source Document")
+                field("Source Document"; "Warehouse Source Document")
                 {
                     ApplicationArea = Warehouse;
                     BlankZero = true;
-                    OptionCaption = ' ,,,,,,,,,,,Prod. Consumption,,,,,,,,,Assembly Consumption';
                     ToolTip = 'Specifies the type of document that the line relates to.';
                     Visible = false;
                 }

@@ -55,6 +55,7 @@ codeunit 7325 "Whse.-Output Prod. Release"
         WhseRqst."Source No." := ProdOrderLine."Prod. Order No.";
         WhseRqst."Source Subtype" := ProdOrderLine.Status;
         WhseRqst."Source Document" := WhseRqst."Source Document"::"Prod. Output";
+        WhseRqst."Warehouse Source Document" := WhseRqst."Warehouse Source Document"::"Production Output";
         WhseRqst."Document Status" := WhseRqst."Document Status"::Released;
         WhseRqst."Completely Handled" :=
           ProdOrderCompletelyHandled(ProdOrder, ProdOrderLine."Location Code");

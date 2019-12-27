@@ -81,7 +81,7 @@ report 7316 "Whse. - Receipt"
                     {
                         IncludeCaption = true;
                     }
-                    column(SourceDocument_WhseRcptLine; "Source Document")
+                    column(SourceDocument_WhseRcptLine; "Warehouse Source Document")
                     {
                         IncludeCaption = true;
                     }

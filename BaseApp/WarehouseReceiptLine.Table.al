@@ -44,6 +44,13 @@ table 7317 "Warehouse Receipt Line"
             Editable = false;
             OptionCaption = ',Sales Order,,,Sales Return Order,Purchase Order,,,Purchase Return Order,Inbound Transfer';
             OptionMembers = ,"Sales Order",,,"Sales Return Order","Purchase Order",,,"Purchase Return Order","Inbound Transfer";
+            ObsoleteState = Pending;
+            ObsoleteReason = 'Option field "Source Document" is being replaced by Enum field "Warehouse Source Document"';
+        }
+        field(90; "Warehouse Source Document"; enum "Warehouse Source Document")
+        {
+            Caption = 'Warehouse Source Document';
+            Editable = false;
         }
         field(10; "Location Code"; Code[10])
         {
@@ -349,6 +356,12 @@ table 7317 "Warehouse Receipt Line"
         key(Key7; "No.", "Source Document", "Source No.")
         {
             MaintainSQLIndex = false;
+            ObsoleteState = Pending;
+            ObsoleteReason = 'Key7 is being replaced by Key12. Option field "Source Document" is being replaced by Enum field "Warehouse Source Document"';
+        }
+        key(Key12; "No.", "Warehouse Source Document", "Source No.")
+        {
+            MaintainSQLIndex = false;
         }
         key(Key8; "No.", "Due Date")
         {
@@ -612,6 +625,7 @@ table 7317 "Warehouse Receipt Line"
         "Source No." := SourceNo;
         "Source Line No." := SourceLineNo;
         "Source Document" := WhseMgt.GetSourceDocument("Source Type", "Source Subtype");
+        "Warehouse Source Document" := WhseMgt.GetSourceDocument("Source Type", "Source Subtype");
     end;
 
     procedure SetSourceFilter(SourceType: Integer; SourceSubType: Option; SourceNo: Code[20]; SourceLineNo: Integer; SetKey: Boolean)

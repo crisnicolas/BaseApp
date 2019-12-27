@@ -54,11 +54,8 @@ codeunit 7302 "WMS Management"
             if ("Journal Template Name" <> '') and ("Journal Batch Name" <> '') then begin
                 WhseJnlLine.SetSource(DATABASE::"Item Journal Line", ItemJnlTemplateType, "Document No.", "Line No.", 0);
                 WhseJnlLine."Source Document" := WhseMgt.GetSourceDocument(WhseJnlLine."Source Type", WhseJnlLine."Source Subtype");
-            end else
-                if "Job No." <> '' then begin
-                    WhseJnlLine.SetSource(DATABASE::"Job Journal Line", ItemJnlTemplateType, "Document No.", "Line No.", 0);
-                    WhseJnlLine."Source Document" := WhseMgt.GetSourceDocument(WhseJnlLine."Source Type", WhseJnlLine."Source Subtype");
-                end;
+                WhseJnlLine."Warehouse Source Document" := WhseMgt.GetSourceDocument(WhseJnlLine."Source Type", WhseJnlLine."Source Subtype");
+            end;
             WhseJnlLine."Whse. Document Type" := WhseJnlLine."Whse. Document Type"::" ";
             if "Job No." = '' then
                 WhseJnlLine."Reference Document" := WhseJnlLine."Reference Document"::"Item Journal"
@@ -67,7 +64,7 @@ codeunit 7302 "WMS Management"
             WhseJnlLine."Reference No." := "Document No.";
             TransferWhseItemTrkg(WhseJnlLine, ItemJnlLine);
             WhseJnlLine.Description := Description;
-            OnAfterCreateWhseJnlLine(WhseJnlLine, ItemJnlLine, ToTransfer);
+            OnAfterCreateWhseJnlLine(WhseJnlLine, ItemJnlLine, ItemJnlTemplateType, ToTransfer);
             exit(true);
         end;
     end;
@@ -86,6 +83,7 @@ codeunit 7302 "WMS Management"
             SetZoneAndBinsForOutput(ItemJnlLine, WhseJnlLine);
             WhseJnlLine.SetSource(DATABASE::"Item Journal Line", 5, "Order No.", "Order Line No.", 0); // Output Journal
             WhseJnlLine."Source Document" := WhseMgt.GetSourceDocument(WhseJnlLine."Source Type", WhseJnlLine."Source Subtype");
+            WhseJnlLine."Warehouse Source Document" := WhseMgt.GetSourceDocument(WhseJnlLine."Source Type", WhseJnlLine."Source Subtype");
             WhseJnlLine.SetWhseDoc(WhseJnlLine."Whse. Document Type"::Production, "Order No.", "Order Line No.");
             WhseJnlLine."Reference Document" := WhseJnlLine."Reference Document"::"Prod.";
             WhseJnlLine."Reference No." := "Order No.";
@@ -108,6 +106,7 @@ codeunit 7302 "WMS Management"
             SetZoneAndBinsForConsumption(ItemJnlLine, WhseJnlLine);
             WhseJnlLine.SetSource(DATABASE::"Item Journal Line", 4, "Order No.", "Order Line No.", "Prod. Order Comp. Line No."); // Consumption Journal
             WhseJnlLine."Source Document" := WhseMgt.GetSourceDocument(WhseJnlLine."Source Type", WhseJnlLine."Source Subtype");
+            WhseJnlLine."Warehouse Source Document" := WhseMgt.GetSourceDocument(WhseJnlLine."Source Type", WhseJnlLine."Source Subtype");
             WhseJnlLine.SetWhseDoc(WhseJnlLine."Whse. Document Type"::Production, "Order No.", "Order Line No.");
             WhseJnlLine."Reference Document" := WhseJnlLine."Reference Document"::"Prod.";
             WhseJnlLine."Reference No." := "Order No.";
@@ -141,7 +140,7 @@ codeunit 7302 "WMS Management"
                    (((Location."Adjustment Bin Code" <> '') and
                      ("Entry Type" = "Entry Type"::Movement)) or
                     (("Entry Type" <> "Entry Type"::Movement) or
-                     ("Source Document" = "Source Document"::"Reclass. Jnl.")))
+                     ("Warehouse Source Document" = "Warehouse Source Document"::"Reclassification Journal")))
                 then
                     CheckSerialNo(
                       "Item No.", "Variant Code", "Location Code", "From Bin Code",
@@ -154,7 +153,7 @@ codeunit 7302 "WMS Management"
                    (((Location."Adjustment Bin Code" <> '') and
                      ("Entry Type" = "Entry Type"::Movement)) or
                     (("Entry Type" <> "Entry Type"::Movement) or
-                     ("Source Document" = "Source Document"::"Reclass. Jnl.")))
+                     ("Warehouse Source Document" = "Warehouse Source Document"::"Reclassification Journal")))
                 then
                     CheckLotNo(
                       "Item No.", "Variant Code", "Location Code", "From Bin Code",
@@ -1189,6 +1188,7 @@ codeunit 7302 "WMS Management"
         with TransferLine do begin
             WhseJnlLine.SetSource(DATABASE::"Transfer Line", PostingType, "Document No.", "Line No.", 0);
             WhseJnlLine."Source Document" := WhseMgt.GetSourceDocument(WhseJnlLine."Source Type", WhseJnlLine."Source Subtype");
+            WhseJnlLine."Warehouse Source Document" := WhseMgt.GetSourceDocument(WhseJnlLine."Source Type", WhseJnlLine."Source Subtype");
             if PostingType = PostingType::Shipment then
                 WhseJnlLine."Reference Document" := WhseJnlLine."Reference Document"::"Posted T. Shipment"
             else
@@ -1476,7 +1476,7 @@ codeunit 7302 "WMS Management"
         exit(ReservQtyNotonInvt);
     end;
 
-    procedure GetCaption(DestType: Option " ",Customer,Vendor,Location,Item,Family,"Sales Order"; SourceDoc: Option " ","Sales Order",,,"Sales Return Order","Purchase Order",,,"Purchase Return Order","Inbound Transfer","Outbound Transfer","Prod. Consumption","Prod. Output"; Selection: Integer): Text[50]
+    procedure GetCaption(DestType: Option " ",Customer,Vendor,Location,Item,Family,"Sales Order"; SourceDoc: Enum "Warehouse Source Document"; Selection: Integer): Text[50]
     var
         PurchHeader: Record "Purchase Header";
         Vendor: Record Vendor;
@@ -1804,7 +1804,7 @@ codeunit 7302 "WMS Management"
     end;
 
     [IntegrationEvent(false, false)]
-    local procedure OnAfterCreateWhseJnlLine(var WhseJournalLine: Record "Warehouse Journal Line"; ItemJournalLine: Record "Item Journal Line"; ToTransfer: Boolean)
+    local procedure OnAfterCreateWhseJnlLine(var WhseJournalLine: Record "Warehouse Journal Line"; ItemJournalLine: Record "Item Journal Line"; ItemJnlTemplateType: Option; ToTransfer: Boolean)
     begin
     end;
 

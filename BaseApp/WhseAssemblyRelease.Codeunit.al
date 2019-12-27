@@ -99,6 +99,7 @@ codeunit 904 "Whse.-Assembly Release"
                     WhseRqst.Type := WhseRqst.Type::Outbound;
             end;
             WhseRqst."Source Document" := WhseRqst."Source Document"::"Assembly Consumption";
+            WhseRqst."Warehouse Source Document" := WhseRqst."Warehouse Source Document"::"Assembly Consumption";
             WhseRqst."Source Type" := DATABASE::"Assembly Line";
             WhseRqst."Source Subtype" := AssemblyLine."Document Type";
             WhseRqst."Source No." := AssemblyLine."Document No.";

@@ -62,7 +62,7 @@ report 5751 "Put-away List"
                 {
                     IncludeCaption = true;
                 }
-                column(SrcDoc_WhseActivHeader; "Warehouse Activity Line"."Source Document")
+                column(SrcDoc_WhseActivHeader; "Warehouse Activity Line"."Warehouse Source Document")
                 {
                     IncludeCaption = true;
                 }
@@ -136,7 +136,7 @@ report 5751 "Put-away List"
                     {
                         IncludeCaption = false;
                     }
-                    column(SrcDoc_WhseActivLine; Format("Source Document"))
+                    column(SrcDoc_WhseActivLine; Format("Warehouse Source Document"))
                     {
                     }
                     column(ShelfNo_WhseActivLine; "Shelf No.")

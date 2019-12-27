@@ -58,7 +58,7 @@ report 5752 "Picking List"
                 column(AssgUserID_WhseActivHeader; "Warehouse Activity Header"."Assigned User ID")
                 {
                 }
-                column(SourcDocument_WhseActLine; "Warehouse Activity Line"."Source Document")
+                column(SourcDocument_WhseActLine; "Warehouse Activity Line"."Warehouse Source Document")
                 {
                 }
                 column(LoctnCode_WhseActivHeaderCaption; "Warehouse Activity Header".FieldCaption("Location Code"))
@@ -70,7 +70,7 @@ report 5752 "Picking List"
                 column(AssgUserID_WhseActivHeaderCaption; "Warehouse Activity Header".FieldCaption("Assigned User ID"))
                 {
                 }
-                column(SourcDocument_WhseActLineCaption; "Warehouse Activity Line".FieldCaption("Source Document"))
+                column(SourcDocument_WhseActLineCaption; "Warehouse Activity Line".FieldCaption("Warehouse Source Document"))
                 {
                 }
                 column(SourceNo_WhseActLineCaption; WhseActLine.FieldCaption("Source No."))
@@ -192,7 +192,7 @@ report 5752 "Picking List"
                     column(SourceNo_WhseActLine; "Source No.")
                     {
                     }
-                    column(FormatSourcDocument_WhseActLine; Format("Source Document"))
+                    column(FormatSourcDocument_WhseActLine; Format("Warehouse Source Document"))
                     {
                     }
                     column(ShelfNo_WhseActLine; "Shelf No.")

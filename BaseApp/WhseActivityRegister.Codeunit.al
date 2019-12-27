@@ -246,6 +246,7 @@ codeunit 7307 "Whse.-Activity-Register"
 
             WhseJnlLine.SetSource("Source Type", "Source Subtype", "Source No.", "Source Line No.", "Source Subline No.");
             WhseJnlLine."Source Document" := "Source Document";
+            WhseJnlLine."Warehouse Source Document" := "Warehouse Source Document";
             WhseJnlLine."Reference No." := RegisteredWhseActivHeader."No.";
             case "Activity Type" of
                 "Activity Type"::"Put-away":
@@ -877,7 +878,7 @@ codeunit 7307 "Whse.-Activity-Register"
                     OnBeforeCheckQtyAvailToInsertBase(TempWhseActivLine, QtyAvailToInsertBase);
                     if QtyAvailToInsertBase < 0 then
                         Error(
-                          InsufficientQtyItemTrkgErr, TempWhseActivLine."Source Line No.", TempWhseActivLine."Source Document",
+                          InsufficientQtyItemTrkgErr, TempWhseActivLine."Source Line No.", TempWhseActivLine."Warehouse Source Document",
                           TempWhseActivLine."Source No.");
 
                     if (TempWhseActivLine."Serial No." <> '') or (TempWhseActivLine."Lot No." <> '') then
@@ -916,7 +917,7 @@ codeunit 7307 "Whse.-Activity-Register"
                 NeedRegisterWhseItemTrkgLine := true;
 
             if ("Activity Type" = "Activity Type"::"Invt. Movement") and ("Action Type" <> "Action Type"::Take) and
-               ("Source Document" in ["Source Document"::"Prod. Consumption", "Source Document"::"Assembly Consumption"])
+               ("Warehouse Source Document" in ["Warehouse Source Document"::"Production Consumption", "Warehouse Source Document"::"Assembly Consumption"])
             then
                 NeedRegisterWhseItemTrkgLine := true;
 
@@ -1127,20 +1128,20 @@ codeunit 7307 "Whse.-Activity-Register"
         end;
 
         if WhseActivLine."Activity Type" = WhseActivLine."Activity Type"::"Invt. Movement" then
-            case WhseActivLine."Source Document" of
-                WhseActivLine."Source Document"::"Prod. Consumption":
+            case WhseActivLine."Warehouse Source Document" of
+                WhseActivLine."Warehouse Source Document"::"Production Consumption":
                     if ProdOrderComponent.Get(
                          WhseActivLine."Source Subtype", WhseActivLine."Source No.",
                          WhseActivLine."Source Line No.", WhseActivLine."Source Subline No.")
                     then
                         exit(ProdOrderComponent."Expected Qty. (Base)");
-                WhseActivLine."Source Document"::"Assembly Consumption":
+                WhseActivLine."Warehouse Source Document"::"Assembly Consumption":
                     if AssemblyLine.Get(
                          WhseActivLine."Source Subtype", WhseActivLine."Source No.",
                          WhseActivLine."Source Line No.")
                     then
                         exit(AssemblyLine."Quantity (Base)");
-                WhseActivLine."Source Document"::" ":
+                WhseActivLine."Warehouse Source Document"::" ":
                     begin
                         WhseActivLine2.SetCurrentKey("No.", "Line No.", "Activity Type");
                         WhseActivLine2.SetRange("Activity Type", WhseActivLine."Activity Type");
@@ -1577,7 +1578,7 @@ codeunit 7307 "Whse.-Activity-Register"
                     then begin
                         WhseActivLine.TestField("Destination No.");
                         Cust.Get(WhseActivLine."Destination No.");
-                        Cust.CheckBlockedCustOnDocs(Cust, "Source Document", false, false);
+                        Cust.CheckBlockedCustOnDocs(Cust, "Warehouse Source Document", false, false);
                     end;
                     if Location."Bin Mandatory" then begin
                         WhseActivLine.TestField("Unit of Measure Code");
@@ -1615,15 +1616,15 @@ codeunit 7307 "Whse.-Activity-Register"
     local procedure UpdateSourceDocForInvtMovement(WhseActivityLine: Record "Warehouse Activity Line")
     begin
         if (WhseActivityLine."Action Type" = WhseActivityLine."Action Type"::Take) or
-           (WhseActivityLine."Source Document" = WhseActivityLine."Source Document"::" ")
+           (WhseActivityLine."Warehouse Source Document" = WhseActivityLine."Warehouse Source Document"::" ")
         then
             exit;
 
         with WhseActivityLine do
-            case "Source Document" of
-                "Source Document"::"Prod. Consumption":
+            case "Warehouse Source Document" of
+                "Warehouse Source Document"::"Production Consumption":
                     UpdateProdCompLine(WhseActivityLine);
-                "Source Document"::"Assembly Consumption":
+                "Warehouse Source Document"::"Assembly Consumption":
                     UpdateAssemblyLine(WhseActivityLine);
             end;
     end;
@@ -1718,7 +1719,7 @@ codeunit 7307 "Whse.-Activity-Register"
             SetRange("Whse. Document Type", WarehouseActivityLine."Whse. Document Type");
             SetRange("Whse. Document No.", WarehouseActivityLine."Whse. Document No.");
             SetRange("Whse. Document Line No.", WarehouseActivityLine."Whse. Document Line No.");
-            SetRange("Source Document", WarehouseActivityLine."Source Document");
+            SetRange("Warehouse Source Document", WarehouseActivityLine."Warehouse Source Document");
             SetSourceFilter(
               WarehouseActivityLine."Source Type", WarehouseActivityLine."Source Subtype", WarehouseActivityLine."Source No.",
               WarehouseActivityLine."Source Line No.", WarehouseActivityLine."Source Subline No.", false);
@@ -1772,7 +1773,7 @@ codeunit 7307 "Whse.-Activity-Register"
         exit(
           (WhseActivityLine."Activity Type" = WhseActivityLine."Activity Type"::Pick) and
           (WhseActivityLine."Action Type" in [WhseActivityLine."Action Type"::Place, WhseActivityLine."Action Type"::" "]) and
-          (WhseActivityLine."Source Document" = WhseActivityLine."Source Document"::"Sales Order") and
+          (WhseActivityLine."Warehouse Source Document" = WhseActivityLine."Warehouse Source Document"::"Sales Order") and
           ((WhseActivityLine."Serial No." <> '') or (WhseActivityLine."Lot No." <> '')));
     end;
 

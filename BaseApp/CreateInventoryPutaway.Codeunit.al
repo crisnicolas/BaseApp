@@ -44,21 +44,23 @@ codeunit 7321 "Create Inventory Put-away"
         GetSourceDocHeader;
         UpdateWhseActivHeader(WhseRequest);
 
-        case WhseRequest."Source Document" of
-            WhseRequest."Source Document"::"Purchase Order":
+        case WhseRequest."Warehouse Source Document" of
+            WhseRequest."Warehouse Source Document"::"Purchase Order":
                 CreatePutAwayLinesFromPurchase(PurchHeader);
-            WhseRequest."Source Document"::"Purchase Return Order":
+            WhseRequest."Warehouse Source Document"::"Purchase Return Order":
                 CreatePutAwayLinesFromPurchase(PurchHeader);
-            WhseRequest."Source Document"::"Sales Order":
+            WhseRequest."Warehouse Source Document"::"Sales Order":
                 CreatePutAwayLinesFromSales(SalesHeader);
-            WhseRequest."Source Document"::"Sales Return Order":
+            WhseRequest."Warehouse Source Document"::"Sales Return Order":
                 CreatePutAwayLinesFromSales(SalesHeader);
-            WhseRequest."Source Document"::"Inbound Transfer":
+            WhseRequest."Warehouse Source Document"::"Inbound Transfer":
                 CreatePutAwayLinesFromTransfer(TransferHeader);
-            WhseRequest."Source Document"::"Prod. Output":
+            WhseRequest."Warehouse Source Document"::"Production Output":
                 CreatePutAwayLinesFromProd(ProdOrder);
-            WhseRequest."Source Document"::"Prod. Consumption":
+            WhseRequest."Warehouse Source Document"::"Production Consumption":
                 CreatePutAwayLinesFromComp(ProdOrder);
+            else
+                OnCreateInventoryPutaway(WhseRequest, LineCreated, WhseActivHeader);
         end;
 
         if LineCreated then
@@ -77,8 +79,8 @@ codeunit 7321 "Create Inventory Put-away"
             SetRange(Type, Type::Inbound);
             SetRange("Location Code", WhseActivHeader."Location Code");
             SetRange("Document Status", "Document Status"::Released);
-            if WhseActivHeader."Source Document" <> 0 then
-                SetRange("Source Document", WhseActivHeader."Source Document");
+            if WhseActivHeader."Warehouse Source Document" <> 0 then
+                SetRange("Warehouse Source Document", WhseActivHeader."Warehouse Source Document");
             if WhseActivHeader."Source No." <> '' then
                 SetRange("Source No.", WhseActivHeader."Source No.");
             SetRange("Completely Handled", false);
@@ -92,40 +94,40 @@ codeunit 7321 "Create Inventory Put-away"
 
     local procedure GetSourceDocHeader()
     begin
-        case WhseRequest."Source Document" of
-            WhseRequest."Source Document"::"Purchase Order":
+        case WhseRequest."Warehouse Source Document" of
+            WhseRequest."Warehouse Source Document"::"Purchase Order":
                 begin
                     PurchHeader.Get(PurchHeader."Document Type"::Order, WhseRequest."Source No.");
                     PostingDate := PurchHeader."Posting Date";
                     VendorDocNo := PurchHeader."Vendor Invoice No.";
                 end;
-            WhseRequest."Source Document"::"Purchase Return Order":
+            WhseRequest."Warehouse Source Document"::"Purchase Return Order":
                 begin
                     PurchHeader.Get(PurchHeader."Document Type"::"Return Order", WhseRequest."Source No.");
                     PostingDate := PurchHeader."Posting Date";
                     VendorDocNo := PurchHeader."Vendor Cr. Memo No.";
                 end;
-            WhseRequest."Source Document"::"Sales Order":
+            WhseRequest."Warehouse Source Document"::"Sales Order":
                 begin
                     SalesHeader.Get(SalesHeader."Document Type"::Order, WhseRequest."Source No.");
                     PostingDate := SalesHeader."Posting Date";
                 end;
-            WhseRequest."Source Document"::"Sales Return Order":
+            WhseRequest."Warehouse Source Document"::"Sales Return Order":
                 begin
                     SalesHeader.Get(SalesHeader."Document Type"::"Return Order", WhseRequest."Source No.");
                     PostingDate := SalesHeader."Posting Date";
                 end;
-            WhseRequest."Source Document"::"Inbound Transfer":
+            WhseRequest."Warehouse Source Document"::"Inbound Transfer":
                 begin
                     TransferHeader.Get(WhseRequest."Source No.");
                     PostingDate := TransferHeader."Posting Date";
                 end;
-            WhseRequest."Source Document"::"Prod. Output":
+            WhseRequest."Warehouse Source Document"::"Production Output":
                 begin
                     ProdOrder.Get(ProdOrder.Status::Released, WhseRequest."Source No.");
                     PostingDate := WorkDate;
                 end;
-            WhseRequest."Source Document"::"Prod. Consumption":
+            WhseRequest."Warehouse Source Document"::"Production Consumption":
                 begin
                     ProdOrder.Get(WhseRequest."Source Subtype", WhseRequest."Source No.");
                     PostingDate := WorkDate;
@@ -136,12 +138,13 @@ codeunit 7321 "Create Inventory Put-away"
     local procedure UpdateWhseActivHeader(WhseRequest: Record "Warehouse Request")
     begin
         with WhseRequest do begin
-            if WhseActivHeader."Source Document" = 0 then begin
+            if WhseActivHeader."Warehouse Source Document" = 0 then begin
                 WhseActivHeader."Source Document" := "Source Document";
+                WhseActivHeader."Warehouse Source Document" := "Warehouse Source Document";
                 WhseActivHeader."Source Type" := "Source Type";
                 WhseActivHeader."Source Subtype" := "Source Subtype";
             end else
-                WhseActivHeader.TestField("Source Document", "Source Document");
+                WhseActivHeader.TestField("Warehouse Source Document", "Warehouse Source Document");
             if WhseActivHeader."Source No." = '' then begin
                 WhseActivHeader."Source No." := "Source No.";
             end else
@@ -210,10 +213,13 @@ codeunit 7321 "Create Inventory Put-away"
                             NewWhseActivLine.Description := Description;
                             NewWhseActivLine."Description 2" := "Description 2";
                             NewWhseActivLine."Due Date" := "Expected Receipt Date";
-                            if "Document Type" = "Document Type"::Order then
-                                NewWhseActivLine."Source Document" := NewWhseActivLine."Source Document"::"Purchase Order"
-                            else
+                            if "Document Type" = "Document Type"::Order then begin
+                                NewWhseActivLine."Source Document" := NewWhseActivLine."Source Document"::"Purchase Order";
+                                NewWhseActivLine."Warehouse Source Document" := NewWhseActivLine."Warehouse Source Document"::"Purchase Order"
+                            end else begin
                                 NewWhseActivLine."Source Document" := NewWhseActivLine."Source Document"::"Purchase Return Order";
+                                NewWhseActivLine."Warehouse Source Document" := NewWhseActivLine."Warehouse Source Document"::"Purchase Return Order";
+                            end;
                             OnBeforeNewWhseActivLineInsertFromPurchase(NewWhseActivLine, PurchLine);
                             if not ReservationFound and SNRequired then
                                 repeat
@@ -298,10 +304,13 @@ codeunit 7321 "Create Inventory Put-away"
                             NewWhseActivLine.Description := Description;
                             NewWhseActivLine."Description 2" := "Description 2";
                             NewWhseActivLine."Due Date" := "Planned Shipment Date";
-                            if "Document Type" = "Document Type"::Order then
-                                NewWhseActivLine."Source Document" := NewWhseActivLine."Source Document"::"Sales Order"
-                            else
+                            if "Document Type" = "Document Type"::Order then begin
+                                NewWhseActivLine."Source Document" := NewWhseActivLine."Source Document"::"Sales Order";
+                                NewWhseActivLine."Warehouse Source Document" := NewWhseActivLine."Warehouse Source Document"::"Sales Order"
+                            end else begin
                                 NewWhseActivLine."Source Document" := NewWhseActivLine."Source Document"::"Sales Return Order";
+                                NewWhseActivLine."Warehouse Source Document" := NewWhseActivLine."Warehouse Source Document"::"Sales Return Order";
+                            end;
                             OnBeforeNewWhseActivLineInsertFromSales(NewWhseActivLine, SalesLine);
                             if not ReservationFound and SNRequired then
                                 repeat
@@ -370,6 +379,7 @@ codeunit 7321 "Create Inventory Put-away"
                             NewWhseActivLine."Line No." := NextLineNo;
                             NewWhseActivLine.SetSource(DATABASE::"Transfer Line", 1, "Document No.", "Line No.", 0);
                             NewWhseActivLine."Source Document" := NewWhseActivLine."Source Document"::"Inbound Transfer";
+                            NewWhseActivLine."Warehouse Source Document" := NewWhseActivLine."Warehouse Source Document"::"Inbound Transfer";
                             NewWhseActivLine."Location Code" := "Transfer-to Code";
                             if "Transfer-To Bin Code" = '' then
                                 NewWhseActivLine."Bin Code" := GetDefaultBinCode("Item No.", "Variant Code", "Transfer-to Code")
@@ -460,6 +470,7 @@ codeunit 7321 "Create Inventory Put-away"
                             NewWhseActivLine."Description 2" := "Description 2";
                             NewWhseActivLine."Due Date" := "Due Date";
                             NewWhseActivLine."Source Document" := NewWhseActivLine."Source Document"::"Prod. Output";
+                            NewWhseActivLine."Warehouse Source Document" := NewWhseActivLine."Warehouse Source Document"::"Production Output";
                             OnBeforeNewWhseActivLineInsertFromProd(NewWhseActivLine, ProdOrderLine);
                             if not ReservationFound and SNRequired then
                                 repeat
@@ -538,6 +549,7 @@ codeunit 7321 "Create Inventory Put-away"
                             NewWhseActivLine.Description := Description;
                             NewWhseActivLine."Due Date" := "Due Date";
                             NewWhseActivLine."Source Document" := NewWhseActivLine."Source Document"::"Prod. Consumption";
+                            NewWhseActivLine."Warehouse Source Document" := NewWhseActivLine."Warehouse Source Document"::"Production Consumption";
                             OnBeforeNewWhseActivLineInsertFromComp(NewWhseActivLine, ProdOrderComp);
                             if not ReservationFound and SNRequired then
                                 repeat
@@ -688,30 +700,35 @@ codeunit 7321 "Create Inventory Put-away"
         TransferLine: Record "Transfer Line";
         ProdOrderLine: Record "Prod. Order Line";
         ProdOrderComp: Record "Prod. Order Component";
+        Found: Boolean;
     begin
         WhseRequest := NewWhseRequest;
         if Location.RequireReceive(WhseRequest."Location Code") and
-           (WhseRequest."Source Document" <> WhseRequest."Source Document"::"Prod. Output")
+           (WhseRequest."Warehouse Source Document" <> WhseRequest."Warehouse Source Document"::"Production Output")
         then
             exit(false);
 
         GetSourceDocHeader;
         CheckLineExist := true;
-        case WhseRequest."Source Document" of
-            WhseRequest."Source Document"::"Purchase Order":
+        case WhseRequest."Warehouse Source Document" of
+            WhseRequest."Warehouse Source Document"::"Purchase Order":
                 exit(SetFilterPurchLine(PurchLine, PurchHeader));
-            WhseRequest."Source Document"::"Purchase Return Order":
+            WhseRequest."Warehouse Source Document"::"Purchase Return Order":
                 exit(SetFilterPurchLine(PurchLine, PurchHeader));
-            WhseRequest."Source Document"::"Sales Order":
+            WhseRequest."Warehouse Source Document"::"Sales Order":
                 exit(SetFilterSalesLine(SalesLine, SalesHeader));
-            WhseRequest."Source Document"::"Sales Return Order":
+            WhseRequest."Warehouse Source Document"::"Sales Return Order":
                 exit(SetFilterSalesLine(SalesLine, SalesHeader));
-            WhseRequest."Source Document"::"Inbound Transfer":
+            WhseRequest."Warehouse Source Document"::"Inbound Transfer":
                 exit(SetFilterTransferLine(TransferLine, TransferHeader));
-            WhseRequest."Source Document"::"Prod. Output":
+            WhseRequest."Warehouse Source Document"::"Production Output":
                 exit(SetFilterProdOrderLine(ProdOrderLine, ProdOrder));
-            WhseRequest."Source Document"::"Prod. Consumption":
+            WhseRequest."Warehouse Source Document"::"Production Consumption":
                 exit(SetFilterProdCompLine(ProdOrderComp, ProdOrder));
+            else begin
+                    OnCheckSourceDoc(WhseRequest, Found);
+                    exit(Found);
+                end;
         end;
     end;
 
@@ -722,20 +739,20 @@ codeunit 7321 "Create Inventory Put-away"
         AutoCreation := true;
         GetLocation(WhseRequest."Location Code");
 
-        case WhseRequest."Source Document" of
-            WhseRequest."Source Document"::"Purchase Order":
+        case WhseRequest."Warehouse Source Document" of
+            WhseRequest."Warehouse Source Document"::"Purchase Order":
                 CreatePutAwayLinesFromPurchase(PurchHeader);
-            WhseRequest."Source Document"::"Purchase Return Order":
+            WhseRequest."Warehouse Source Document"::"Purchase Return Order":
                 CreatePutAwayLinesFromPurchase(PurchHeader);
-            WhseRequest."Source Document"::"Sales Order":
+            WhseRequest."Warehouse Source Document"::"Sales Order":
                 CreatePutAwayLinesFromSales(SalesHeader);
-            WhseRequest."Source Document"::"Sales Return Order":
+            WhseRequest."Warehouse Source Document"::"Sales Return Order":
                 CreatePutAwayLinesFromSales(SalesHeader);
-            WhseRequest."Source Document"::"Inbound Transfer":
+            WhseRequest."Warehouse Source Document"::"Inbound Transfer":
                 CreatePutAwayLinesFromTransfer(TransferHeader);
-            WhseRequest."Source Document"::"Prod. Output":
+            WhseRequest."Warehouse Source Document"::"Production Output":
                 CreatePutAwayLinesFromProd(ProdOrder);
-            WhseRequest."Source Document"::"Prod. Consumption":
+            WhseRequest."Warehouse Source Document"::"Production Consumption":
                 CreatePutAwayLinesFromComp(ProdOrder);
         end;
         if LineCreated then begin
@@ -748,6 +765,11 @@ codeunit 7321 "Create Inventory Put-away"
 
     [IntegrationEvent(false, false)]
     local procedure OnAfterAutoCreatePutAway(var WarehouseRequest: Record "Warehouse Request"; LineCreated: Boolean; var WarehouseActivityHeader: Record "Warehouse Activity Header")
+    begin
+    end;
+
+    [IntegrationEvent(false, false)]
+    local procedure OnCreateInventoryPutaway(var WarehouseRequest: Record "Warehouse Request"; LineCreated: Boolean; var WarehouseActivityHeader: Record "Warehouse Activity Header")
     begin
     end;
 
@@ -848,6 +870,11 @@ codeunit 7321 "Create Inventory Put-away"
 
     [IntegrationEvent(false, false)]
     local procedure OnInsertWhseActivLineOnBeforeAutoCreation(var WarehouseActivityLine: Record "Warehouse Activity Line"; var TempTrackingSpecification: Record "Tracking Specification" temporary; ReservationFound: Boolean; SNRequired: Boolean; LNRequired: Boolean)
+    begin
+    end;
+
+    [IntegrationEvent(false, false)]
+    local procedure OnCheckSourceDoc(WhseRequest: Record "Warehouse Request"; Found: Boolean)
     begin
     end;
 }

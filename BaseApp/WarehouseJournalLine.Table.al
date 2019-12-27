@@ -314,6 +314,14 @@ table 7311 "Warehouse Journal Line"
             Editable = false;
             OptionCaption = ',S. Order,S. Invoice,S. Credit Memo,S. Return Order,P. Order,P. Invoice,P. Credit Memo,P. Return Order,Inb. Transfer,Outb. Transfer,Prod. Consumption,Item Jnl.,Phys. Invt. Jnl.,Reclass. Jnl.,Consumption Jnl.,Output Jnl.,BOM Jnl.,Serv Order,Job Jnl.,Assembly Consumption,Assembly Order';
             OptionMembers = ,"S. Order","S. Invoice","S. Credit Memo","S. Return Order","P. Order","P. Invoice","P. Credit Memo","P. Return Order","Inb. Transfer","Outb. Transfer","Prod. Consumption","Item Jnl.","Phys. Invt. Jnl.","Reclass. Jnl.","Consumption Jnl.","Output Jnl.","BOM Jnl.","Serv Order","Job Jnl.","Assembly Consumption","Assembly Order";
+            ObsoleteState = Pending;
+            ObsoleteReason = 'Option field "Source Document" is being replaced by Enum field "Warehouse Source Document"';
+        }
+        field(250; "Warehouse Source Document"; enum "Warehouse Source Document")
+        {
+            BlankZero = true;
+            Caption = 'Warehouse Source Document';
+            Editable = false;
         }
         field(26; "Source Code"; Code[10])
         {
@@ -731,6 +739,7 @@ table 7311 "Warehouse Journal Line"
         end;
         if WhseJnlTemplate.Type = WhseJnlTemplate.Type::"Physical Inventory" then begin
             "Source Document" := "Source Document"::"Phys. Invt. Jnl.";
+            "Warehouse Source Document" := "Warehouse Source Document"::"Physical Inventory Journal";
             "Whse. Document Type" := "Whse. Document Type"::"Whse. Phys. Inventory";
         end;
         "Source Code" := WhseJnlTemplate."Source Code";

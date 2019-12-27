@@ -21,7 +21,7 @@ page 9316 "Inventory Picks"
                     ApplicationArea = Warehouse;
                     ToolTip = 'Specifies the number of the involved entry or record, according to the specified number series.';
                 }
-                field(SourceDocument; "Source Document")
+                field(SourceDocument; "Warehouse Source Document")
                 {
                     ApplicationArea = Warehouse;
                     ToolTip = 'Specifies the type of document that the line relates to.';

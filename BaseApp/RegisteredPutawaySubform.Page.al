@@ -22,7 +22,7 @@ page 5796 "Registered Put-away Subform"
                     ToolTip = 'Specifies the action you must perform for the items on the line.';
                     Visible = false;
                 }
-                field("Source Document"; "Source Document")
+                field("Source Document"; "Warehouse Source Document")
                 {
                     ApplicationArea = Warehouse;
                     ToolTip = 'Specifies the type of document that the line relates to.';

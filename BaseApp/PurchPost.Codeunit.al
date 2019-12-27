@@ -3526,6 +3526,7 @@ codeunit 90 "Purch.-Post"
             TempWhseJnlLine."Source Type" := DATABASE::"Purchase Line";
             TempWhseJnlLine."Source Subtype" := "Document Type";
             TempWhseJnlLine."Source Document" := WhseMgt.GetSourceDocument(TempWhseJnlLine."Source Type", TempWhseJnlLine."Source Subtype");
+            TempWhseJnlLine."Warehouse Source Document" := WhseMgt.GetSourceDocument(TempWhseJnlLine."Source Type", TempWhseJnlLine."Source Subtype");
             TempWhseJnlLine."Source No." := "Document No.";
             TempWhseJnlLine."Source Line No." := "Line No.";
             TempWhseJnlLine."Source Code" := SrcCode;

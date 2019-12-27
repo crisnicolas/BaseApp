@@ -1643,6 +1643,7 @@ codeunit 1751 "Data Classification Eval. Data"
         SetFieldToCompanyConfidential(TableNo, DummyWarehouseEntry.FieldNo("Reason Code"));
         SetFieldToCompanyConfidential(TableNo, DummyWarehouseEntry.FieldNo("Source Code"));
         SetFieldToCompanyConfidential(TableNo, DummyWarehouseEntry.FieldNo("Source Document"));
+        SetFieldToCompanyConfidential(TableNo, DummyWarehouseEntry.FieldNo("Warehouse Source Document"));
         SetFieldToCompanyConfidential(TableNo, DummyWarehouseEntry.FieldNo("Source Subline No."));
         SetFieldToCompanyConfidential(TableNo, DummyWarehouseEntry.FieldNo("Source Line No."));
         SetFieldToCompanyConfidential(TableNo, DummyWarehouseEntry.FieldNo("Source No."));

@@ -1325,8 +1325,8 @@ table 900 "Assembly Header"
         TestField(Status, Status::Released);
 
         WhseRequest.Reset;
-        WhseRequest.SetCurrentKey("Source Document", "Source No.");
-        WhseRequest.SetRange("Source Document", WhseRequest."Source Document"::"Assembly Consumption");
+        WhseRequest.SetCurrentKey("Warehouse Source Document", "Source No.");
+        WhseRequest.SetRange("Warehouse Source Document", WhseRequest."Warehouse Source Document"::"Assembly Consumption");
         WhseRequest.SetRange("Source No.", "No.");
         CreateInvtPutAwayPickMvmt.SetTableView(WhseRequest);
 

@@ -88,7 +88,7 @@ codeunit 7324 "Whse.-Activity-Post"
                   WhseRequest.Type::Outbound, "Location Code",
                   "Source Type", "Source Subtype", "Source No.");
             if WhseRequest."Document Status" <> WhseRequest."Document Status"::Released then
-                Error(Text005, "Source Document", "Source No.");
+                Error(Text005, "Warehouse Source Document", "Source No.");
 
             if not HideDialog then begin
                 Window.Open(
@@ -132,12 +132,12 @@ codeunit 7324 "Whse.-Activity-Post"
                     PostedInvtPickLine.LockTable;
                 end;
 
-                if "Source Document" = "Source Document"::"Prod. Consumption" then begin
+                if "Warehouse Source Document" = "Warehouse Source Document"::"Production Consumption" then begin
                     PostConsumption;
                     WhseProdRelease.Release(ProdOrder);
                 end else
                     if (Type = Type::"Invt. Put-away") and
-                       ("Source Document" = "Source Document"::"Prod. Output")
+                       ("Warehouse Source Document" = "Warehouse Source Document"::"Production Output")
                     then begin
                         PostOutput;
                         WhseOutputRelease.Release(ProdOrder);
@@ -193,16 +193,16 @@ codeunit 7324 "Whse.-Activity-Post"
                 Window.Close;
 
             if PrintDoc then
-                case "Source Document" of
-                    "Source Document"::"Purchase Order",
-                  "Source Document"::"Purchase Return Order":
+                case "Warehouse Source Document" of
+                    "Warehouse Source Document"::"Purchase Order",
+                  "Warehouse Source Document"::"Purchase Return Order":
                         PurchPostPrint.GetReport(PurchHeader);
-                    "Source Document"::"Sales Order",
-                  "Source Document"::"Sales Return Order":
+                    "Warehouse Source Document"::"Sales Order",
+                  "Warehouse Source Document"::"Sales Return Order":
                         SalesPostPrint.GetReport(SalesHeader);
-                    "Source Document"::"Inbound Transfer":
+                    "Warehouse Source Document"::"Inbound Transfer":
                         TransferOrderPostPrint.PrintReport(TransHeader, Selection::Receipt);
-                    "Source Document"::"Outbound Transfer":
+                    "Warehouse Source Document"::"Outbound Transfer":
                         TransferOrderPostPrint.PrintReport(TransHeader, Selection::Shipment);
                 end;
 
@@ -257,7 +257,7 @@ codeunit 7324 "Whse.-Activity-Post"
                         PurchLine.SetRange("Document No.", "Source No.");
                         if PurchLine.Find('-') then
                             repeat
-                                if "Source Document" = "Source Document"::"Purchase Order" then
+                                if "Warehouse Source Document" = "Warehouse Source Document"::"Purchase Order" then
                                     PurchLine.Validate("Qty. to Receive", 0)
                                 else
                                     PurchLine.Validate("Return Qty. to Ship", 0);
@@ -279,7 +279,7 @@ codeunit 7324 "Whse.-Activity-Post"
                             ModifyHeader := true;
                         end;
                         if "External Document No.2" <> '' then begin
-                            if "Source Document" = "Source Document"::"Purchase Order" then
+                            if "Warehouse Source Document" = "Warehouse Source Document"::"Purchase Order" then
                                 PurchHeader."Vendor Invoice No." := "External Document No.2"
                             else
                                 PurchHeader."Vendor Cr. Memo No." := "External Document No.2";
@@ -297,7 +297,7 @@ codeunit 7324 "Whse.-Activity-Post"
                             SalesLine.SetRange(Type, SalesLine.Type::Item);
                         if SalesLine.Find('-') then
                             repeat
-                                if "Source Document" = "Source Document"::"Sales Order" then
+                                if "Warehouse Source Document" = "Warehouse Source Document"::"Sales Order" then
                                     SalesLine.Validate("Qty. to Ship", 0)
                                 else
                                     SalesLine.Validate("Return Qty. to Receive", 0);
@@ -368,7 +368,7 @@ codeunit 7324 "Whse.-Activity-Post"
                             "Qty. to Handle (Base)" := -"Qty. to Handle (Base)";
                         end;
                         PurchLine.Get("Source Subtype", "Source No.", "Source Line No.");
-                        if "Source Document" = "Source Document"::"Purchase Order" then begin
+                        if "Warehouse Source Document" = "Warehouse Source Document"::"Purchase Order" then begin
                             PurchLine.Validate("Qty. to Receive", "Qty. to Handle");
                             PurchLine."Qty. to Receive (Base)" := "Qty. to Handle (Base)";
                             if InvoiceSourceDoc then
@@ -391,7 +391,7 @@ codeunit 7324 "Whse.-Activity-Post"
                             "Qty. to Handle (Base)" := -"Qty. to Handle (Base)";
                         end;
                         SalesLine.Get("Source Subtype", "Source No.", "Source Line No.");
-                        if "Source Document" = "Source Document"::"Sales Order" then begin
+                        if "Warehouse Source Document" = "Warehouse Source Document"::"Sales Order" then begin
                             SalesLine.Validate("Qty. to Ship", -"Qty. to Handle");
                             SalesLine."Qty. to Ship (Base)" := -"Qty. to Handle (Base)";
                             if InvoiceSourceDoc then
@@ -463,14 +463,14 @@ codeunit 7324 "Whse.-Activity-Post"
                     begin
                         Clear(PurchPost);
                         Commit;
-                        if "Source Document" = "Source Document"::"Purchase Order" then
+                        if "Warehouse Source Document" = "Warehouse Source Document"::"Purchase Order" then
                             PurchHeader.Receive := true
                         else
                             PurchHeader.Ship := true;
                         PurchHeader.Invoice := InvoiceSourceDoc;
                         PurchHeader."Posting from Whse. Ref." := PostingReference;
                         PurchPost.Run(PurchHeader);
-                        if "Source Document" = "Source Document"::"Purchase Order" then begin
+                        if "Warehouse Source Document" = "Warehouse Source Document"::"Purchase Order" then begin
                             PostedSourceType := DATABASE::"Purch. Rcpt. Header";
                             PostedSourceNo := PurchHeader."Last Receiving No.";
                         end else begin
@@ -483,7 +483,7 @@ codeunit 7324 "Whse.-Activity-Post"
                     begin
                         Clear(SalesPost);
                         Commit;
-                        if "Source Document" = "Source Document"::"Sales Order" then
+                        if "Warehouse Source Document" = "Warehouse Source Document"::"Sales Order" then
                             SalesHeader.Ship := true
                         else
                             SalesHeader.Receive := true;
@@ -491,7 +491,7 @@ codeunit 7324 "Whse.-Activity-Post"
                         SalesHeader."Posting from Whse. Ref." := PostingReference;
                         SalesPost.SetWhseJnlRegisterCU(WhseJnlRegisterLine);
                         SalesPost.Run(SalesHeader);
-                        if "Source Document" = "Source Document"::"Sales Order" then begin
+                        if "Warehouse Source Document" = "Warehouse Source Document"::"Sales Order" then begin
                             PostedSourceType := DATABASE::"Sales Shipment Header";
                             PostedSourceNo := SalesHeader."Last Shipping No.";
                         end else begin
@@ -571,43 +571,43 @@ codeunit 7324 "Whse.-Activity-Post"
             WhseJnlLine."Source Subtype" := PostedSourceSubType;
             WhseJnlLine."Source No." := PostedSourceNo;
             WhseJnlLine."Reference No." := PostedSourceNo;
-            case "Source Document" of
-                "Source Document"::"Purchase Order":
+            case "Warehouse Source Document" of
+                "Warehouse Source Document"::"Purchase Order":
                     begin
                         WhseJnlLine."Source Code" := SourceCodeSetup.Purchases;
                         WhseJnlLine."Reference Document" := WhseJnlLine."Reference Document"::"Posted Rcpt.";
                     end;
-                "Source Document"::"Sales Order":
+                "Warehouse Source Document"::"Sales Order":
                     begin
                         WhseJnlLine."Source Code" := SourceCodeSetup.Sales;
                         WhseJnlLine."Reference Document" := WhseJnlLine."Reference Document"::"Posted Shipment";
                     end;
-                "Source Document"::"Purchase Return Order":
+                "Warehouse Source Document"::"Purchase Return Order":
                     begin
                         WhseJnlLine."Source Code" := SourceCodeSetup.Purchases;
                         WhseJnlLine."Reference Document" := WhseJnlLine."Reference Document"::"Posted Rtrn. Shipment";
                     end;
-                "Source Document"::"Sales Return Order":
+                "Warehouse Source Document"::"Sales Return Order":
                     begin
                         WhseJnlLine."Source Code" := SourceCodeSetup.Sales;
                         WhseJnlLine."Reference Document" := WhseJnlLine."Reference Document"::"Posted Rtrn. Rcpt.";
                     end;
-                "Source Document"::"Outbound Transfer":
+                "Warehouse Source Document"::"Outbound Transfer":
                     begin
                         WhseJnlLine."Source Code" := SourceCodeSetup.Transfer;
                         WhseJnlLine."Reference Document" := WhseJnlLine."Reference Document"::"Posted T. Shipment";
                     end;
-                "Source Document"::"Inbound Transfer":
+                "Warehouse Source Document"::"Inbound Transfer":
                     begin
                         WhseJnlLine."Source Code" := SourceCodeSetup.Transfer;
                         WhseJnlLine."Reference Document" := WhseJnlLine."Reference Document"::"Posted T. Receipt";
                     end;
-                "Source Document"::"Prod. Consumption":
+                "Warehouse Source Document"::"Production Consumption":
                     begin
                         WhseJnlLine."Source Code" := SourceCodeSetup."Consumption Journal";
                         WhseJnlLine."Reference Document" := WhseJnlLine."Reference Document"::"Prod.";
                     end;
-                "Source Document"::"Prod. Output":
+                "Warehouse Source Document"::"Production Output":
                     begin
                         WhseJnlLine."Source Code" := SourceCodeSetup."Output Journal";
                         WhseJnlLine."Reference Document" := WhseJnlLine."Reference Document"::"Prod.";

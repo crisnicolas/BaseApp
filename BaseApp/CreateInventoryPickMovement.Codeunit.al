@@ -64,21 +64,23 @@ codeunit 7322 "Create Inventory Pick/Movement"
         GetSourceDocHeader;
         UpdateWhseActivHeader(WhseRequest);
 
-        case WhseRequest."Source Document" of
-            WhseRequest."Source Document"::"Purchase Order":
+        case WhseRequest."Warehouse Source Document" of
+            WhseRequest."Warehouse Source Document"::"Purchase Order":
                 CreatePickOrMoveFromPurchase(PurchHeader);
-            WhseRequest."Source Document"::"Purchase Return Order":
+            WhseRequest."Warehouse Source Document"::"Purchase Return Order":
                 CreatePickOrMoveFromPurchase(PurchHeader);
-            WhseRequest."Source Document"::"Sales Order":
+            WhseRequest."Warehouse Source Document"::"Sales Order":
                 CreatePickOrMoveFromSales(SalesHeader);
-            WhseRequest."Source Document"::"Sales Return Order":
+            WhseRequest."Warehouse Source Document"::"Sales Return Order":
                 CreatePickOrMoveFromSales(SalesHeader);
-            WhseRequest."Source Document"::"Outbound Transfer":
+            WhseRequest."Warehouse Source Document"::"Outbound Transfer":
                 CreatePickOrMoveFromTransfer(TransferHeader);
-            WhseRequest."Source Document"::"Prod. Consumption":
+            WhseRequest."Warehouse Source Document"::"Production Consumption":
                 CreatePickOrMoveFromProduction(ProdHeader);
-            WhseRequest."Source Document"::"Assembly Consumption":
+            WhseRequest."Warehouse Source Document"::"Assembly Consumption":
                 CreatePickOrMoveFromAssembly(AssemblyHeader);
+            else
+                OnCreateInventoryPickMovement(WhseRequest, LineCreated, WhseActivHeader);
         end;
 
         if LineCreated then
@@ -97,14 +99,14 @@ codeunit 7322 "Create Inventory Pick/Movement"
             SetRange(Type, Type::Outbound);
             SetRange("Location Code", WhseActivHeader."Location Code");
             SetRange("Document Status", "Document Status"::Released);
-            if WhseActivHeader."Source Document" <> 0 then
-                SetRange("Source Document", WhseActivHeader."Source Document")
+            if WhseActivHeader."Warehouse Source Document" <> 0 then
+                SetRange("Warehouse Source Document", WhseActivHeader."Warehouse Source Document")
             else
                 if WhseActivHeader.Type = WhseActivHeader.Type::"Invt. Movement" then
-                    SetFilter("Source Document", '%1|%2|%3',
-                      WhseActivHeader."Source Document"::"Prod. Consumption",
-                      WhseActivHeader."Source Document"::"Prod. Output",
-                      WhseActivHeader."Source Document"::"Assembly Consumption");
+                    SetFilter("Warehouse Source Document", '%1|%2|%3',
+                      WhseActivHeader."Warehouse Source Document"::"Production Consumption",
+                      WhseActivHeader."Warehouse Source Document"::"Production Output",
+                      WhseActivHeader."Warehouse Source Document"::"Assembly Consumption");
             if WhseActivHeader."Source No." <> '' then
                 SetRange("Source No.", WhseActivHeader."Source No.");
             SetRange("Completely Handled", false);
@@ -116,40 +118,40 @@ codeunit 7322 "Create Inventory Pick/Movement"
 
     local procedure GetSourceDocHeader()
     begin
-        case WhseRequest."Source Document" of
-            WhseRequest."Source Document"::"Purchase Order":
+        case WhseRequest."Warehouse Source Document" of
+            WhseRequest."Warehouse Source Document"::"Purchase Order":
                 begin
                     PurchHeader.Get(PurchHeader."Document Type"::Order, WhseRequest."Source No.");
                     PostingDate := PurchHeader."Posting Date";
                     VendorDocNo := PurchHeader."Vendor Invoice No.";
                 end;
-            WhseRequest."Source Document"::"Purchase Return Order":
+            WhseRequest."Warehouse Source Document"::"Purchase Return Order":
                 begin
                     PurchHeader.Get(PurchHeader."Document Type"::"Return Order", WhseRequest."Source No.");
                     PostingDate := PurchHeader."Posting Date";
                     VendorDocNo := PurchHeader."Vendor Cr. Memo No.";
                 end;
-            WhseRequest."Source Document"::"Sales Order":
+            WhseRequest."Warehouse Source Document"::"Sales Order":
                 begin
                     SalesHeader.Get(SalesHeader."Document Type"::Order, WhseRequest."Source No.");
                     PostingDate := SalesHeader."Posting Date";
                 end;
-            WhseRequest."Source Document"::"Sales Return Order":
+            WhseRequest."Warehouse Source Document"::"Sales Return Order":
                 begin
                     SalesHeader.Get(SalesHeader."Document Type"::"Return Order", WhseRequest."Source No.");
                     PostingDate := SalesHeader."Posting Date";
                 end;
-            WhseRequest."Source Document"::"Outbound Transfer":
+            WhseRequest."Warehouse Source Document"::"Outbound Transfer":
                 begin
                     TransferHeader.Get(WhseRequest."Source No.");
                     PostingDate := TransferHeader."Posting Date";
                 end;
-            WhseRequest."Source Document"::"Prod. Consumption":
+            WhseRequest."Warehouse Source Document"::"Production Consumption":
                 begin
                     ProdHeader.Get(WhseRequest."Source Subtype", WhseRequest."Source No.");
                     PostingDate := WorkDate;
                 end;
-            WhseRequest."Source Document"::"Assembly Consumption":
+            WhseRequest."Warehouse Source Document"::"Assembly Consumption":
                 begin
                     AssemblyHeader.Get(WhseRequest."Source Subtype", WhseRequest."Source No.");
                     PostingDate := AssemblyHeader."Posting Date";
@@ -160,12 +162,13 @@ codeunit 7322 "Create Inventory Pick/Movement"
     local procedure UpdateWhseActivHeader(WhseRequest: Record "Warehouse Request")
     begin
         with WhseRequest do begin
-            if WhseActivHeader."Source Document" = 0 then begin
+            if WhseActivHeader."Warehouse Source Document" = 0 then begin
                 WhseActivHeader."Source Document" := "Source Document";
+                WhseActivHeader."Warehouse Source Document" := "Warehouse Source Document";
                 WhseActivHeader."Source Type" := "Source Type";
                 WhseActivHeader."Source Subtype" := "Source Subtype";
             end else
-                WhseActivHeader.TestField("Source Document", "Source Document");
+                WhseActivHeader.TestField("Warehouse Source Document", "Warehouse Source Document");
             if WhseActivHeader."Source No." = '' then
                 WhseActivHeader."Source No." := "Source No."
             else
@@ -223,10 +226,13 @@ codeunit 7322 "Create Inventory Pick/Movement"
                         NewWhseActivLine."Destination No." := PurchHeader."Buy-from Vendor No.";
                         if "Document Type" = "Document Type"::Order then begin
                             NewWhseActivLine."Source Document" := NewWhseActivLine."Source Document"::"Purchase Order";
+                            NewWhseActivLine."Warehouse Source Document" := NewWhseActivLine."Warehouse Source Document"::"Purchase Order";
                             RemQtyToPickBase := -"Qty. to Receive (Base)";
                         end else begin
                             NewWhseActivLine."Source Document" :=
                               NewWhseActivLine."Source Document"::"Purchase Return Order";
+                            NewWhseActivLine."Warehouse Source Document" :=
+                              NewWhseActivLine."Warehouse Source Document"::"Purchase Return Order";
                             RemQtyToPickBase := "Return Qty. to Ship (Base)";
                         end;
                         OnBeforeNewWhseActivLineInsertFromPurchase(NewWhseActivLine, PurchLine);
@@ -303,9 +309,11 @@ codeunit 7322 "Create Inventory Pick/Movement"
 
                         if "Document Type" = "Document Type"::Order then begin
                             NewWhseActivLine."Source Document" := NewWhseActivLine."Source Document"::"Sales Order";
+                            NewWhseActivLine."Warehouse Source Document" := NewWhseActivLine."Warehouse Source Document"::"Sales Order";
                             RemQtyToPickBase := "Qty. to Ship (Base)";
                         end else begin
                             NewWhseActivLine."Source Document" := NewWhseActivLine."Source Document"::"Sales Return Order";
+                            NewWhseActivLine."Warehouse Source Document" := NewWhseActivLine."Warehouse Source Document"::"Sales Return Order";
                             RemQtyToPickBase := -"Return Qty. to Receive (Base)";
                         end;
                         OnBeforeNewWhseActivLineInsertFromSales(NewWhseActivLine, SalesLine);
@@ -383,6 +391,7 @@ codeunit 7322 "Create Inventory Pick/Movement"
                             NewWhseActivLine."Action Type" := NewWhseActivLine."Action Type"::Take;
                         NewWhseActivLine.SetSource(DATABASE::"Transfer Line", 0, "Document No.", "Line No.", 0);
                         NewWhseActivLine."Source Document" := NewWhseActivLine."Source Document"::"Outbound Transfer";
+                        NewWhseActivLine."Warehouse Source Document" := NewWhseActivLine."Warehouse Source Document"::"Outbound Transfer";
                         NewWhseActivLine."Location Code" := "Transfer-from Code";
                         NewWhseActivLine."Bin Code" := "Transfer-from Bin Code";
                         NewWhseActivLine."Item No." := "Item No.";
@@ -478,6 +487,7 @@ codeunit 7322 "Create Inventory Pick/Movement"
                         NewWhseActivLine."Qty. per Unit of Measure" := "Qty. per Unit of Measure";
                         NewWhseActivLine.Description := Description;
                         NewWhseActivLine."Source Document" := NewWhseActivLine."Source Document"::"Prod. Consumption";
+                        NewWhseActivLine."Warehouse Source Document" := NewWhseActivLine."Warehouse Source Document"::"Production Consumption";
                         NewWhseActivLine."Due Date" := "Due Date";
                         if WhseActivHeader.Type = WhseActivHeader.Type::"Invt. Pick" then
                             RemQtyToPickBase := "Remaining Qty. (Base)"
@@ -528,6 +538,7 @@ codeunit 7322 "Create Inventory Pick/Movement"
                     NewWhseActivLine."Qty. per Unit of Measure" := "Qty. per Unit of Measure";
                     NewWhseActivLine.Description := Description;
                     NewWhseActivLine."Source Document" := NewWhseActivLine."Source Document"::"Assembly Consumption";
+                    NewWhseActivLine."Warehouse Source Document" := NewWhseActivLine."Warehouse Source Document"::"Assembly Consumption";
                     NewWhseActivLine."Due Date" := "Due Date";
                     NewWhseActivLine."Destination Type" := NewWhseActivLine."Destination Type"::Item;
                     NewWhseActivLine."Destination No." := AssemblyHeader."Item No.";
@@ -917,20 +928,20 @@ codeunit 7322 "Create Inventory Pick/Movement"
 
         GetSourceDocHeader;
         CheckLineExist := true;
-        case WhseRequest."Source Document" of
-            WhseRequest."Source Document"::"Purchase Order":
+        case WhseRequest."Warehouse Source Document" of
+            WhseRequest."Warehouse Source Document"::"Purchase Order":
                 exit(SetFilterPurchLine(PurchLine, PurchHeader));
-            WhseRequest."Source Document"::"Purchase Return Order":
+            WhseRequest."Warehouse Source Document"::"Purchase Return Order":
                 exit(SetFilterPurchLine(PurchLine, PurchHeader));
-            WhseRequest."Source Document"::"Sales Order":
+            WhseRequest."Warehouse Source Document"::"Sales Order":
                 exit(SetFilterSalesLine(SalesLine, SalesHeader));
-            WhseRequest."Source Document"::"Sales Return Order":
+            WhseRequest."Warehouse Source Document"::"Sales Return Order":
                 exit(SetFilterSalesLine(SalesLine, SalesHeader));
-            WhseRequest."Source Document"::"Outbound Transfer":
+            WhseRequest."Warehouse Source Document"::"Outbound Transfer":
                 exit(SetFilterTransferLine(TransferLine, TransferHeader));
-            WhseRequest."Source Document"::"Prod. Consumption":
+            WhseRequest."Warehouse Source Document"::"Production Consumption":
                 exit(SetFilterProductionLine(ProdOrderComp, ProdHeader));
-            WhseRequest."Source Document"::"Assembly Consumption":
+            WhseRequest."Warehouse Source Document"::"Assembly Consumption":
                 exit(SetFilterAssemblyLine(AssemblyLine, AssemblyHeader));
         end;
     end;
@@ -942,21 +953,23 @@ codeunit 7322 "Create Inventory Pick/Movement"
         AutoCreation := true;
         GetLocation(WhseRequest."Location Code");
 
-        case WhseRequest."Source Document" of
-            WhseRequest."Source Document"::"Purchase Order":
+        case WhseRequest."Warehouse Source Document" of
+            WhseRequest."Warehouse Source Document"::"Purchase Order":
                 CreatePickOrMoveFromPurchase(PurchHeader);
-            WhseRequest."Source Document"::"Purchase Return Order":
+            WhseRequest."Warehouse Source Document"::"Purchase Return Order":
                 CreatePickOrMoveFromPurchase(PurchHeader);
-            WhseRequest."Source Document"::"Sales Order":
+            WhseRequest."Warehouse Source Document"::"Sales Order":
                 CreatePickOrMoveFromSales(SalesHeader);
-            WhseRequest."Source Document"::"Sales Return Order":
+            WhseRequest."Warehouse Source Document"::"Sales Return Order":
                 CreatePickOrMoveFromSales(SalesHeader);
-            WhseRequest."Source Document"::"Outbound Transfer":
+            WhseRequest."Warehouse Source Document"::"Outbound Transfer":
                 CreatePickOrMoveFromTransfer(TransferHeader);
-            WhseRequest."Source Document"::"Prod. Consumption":
+            WhseRequest."Warehouse Source Document"::"Production Consumption":
                 CreatePickOrMoveFromProduction(ProdHeader);
-            WhseRequest."Source Document"::"Assembly Consumption":
+            WhseRequest."Warehouse Source Document"::"Assembly Consumption":
                 CreatePickOrMoveFromAssembly(AssemblyHeader);
+            else
+                OnCreatePickOrMove(WhseRequest, LineCreated, WhseActivHeaderNew);
         end;
 
         if LineCreated then begin
@@ -1520,7 +1533,17 @@ codeunit 7322 "Create Inventory Pick/Movement"
     end;
 
     [IntegrationEvent(false, false)]
+    local procedure OnCreatePickOrMove(var WarehouseRequest: Record "Warehouse Request"; LineCreated: Boolean; var WarehouseActivityHeader: Record "Warehouse Activity Header")
+    begin
+    end;
+
+    [IntegrationEvent(false, false)]
     local procedure OnAfterAutoCreatePickOrMove(var WarehouseRequest: Record "Warehouse Request"; LineCreated: Boolean; var WarehouseActivityHeader: Record "Warehouse Activity Header")
+    begin
+    end;
+
+    [IntegrationEvent(false, false)]
+    local procedure OnCreateInventoryPickMovement(var WarehouseRequest: Record "Warehouse Request"; LineCreated: Boolean; var WarehouseActivityHeader: Record "Warehouse Activity Header")
     begin
     end;
 

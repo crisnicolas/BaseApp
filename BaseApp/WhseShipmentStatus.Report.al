@@ -58,7 +58,7 @@ report 7313 "Whse. Shipment Status"
                 {
                     IncludeCaption = true;
                 }
-                column(SourceDoc_WhseShptLine; "Source Document")
+                column(SourceDoc_WhseShptLine; "Warehouse Source Document")
                 {
                     IncludeCaption = true;
                 }

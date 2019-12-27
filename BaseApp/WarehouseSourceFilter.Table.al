@@ -163,6 +163,12 @@ table 5771 "Warehouse Source Filter"
         field(99; "Source Document"; Code[250])
         {
             Caption = 'Source Document';
+            ObsoleteState = Pending;
+            ObsoleteReason = 'Option field "Source Document" is being replaced by Enum field "Warehouse Source Document"';
+        }
+        field(990; "Warehouse Source Document"; Code[250])
+        {
+            Caption = 'Warehouse Source Document';
         }
         field(100; Type; Option)
         {
@@ -346,46 +352,54 @@ table 5771 "Warehouse Source Filter"
         ServiceLine: Record "Service Line";
     begin
         "Source Document" := '';
+        "Warehouse Source Document" := '';
 
         if "Sales Orders" then begin
             WhseRequest."Source Document" := WhseRequest."Source Document"::"Sales Order";
-            AddFilter("Source Document", Format(WhseRequest."Source Document"));
+            WhseRequest."Warehouse Source Document" := WhseRequest."Warehouse Source Document"::"Sales Order";
+            AddFilter("Warehouse Source Document", Format(WhseRequest."Warehouse Source Document"));
         end;
 
         if "Service Orders" then begin
             WhseRequest."Source Document" := WhseRequest."Source Document"::"Service Order";
-            AddFilter("Source Document", Format(WhseRequest."Source Document"));
+            WhseRequest."Warehouse Source Document" := WhseRequest."Warehouse Source Document"::"Service Order";
+            AddFilter("Warehouse Source Document", Format(WhseRequest."Warehouse Source Document"));
         end;
 
         if "Sales Return Orders" then begin
             WhseRequest."Source Document" := WhseRequest."Source Document"::"Sales Return Order";
-            AddFilter("Source Document", Format(WhseRequest."Source Document"));
+            WhseRequest."Warehouse Source Document" := WhseRequest."Warehouse Source Document"::"Sales Return Order";
+            AddFilter("Warehouse Source Document", Format(WhseRequest."Warehouse Source Document"));
         end;
 
         if "Outbound Transfers" then begin
             WhseRequest."Source Document" := WhseRequest."Source Document"::"Outbound Transfer";
-            AddFilter("Source Document", Format(WhseRequest."Source Document"));
+            WhseRequest."Warehouse Source Document" := WhseRequest."Warehouse Source Document"::"Outbound Transfer";
+            AddFilter("Warehouse Source Document", Format(WhseRequest."Warehouse Source Document"));
         end;
 
         if "Purchase Orders" then begin
             WhseRequest."Source Document" := WhseRequest."Source Document"::"Purchase Order";
-            AddFilter("Source Document", Format(WhseRequest."Source Document"));
+            WhseRequest."Warehouse Source Document" := WhseRequest."Warehouse Source Document"::"Purchase Order";
+            AddFilter("Warehouse Source Document", Format(WhseRequest."Warehouse Source Document"));
         end;
 
         if "Purchase Return Orders" then begin
             WhseRequest."Source Document" := WhseRequest."Source Document"::"Purchase Return Order";
-            AddFilter("Source Document", Format(WhseRequest."Source Document"));
+            WhseRequest."Warehouse Source Document" := WhseRequest."Warehouse Source Document"::"Purchase Return Order";
+            AddFilter("Warehouse Source Document", Format(WhseRequest."Warehouse Source Document"));
         end;
 
         if "Inbound Transfers" then begin
             WhseRequest."Source Document" := WhseRequest."Source Document"::"Inbound Transfer";
-            AddFilter("Source Document", Format(WhseRequest."Source Document"));
+            WhseRequest."Warehouse Source Document" := WhseRequest."Warehouse Source Document"::"Inbound Transfer";
+            AddFilter("Warehouse Source Document", Format(WhseRequest."Warehouse Source Document"));
         end;
 
-        if "Source Document" = '' then
-            Error(Text000, FieldCaption("Source Document"));
+        if "Warehouse Source Document" = '' then
+            Error(Text000, FieldCaption("Warehouse Source Document"));
 
-        WhseRequest.SetFilter("Source Document", "Source Document");
+        WhseRequest.SetFilter("Warehouse Source Document", "Warehouse Source Document");
 
         WhseRequest.SetFilter("Source No.", "Source No. Filter");
         WhseRequest.SetFilter("Shipment Method Code", "Shipment Method Code Filter");
@@ -474,13 +488,13 @@ table 5771 "Warehouse Source Filter"
     local procedure CheckInboundSourceDocumentChosen()
     begin
         if not ("Sales Return Orders" or "Purchase Orders" or "Inbound Transfers") then
-            Error(Text000, FieldCaption("Source Document"));
+            Error(Text000, FieldCaption("Warehouse Source Document"));
     end;
 
     local procedure CheckOutboundSourceDocumentChosen()
     begin
         if not ("Sales Orders" or "Purchase Return Orders" or "Outbound Transfers" or "Service Orders") then
-            Error(Text000, FieldCaption("Source Document"));
+            Error(Text000, FieldCaption("Warehouse Source Document"));
     end;
 
     [IntegrationEvent(false, false)]

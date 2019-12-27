@@ -3933,16 +3933,16 @@ table 36 "Sales Header"
         TestField(Status, Status::Released);
 
         WhseRequest.Reset;
-        WhseRequest.SetCurrentKey("Source Document", "Source No.");
+        WhseRequest.SetCurrentKey("Warehouse Source Document", "Source No.");
         case "Document Type" of
             "Document Type"::Order:
                 begin
                     if "Shipping Advice" = "Shipping Advice"::Complete then
                         CheckShippingAdvice;
-                    WhseRequest.SetRange("Source Document", WhseRequest."Source Document"::"Sales Order");
+                    WhseRequest.SetRange("Warehouse Source Document", WhseRequest."Warehouse Source Document"::"Sales Order");
                 end;
             "Document Type"::"Return Order":
-                WhseRequest.SetRange("Source Document", WhseRequest."Source Document"::"Sales Return Order");
+                WhseRequest.SetRange("Warehouse Source Document", WhseRequest."Warehouse Source Document"::"Sales Return Order");
         end;
         WhseRequest.SetRange("Source No.", "No.");
         REPORT.RunModal(REPORT::"Create Invt Put-away/Pick/Mvmt", true, false, WhseRequest);

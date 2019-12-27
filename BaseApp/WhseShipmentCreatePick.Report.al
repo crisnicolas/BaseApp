@@ -84,7 +84,7 @@ report 7318 "Whse.-Shipment - Create Pick"
                         if "Destination Type" = "Destination Type"::Customer then begin
                             TestField("Destination No.");
                             Cust.Get("Destination No.");
-                            Cust.CheckBlockedCustOnDocs(Cust, "Source Document", false, false);
+                            Cust.CheckBlockedCustOnDocs(Cust, "Warehouse Source Document", false, false);
                         end;
 
                         CreatePick.SetWhseShipment(

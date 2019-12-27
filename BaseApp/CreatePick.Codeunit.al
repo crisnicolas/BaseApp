@@ -1259,8 +1259,10 @@ codeunit 7312 "Create Pick"
         if not (WhseActivLine."Whse. Document Type" in [
                                                         WhseActivLine."Whse. Document Type"::"Internal Pick",
                                                         WhseActivLine."Whse. Document Type"::"Movement Worksheet"])
-        then
+        then begin
             WhseActivLine."Source Document" := WhseMgt.GetSourceDocument(WhseActivLine."Source Type", WhseActivLine."Source Subtype");
+            WhseActivLine."Warehouse Source Document" := WhseMgt.GetSourceDocument(WhseActivLine."Source Type", WhseActivLine."Source Subtype");
+        end;
 
         if Location."Bin Mandatory" and (not SNRequired) then
             CreateWhseDocTakeLine(WhseActivLine, LineNo)
@@ -1334,6 +1336,7 @@ codeunit 7312 "Create Pick"
                     WhseActivLine2."No." := WhseActivHeader."No.";
                     WhseActivLine2."Line No." := LineNo;
                     WhseActivLine2."Source Document" := WhseActivLine."Source Document";
+                    WhseActivLine2."Warehouse Source Document" := WhseActivLine."Warehouse Source Document";
 
                     if DoNotFillQtytoHandle then begin
                         WhseActivLine2."Qty. to Handle" := 0;
@@ -1359,6 +1362,7 @@ codeunit 7312 "Create Pick"
                     WhseActivLine2."No." := WhseActivHeader."No.";
                     WhseActivLine2."Line No." := LineNo;
                     WhseActivLine2."Source Document" := WhseActivLine."Source Document";
+                    WhseActivLine2."Warehouse Source Document" := WhseActivLine."Warehouse Source Document";
 
                     if DoNotFillQtytoHandle then begin
                         WhseActivLine2."Qty. to Handle" := 0;
@@ -1430,8 +1434,10 @@ codeunit 7312 "Create Pick"
                 if not (WhseActivLine."Whse. Document Type" in [
                                                                 WhseActivLine."Whse. Document Type"::"Internal Pick",
                                                                 WhseActivLine."Whse. Document Type"::"Movement Worksheet"])
-                then
+                then begin
                     WhseActivLine."Source Document" := WhseMgt.GetSourceDocument(WhseActivLine."Source Type", WhseActivLine."Source Subtype");
+                    WhseActivLine."Warehouse Source Document" := WhseMgt.GetSourceDocument(WhseActivLine."Source Type", WhseActivLine."Source Subtype");
+                end;
 
                 TempWhseActivLine.Delete;
                 if PickQtyBase > 0 then begin

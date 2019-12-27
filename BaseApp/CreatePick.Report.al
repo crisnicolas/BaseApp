@@ -289,7 +289,7 @@ report 5754 "Create Pick"
             then begin
                 PickWkshLine.TestField("Destination No.");
                 Cust.Get(PickWkshLine."Destination No.");
-                Cust.CheckBlockedCustOnDocs(Cust, PickWkshLine."Source Document", false, false);
+                Cust.CheckBlockedCustOnDocs(Cust, PickWkshLine."Warehouse Source Document", false, false);
             end;
 
             CreatePick.SetCalledFromWksh(true);

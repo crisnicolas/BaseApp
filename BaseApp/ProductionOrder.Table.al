@@ -1006,11 +1006,11 @@ table 5405 "Production Order"
         TestField(Status, Status::Released);
 
         WhseRequest.Reset;
-        WhseRequest.SetCurrentKey("Source Document", "Source No.");
+        WhseRequest.SetCurrentKey("Warehouse Source Document", "Source No.");
         WhseRequest.SetFilter(
-          "Source Document", '%1|%2',
-          WhseRequest."Source Document"::"Prod. Consumption",
-          WhseRequest."Source Document"::"Prod. Output");
+          "Warehouse Source Document", '%1|%2',
+          WhseRequest."Warehouse Source Document"::"Production Consumption",
+          WhseRequest."Warehouse Source Document"::"Production Output");
         WhseRequest.SetRange("Source No.", "No.");
         REPORT.RunModal(REPORT::"Create Invt Put-away/Pick/Mvmt", true, false, WhseRequest);
     end;

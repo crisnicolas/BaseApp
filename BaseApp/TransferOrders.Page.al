@@ -223,9 +223,9 @@
                     Caption = 'In&vt. Put-away/Pick Lines';
                     Image = PickLines;
                     RunObject = Page "Warehouse Activity List";
-                    RunPageLink = "Source Document" = FILTER("Inbound Transfer" | "Outbound Transfer"),
+                    RunPageLink = "Warehouse Source Document" = FILTER("Inbound Transfer" | "Outbound Transfer"),
                                   "Source No." = FIELD("No.");
-                    RunPageView = SORTING("Source Document", "Source No.", "Location Code");
+                    RunPageView = SORTING("Warehouse Source Document", "Source No.", "Location Code");
                     ToolTip = 'View items that are inbound or outbound on inventory put-away or inventory pick documents for the transfer order.';
                 }
                 action("Transfer Routes")

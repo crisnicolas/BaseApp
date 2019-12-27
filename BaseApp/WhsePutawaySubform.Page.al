@@ -23,10 +23,9 @@ page 5771 "Whse. Put-away Subform"
                     ToolTip = 'Specifies the action type for the warehouse activity line.';
                     Visible = false;
                 }
-                field("Source Document"; "Source Document")
+                field("Source Document"; "Warehouse Source Document")
                 {
                     ApplicationArea = Warehouse;
-                    OptionCaption = ',Sales Order,,,Sales Return Order,Purchase Order,,,Purchase Return Order,Inbound Transfer,,Prod. Consumption';
                     ToolTip = 'Specifies the type of document that the line relates to.';
                 }
                 field("Source No."; "Source No.")

@@ -85,6 +85,13 @@ table 7342 "Posted Invt. Pick Header"
             Caption = 'Source Document';
             OptionCaption = ' ,Sales Order,,,Sales Return Order,Purchase Order,,,Purchase Return Order,Inbound Transfer,Outbound Transfer,Prod. Consumption,Prod. Output';
             OptionMembers = " ","Sales Order",,,"Sales Return Order","Purchase Order",,,"Purchase Return Order","Inbound Transfer","Outbound Transfer","Prod. Consumption","Prod. Output";
+            ObsoleteState = Pending;
+            ObsoleteReason = 'Option field "Source Document" is being replaced by Enum field "Warehouse Source Document"';
+        }
+        field(7320; "Warehouse Source Document"; Enum "Warehouse Source Document")
+        {
+            BlankZero = true;
+            Caption = 'Warehouse Source Document';
         }
         field(7308; "Source Type"; Integer)
         {

@@ -8,7 +8,7 @@ report 5753 "Get Source Documents"
         dataitem("Warehouse Request"; "Warehouse Request")
         {
             DataItemTableView = WHERE("Document Status" = CONST(Released), "Completely Handled" = FILTER(false));
-            RequestFilterFields = "Source Document", "Source No.";
+            RequestFilterFields = "Warehouse Source Document", "Source No.";
             dataitem("Sales Header"; "Sales Header")
             {
                 DataItemLink = "Document Type" = FIELD("Source Subtype"), "No." = FIELD("Source No.");
@@ -67,9 +67,9 @@ report 5753 "Get Source Documents"
                     begin
                         SetRange(Type, Type::Item);
                         if (("Warehouse Request".Type = "Warehouse Request".Type::Outbound) and
-                            ("Warehouse Request"."Source Document" = "Warehouse Request"."Source Document"::"Sales Order")) or
+                            ("Warehouse Request"."Warehouse Source Document" = "Warehouse Request"."Warehouse Source Document"::"Sales Order")) or
                            (("Warehouse Request".Type = "Warehouse Request".Type::Inbound) and
-                            ("Warehouse Request"."Source Document" = "Warehouse Request"."Source Document"::"Sales Return Order"))
+                            ("Warehouse Request"."Warehouse Source Document" = "Warehouse Request"."Warehouse Source Document"::"Sales Return Order"))
                         then
                             SetFilter("Outstanding Quantity", '>0')
                         else
@@ -156,9 +156,9 @@ report 5753 "Get Source Documents"
                     begin
                         SetRange(Type, Type::Item);
                         if (("Warehouse Request".Type = "Warehouse Request".Type::Inbound) and
-                            ("Warehouse Request"."Source Document" = "Warehouse Request"."Source Document"::"Purchase Order")) or
+                            ("Warehouse Request"."Warehouse Source Document" = "Warehouse Request"."Warehouse Source Document"::"Purchase Order")) or
                            (("Warehouse Request".Type = "Warehouse Request".Type::Outbound) and
-                            ("Warehouse Request"."Source Document" = "Warehouse Request"."Source Document"::"Purchase Return Order"))
+                            ("Warehouse Request"."Warehouse Source Document" = "Warehouse Request"."Warehouse Source Document"::"Purchase Return Order"))
                         then
                             SetFilter("Outstanding Quantity", '>0')
                         else
@@ -282,7 +282,7 @@ report 5753 "Get Source Documents"
                     begin
                         SetRange(Type, Type::Item);
                         if (("Warehouse Request".Type = "Warehouse Request".Type::Outbound) and
-                            ("Warehouse Request"."Source Document" = "Warehouse Request"."Source Document"::"Service Order"))
+                            ("Warehouse Request"."Warehouse Source Document" = "Warehouse Request"."Warehouse Source Document"::"Service Order"))
                         then
                             SetFilter("Outstanding Quantity", '>0')
                         else

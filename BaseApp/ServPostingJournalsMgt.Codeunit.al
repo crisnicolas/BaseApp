@@ -273,6 +273,7 @@ codeunit 5987 "Serv-Posting Journals Mgt."
             TempWhseJnlLine."Source Subtype" := "Document Type";
             TempWhseJnlLine."Source Code" := SrcCode;
             TempWhseJnlLine."Source Document" := WhseMgt.GetSourceDocument(TempWhseJnlLine."Source Type", TempWhseJnlLine."Source Subtype");
+            TempWhseJnlLine."Warehouse Source Document" := WhseMgt.GetSourceDocument(TempWhseJnlLine."Source Type", TempWhseJnlLine."Source Subtype");
             TempWhseJnlLine."Source No." := "Document No.";
             TempWhseJnlLine."Source Line No." := "Line No.";
             case "Document Type" of

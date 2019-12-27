@@ -5,7 +5,7 @@ page 5793 "Source Documents"
     Editable = false;
     PageType = List;
     SourceTable = "Warehouse Request";
-    SourceTableView = SORTING(Type, "Location Code", "Completely Handled", "Document Status", "Expected Receipt Date", "Shipment Date", "Source Document", "Source No.");
+    SourceTableView = SORTING(Type, "Location Code", "Completely Handled", "Document Status", "Expected Receipt Date", "Shipment Date", "Warehouse Source Document", "Source No.");
 
     layout
     {
@@ -37,7 +37,7 @@ page 5793 "Source Documents"
                     ApplicationArea = Warehouse;
                     ToolTip = 'Specifies the number of the inventory put-away or pick that was created from this warehouse request.';
                 }
-                field("Source Document"; "Source Document")
+                field("Source Document"; "Warehouse Source Document")
                 {
                     ApplicationArea = Warehouse;
                     ToolTip = 'Specifies the type of document that the line relates to.';
@@ -122,38 +122,38 @@ page 5793 "Source Documents"
                         ProdOrder: Record "Production Order";
                         ServiceHeader: Record "Service Header";
                     begin
-                        case "Source Document" of
-                            "Source Document"::"Purchase Order":
+                        case "Warehouse Source Document" of
+                            "Warehouse Source Document"::"Purchase Order":
                                 begin
                                     PurchHeader.Get("Source Subtype", "Source No.");
                                     PAGE.Run(PAGE::"Purchase Order", PurchHeader);
                                 end;
-                            "Source Document"::"Purchase Return Order":
+                            "Warehouse Source Document"::"Purchase Return Order":
                                 begin
                                     PurchHeader.Get("Source Subtype", "Source No.");
                                     PAGE.Run(PAGE::"Purchase Return Order", PurchHeader);
                                 end;
-                            "Source Document"::"Sales Order":
+                            "Warehouse Source Document"::"Sales Order":
                                 begin
                                     SalesHeader.Get("Source Subtype", "Source No.");
                                     PAGE.Run(PAGE::"Sales Order", SalesHeader);
                                 end;
-                            "Source Document"::"Sales Return Order":
+                            "Warehouse Source Document"::"Sales Return Order":
                                 begin
                                     SalesHeader.Get("Source Subtype", "Source No.");
                                     PAGE.Run(PAGE::"Sales Return Order", SalesHeader);
                                 end;
-                            "Source Document"::"Inbound Transfer", "Source Document"::"Outbound Transfer":
+                            "Warehouse Source Document"::"Inbound Transfer", "Warehouse Source Document"::"Outbound Transfer":
                                 begin
                                     TransHeader.Get("Source No.");
                                     PAGE.Run(PAGE::"Transfer Order", TransHeader);
                                 end;
-                            "Source Document"::"Prod. Consumption", "Source Document"::"Prod. Output":
+                            "Warehouse Source Document"::"Production Consumption", "Warehouse Source Document"::"Production Output":
                                 begin
                                     ProdOrder.Get("Source Subtype", "Source No.");
                                     PAGE.Run(PAGE::"Released Production Order", ProdOrder);
                                 end;
-                            "Source Document"::"Service Order":
+                            "Warehouse Source Document"::"Service Order":
                                 begin
                                     ServiceHeader.Get("Source Subtype", "Source No.");
                                     PAGE.Run(PAGE::"Service Order", ServiceHeader);

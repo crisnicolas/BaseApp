@@ -12,7 +12,7 @@ page 7363 "Posted Whse. Receipt Lines"
             repeater(Control1)
             {
                 ShowCaption = false;
-                field("Source Document"; "Source Document")
+                field("Source Document"; "Warehouse Source Document")
                 {
                     ApplicationArea = Warehouse;
                     ToolTip = 'Specifies the type of document that the line relates to.';

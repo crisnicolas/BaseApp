@@ -62,7 +62,7 @@ page 5785 "Warehouse Activity Lines"
                     ToolTip = 'Specifies the source subline number.';
                     Visible = false;
                 }
-                field("Source Document"; "Source Document")
+                field("Source Document"; "Warehouse Source Document")
                 {
                     ApplicationArea = Warehouse;
                     ToolTip = 'Specifies the type of document that the line relates to.';

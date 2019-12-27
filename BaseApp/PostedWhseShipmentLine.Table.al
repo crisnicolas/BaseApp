@@ -43,6 +43,13 @@ table 7323 "Posted Whse. Shipment Line"
             Editable = false;
             OptionCaption = ',Sales Order,,,Sales Return Order,Purchase Order,,,Purchase Return Order,,Outbound Transfer,,,,,,,,Service Order';
             OptionMembers = ,"Sales Order",,,"Sales Return Order","Purchase Order",,,"Purchase Return Order",,"Outbound Transfer",,,,,,,,"Service Order";
+            ObsoleteState = Pending;
+            ObsoleteReason = 'Option field "Source Document" is being replaced by Enum field "Warehouse Source Document"';
+        }
+        field(90; "Warehouse Source Document"; enum "Warehouse Source Document")
+        {
+            Caption = 'Warehouse Source Document';
+            Editable = false;
         }
         field(10; "Location Code"; Code[10])
         {

@@ -174,7 +174,7 @@ page 7345 "Pick Worksheet"
                     ApplicationArea = Warehouse;
                     ToolTip = 'Specifies the number of the customer, vendor, or location for which the items should be processed.';
                 }
-                field("Source Document"; "Source Document")
+                field("Source Document"; "Warehouse Source Document")
                 {
                     ApplicationArea = Warehouse;
                     ToolTip = 'Specifies the type of document that the line relates to.';

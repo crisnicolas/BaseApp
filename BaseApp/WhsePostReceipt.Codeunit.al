@@ -62,7 +62,7 @@ codeunit 5760 "Whse.-Post Receipt"
                     WhseRqst.Get(
                       WhseRqst.Type::Inbound, "Location Code", "Source Type", "Source Subtype", "Source No.");
                     if WhseRqst."Document Status" <> WhseRqst."Document Status"::Released then
-                        Error(Text000, "Source Document", "Source No.");
+                        Error(Text000, "Warehouse Source Document", "Source No.");
                     OnAfterCheckWhseRcptLine(WhseRcptLine);
                 until Next = 0
             else
@@ -231,7 +231,7 @@ codeunit 5760 "Whse.-Post Receipt"
                                 SetRange("Source Line No.", PurchLine."Line No.");
                                 if FindFirst then begin
                                     OnAfterFindWhseRcptLineForPurchLine(WhseRcptLine2, PurchLine);
-                                    if "Source Document" = "Source Document"::"Purchase Order" then begin
+                                    if "Warehouse Source Document" = "Warehouse Source Document"::"Purchase Order" then begin
                                         ModifyLine := PurchLine."Qty. to Receive" <> "Qty. to Receive";
                                         if ModifyLine then
                                             PurchLine.Validate("Qty. to Receive", "Qty. to Receive")
@@ -245,7 +245,7 @@ codeunit 5760 "Whse.-Post Receipt"
                                         ModifyLine := true;
                                     end;
                                 end else
-                                    if "Source Document" = "Source Document"::"Purchase Order" then begin
+                                    if "Warehouse Source Document" = "Warehouse Source Document"::"Purchase Order" then begin
                                         ModifyLine := PurchLine."Qty. to Receive" <> 0;
                                         if ModifyLine then
                                             PurchLine.Validate("Qty. to Receive", 0);
@@ -268,7 +268,7 @@ codeunit 5760 "Whse.-Post Receipt"
                                 SetRange("Source Line No.", SalesLine."Line No.");
                                 if FindFirst then begin
                                     OnAfterFindWhseRcptLineForSalesLine(WhseRcptLine2, SalesLine);
-                                    if "Source Document" = "Source Document"::"Sales Order" then begin
+                                    if "Warehouse Source Document" = "Warehouse Source Document"::"Sales Order" then begin
                                         ModifyLine := SalesLine."Qty. to Ship" <> -"Qty. to Receive";
                                         if ModifyLine then
                                             SalesLine.Validate("Qty. to Ship", -"Qty. to Receive");
@@ -282,7 +282,7 @@ codeunit 5760 "Whse.-Post Receipt"
                                         ModifyLine := true;
                                     end;
                                 end else
-                                    if "Source Document" = "Source Document"::"Sales Order" then begin
+                                    if "Warehouse Source Document" = "Warehouse Source Document"::"Sales Order" then begin
                                         ModifyLine := SalesLine."Qty. to Ship" <> 0;
                                         if ModifyLine then
                                             SalesLine.Validate("Qty. to Ship", 0);
@@ -345,7 +345,7 @@ codeunit 5760 "Whse.-Post Receipt"
             case "Source Type" of
                 DATABASE::"Purchase Line":
                     begin
-                        if "Source Document" = "Source Document"::"Purchase Order" then
+                        if "Warehouse Source Document" = "Warehouse Source Document"::"Purchase Order" then
                             PurchHeader.Receive := true
                         else
                             PurchHeader.Ship := true;
@@ -368,7 +368,7 @@ codeunit 5760 "Whse.-Post Receipt"
                     end;
                 DATABASE::"Sales Line": // Return Order
                     begin
-                        if "Source Document" = "Source Document"::"Sales Order" then
+                        if "Warehouse Source Document" = "Warehouse Source Document"::"Sales Order" then
                             SalesHeader.Ship := true
                         else
                             SalesHeader.Receive := true;
@@ -528,16 +528,16 @@ codeunit 5760 "Whse.-Post Receipt"
             OnAfterInitPostedRcptLine(WhseRcptLine, PostedWhseRcptLine);
             Quantity := WhseRcptLine."Qty. to Receive";
             "Qty. (Base)" := WhseRcptLine."Qty. to Receive (Base)";
-            case WhseRcptLine."Source Document" of
-                WhseRcptLine."Source Document"::"Purchase Order":
+            case WhseRcptLine."Warehouse Source Document" of
+                WhseRcptLine."Warehouse Source Document"::"Purchase Order":
                     "Posted Source Document" := "Posted Source Document"::"Posted Receipt";
-                WhseRcptLine."Source Document"::"Sales Order":
+                WhseRcptLine."Warehouse Source Document"::"Sales Order":
                     "Posted Source Document" := "Posted Source Document"::"Posted Shipment";
-                WhseRcptLine."Source Document"::"Purchase Return Order":
+                WhseRcptLine."Warehouse Source Document"::"Purchase Return Order":
                     "Posted Source Document" := "Posted Source Document"::"Posted Return Shipment";
-                WhseRcptLine."Source Document"::"Sales Return Order":
+                WhseRcptLine."Warehouse Source Document"::"Sales Return Order":
                     "Posted Source Document" := "Posted Source Document"::"Posted Return Receipt";
-                WhseRcptLine."Source Document"::"Inbound Transfer":
+                WhseRcptLine."Warehouse Source Document"::"Inbound Transfer":
                     "Posted Source Document" := "Posted Source Document"::"Posted Transfer Receipt";
             end;
 
@@ -680,33 +680,34 @@ codeunit 5760 "Whse.-Post Receipt"
             TempWhseJnlLine."Variant Code" := "Variant Code";
             TempWhseJnlLine.SetSource("Source Type", "Source Subtype", "Source No.", "Source Line No.", 0);
             TempWhseJnlLine."Source Document" := "Source Document";
+            TempWhseJnlLine."Warehouse Source Document" := "Warehouse Source Document";
             SourceCodeSetup.Get;
-            case "Source Document" of
-                "Source Document"::"Purchase Order":
+            case "Warehouse Source Document" of
+                "Warehouse Source Document"::"Purchase Order":
                     begin
                         TempWhseJnlLine."Source Code" := SourceCodeSetup.Purchases;
                         TempWhseJnlLine."Reference Document" :=
                           TempWhseJnlLine."Reference Document"::"Posted Rcpt.";
                     end;
-                "Source Document"::"Sales Order":
+                "Warehouse Source Document"::"Sales Order":
                     begin
                         TempWhseJnlLine."Source Code" := SourceCodeSetup.Sales;
                         TempWhseJnlLine."Reference Document" :=
                           TempWhseJnlLine."Reference Document"::"Posted Shipment";
                     end;
-                "Source Document"::"Purchase Return Order":
+                "Warehouse Source Document"::"Purchase Return Order":
                     begin
                         TempWhseJnlLine."Source Code" := SourceCodeSetup.Purchases;
                         TempWhseJnlLine."Reference Document" :=
                           TempWhseJnlLine."Reference Document"::"Posted Rtrn. Shipment";
                     end;
-                "Source Document"::"Sales Return Order":
+                "Warehouse Source Document"::"Sales Return Order":
                     begin
                         TempWhseJnlLine."Source Code" := SourceCodeSetup.Sales;
                         TempWhseJnlLine."Reference Document" :=
                           TempWhseJnlLine."Reference Document"::"Posted Rtrn. Rcpt.";
                     end;
-                "Source Document"::"Inbound Transfer":
+                "Warehouse Source Document"::"Inbound Transfer":
                     begin
                         TempWhseJnlLine."Source Code" := SourceCodeSetup.Transfer;
                         TempWhseJnlLine."Reference Document" :=

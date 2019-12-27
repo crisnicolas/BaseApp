@@ -267,5 +267,10 @@ codeunit 9998 "Upgrade Tag Definitions"
     begin
         exit('MS-318837-RenameCortanaIntelligenceUsage-20190820');
     end;
+
+    procedure GetWarehouseSourceDocumentUpgradeTag(): Code[250];
+    begin
+        exit('Clip-WarehouseSourceDocument-20191223');
+    end;
 }
 

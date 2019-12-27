@@ -23,10 +23,9 @@ page 7393 "Posted Invt. Pick Subform"
                     ToolTip = 'Specifies the action type for the inventory pick line. For posted inventory pick lines, the action type is always Take, meaning that the items are being taken out of the bin.';
                     Visible = false;
                 }
-                field("Source Document"; "Source Document")
+                field("Source Document"; "Warehouse Source Document")
                 {
                     ApplicationArea = Warehouse;
-                    OptionCaption = ' ,,,,Sales Return Order,Purchase Order,,,,Inbound Transfer';
                     ToolTip = 'Specifies the type of document that the line relates to.';
                     Visible = false;
                 }

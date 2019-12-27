@@ -972,11 +972,11 @@ table 5740 "Transfer Header"
         TestField(Status, Status::Released);
 
         WhseRequest.Reset;
-        WhseRequest.SetCurrentKey("Source Document", "Source No.");
+        WhseRequest.SetCurrentKey("Warehouse Source Document", "Source No.");
         WhseRequest.SetFilter(
-          "Source Document", '%1|%2',
-          WhseRequest."Source Document"::"Inbound Transfer",
-          WhseRequest."Source Document"::"Outbound Transfer");
+          "Warehouse Source Document", '%1|%2',
+          WhseRequest."Warehouse Source Document"::"Inbound Transfer",
+          WhseRequest."Warehouse Source Document"::"Outbound Transfer");
         WhseRequest.SetRange("Source No.", "No.");
         REPORT.RunModal(REPORT::"Create Invt Put-away/Pick/Mvmt", true, false, WhseRequest);
     end;

@@ -60,11 +60,11 @@ codeunit 7323 "Whse.-Act.-Post (Yes/No)"
     local procedure SelectForPutAway(): Boolean
     begin
         with WhseActivLine do
-            if ("Source Document" = "Source Document"::"Prod. Output") or
-               ("Source Document" = "Source Document"::"Inbound Transfer") or
-               ("Source Document" = "Source Document"::"Prod. Consumption")
+            if ("Warehouse Source Document" = "Warehouse Source Document"::"Production Output") or
+               ("Warehouse Source Document" = "Warehouse Source Document"::"Inbound Transfer") or
+               ("Warehouse Source Document" = "Warehouse Source Document"::"Production Consumption")
             then begin
-                if not Confirm(Text002, false, "Activity Type", "Source Document") then
+                if not Confirm(Text002, false, "Activity Type", "Warehouse Source Document") then
                     exit(false);
             end else begin
                 Selection := StrMenu(Text000, DefaultOption);
@@ -78,10 +78,10 @@ codeunit 7323 "Whse.-Act.-Post (Yes/No)"
     local procedure SelectForOtherTypes(): Boolean
     begin
         with WhseActivLine do
-            if ("Source Document" = "Source Document"::"Prod. Consumption") or
-               ("Source Document" = "Source Document"::"Outbound Transfer")
+            if ("Warehouse Source Document" = "Warehouse Source Document"::"Production Consumption") or
+               ("Warehouse Source Document" = "Warehouse Source Document"::"Outbound Transfer")
             then begin
-                if not Confirm(Text002, false, "Activity Type", "Source Document") then
+                if not Confirm(Text002, false, "Activity Type", "Warehouse Source Document") then
                     exit(false);
             end else begin
                 Selection := StrMenu(Text001, DefaultOption);

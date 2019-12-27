@@ -105,6 +105,7 @@ codeunit 7301 "Whse. Jnl.-Register Line"
             WhseEntry."Source Line No." := "Source Line No.";
             WhseEntry."Source Subline No." := "Source Subline No.";
             WhseEntry."Source Document" := "Source Document";
+            WhseEntry."Warehouse Source Document" := "Warehouse Source Document";
             WhseEntry."Reference Document" := "Reference Document";
             WhseEntry."Reference No." := "Reference No.";
             WhseEntry."Source Code" := "Source Code";

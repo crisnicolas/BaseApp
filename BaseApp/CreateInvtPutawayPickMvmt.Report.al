@@ -10,15 +10,15 @@ report 7323 "Create Invt Put-away/Pick/Mvmt"
     {
         dataitem("Warehouse Request"; "Warehouse Request")
         {
-            DataItemTableView = SORTING("Source Document", "Source No.");
-            RequestFilterFields = "Source Document", "Source No.";
+            DataItemTableView = SORTING("Warehouse Source Document", "Source No.");
+            RequestFilterFields = "Warehouse Source Document", "Source No.";
 
             trigger OnAfterGetRecord()
             var
                 ATOMvmntCreated: Integer;
                 TotalATOMvmtToBeCreated: Integer;
             begin
-                Window.Update(1, "Source Document");
+                Window.Update(1, "Warehouse Source Document");
                 Window.Update(2, "Source No.");
 
                 case Type of

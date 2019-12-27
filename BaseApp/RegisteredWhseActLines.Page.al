@@ -62,7 +62,7 @@ page 7364 "Registered Whse. Act.-Lines"
                     ToolTip = 'Specifies the number of the source document subline related to this activity line.';
                     Visible = false;
                 }
-                field("Source Document"; "Source Document")
+                field("Source Document"; "Warehouse Source Document")
                 {
                     ApplicationArea = Warehouse;
                     ToolTip = 'Specifies the type of document that the line relates to.';

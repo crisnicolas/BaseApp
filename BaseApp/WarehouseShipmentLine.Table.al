@@ -44,6 +44,13 @@ table 7321 "Warehouse Shipment Line"
             Editable = false;
             OptionCaption = ',Sales Order,,,Sales Return Order,Purchase Order,,,Purchase Return Order,,Outbound Transfer,,,,,,,,Service Order';
             OptionMembers = ,"Sales Order",,,"Sales Return Order","Purchase Order",,,"Purchase Return Order",,"Outbound Transfer",,,,,,,,"Service Order";
+            ObsoleteState = Pending;
+            ObsoleteReason = 'Option field "Source Document" is being replaced by Enum field "Warehouse Source Document"';
+        }
+        field(90; "Warehouse Source Document"; enum "Warehouse Source Document")
+        {
+            Caption = 'Warehouse Source Document';
+            Editable = false;
         }
         field(10; "Location Code"; Code[10])
         {
@@ -438,6 +445,12 @@ table 7321 "Warehouse Shipment Line"
             MaintainSQLIndex = false;
         }
         key(Key4; "No.", "Source Document", "Source No.")
+        {
+            MaintainSQLIndex = false;
+            ObsoleteState = Pending;
+            ObsoleteReason = 'Key4 is being replaced by Key13. Option field "Source Document" is being replaced by Enum field "Warehouse Source Document"'
+        }
+        key(Key13; "No.", "Warehouse Source Document", "Source No.")
         {
             MaintainSQLIndex = false;
         }
@@ -852,7 +865,7 @@ table 7321 "Warehouse Shipment Line"
         SalesLine: Record "Sales Line";
         ATOWhseShptLine: Record "Warehouse Shipment Line";
     begin
-        if "Source Document" <> "Source Document"::"Sales Order" then
+        if "Warehouse Source Document" <> "Warehouse Source Document"::"Sales Order" then
             exit(true);
         SalesLine.SetRange("Document Type", "Source Subtype");
         SalesLine.SetRange("Document No.", "Source No.");
@@ -936,6 +949,7 @@ table 7321 "Warehouse Shipment Line"
         "Source No." := SourceNo;
         "Source Line No." := SourceLineNo;
         "Source Document" := WhseMgt.GetSourceDocument("Source Type", "Source Subtype");
+        "Warehouse Source Document" := WhseMgt.GetSourceDocument("Source Type", "Source Subtype");
     end;
 
     procedure SetSourceFilter(SourceType: Integer; SourceSubType: Option; SourceNo: Code[20]; SourceLineNo: Integer; SetKey: Boolean)

@@ -273,6 +273,7 @@ codeunit 7313 "Create Put-away"
             WhseActivLine."Source No." := "Source No.";
             WhseActivLine."Source Line No." := "Source Line No.";
             WhseActivLine."Source Document" := "Source Document";
+            WhseActivLine."Warehouse Source Document" := "Warehouse Source Document";
             if WhseActivLine."Source Type" = 0 then
                 WhseActivLine."Whse. Document Type" := WhseActivLine."Whse. Document Type"::"Internal Put-away"
             else

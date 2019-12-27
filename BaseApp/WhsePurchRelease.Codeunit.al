@@ -23,9 +23,15 @@ codeunit 5772 "Whse.-Purch. Release"
         with PurchHeader do begin
             case "Document Type" of
                 "Document Type"::Order:
-                    WhseRqst."Source Document" := WhseRqst."Source Document"::"Purchase Order";
+                    begin
+                        WhseRqst."Source Document" := WhseRqst."Source Document"::"Purchase Order";
+                        WhseRqst."Warehouse Source Document" := WhseRqst."Warehouse Source Document"::"Purchase Order";
+                    end;
                 "Document Type"::"Return Order":
-                    WhseRqst."Source Document" := WhseRqst."Source Document"::"Purchase Return Order";
+                    begin
+                        WhseRqst."Source Document" := WhseRqst."Source Document"::"Purchase Return Order";
+                        WhseRqst."Warehouse Source Document" := WhseRqst."Warehouse Source Document"::"Purchase Return Order";
+                    end;
                 else
                     exit;
             end;

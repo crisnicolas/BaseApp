@@ -353,7 +353,7 @@ table 7316 "Warehouse Receipt Header"
             "Sorting Method"::Item:
                 WhseRcptLine.SetCurrentKey("No.", "Item No.");
             "Sorting Method"::Document:
-                WhseRcptLine.SetCurrentKey("No.", "Source Document", "Source No.");
+                WhseRcptLine.SetCurrentKey("No.", "Warehouse Source Document", "Source No.");
             "Sorting Method"::"Shelf or Bin":
                 begin
                     if Location."Bin Mandatory" then

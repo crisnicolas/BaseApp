@@ -60,6 +60,14 @@ table 5767 "Warehouse Activity Line"
             Editable = false;
             OptionCaption = ' ,Sales Order,,,Sales Return Order,Purchase Order,,,Purchase Return Order,Inbound Transfer,Outbound Transfer,Prod. Consumption,Prod. Output,,,,,,Service Order,,Assembly Consumption,Assembly Order';
             OptionMembers = " ","Sales Order",,,"Sales Return Order","Purchase Order",,,"Purchase Return Order","Inbound Transfer","Outbound Transfer","Prod. Consumption","Prod. Output",,,,,,"Service Order",,"Assembly Consumption","Assembly Order";
+            ObsoleteState = Pending;
+            ObsoleteReason = 'Option field "Source Document" is being replaced by Enum field "Warehouse Source Document"';
+        }
+        field(90; "Warehouse Source Document"; enum "Warehouse Source Document")
+        {
+            BlankZero = true;
+            Caption = 'Source Document';
+            Editable = false;
         }
         field(11; "Location Code"; Code[10])
         {
@@ -719,6 +727,12 @@ table 5767 "Warehouse Activity Line"
             MaintainSQLIndex = false;
         }
         key(Key6; "Activity Type", "No.", "Location Code", "Source Document", "Source No.", "Action Type", "Zone Code")
+        {
+            MaintainSQLIndex = false;
+            ObsoleteState = Pending;
+            ObsoleteReason = 'Option field "Source Document" is being replaced by Enum field "Warehouse Source Document"';
+        }
+        key(Key20; "Activity Type", "No.", "Location Code", "Warehouse Source Document", "Source No.", "Action Type", "Zone Code")
         {
             MaintainSQLIndex = false;
         }
@@ -1915,8 +1929,8 @@ table 5767 "Warehouse Activity Line"
         InitTrackingSpecFromWhseActivLine(TempTrackingSpecification, Rec);
         CheckGlobalEntrySummary :=
           ("Activity Type" <> "Activity Type"::"Put-away") and
-          (not ("Source Document" in
-                ["Source Document"::"Purchase Order", "Source Document"::"Prod. Output", "Source Document"::"Assembly Order"]));
+          (not ("Warehouse Source Document" in
+                ["Warehouse Source Document"::"Purchase Order", "Warehouse Source Document"::"Production Output", "Warehouse Source Document"::"Assembly Order"]));
         if CheckGlobalEntrySummary then
             Validate("Lot No.", ItemTrackingDataCollection.FindLotNoBySN(TempTrackingSpecification))
         else begin

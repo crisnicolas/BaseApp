@@ -21,16 +21,16 @@ table 5765 "Warehouse Request"
         {
             Caption = 'Source No.';
             Editable = false;
-            TableRelation = IF ("Source Document" = CONST("Sales Order")) "Sales Header"."No." WHERE("Document Type" = CONST(Order),
+            TableRelation = IF ("Warehouse Source Document" = CONST("Sales Order")) "Sales Header"."No." WHERE("Document Type" = CONST(Order),
                                                                                                     "No." = FIELD("Source No."))
             ELSE
-            IF ("Source Document" = CONST("Sales Return Order")) "Sales Header"."No." WHERE("Document Type" = CONST("Return Order"),
+            IF ("Warehouse Source Document" = CONST("Sales Return Order")) "Sales Header"."No." WHERE("Document Type" = CONST("Return Order"),
                                                                                                                                                                                         "No." = FIELD("Source No."))
             ELSE
-            IF ("Source Document" = CONST("Purchase Order")) "Purchase Header"."No." WHERE("Document Type" = CONST(Order),
+            IF ("Warehouse Source Document" = CONST("Purchase Order")) "Purchase Header"."No." WHERE("Document Type" = CONST(Order),
                                                                                                                                                                                                                                                                            "No." = FIELD("Source No."))
             ELSE
-            IF ("Source Document" = CONST("Purchase Return Order")) "Purchase Header"."No." WHERE("Document Type" = CONST("Return Order"),
+            IF ("Warehouse Source Document" = CONST("Purchase Return Order")) "Purchase Header"."No." WHERE("Document Type" = CONST("Return Order"),
                                                                                                                                                                                                                                                                                                                                                                      "No." = FIELD("Source No."))
             ELSE
             IF ("Source Type" = CONST(5741)) "Transfer Header"."No." WHERE("No." = FIELD("Source No."))
@@ -47,6 +47,13 @@ table 5765 "Warehouse Request"
             Editable = false;
             OptionCaption = ',Sales Order,,,Sales Return Order,Purchase Order,,,Purchase Return Order,Inbound Transfer,Outbound Transfer,Prod. Consumption,Prod. Output,Service Order,,,,,,,Assembly Consumption,Assembly Order';
             OptionMembers = ,"Sales Order",,,"Sales Return Order","Purchase Order",,,"Purchase Return Order","Inbound Transfer","Outbound Transfer","Prod. Consumption","Prod. Output","Service Order",,,,,,,"Assembly Consumption","Assembly Order";
+            ObsoleteState = Pending;
+            ObsoleteReason = 'Option field "Source Document" is being replaced by Enum field "Warehouse Source Document"';
+        }
+        field(40; "Warehouse Source Document"; enum "Warehouse Source Document")
+        {
+            Caption = 'Warehouse Source Document';
+            Editable = false;
         }
         field(5; "Document Status"; Option)
         {
@@ -154,8 +161,19 @@ table 5765 "Warehouse Request"
         key(Key4; "Source Document", "Source No.")
         {
             MaintainSQLIndex = false;
+            ObsoleteState = Pending;
+            ObsoleteReason = 'Option field "Source Document" is being replaced by Enum field "Warehouse Source Document"';
         }
         key(Key5; Type, "Location Code", "Completely Handled", "Document Status", "Expected Receipt Date", "Shipment Date", "Source Document", "Source No.")
+        {
+            ObsoleteState = Pending;
+            ObsoleteReason = 'Option field "Source Document" is being replaced by Enum field "Warehouse Source Document"';
+        }
+        key(Key6; "Warehouse Source Document", "Source No.")
+        {
+            MaintainSQLIndex = false;
+        }
+        key(Key7; Type, "Location Code", "Completely Handled", "Document Status", "Expected Receipt Date", "Shipment Date", "Warehouse Source Document", "Source No.")
         {
         }
     }

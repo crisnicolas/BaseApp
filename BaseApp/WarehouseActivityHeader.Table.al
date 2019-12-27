@@ -43,8 +43,8 @@ table 5766 "Warehouse Activity Header"
                 GetLocation("Location Code");
                 case Type of
                     Type::"Invt. Put-away":
-                        if Location.RequireReceive("Location Code") and ("Source Document" <> "Source Document"::"Prod. Output") then
-                            Validate("Source Document", "Source Document"::"Prod. Output");
+                        if Location.RequireReceive("Location Code") and ("Warehouse Source Document" <> "Warehouse Source Document"::"Production Output") then
+                            Validate("Warehouse Source Document", "Warehouse Source Document"::"Production Output");
                     Type::"Invt. Pick":
                         if Location.RequireShipment("Location Code") then
                             Location.TestField("Require Shipment", false);
@@ -227,7 +227,7 @@ table 5766 "Warehouse Activity Header"
                         Error(Text002, FieldCaption("Source No."));
                     if "Source No." <> '' then begin
                         TestField("Location Code");
-                        TestField("Source Document");
+                        TestField("Warehouse Source Document");
                     end;
                     ClearDestinationFields;
 
@@ -264,72 +264,86 @@ table 5766 "Warehouse Activity Header"
             Caption = 'Source Document';
             OptionCaption = ' ,Sales Order,,,Sales Return Order,Purchase Order,,,Purchase Return Order,Inbound Transfer,Outbound Transfer,Prod. Consumption,Prod. Output,,,,,,,,Assembly Consumption,Assembly Order';
             OptionMembers = " ","Sales Order",,,"Sales Return Order","Purchase Order",,,"Purchase Return Order","Inbound Transfer","Outbound Transfer","Prod. Consumption","Prod. Output",,,,,,,,"Assembly Consumption","Assembly Order";
+            ObsoleteState = Pending;
+            ObsoleteReason = 'Option field "Source Document" is being replaced by Enum field "Warehouse Source Document"';
+
+            trigger OnValidate()
+            begin
+                Validate("Warehouse Source Document", "Source Document");
+            end;
+        }
+        field(7320; "Warehouse Source Document"; enum "Warehouse Source Document")
+        {
+            BlankZero = true;
+            Caption = 'Warehouse Source Document';
 
             trigger OnValidate()
             var
                 AssemblyLine: Record "Assembly Line";
             begin
-                if "Source Document" <> xRec."Source Document" then begin
+                "Source Document" := "Warehouse Source Document";
+
+                if "Warehouse Source Document" <> xRec."Warehouse Source Document" then begin
                     if LineExist then
-                        Error(Text002, FieldCaption("Source Document"));
+                        Error(Text002, FieldCaption("Warehouse Source Document"));
                     "Source No." := '';
                     ClearDestinationFields;
                     if Type = Type::"Invt. Put-away" then begin
                         GetLocation("Location Code");
                         if Location.RequireReceive("Location Code") then
-                            TestField("Source Document", "Source Document"::"Prod. Output");
+                            TestField("Warehouse Source Document", "Warehouse Source Document"::"Production Output");
                     end;
                 end;
 
-                case "Source Document" of
-                    "Source Document"::"Purchase Order":
+                case "Warehouse Source Document" of
+                    "Warehouse Source Document"::"Purchase Order":
                         begin
                             "Source Type" := 39;
                             "Source Subtype" := 1;
                         end;
-                    "Source Document"::"Purchase Return Order":
+                    "Warehouse Source Document"::"Purchase Return Order":
                         begin
                             "Source Type" := 39;
                             "Source Subtype" := 5;
                         end;
-                    "Source Document"::"Sales Order":
+                    "Warehouse Source Document"::"Sales Order":
                         begin
                             "Source Type" := 37;
                             "Source Subtype" := 1;
                         end;
-                    "Source Document"::"Sales Return Order":
+                    "Warehouse Source Document"::"Sales Return Order":
                         begin
                             "Source Type" := 37;
                             "Source Subtype" := 5;
                         end;
-                    "Source Document"::"Outbound Transfer":
+                    "Warehouse Source Document"::"Outbound Transfer":
                         begin
                             "Source Type" := 5741;
                             "Source Subtype" := 0;
                         end;
-                    "Source Document"::"Inbound Transfer":
+                    "Warehouse Source Document"::"Inbound Transfer":
                         begin
                             "Source Type" := 5741;
                             "Source Subtype" := 1;
                         end;
-                    "Source Document"::"Prod. Consumption":
+                    "Warehouse Source Document"::"Production Consumption":
                         begin
                             "Source Type" := 5407;
                             "Source Subtype" := 3;
                         end;
-                    "Source Document"::"Prod. Output":
+                    "Warehouse Source Document"::"Production Output":
                         begin
                             "Source Type" := 5406;
                             "Source Subtype" := 3;
                         end;
-                    "Source Document"::"Assembly Consumption":
+                    "Warehouse Source Document"::"Assembly Consumption":
                         begin
                             "Source Type" := DATABASE::"Assembly Line";
                             "Source Subtype" := AssemblyLine."Document Type"::Order;
                         end;
                 end;
 
-                if "Source Document" = 0 then begin
+                if "Warehouse Source Document" = 0 then begin
                     "Source Type" := 0;
                     "Source Subtype" := 0;
                 end;
@@ -398,6 +412,9 @@ table 5766 "Warehouse Activity Header"
         {
         }
         key(Key4; "Assigned User ID")
+        {
+        }
+        key(Key5;"Warehouse Source Document","Source No.","Location Code")
         {
         }
     }
@@ -564,7 +581,7 @@ table 5766 "Warehouse Activity Header"
             "Sorting Method"::Item:
                 WhseActivLine2.SetCurrentKey("Activity Type", "No.", "Item No.");
             "Sorting Method"::Document:
-                WhseActivLine2.SetCurrentKey("Activity Type", "No.", "Location Code", "Source Document", "Source No.");
+                WhseActivLine2.SetCurrentKey("Activity Type", "No.", "Location Code", "Warehouse Source Document", "Source No.");
             "Sorting Method"::"Shelf or Bin":
                 SortWhseDocByShelfOrBin(WhseActivLine2, SequenceNo);
             "Sorting Method"::"Due Date":

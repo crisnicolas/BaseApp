@@ -38,6 +38,8 @@ codeunit 7320 "Whse. Undo Quantity"
                     TempWhseJnlLine.SetSource(SourceType, SourceSubType, SourceNo, SourceLineNo, 0);
                     TempWhseJnlLine."Source Document" :=
                       WhseMgt.GetSourceDocument(TempWhseJnlLine."Source Type", TempWhseJnlLine."Source Subtype");
+                    TempWhseJnlLine."Warehouse Source Document" :=
+                      WhseMgt.GetSourceDocument(TempWhseJnlLine."Source Type", TempWhseJnlLine."Source Subtype");
                     TempWhseJnlLine."Reference Document" := RefDoc;
                     TempWhseJnlLine."Reference No." := "Document No.";
                     TempWhseJnlLine."Location Code" := "Location Code";

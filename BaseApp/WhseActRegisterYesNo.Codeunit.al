@@ -22,11 +22,11 @@ codeunit 7306 "Whse.-Act.-Register (Yes/No)"
 
         with WhseActivLine do begin
             if ("Activity Type" = "Activity Type"::"Invt. Movement") and
-               not ("Source Document" in ["Source Document"::" ",
-                                          "Source Document"::"Prod. Consumption",
-                                          "Source Document"::"Assembly Consumption"])
+               not ("Warehouse Source Document" in ["Warehouse Source Document"::" ",
+                                          "Warehouse Source Document"::"Production Consumption",
+                                          "Warehouse Source Document"::"Assembly Consumption"])
             then
-                Error(Text002, "Source Document");
+                Error(Text002, "Warehouse Source Document");
 
             WMSMgt.CheckBalanceQtyToHandle(WhseActivLine);
 

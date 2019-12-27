@@ -22,10 +22,9 @@ page 7385 "Reg. Invt. Movement Subform"
                     ApplicationArea = Warehouse;
                     ToolTip = 'Specifies the action type for the inventory movement line.';
                 }
-                field("Source Document"; "Source Document")
+                field("Source Document"; "Warehouse Source Document")
                 {
                     ApplicationArea = Warehouse;
-                    OptionCaption = ',,,,,,,,,,,Prod. Consumption,,,,,,,,,Assembly Consumption';
                     ToolTip = 'Specifies the type of document that the line relates to.';
                     Visible = false;
                 }

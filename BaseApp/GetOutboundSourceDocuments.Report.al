@@ -29,7 +29,7 @@ report 7304 "Get Outbound Source Documents"
                                 if "Destination Type" = "Destination Type"::Customer then begin
                                     TestField("Destination No.");
                                     Cust.Get("Destination No.");
-                                    Cust.CheckBlockedCustOnDocs(Cust, "Source Document", false, false);
+                                    Cust.CheckBlockedCustOnDocs(Cust, "Warehouse Source Document", false, false);
                                 end;
 
                                 if WhsePickWkshCreate.FromWhseShptLine(PickWkshTemplate, PickWkshName, "Warehouse Shipment Line") then

@@ -63,14 +63,14 @@ table 9056 "Manufacturing Cue"
         field(10; "Invt. Picks to Production"; Integer)
         {
             CalcFormula = Count ("Warehouse Activity Header" WHERE(Type = CONST(Pick),
-                                                                   "Source Document" = CONST("Prod. Consumption")));
+                                                                   "Warehouse Source Document" = CONST("Production Consumption")));
             Caption = 'Invt. Picks to Production';
             FieldClass = FlowField;
         }
         field(11; "Invt. Put-aways from Prod."; Integer)
         {
             CalcFormula = Count ("Warehouse Activity Header" WHERE(Type = CONST(Pick),
-                                                                   "Source Document" = CONST("Prod. Output")));
+                                                                   "Warehouse Source Document" = CONST("Production Output")));
             Caption = 'Invt. Put-aways from Prod.';
             FieldClass = FlowField;
         }

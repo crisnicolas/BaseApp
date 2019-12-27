@@ -11,36 +11,36 @@ codeunit 5775 "Whse. Management"
 
     procedure GetSourceDocument(SourceType: Integer; SourceSubtype: Integer): Integer
     var
-        SourceDocument: Option ,"S. Order","S. Invoice","S. Credit Memo","S. Return Order","P. Order","P. Invoice","P. Credit Memo","P. Return Order","Inb. Transfer","Outb. Transfer","Prod. Consumption","Item Jnl.","Phys. Invt. Jnl.","Reclass. Jnl.","Consumption Jnl.","Output Jnl.","BOM Jnl.","Serv. Order","Job Jnl.","Assembly Consumption","Assembly Order";
+        SourceDocument: Enum "Warehouse Source Document";
         IsHandled: Boolean;
     begin
         case SourceType of
             DATABASE::"Sales Line":
                 case SourceSubtype of
                     1:
-                        exit(SourceDocument::"S. Order");
+                        exit(SourceDocument::"Sales Order");
                     2:
-                        exit(SourceDocument::"S. Invoice");
+                        exit(SourceDocument::"Sales Invoice");
                     3:
-                        exit(SourceDocument::"S. Credit Memo");
+                        exit(SourceDocument::"Sales Credit Memo");
                     5:
-                        exit(SourceDocument::"S. Return Order");
+                        exit(SourceDocument::"Sales Return Order");
                 end;
             DATABASE::"Purchase Line":
                 case SourceSubtype of
                     1:
-                        exit(SourceDocument::"P. Order");
+                        exit(SourceDocument::"Purchase Order");
                     2:
-                        exit(SourceDocument::"P. Invoice");
+                        exit(SourceDocument::"Purchase Invoice");
                     3:
-                        exit(SourceDocument::"P. Credit Memo");
+                        exit(SourceDocument::"Purchase Credit Memo");
                     5:
-                        exit(SourceDocument::"P. Return Order");
+                        exit(SourceDocument::"Purchase Return Order");
                 end;
             DATABASE::"Service Line":
-                exit(SourceDocument::"Serv. Order");
+                exit(SourceDocument::"Service Order");
             DATABASE::"Prod. Order Component":
-                exit(SourceDocument::"Prod. Consumption");
+                exit(SourceDocument::"Production Consumption");
             DATABASE::"Assembly Line":
                 exit(SourceDocument::"Assembly Consumption");
             DATABASE::"Assembly Header":
@@ -48,27 +48,26 @@ codeunit 5775 "Whse. Management"
             DATABASE::"Transfer Line":
                 case SourceSubtype of
                     0:
-                        exit(SourceDocument::"Outb. Transfer");
+                        exit(SourceDocument::"Outbound Transfer");
                     1:
-                        exit(SourceDocument::"Inb. Transfer");
+                        exit(SourceDocument::"Inbound Transfer");
                 end;
             DATABASE::"Item Journal Line":
                 case SourceSubtype of
                     0:
-                        exit(SourceDocument::"Item Jnl.");
+                        exit(SourceDocument::"Production Output");
                     1:
-                        exit(SourceDocument::"Reclass. Jnl.");
+                        exit(SourceDocument::"Reclassification Journal");
                     2:
-                        exit(SourceDocument::"Phys. Invt. Jnl.");
+                        exit(SourceDocument::"Physical Inventory Journal");
                     4:
-                        exit(SourceDocument::"Consumption Jnl.");
+                        exit(SourceDocument::"Consumption Journal");
                     5:
-                        exit(SourceDocument::"Output Jnl.");
+                        exit(SourceDocument::"Output Journal");
                 end;
-            DATABASE::"Job Journal Line":
-                exit(SourceDocument::"Job Jnl.");
         end;
         OnAfterGetSourceDocument(SourceType, SourceSubtype, SourceDocument, IsHandled);
+        OnAfterGetWarehouseSourceDocument(SourceType, SourceSubtype, SourceDocument, IsHandled);
         if IsHandled then
             exit(SourceDocument);
         Error(Text000);
@@ -204,8 +203,14 @@ codeunit 5775 "Whse. Management"
     begin
     end;
 
+    [Obsolete('This IntegrationEvent will be replaced by OnAfterGetWarehouseSourceDocument. Option field "Source Document" is being replaced by Enum field "Warehouse Source Document"')]
     [IntegrationEvent(false, false)]
     local procedure OnAfterGetSourceDocument(SourceType: Integer; SourceSubtype: Integer; var SourceDocument: Option; var IsHandled: Boolean)
+    begin
+    end;
+
+    [IntegrationEvent(false, false)]
+    local procedure OnAfterGetWarehouseSourceDocument(SourceType: Integer; SourceSubtype: Integer; var SourceDocument: Enum "Warehouse Source Document"; var IsHandled: Boolean)
     begin
     end;
 }

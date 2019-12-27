@@ -97,6 +97,7 @@ codeunit 5774 "Whse.-Production Release"
             WhseRqst."Source No." := ProdOrderComp."Prod. Order No.";
             WhseRqst."Source Subtype" := ProdOrderComp.Status;
             WhseRqst."Source Document" := WhseRqst."Source Document"::"Prod. Consumption";
+            WhseRqst."Warehouse Source Document" := WhseRqst."Warehouse Source Document"::"Production Consumption";
             WhseRqst."Document Status" := WhseRqst."Document Status"::Released;
             case ProdOrder."Source Type" of
                 ProdOrder."Source Type"::Item:
@@ -158,6 +159,7 @@ codeunit 5774 "Whse.-Production Release"
                         WarehouseRequest."Source No." := "Prod. Order No.";
                         WarehouseRequest."Source Subtype" := Status;
                         WarehouseRequest."Source Document" := WarehouseRequest."Source Document"::"Prod. Consumption";
+                        WarehouseRequest."Warehouse Source Document" := WarehouseRequest."Warehouse Source Document"::"Production Consumption";
                         WarehouseRequest."Document Status" := WarehouseRequest."Document Status"::Released;
                         case ProdOrder."Source Type" of
                             ProdOrder."Source Type"::Item:

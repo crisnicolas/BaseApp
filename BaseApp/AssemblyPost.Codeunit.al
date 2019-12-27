@@ -775,6 +775,7 @@ codeunit 900 "Assembly-Post"
             WhseJnlLine."Source Subtype" := AssemblyHeader."Document Type";
             WhseJnlLine."Source Code" := SourceCode;
             WhseJnlLine."Source Document" := WhseMgt.GetSourceDocument(WhseJnlLine."Source Type", WhseJnlLine."Source Subtype");
+            WhseJnlLine."Warehouse Source Document" := WhseMgt.GetSourceDocument(WhseJnlLine."Source Type", WhseJnlLine."Source Subtype");
             TestField("Order Type", "Order Type"::Assembly);
             WhseJnlLine."Source No." := "Order No.";
             WhseJnlLine."Source Line No." := "Order Line No.";

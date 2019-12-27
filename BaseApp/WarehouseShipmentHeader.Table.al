@@ -375,7 +375,7 @@ table 7320 "Warehouse Shipment Header"
             "Sorting Method"::Item:
                 WhseShptLine.SetCurrentKey("No.", "Item No.");
             "Sorting Method"::Document:
-                WhseShptLine.SetCurrentKey("No.", "Source Document", "Source No.");
+                WhseShptLine.SetCurrentKey("No.", "Warehouse Source Document", "Source No.");
             "Sorting Method"::"Shelf or Bin":
                 begin
                     GetLocation("Location Code");

@@ -23,11 +23,10 @@ page 5780 "Whse. Pick Subform"
                     ToolTip = 'Specifies the action type for the warehouse activity line.';
                     Visible = false;
                 }
-                field("Source Document"; "Source Document")
+                field("Source Document"; "Warehouse Source Document")
                 {
                     ApplicationArea = Warehouse;
                     BlankZero = true;
-                    OptionCaption = ',Sales Order,,,Sales Return Order,Purchase Order,,,Purchase Return Order,,Outbound Transfer,Prod. Consumption,,,,,,,Service Order,,Assembly Consumption';
                     ToolTip = 'Specifies the type of document that the line relates to.';
                 }
                 field("Source No."; "Source No.")
