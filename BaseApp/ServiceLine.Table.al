@@ -165,13 +165,14 @@ table 5902 "Service Line"
                 GetDefaultBin;
 
                 if not IsTemporary then
-                    CreateDim(
-                      DimMgt.TypeToTableID5(Type), "No.",
-                      DATABASE::Job, "Job No.",
-                      DATABASE::"Responsibility Center", "Responsibility Center");
+                    //TODO JOBS: 
+                    // CreateDim(
+                    //   DimMgt.TypeToTableID5(Type), "No.",
+                    //   DATABASE::Job, "Job No.",
+                    //   DATABASE::"Responsibility Center", "Responsibility Center");
 
-                if ServiceLine.Get("Document Type", "Document No.", "Line No.") then
-                    Modify;
+                    if ServiceLine.Get("Document Type", "Document No.", "Line No.") then
+                        Modify;
             end;
         }
         field(7; "Location Code"; Code[10])
@@ -722,30 +723,31 @@ table 5902 "Service Line"
         field(45; "Job No."; Code[20])
         {
             Caption = 'Job No.';
-            TableRelation = Job."No." WHERE("Bill-to Customer No." = FIELD("Bill-to Customer No."));
+            //TODO JOBS: 
+            // TableRelation = Job."No." WHERE("Bill-to Customer No." = FIELD("Bill-to Customer No."));
 
-            trigger OnValidate()
-            var
-                Job: Record Job;
-            begin
-                TestField("Quantity Consumed", 0);
-                Validate("Job Task No.", '');
+            // trigger OnValidate()
+            // var
+            //     Job: Record Job;
+            // begin
+            //     TestField("Quantity Consumed", 0);
+            //     Validate("Job Task No.", '');
 
-                if "Job No." <> '' then begin
-                    Job.Get("Job No.");
-                    Job.TestBlocked;
-                end;
+            //     if "Job No." <> '' then begin
+            //         Job.Get("Job No.");
+            //         Job.TestBlocked;
+            //     end;
 
-                CreateDim(
-                  DATABASE::Job, "Job No.",
-                  DimMgt.TypeToTableID5(Type), "No.",
-                  DATABASE::"Responsibility Center", "Responsibility Center");
-            end;
+            //     CreateDim(
+            //       DATABASE::Job, "Job No.",
+            //       DimMgt.TypeToTableID5(Type), "No.",
+            //       DATABASE::"Responsibility Center", "Responsibility Center");
+            // end;
         }
         field(46; "Job Task No."; Code[20])
         {
             Caption = 'Job Task No.';
-            TableRelation = "Job Task"."Job Task No." WHERE("Job No." = FIELD("Job No."));
+            //TODO JOBS: TableRelation = "Job Task"."Job Task No." WHERE("Job No." = FIELD("Job No."));
 
             trigger OnValidate()
             begin
@@ -1240,28 +1242,28 @@ table 5902 "Service Line"
         }
         field(1019; "Job Planning Line No."; Integer)
         {
-            AccessByPermission = TableData Job = R;
+            //TODO JOBS: AccessByPermission = TableData Job = R;
             BlankZero = true;
             Caption = 'Job Planning Line No.';
 
             trigger OnLookup()
             var
-                JobPlanningLine: Record "Job Planning Line";
+            //TODO JOBS: JobPlanningLine: Record "Job Planning Line";
             begin
-                JobPlanningLine.SetRange("Job No.", "Job No.");
-                JobPlanningLine.SetRange("Job Task No.", "Job Task No.");
-                case Type of
-                    Type::"G/L Account":
-                        JobPlanningLine.SetRange(Type, JobPlanningLine.Type::"G/L Account");
-                    Type::Item:
-                        JobPlanningLine.SetRange(Type, JobPlanningLine.Type::Item);
-                end;
-                JobPlanningLine.SetRange("No.", "No.");
-                JobPlanningLine.SetRange("Usage Link", true);
-                JobPlanningLine.SetRange("System-Created Entry", false);
+                // JobPlanningLine.SetRange("Job No.", "Job No.");
+                // JobPlanningLine.SetRange("Job Task No.", "Job Task No.");
+                // case Type of
+                //     Type::"G/L Account":
+                //         JobPlanningLine.SetRange(Type, JobPlanningLine.Type::"G/L Account");
+                //     Type::Item:
+                //         JobPlanningLine.SetRange(Type, JobPlanningLine.Type::Item);
+                // end;
+                // JobPlanningLine.SetRange("No.", "No.");
+                // JobPlanningLine.SetRange("Usage Link", true);
+                // JobPlanningLine.SetRange("System-Created Entry", false);
 
-                if PAGE.RunModal(0, JobPlanningLine) = ACTION::LookupOK then
-                    Validate("Job Planning Line No.", JobPlanningLine."Line No.");
+                // if PAGE.RunModal(0, JobPlanningLine) = ACTION::LookupOK then
+                //     Validate("Job Planning Line No.", JobPlanningLine."Line No.");
             end;
 
             trigger OnValidate()

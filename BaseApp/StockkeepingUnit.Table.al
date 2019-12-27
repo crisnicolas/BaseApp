@@ -301,12 +301,13 @@ table 5700 "Stockkeeping Unit"
         }
         field(1001; "Qty. on Job Order"; Decimal)
         {
-            CalcFormula = Sum ("Job Planning Line"."Remaining Qty. (Base)" WHERE(Status = CONST(Order),
-                                                                                 Type = CONST(Item),
-                                                                                 "No." = FIELD("Item No."),
-                                                                                 "Location Code" = FIELD("Location Code"),
-                                                                                 "Variant Code" = FIELD("Variant Code"),
-                                                                                 "Planning Date" = FIELD("Date Filter")));
+            //TODO JOBS: 
+            // CalcFormula = Sum ("Job Planning Line"."Remaining Qty. (Base)" WHERE(Status = CONST(Order),
+            //                                                                      Type = CONST(Item),
+            //                                                                      "No." = FIELD("Item No."),
+            //                                                                      "Location Code" = FIELD("Location Code"),
+            //                                                                      "Variant Code" = FIELD("Variant Code"),
+            //                                                                      "Planning Date" = FIELD("Date Filter")));
             Caption = 'Qty. on Job Order';
             DecimalPlaces = 0 : 5;
             Editable = false;

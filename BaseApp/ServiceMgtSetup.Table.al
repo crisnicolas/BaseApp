@@ -230,7 +230,7 @@ table 5911 "Service Mgt. Setup"
         field(63; "Serv. Job Responsibility Code"; Code[10])
         {
             Caption = 'Serv. Job Responsibility Code';
-            TableRelation = "Job Responsibility".Code;
+            //TODO JOBS: TableRelation = "Job Responsibility".Code;
         }
         field(64; "Contract Value Calc. Method"; Option)
         {

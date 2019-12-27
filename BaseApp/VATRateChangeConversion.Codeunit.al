@@ -85,9 +85,10 @@ codeunit 550 "VAT Rate Change Conversion"
             UpdateTable(
               DATABASE::"Res. Journal Line",
               ConvertVATProdPostGrp("Update Res. Journal Lines"), ConvertGenProdPostGrp("Update Res. Journal Lines"));
-            UpdateTable(
-              DATABASE::"Job Journal Line",
-              ConvertVATProdPostGrp("Update Job Journal Lines"), ConvertGenProdPostGrp("Update Job Journal Lines"));
+            //TODO JOBS: 
+            // UpdateTable(
+            //   DATABASE::"Job Journal Line",
+            //   ConvertVATProdPostGrp("Update Job Journal Lines"), ConvertGenProdPostGrp("Update Job Journal Lines"));
             UpdateTable(
               DATABASE::"Requisition Line",
               ConvertVATProdPostGrp("Update Requisition Lines"), ConvertGenProdPostGrp("Update Requisition Lines"));

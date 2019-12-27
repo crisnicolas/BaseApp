@@ -644,12 +644,13 @@ report 394 "Suggest Employee Payments"
                 NewDimensionID := DimMgt.GetDimensionSetID(TempDimSetEntry);
                 "Dimension Set ID" := NewDimensionID;
             end;
-            CreateDim(
-              DimMgt.TypeToTableID1("Account Type"), "Account No.",
-              DimMgt.TypeToTableID1("Bal. Account Type"), "Bal. Account No.",
-              DATABASE::Job, "Job No.",
-              DATABASE::"Salesperson/Purchaser", "Salespers./Purch. Code",
-              DATABASE::Campaign, "Campaign No.");
+            //TODO JOBS: 
+            // CreateDim(
+            //   DimMgt.TypeToTableID1("Account Type"), "Account No.",
+            //   DimMgt.TypeToTableID1("Bal. Account Type"), "Bal. Account No.",
+            //   DATABASE::Job, "Job No.",
+            //   DATABASE::"Salesperson/Purchaser", "Salespers./Purch. Code",
+            //   DATABASE::Campaign, "Campaign No.");
             if NewDimensionID <> "Dimension Set ID" then begin
                 DimSetIDArr[2] := NewDimensionID;
                 DimSetIDArr[1] := "Dimension Set ID";

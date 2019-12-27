@@ -313,33 +313,34 @@ report 840 "Suggest Worksheet Lines"
                         CurrReport.Break;
                 end;
             }
-            dataitem("Job Planning Line"; "Job Planning Line")
-            {
-                DataItemTableView = SORTING("Job No.", "Planning Date", "Document No.");
+            //TODO JOBS: 
+            // dataitem("Job Planning Line"; "Job Planning Line")
+            // {
+            //     DataItemTableView = SORTING("Job No.", "Planning Date", "Document No.");
 
-                trigger OnAfterGetRecord()
-                begin
-                    Window.Update(2, JobsMsg);
-                    Window.Update(3, "Job No.");
+            //     trigger OnAfterGetRecord()
+            //     begin
+            //         Window.Update(2, JobsMsg);
+            //         Window.Update(3, "Job No.");
 
-                    if not ("Line Type" in ["Line Type"::Billable, "Line Type"::"Both Budget and Billable"]) then
-                        exit;
+            //         if not ("Line Type" in ["Line Type"::Billable, "Line Type"::"Both Budget and Billable"]) then
+            //             exit;
 
-                    InsertCFLineForJobPlanningLine;
-                end;
+            //         InsertCFLineForJobPlanningLine;
+            //     end;
 
-                trigger OnPreDataItem()
-                begin
-                    if not ConsiderSource[SourceType::Job] then
-                        CurrReport.Break;
+            //     trigger OnPreDataItem()
+            //     begin
+            //         if not ConsiderSource[SourceType::Job] then
+            //             CurrReport.Break;
 
-                    if not ReadPermission then
-                        CurrReport.Break;
+            //         if not ReadPermission then
+            //             CurrReport.Break;
 
-                    if not ApplicationAreaMgmtFacade.IsJobsEnabled and not ApplicationAreaMgmtFacade.IsAllDisabled then
-                        CurrReport.Break;
-                end;
-            }
+            //         if not ApplicationAreaMgmtFacade.IsJobsEnabled and not ApplicationAreaMgmtFacade.IsAllDisabled then
+            //             CurrReport.Break;
+            //     end;
+            // }
             dataitem("Purchase Header"; "Purchase Header")
             {
                 DataItemTableView = SORTING("Document Type", "No.") WHERE("Document Type" = CONST(Order));
@@ -623,8 +624,9 @@ report 840 "Suggest Worksheet Lines"
                 ConsiderSource[SourceType::"G/L Budget"] := GLBudgetEntry.ReadPermission;
             if ConsiderSource[SourceType::"Service Orders"] then
                 ConsiderSource[SourceType::"Service Orders"] := "Service Line".ReadPermission;
-            if ConsiderSource[SourceType::Job] then
-                ConsiderSource[SourceType::Job] := "Job Planning Line".ReadPermission;
+            //TODO JOBS: 
+            // if ConsiderSource[SourceType::Job] then
+            //     ConsiderSource[SourceType::Job] := "Job Planning Line".ReadPermission;
             if ConsiderSource[SourceType::Tax] then
                 ConsiderSource[SourceType::Tax] := "Sales Header".ReadPermission and
                   "Purchase Header".ReadPermission and "VAT Entry".ReadPermission;
@@ -1214,43 +1216,43 @@ report 840 "Suggest Worksheet Lines"
 
     local procedure InsertCFLineForJobPlanningLine()
     var
-        Job: Record Job;
+        //TODO JOBS:  Job: Record Job;
         InsertConditionHasBeenMetAlready: Boolean;
     begin
-        if (TempCFWorksheetLine."Source Type" = TempCFWorksheetLine."Source Type"::Job) and
-           ("Job Planning Line"."Job No." = TempCFWorksheetLine."Source No.") and
-           ("Job Planning Line"."Planning Date" = TempCFWorksheetLine."Document Date") and
-           ("Job Planning Line"."Document No." = TempCFWorksheetLine."Document No.")
-        then begin
-            InsertConditionHasBeenMetAlready := InsertConditionMet;
-            TempCFWorksheetLine."Amount (LCY)" += GetJobPlanningAmountForCFLine("Job Planning Line");
-            InsertOrModifyCFLine(InsertConditionHasBeenMetAlready);
-        end else
-            with CFWorksheetLine2 do begin
-                Init;
-                "Source Type" := "Source Type"::Job;
-                "Source No." := "Job Planning Line"."Job No.";
-                "Document Type" := "Document Type"::Invoice;
-                "Document Date" := "Job Planning Line"."Planning Date";
+        // if (TempCFWorksheetLine."Source Type" = TempCFWorksheetLine."Source Type"::Job) and
+        //    ("Job Planning Line"."Job No." = TempCFWorksheetLine."Source No.") and
+        //    ("Job Planning Line"."Planning Date" = TempCFWorksheetLine."Document Date") and
+        //    ("Job Planning Line"."Document No." = TempCFWorksheetLine."Document No.")
+        // then begin
+        //     InsertConditionHasBeenMetAlready := InsertConditionMet;
+        //     TempCFWorksheetLine."Amount (LCY)" += GetJobPlanningAmountForCFLine("Job Planning Line");
+        //     InsertOrModifyCFLine(InsertConditionHasBeenMetAlready);
+        // end else
+        //     with CFWorksheetLine2 do begin
+        //         Init;
+        //         "Source Type" := "Source Type"::Job;
+        //         "Source No." := "Job Planning Line"."Job No.";
+        //         "Document Type" := "Document Type"::Invoice;
+        //         "Document Date" := "Job Planning Line"."Planning Date";
 
-                Job.Get("Job Planning Line"."Job No.");
-                "Shortcut Dimension 1 Code" := Job."Global Dimension 1 Code";
-                "Shortcut Dimension 2 Code" := Job."Global Dimension 2 Code";
-                "Cash Flow Account No." := CFSetup."Job CF Account No.";
-                Description :=
-                  CopyStr(
-                    StrSubstNo(
-                      Text025,
-                      Job.TableCaption,
-                      Job.Description,
-                      Format("Job Planning Line"."Document Date")),
-                    1, MaxStrLen(Description));
-                SetCashFlowDate(CFWorksheetLine2, "Job Planning Line"."Planning Date");
-                "Document No." := "Job Planning Line"."Document No.";
-                "Amount (LCY)" := GetJobPlanningAmountForCFLine("Job Planning Line");
+        //         Job.Get("Job Planning Line"."Job No.");
+        //         "Shortcut Dimension 1 Code" := Job."Global Dimension 1 Code";
+        //         "Shortcut Dimension 2 Code" := Job."Global Dimension 2 Code";
+        //         "Cash Flow Account No." := CFSetup."Job CF Account No.";
+        //         Description :=
+        //           CopyStr(
+        //             StrSubstNo(
+        //               Text025,
+        //               Job.TableCaption,
+        //               Job.Description,
+        //               Format("Job Planning Line"."Document Date")),
+        //             1, MaxStrLen(Description));
+        //         SetCashFlowDate(CFWorksheetLine2, "Job Planning Line"."Planning Date");
+        //         "Document No." := "Job Planning Line"."Document No.";
+        //         "Amount (LCY)" := GetJobPlanningAmountForCFLine("Job Planning Line");
 
-                InsertTempCFWorksheetLine(0);
-            end;
+        //         InsertTempCFWorksheetLine(0);
+        //     end;
     end;
 
     local procedure InsertCFLineForTax(SourceTableNum: Integer)
@@ -1557,11 +1559,12 @@ report 840 "Suggest Worksheet Lines"
         exit(ServiceLine."Outstanding Amount (LCY)" + ServiceLine."Shipped Not Invoiced (LCY)");
     end;
 
-    local procedure GetJobPlanningAmountForCFLine(JobPlanningLine: Record "Job Planning Line"): Decimal
-    begin
-        JobPlanningLine.CalcFields("Invoiced Amount (LCY)");
-        exit(JobPlanningLine."Line Amount (LCY)" - JobPlanningLine."Invoiced Amount (LCY)");
-    end;
+    //TODO JOBS: 
+    // local procedure GetJobPlanningAmountForCFLine(JobPlanningLine: Record "Job Planning Line"): Decimal
+    // begin
+    //     JobPlanningLine.CalcFields("Invoiced Amount (LCY)");
+    //     exit(JobPlanningLine."Line Amount (LCY)" - JobPlanningLine."Invoiced Amount (LCY)");
+    // end;
 
     local procedure GetTaxPayableDateFromSource(SourceTableNum: Integer): Date
     var

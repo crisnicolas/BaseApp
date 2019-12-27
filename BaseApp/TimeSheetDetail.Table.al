@@ -31,12 +31,12 @@ table 952 "Time Sheet Detail"
         field(6; "Job No."; Code[20])
         {
             Caption = 'Job No.';
-            TableRelation = Job;
+            //TODO JOBS: TableRelation = Job;
         }
         field(7; "Job Task No."; Code[20])
         {
             Caption = 'Job Task No.';
-            TableRelation = "Job Task"."Job Task No." WHERE("Job No." = FIELD("Job No."));
+            //TODO JOBS: TableRelation = "Job Task"."Job Task No." WHERE("Job No." = FIELD("Job No."));
         }
         field(9; "Cause of Absence Code"; Code[10])
         {
@@ -100,7 +100,7 @@ table 952 "Time Sheet Detail"
         {
             Caption = 'Job Id';
             DataClassification = SystemMetadata;
-            TableRelation = Job.Id;
+            //TODO JOBS: TableRelation = Job.Id;
         }
     }
 

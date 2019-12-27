@@ -316,12 +316,13 @@
                 ApplicationArea = Jobs;
                 Caption = 'Time Sheet Status';
             }
-            part(ActualSchedSummaryFactBox; "Actual/Sched. Summary FactBox")
-            {
-                ApplicationArea = Jobs;
-                Caption = 'Actual/Budgeted Summary';
-                Visible = true;
-            }
+            //TODO JOBS: 
+            // part(ActualSchedSummaryFactBox; "Actual/Sched. Summary FactBox")
+            // {
+            //     ApplicationArea = Jobs;
+            //     Caption = 'Actual/Budgeted Summary';
+            //     Visible = true;
+            // }
             part(ActivityDetailsFactBox; "Activity Details FactBox")
             {
                 ApplicationArea = Jobs;
@@ -698,7 +699,7 @@
 
     local procedure UpdateFactBoxes()
     begin
-        CurrPage.ActualSchedSummaryFactBox.PAGE.UpdateData(TimeSheetHeader);
+        //TODO JOBS: CurrPage.ActualSchedSummaryFactBox.PAGE.UpdateData(TimeSheetHeader);
         CurrPage.TimeSheetStatusFactBox.PAGE.UpdateData(TimeSheetHeader);
         if "Line No." = 0 then
             CurrPage.ActivityDetailsFactBox.PAGE.SetEmptyLine;

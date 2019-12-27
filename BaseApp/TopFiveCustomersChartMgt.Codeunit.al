@@ -54,13 +54,14 @@ codeunit 1326 "Top Five Customers Chart Mgt."
     local procedure CalcTopSalesCustomers(var CustomerName: array[6] of Text[100]; var SalesLCY: array[6] of Decimal)
     var
         TopCustomersBySalesBuffer: Record "Top Customers By Sales Buffer";
-        TopCustomersBySalesJob: Codeunit "Top Customers By Sales Job";
+        //TODO JOBS: TopCustomersBySalesJob: Codeunit "Top Customers By Sales Job";
         ChartManagement: Codeunit "Chart Management";
         ColumnIndex: Integer;
         OtherCustomersSalesLCY: Decimal;
     begin
-        if TopCustomersBySalesBuffer.IsEmpty then
-            TopCustomersBySalesJob.UpdateCustomerTopList;
+        //TODO JOBS: 
+        // if TopCustomersBySalesBuffer.IsEmpty then
+        //     TopCustomersBySalesJob.UpdateCustomerTopList;
 
         if TopCustomersBySalesBuffer.FindSet then begin
             repeat

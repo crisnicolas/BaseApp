@@ -2,7 +2,7 @@ table 5520 "Unplanned Demand"
 {
     Caption = 'Unplanned Demand';
     Permissions = TableData "Sales Header" = r,
-                  TableData Job = r,
+                  //TODO JOBS:  TableData Job = r,
                   TableData "Assembly Header" = r,
                   TableData "Production Order" = r,
                   TableData "Service Header" = r;
@@ -33,7 +33,7 @@ table 5520 "Unplanned Demand"
                 SalesHeader: Record "Sales Header";
                 ProdOrder: Record "Production Order";
                 ServHeader: Record "Service Header";
-                Job: Record Job;
+                //TODO JOBS: Job: Record Job;
                 AsmHeader: Record "Assembly Header";
             begin
                 "Sell-to Customer No." := '';
@@ -65,12 +65,13 @@ table 5520 "Unplanned Demand"
                             "Sell-to Customer No." := ServHeader."Customer No.";
                             Description := ServHeader.Name;
                         end;
-                    "Demand Type"::Job:
-                        begin
-                            Job.Get("Demand Order No.");
-                            "Sell-to Customer No." := Job."Bill-to Customer No.";
-                            Description := Job.Description;
-                        end;
+                //TODO JOBS: 
+                // "Demand Type"::Job:
+                //     begin
+                //         Job.Get("Demand Order No.");
+                //         "Sell-to Customer No." := Job."Bill-to Customer No.";
+                //         Description := Job.Description;
+                //     end;
                 end;
                 "Demand Line No." := 0;
                 "Demand Ref. No." := 0;

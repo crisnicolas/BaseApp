@@ -47,11 +47,12 @@ codeunit 1316 "Top Ten Customers Chart Mgt."
     local procedure CalcTopTenSalesCustomers(var CustomerName: array[11] of Text[100]; var SalesLCY: array[11] of Decimal)
     var
         TopCustomersBySalesBuffer: Record "Top Customers By Sales Buffer";
-        TopCustomersBySalesJob: Codeunit "Top Customers By Sales Job";
+        //TODO JOBS: TopCustomersBySalesJob: Codeunit "Top Customers By Sales Job";
         ChartManagement: Codeunit "Chart Management";
     begin
-        if TopCustomersBySalesBuffer.IsEmpty then
-            TopCustomersBySalesJob.UpdateCustomerTopList;
+        //TODO JOBS: 
+        // if TopCustomersBySalesBuffer.IsEmpty then
+        //     TopCustomersBySalesJob.UpdateCustomerTopList;
 
         if TopCustomersBySalesBuffer.FindSet then begin
             repeat

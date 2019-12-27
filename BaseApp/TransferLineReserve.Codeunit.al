@@ -586,8 +586,9 @@ codeunit 99000836 "Transfer Line-Reserve"
                 InboundReservEntryShipmentDate := GetInboundReservEntryShipmentDateByTransferLine;
             DATABASE::"Service Line":
                 InboundReservEntryShipmentDate := GetInboundReservEntryShipmentDateByServiceLine;
-            DATABASE::"Job Planning Line":
-                InboundReservEntryShipmentDate := GetInboundReservEntryShipmentDateByJobPlanningLine;
+            //TODO JOBS: 
+            // DATABASE::"Job Planning Line":
+            //     InboundReservEntryShipmentDate := GetInboundReservEntryShipmentDateByJobPlanningLine;
             DATABASE::"Prod. Order Component":
                 InboundReservEntryShipmentDate := GetInboundReservEntryShipmentDateByProdOrderComponent;
         end;
@@ -635,13 +636,13 @@ codeunit 99000836 "Transfer Line-Reserve"
 
     local procedure GetInboundReservEntryShipmentDateByJobPlanningLine(): Date
     var
-        JobPlanningLine: Record "Job Planning Line";
+    //TODO JOBS: JobPlanningLine: Record "Job Planning Line";
     begin
-        JobPlanningLine.SetRange(Status, SetFromSubtype);
-        JobPlanningLine.SetRange("Job No.", SetFromID);
-        JobPlanningLine.SetRange("Job Contract Entry No.", SetFromRefNo);
-        JobPlanningLine.FindFirst;
-        exit(JobPlanningLine."Planning Date");
+        // JobPlanningLine.SetRange(Status, SetFromSubtype);
+        // JobPlanningLine.SetRange("Job No.", SetFromID);
+        // JobPlanningLine.SetRange("Job Contract Entry No.", SetFromRefNo);
+        // JobPlanningLine.FindFirst;
+        // exit(JobPlanningLine."Planning Date");
     end;
 
     local procedure AutoTracking(OldTransLine: Record "Transfer Line"; NewTransLine: Record "Transfer Line"; var TempReservEntry: Record "Reservation Entry" temporary; Direction: Option)

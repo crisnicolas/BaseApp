@@ -80,12 +80,13 @@ table 751 "Standard General Journal Line"
                 if "Account No." = '' then begin
                     UpdateLineBalance;
                     UpdateSource;
-                    CreateDim(
-                      DimMgt.TypeToTableID1("Account Type"), "Account No.",
-                      DimMgt.TypeToTableID1("Bal. Account Type"), "Bal. Account No.",
-                      DATABASE::Job, "Job No.",
-                      DATABASE::"Salesperson/Purchaser", "Salespers./Purch. Code",
-                      DATABASE::Campaign, "Campaign No.");
+                    
+                    // CreateDim(
+                    //   DimMgt.TypeToTableID1("Account Type"), "Account No.",
+                    //   DimMgt.TypeToTableID1("Bal. Account Type"), "Bal. Account No.",
+                    //   DATABASE::Job, "Job No.",
+                    //   DATABASE::"Salesperson/Purchaser", "Salespers./Purch. Code",
+                    //   DATABASE::Campaign, "Campaign No.");
                     if xRec."Account No." <> '' then begin
                         "Gen. Posting Type" := "Gen. Posting Type"::" ";
                         "Gen. Bus. Posting Group" := '';
@@ -118,12 +119,13 @@ table 751 "Standard General Journal Line"
                 Validate("VAT Prod. Posting Group");
                 UpdateLineBalance;
                 UpdateSource;
-                CreateDim(
-                  DimMgt.TypeToTableID1("Account Type"), "Account No.",
-                  DimMgt.TypeToTableID1("Bal. Account Type"), "Bal. Account No.",
-                  DATABASE::Job, "Job No.",
-                  DATABASE::"Salesperson/Purchaser", "Salespers./Purch. Code",
-                  DATABASE::Campaign, "Campaign No.");
+                //TODO JOBS: 
+                // CreateDim(
+                //   DimMgt.TypeToTableID1("Account Type"), "Account No.",
+                //   DimMgt.TypeToTableID1("Bal. Account Type"), "Bal. Account No.",
+                //   DATABASE::Job, "Job No.",
+                //   DATABASE::"Salesperson/Purchaser", "Salespers./Purch. Code",
+                //   DATABASE::Campaign, "Campaign No.");
 
                 Validate("IC Partner G/L Acc. No.", GetDefaultICPartnerGLAccNo);
             end;
@@ -216,12 +218,13 @@ table 751 "Standard General Journal Line"
                 if "Bal. Account No." = '' then begin
                     UpdateLineBalance;
                     UpdateSource;
-                    CreateDim(
-                      DimMgt.TypeToTableID1("Bal. Account Type"), "Bal. Account No.",
-                      DimMgt.TypeToTableID1("Account Type"), "Account No.",
-                      DATABASE::Job, "Job No.",
-                      DATABASE::"Salesperson/Purchaser", "Salespers./Purch. Code",
-                      DATABASE::Campaign, "Campaign No.");
+                    //TODO JOBS: 
+                    // CreateDim(
+                    //   DimMgt.TypeToTableID1("Bal. Account Type"), "Bal. Account No.",
+                    //   DimMgt.TypeToTableID1("Account Type"), "Account No.",
+                    //   DATABASE::Job, "Job No.",
+                    //   DATABASE::"Salesperson/Purchaser", "Salespers./Purch. Code",
+                    //   DATABASE::Campaign, "Campaign No.");
                     if xRec."Bal. Account No." <> '' then begin
                         "Bal. Gen. Posting Type" := "Bal. Gen. Posting Type"::" ";
                         "Bal. Gen. Bus. Posting Group" := '';
@@ -254,12 +257,13 @@ table 751 "Standard General Journal Line"
                 Validate("Bal. VAT Prod. Posting Group");
                 UpdateLineBalance;
                 UpdateSource;
-                CreateDim(
-                  DimMgt.TypeToTableID1("Bal. Account Type"), "Bal. Account No.",
-                  DimMgt.TypeToTableID1("Account Type"), "Account No.",
-                  DATABASE::Job, "Job No.",
-                  DATABASE::"Salesperson/Purchaser", "Salespers./Purch. Code",
-                  DATABASE::Campaign, "Campaign No.");
+                //TODO JOBS: 
+                // CreateDim(
+                //   DimMgt.TypeToTableID1("Bal. Account Type"), "Bal. Account No.",
+                //   DimMgt.TypeToTableID1("Account Type"), "Account No.",
+                //   DATABASE::Job, "Job No.",
+                //   DATABASE::"Salesperson/Purchaser", "Salespers./Purch. Code",
+                //   DATABASE::Campaign, "Campaign No.");
 
                 Validate("IC Partner G/L Acc. No.", GetDefaultICPartnerGLAccNo);
             end;
@@ -454,12 +458,13 @@ table 751 "Standard General Journal Line"
 
             trigger OnValidate()
             begin
-                CreateDim(
-                  DATABASE::"Salesperson/Purchaser", "Salespers./Purch. Code",
-                  DimMgt.TypeToTableID1("Account Type"), "Account No.",
-                  DimMgt.TypeToTableID1("Bal. Account Type"), "Bal. Account No.",
-                  DATABASE::Job, "Job No.",
-                  DATABASE::Campaign, "Campaign No.");
+                //TODO JOBS: 
+                // CreateDim(
+                //   DATABASE::"Salesperson/Purchaser", "Salespers./Purch. Code",
+                //   DimMgt.TypeToTableID1("Account Type"), "Account No.",
+                //   DimMgt.TypeToTableID1("Bal. Account Type"), "Bal. Account No.",
+                //   DATABASE::Job, "Job No.",
+                //   DATABASE::Campaign, "Campaign No.");
             end;
         }
         field(29; "Source Code"; Code[10])
@@ -489,16 +494,17 @@ table 751 "Standard General Journal Line"
         {
             Caption = 'Job No.';
             Editable = false;
-            TableRelation = Job;
+            //TODO JOBS: TableRelation = Job;
 
             trigger OnValidate()
             begin
-                CreateDim(
-                  DATABASE::Job, "Job No.",
-                  DimMgt.TypeToTableID1("Account Type"), "Account No.",
-                  DimMgt.TypeToTableID1("Bal. Account Type"), "Bal. Account No.",
-                  DATABASE::"Salesperson/Purchaser", "Salespers./Purch. Code",
-                  DATABASE::Campaign, "Campaign No.");
+                //TODO JOBS: 
+                // CreateDim(
+                //   DATABASE::Job, "Job No.",
+                //   DimMgt.TypeToTableID1("Account Type"), "Account No.",
+                //   DimMgt.TypeToTableID1("Bal. Account Type"), "Bal. Account No.",
+                //   DATABASE::"Salesperson/Purchaser", "Salespers./Purch. Code",
+                //   DATABASE::Campaign, "Campaign No.");
             end;
         }
         field(43; Quantity; Decimal)
@@ -1242,12 +1248,13 @@ table 751 "Standard General Journal Line"
 
             trigger OnValidate()
             begin
-                CreateDim(
-                  DATABASE::Campaign, "Campaign No.",
-                  DimMgt.TypeToTableID1("Account Type"), "Account No.",
-                  DimMgt.TypeToTableID1("Bal. Account Type"), "Bal. Account No.",
-                  DATABASE::Job, "Job No.",
-                  DATABASE::"Salesperson/Purchaser", "Salespers./Purch. Code");
+                //TODO JOBS: 
+                // CreateDim(
+                //   DATABASE::Campaign, "Campaign No.",
+                //   DimMgt.TypeToTableID1("Account Type"), "Account No.",
+                //   DimMgt.TypeToTableID1("Bal. Account Type"), "Bal. Account No.",
+                //   DATABASE::Job, "Job No.",
+                //   DATABASE::"Salesperson/Purchaser", "Salespers./Purch. Code");
             end;
         }
         field(5616; "Index Entry"; Boolean)

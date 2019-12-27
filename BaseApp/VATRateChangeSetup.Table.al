@@ -86,7 +86,7 @@ table 550 "VAT Rate Change Setup"
         }
         field(35; "Update Job Journal Lines"; Option)
         {
-            AccessByPermission = TableData Job = R;
+            //TODO JOBS: AccessByPermission = TableData Job = R;
             Caption = 'Update Job Journal Lines';
             InitValue = "Gen. Prod. Posting Group";
             OptionCaption = ',Gen. Prod. Posting Group,,No';

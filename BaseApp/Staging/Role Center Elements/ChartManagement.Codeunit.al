@@ -395,7 +395,7 @@ codeunit 1315 "Chart Management"
         if TopCustomerListUpdatedRecently(LastCustomerLedgerEntryNo) then
             exit;
 
-        TASKSCHEDULER.CreateTask(CODEUNIT::"Top Customers By Sales Job", 0, true, CompanyName, 0DT);
+        //TODO JOBS: TASKSCHEDULER.CreateTask(CODEUNIT::"Top Customers By Sales Job", 0, true, CompanyName, 0DT);
     end;
 
     [Scope('OnPrem')]

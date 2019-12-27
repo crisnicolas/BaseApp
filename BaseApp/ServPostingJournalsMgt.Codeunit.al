@@ -557,110 +557,111 @@ codeunit 5987 "Serv-Posting Journals Mgt."
 
     procedure PostJobJnlLine(var ServHeader: Record "Service Header"; ServLine: Record "Service Line"; QtyToBeConsumed: Decimal): Boolean
     var
-        JobJnlLine: Record "Job Journal Line";
-        SourceCodeSetup: Record "Source Code Setup";
-        ServiceCost: Record "Service Cost";
-        Job: Record Job;
-        JobTask: Record "Job Task";
-        Item: Record Item;
-        JobJnlPostLine: Codeunit "Job Jnl.-Post Line";
-        CurrencyFactor: Decimal;
-        UnitPriceLCY: Decimal;
-        IsHandled: Boolean;
-        Result: Boolean;
+    //TODO JOBS: 
+    // JobJnlLine: Record "Job Journal Line";
+    // SourceCodeSetup: Record "Source Code Setup";
+    // ServiceCost: Record "Service Cost";
+    // Job: Record Job;
+    // JobTask: Record "Job Task";
+    // Item: Record Item;
+    // JobJnlPostLine: Codeunit "Job Jnl.-Post Line";
+    // CurrencyFactor: Decimal;
+    // UnitPriceLCY: Decimal;
+    // IsHandled: Boolean;
+    // Result: Boolean;
     begin
-        IsHandled := false;
-        OnBeforePostJobJnlLine(ServHeader, ServLine, QtyToBeConsumed, Result, IsHandled);
-        if IsHandled then
-            exit(Result);
+        // IsHandled := false;
+        // OnBeforePostJobJnlLine(ServHeader, ServLine, QtyToBeConsumed, Result, IsHandled);
+        // if IsHandled then
+        //     exit(Result);
 
-        with ServLine do begin
-            if ("Job No." = '') or (QtyToBeConsumed = 0) then
-                exit(false);
+        // with ServLine do begin
+        //     if ("Job No." = '') or (QtyToBeConsumed = 0) then
+        //         exit(false);
 
-            TestField("Job Task No.");
-            Job.LockTable;
-            JobTask.LockTable;
-            Job.Get("Job No.");
-            JobTask.Get("Job No.", "Job Task No.");
+        //     TestField("Job Task No.");
+        //     Job.LockTable;
+        //     JobTask.LockTable;
+        //     Job.Get("Job No.");
+        //     JobTask.Get("Job No.", "Job Task No.");
 
-            JobJnlLine.Init;
-            JobJnlLine.DontCheckStdCost;
-            JobJnlLine.Validate("Job No.", "Job No.");
-            JobJnlLine.Validate("Job Task No.", "Job Task No.");
-            JobJnlLine.Validate("Line Type", "Job Line Type");
-            JobJnlLine.Validate("Posting Date", "Posting Date");
-            JobJnlLine."Job Posting Only" := true;
-            JobJnlLine."No." := "No.";
+        //     JobJnlLine.Init;
+        //     JobJnlLine.DontCheckStdCost;
+        //     JobJnlLine.Validate("Job No.", "Job No.");
+        //     JobJnlLine.Validate("Job Task No.", "Job Task No.");
+        //     JobJnlLine.Validate("Line Type", "Job Line Type");
+        //     JobJnlLine.Validate("Posting Date", "Posting Date");
+        //     JobJnlLine."Job Posting Only" := true;
+        //     JobJnlLine."No." := "No.";
 
-            case Type of
-                Type::"G/L Account":
-                    JobJnlLine.Type := JobJnlLine.Type::"G/L Account";
-                Type::Item:
-                    JobJnlLine.Type := JobJnlLine.Type::Item;
-                Type::Resource:
-                    JobJnlLine.Type := JobJnlLine.Type::Resource;
-                Type::Cost:
-                    begin
-                        ServiceCost.SetRange(Code, "No.");
-                        ServiceCost.FindFirst;
-                        JobJnlLine.Type := JobJnlLine.Type::"G/L Account";
-                        JobJnlLine."No." := ServiceCost."Account No.";
-                    end;
-            end; // Case Type
+        //     case Type of
+        //         Type::"G/L Account":
+        //             JobJnlLine.Type := JobJnlLine.Type::"G/L Account";
+        //         Type::Item:
+        //             JobJnlLine.Type := JobJnlLine.Type::Item;
+        //         Type::Resource:
+        //             JobJnlLine.Type := JobJnlLine.Type::Resource;
+        //         Type::Cost:
+        //             begin
+        //                 ServiceCost.SetRange(Code, "No.");
+        //                 ServiceCost.FindFirst;
+        //                 JobJnlLine.Type := JobJnlLine.Type::"G/L Account";
+        //                 JobJnlLine."No." := ServiceCost."Account No.";
+        //             end;
+        //     end; // Case Type
 
-            JobJnlLine.Validate("No.");
-            JobJnlLine.Description := Description;
-            JobJnlLine."Description 2" := "Description 2";
-            JobJnlLine."Variant Code" := "Variant Code";
-            JobJnlLine."Unit of Measure Code" := "Unit of Measure Code";
-            JobJnlLine."Qty. per Unit of Measure" := "Qty. per Unit of Measure";
-            JobJnlLine.Validate(Quantity, -QtyToBeConsumed);
-            JobJnlLine."Document No." := ServHeader."Shipping No.";
-            JobJnlLine."Service Order No." := "Document No.";
-            JobJnlLine."External Document No." := ServHeader."Shipping No.";
-            JobJnlLine."Posted Service Shipment No." := ServHeader."Shipping No.";
-            if Type = Type::Item then begin
-                Item.Get("No.");
-                if Item."Costing Method" = Item."Costing Method"::Standard then
-                    JobJnlLine.Validate("Unit Cost (LCY)", Item."Standard Cost")
-                else
-                    JobJnlLine.Validate("Unit Cost (LCY)", "Unit Cost (LCY)")
-            end else
-                JobJnlLine.Validate("Unit Cost (LCY)", "Unit Cost (LCY)");
-            if "Currency Code" = Job."Currency Code" then
-                JobJnlLine.Validate("Unit Price", "Unit Price");
-            if "Currency Code" <> '' then begin
-                Currency.Get("Currency Code");
-                Currency.TestField("Amount Rounding Precision");
-                CurrencyFactor := CurrExchRate.ExchangeRate("Posting Date", "Currency Code");
-                UnitPriceLCY :=
-                  Round(CurrExchRate.ExchangeAmtFCYToLCY("Posting Date", "Currency Code", "Unit Price", CurrencyFactor),
-                    Currency."Amount Rounding Precision");
-                JobJnlLine.Validate("Unit Price (LCY)", UnitPriceLCY);
-            end else
-                JobJnlLine.Validate("Unit Price (LCY)", "Unit Price");
-            JobJnlLine.Validate("Line Discount %", "Line Discount %");
-            JobJnlLine."Job Planning Line No." := "Job Planning Line No.";
-            JobJnlLine."Remaining Qty." := "Job Remaining Qty.";
-            JobJnlLine."Remaining Qty. (Base)" := "Job Remaining Qty. (Base)";
-            JobJnlLine."Location Code" := "Location Code";
-            JobJnlLine."Entry Type" := JobJnlLine."Entry Type"::Usage;
-            JobJnlLine."Posting Group" := "Posting Group";
-            JobJnlLine."Gen. Bus. Posting Group" := "Gen. Bus. Posting Group";
-            JobJnlLine."Gen. Prod. Posting Group" := "Gen. Prod. Posting Group";
-            JobJnlLine."Customer Price Group" := "Customer Price Group";
-            SourceCodeSetup.Get;
-            JobJnlLine."Source Code" := SourceCodeSetup."Service Management";
-            JobJnlLine."Work Type Code" := "Work Type Code";
-            JobJnlLine."Shortcut Dimension 1 Code" := "Shortcut Dimension 1 Code";
-            JobJnlLine."Shortcut Dimension 2 Code" := "Shortcut Dimension 2 Code";
-            JobJnlLine."Dimension Set ID" := "Dimension Set ID";
-            OnAfterTransferValuesToJobJnlLine(JobJnlLine, ServLine);
-        end;
+        //     JobJnlLine.Validate("No.");
+        //     JobJnlLine.Description := Description;
+        //     JobJnlLine."Description 2" := "Description 2";
+        //     JobJnlLine."Variant Code" := "Variant Code";
+        //     JobJnlLine."Unit of Measure Code" := "Unit of Measure Code";
+        //     JobJnlLine."Qty. per Unit of Measure" := "Qty. per Unit of Measure";
+        //     JobJnlLine.Validate(Quantity, -QtyToBeConsumed);
+        //     JobJnlLine."Document No." := ServHeader."Shipping No.";
+        //     JobJnlLine."Service Order No." := "Document No.";
+        //     JobJnlLine."External Document No." := ServHeader."Shipping No.";
+        //     JobJnlLine."Posted Service Shipment No." := ServHeader."Shipping No.";
+        //     if Type = Type::Item then begin
+        //         Item.Get("No.");
+        //         if Item."Costing Method" = Item."Costing Method"::Standard then
+        //             JobJnlLine.Validate("Unit Cost (LCY)", Item."Standard Cost")
+        //         else
+        //             JobJnlLine.Validate("Unit Cost (LCY)", "Unit Cost (LCY)")
+        //     end else
+        //         JobJnlLine.Validate("Unit Cost (LCY)", "Unit Cost (LCY)");
+        //     if "Currency Code" = Job."Currency Code" then
+        //         JobJnlLine.Validate("Unit Price", "Unit Price");
+        //     if "Currency Code" <> '' then begin
+        //         Currency.Get("Currency Code");
+        //         Currency.TestField("Amount Rounding Precision");
+        //         CurrencyFactor := CurrExchRate.ExchangeRate("Posting Date", "Currency Code");
+        //         UnitPriceLCY :=
+        //           Round(CurrExchRate.ExchangeAmtFCYToLCY("Posting Date", "Currency Code", "Unit Price", CurrencyFactor),
+        //             Currency."Amount Rounding Precision");
+        //         JobJnlLine.Validate("Unit Price (LCY)", UnitPriceLCY);
+        //     end else
+        //         JobJnlLine.Validate("Unit Price (LCY)", "Unit Price");
+        //     JobJnlLine.Validate("Line Discount %", "Line Discount %");
+        //     JobJnlLine."Job Planning Line No." := "Job Planning Line No.";
+        //     JobJnlLine."Remaining Qty." := "Job Remaining Qty.";
+        //     JobJnlLine."Remaining Qty. (Base)" := "Job Remaining Qty. (Base)";
+        //     JobJnlLine."Location Code" := "Location Code";
+        //     JobJnlLine."Entry Type" := JobJnlLine."Entry Type"::Usage;
+        //     JobJnlLine."Posting Group" := "Posting Group";
+        //     JobJnlLine."Gen. Bus. Posting Group" := "Gen. Bus. Posting Group";
+        //     JobJnlLine."Gen. Prod. Posting Group" := "Gen. Prod. Posting Group";
+        //     JobJnlLine."Customer Price Group" := "Customer Price Group";
+        //     SourceCodeSetup.Get;
+        //     JobJnlLine."Source Code" := SourceCodeSetup."Service Management";
+        //     JobJnlLine."Work Type Code" := "Work Type Code";
+        //     JobJnlLine."Shortcut Dimension 1 Code" := "Shortcut Dimension 1 Code";
+        //     JobJnlLine."Shortcut Dimension 2 Code" := "Shortcut Dimension 2 Code";
+        //     JobJnlLine."Dimension Set ID" := "Dimension Set ID";
+        //     OnAfterTransferValuesToJobJnlLine(JobJnlLine, ServLine);
+        // end;
 
-        JobJnlPostLine.RunWithCheck(JobJnlLine);
-        exit(true);
+        // JobJnlPostLine.RunWithCheck(JobJnlLine);
+        // exit(true);
     end;
 
     procedure SetPostingDate(PostingDate: Date)
@@ -683,10 +684,11 @@ codeunit 5987 "Serv-Posting Journals Mgt."
     begin
     end;
 
-    [IntegrationEvent(false, false)]
-    local procedure OnAfterTransferValuesToJobJnlLine(var JobJournalLine: Record "Job Journal Line"; ServiceLine: Record "Service Line")
-    begin
-    end;
+    //TODO JOBS: 
+    // [IntegrationEvent(false, false)]
+    // local procedure OnAfterTransferValuesToJobJnlLine(var JobJournalLine: Record "Job Journal Line"; ServiceLine: Record "Service Line")
+    // begin
+    // end;
 
     [IntegrationEvent(false, false)]
     local procedure OnBeforePostCustomerEntry(var GenJournalLine: Record "Gen. Journal Line"; ServiceHeader: Record "Service Header")
