@@ -1,10 +1,9 @@
-codeunit 361 MoveEntries
+codeunit 361 "MoveEntries"
 {
     Permissions = TableData "G/L Entry" = rm,
                   TableData "Cust. Ledger Entry" = rm,
                   TableData "Vendor Ledger Entry" = rm,
                   TableData "Item Ledger Entry" = rm,
-                  //TODO JOBS: TableData "Job Ledger Entry" = rm,
                   TableData "Res. Ledger Entry" = rm,
                   TableData "Bank Account Ledger Entry" = rm,
                   TableData "Check Ledger Entry" = rm,
@@ -26,8 +25,6 @@ codeunit 361 MoveEntries
         Text003: Label 'If you delete this item the inventory valuation will be incorrect. ';
         Text004: Label 'Use the %2 batch job before deleting the item.';
         Text005: Label 'Adjust Cost - Item Entries';
-        Text006: Label 'You cannot delete %1 %2 because it has ledger entries.';
-        Text007: Label 'You cannot delete %1 %2 because there are outstanding purchase order lines.';
         Text008: Label 'There are item entries that have not been completely invoiced for item %1. ';
         Text009: Label 'Invoice all item entries before deleting the item.';
         AccountingPeriod: Record "Accounting Period";
@@ -38,8 +35,6 @@ codeunit 361 MoveEntries
         CheckLedgEntry: Record "Check Ledger Entry";
         ItemLedgEntry: Record "Item Ledger Entry";
         ResLedgEntry: Record "Res. Ledger Entry";
-        //TODO JOBS: JobLedgEntry: Record "Job Ledger Entry";
-        PurchOrderLine: Record "Purchase Line";
         ReminderEntry: Record "Reminder/Fin. Charge Entry";
         ValueEntry: Record "Value Entry";
         AvgCostAdjmt: Record "Avg. Cost Adjmt. Entry Point";
@@ -49,8 +44,6 @@ codeunit 361 MoveEntries
         CannotDeleteGLBudgetEntriesErr: Label 'You cannot delete G/L account %1 because it contains budget ledger entries after %2 for G/L budget name %3.', Comment = '%1 - G/L Account No., %2 - Date, %3 - G/L Budget Name. You cannot delete G/L Account 1000 because it has budget ledger entries\ after 25/01/2018 in G/L Budget Name = Budget_2018.';
         Text013: Label 'You cannot delete %1 %2 because prepaid contract entries exist in %3.';
         Text014: Label 'You cannot delete %1 %2, because open prepaid contract entries exist in %3.';
-        Text015: Label 'You cannot delete %1 %2 because there are outstanding purchase return order lines.';
-        TimeSheetLinesErr: Label 'You cannot delete job %1 because it has open or submitted time sheet lines.', Comment = 'You cannot delete job JOB001 because it has open or submitted time sheet lines.';
         CannotDeleteBecauseInInvErr: Label 'You cannot delete %1 because it is used in some invoices.', Comment = '%1 = the object to be deleted (example: Item, Customer).';
         GLAccDeleteClosedPeriodsQst: Label 'Note that accounting regulations may require that you save accounting data for a certain number of years. Are you sure you want to delete the G/L account?';
         CannotDeleteGLAccountWithEntriesInOpenFiscalYearErr: Label 'You cannot delete G/L account %1 because it has ledger entries in a fiscal year that has not been closed yet.', Comment = '%1 - G/L Account No. You cannot delete G/L Account 1000 because it has ledger entries in a fiscal year that has not been closed yet.';
@@ -432,62 +425,6 @@ codeunit 361 MoveEntries
 
         OnAfterMoveResEntries(Res, ResLedgEntry, ServLedgEntry, WarrantyLedgEntry);
     end;
-    //TODO JOBS: 
-    // procedure MoveJobEntries(Job: Record Job)
-    // var
-    //     TimeSheetLine: Record "Time Sheet Line";
-    //     NewJobNo: Code[20];
-    // begin
-    //     OnBeforeMoveJobEntries(Job, NewJobNo);
-
-    //     JobLedgEntry.SetCurrentKey("Job No.");
-    //     JobLedgEntry.SetRange("Job No.", Job."No.");
-    //     if not JobLedgEntry.IsEmpty then
-    //         Error(
-    //           Text006,
-    //           Job.TableCaption, Job."No.");
-
-    //     TimeSheetLine.SetRange(Type, TimeSheetLine.Type::Job);
-    //     TimeSheetLine.SetRange("Job No.", Job."No.");
-    //     TimeSheetLine.SetFilter(Status, '%1|%2', TimeSheetLine.Status::Open, TimeSheetLine.Status::Submitted);
-    //     if not TimeSheetLine.IsEmpty then
-    //         Error(TimeSheetLinesErr, Job."No.");
-
-    //     PurchOrderLine.SetCurrentKey("Document Type");
-    //     PurchOrderLine.SetFilter(
-    //       "Document Type", '%1|%2',
-    //       PurchOrderLine."Document Type"::Order,
-    //       PurchOrderLine."Document Type"::"Return Order");
-    //     PurchOrderLine.SetRange("Job No.", Job."No.");
-    //     if PurchOrderLine.FindFirst then begin
-    //         if PurchOrderLine."Document Type" = PurchOrderLine."Document Type"::Order then
-    //             Error(Text007, Job.TableCaption, Job."No.");
-    //         if PurchOrderLine."Document Type" = PurchOrderLine."Document Type"::"Return Order" then
-    //             Error(Text015, Job.TableCaption, Job."No.");
-    //     end;
-
-    //     ServLedgEntry.Reset;
-    //     ServLedgEntry.SetRange("Job No.", Job."No.");
-    //     AccountingPeriod.SetRange(Closed, false);
-    //     if AccountingPeriod.FindFirst then
-    //         ServLedgEntry.SetFilter("Posting Date", '>=%1', AccountingPeriod."Starting Date");
-    //     if not ServLedgEntry.IsEmpty then
-    //         Error(
-    //           Text000,
-    //           Job.TableCaption, Job."No.");
-
-    //     ServLedgEntry.SetRange("Posting Date");
-    //     ServLedgEntry.SetRange(Open, true);
-    //     if not ServLedgEntry.IsEmpty then
-    //         Error(
-    //           Text001,
-    //           Job.TableCaption, Job."No.");
-
-    //     ServLedgEntry.SetRange(Open);
-    //     ServLedgEntry.ModifyAll("Job No.", NewJobNo);
-
-    //     OnAfterMoveJobEntries(Job, JobLedgEntry, TimeSheetLine, ServLedgEntry);
-    // end;
 
     procedure MoveServiceItemLedgerEntries(ServiceItem: Record "Service Item")
     var
@@ -807,12 +744,6 @@ codeunit 361 MoveEntries
     begin
     end;
 
-    //TODO JOBS: 
-    // [IntegrationEvent(false, false)]
-    // local procedure OnAfterMoveJobEntries(Job: Record Job; var JobLedgerEntry: Record "Job Ledger Entry"; var TimeSheetLine: Record "Time Sheet Line"; var ServiceLedgerEntry: Record "Service Ledger Entry")
-    // begin
-    // end;
-
     [IntegrationEvent(false, false)]
     local procedure OnAfterMoveServiceItemLedgerEntries(ServiceItem: Record "Service Item")
     begin
@@ -867,12 +798,6 @@ codeunit 361 MoveEntries
     local procedure OnBeforeMoveResEntries(Resource: Record Resource; var NewResNo: Code[20])
     begin
     end;
-
-    //TODO JOBS: 
-    // [IntegrationEvent(false, false)]
-    // local procedure OnBeforeMoveJobEntries(Job: Record Job; var NewJobNo: Code[20])
-    // begin
-    // end;
 
     [IntegrationEvent(false, false)]
     local procedure OnBeforeMoveServiceItemLedgerEntries(ServiceItem: Record "Service Item"; var NewServiceItemNo: Code[20])

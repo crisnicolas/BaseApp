@@ -749,7 +749,7 @@ table 167 "Job"
         JobItemPrice: Record "Job Item Price";
         JobGLAccPrice: Record "Job G/L Account Price";
     begin
-        //TODO: Jobs MoveEntries.MoveJobEntries(Rec);
+        MoveEntries.MoveJobEntries(Rec);
 
         JobTask.SetCurrentKey("Job No.");
         JobTask.SetRange("Job No.", "No.");
@@ -844,7 +844,7 @@ table 167 "Job"
         ContactBusRelMissingErr: Label 'Contact %1 %2 is not related to a customer.', Comment = '%1 = The contact number; %2 = The contact''s name';
         TestBlockedErr: Label '%1 %2 must not be blocked with type %3.', Comment = '%1 = The Job table name; %2 = The Job number; %3 = The value of the Blocked field';
         ReverseCompletionEntriesMsg: Label 'You must run the %1 function to reverse the completion entries that have already been posted for this job.', Comment = '%1 = The name of the Job Post WIP to G/L report';
-        MoveEntries: Codeunit MoveEntries;
+        MoveEntries: Codeunit "MoveEntries - Jobs";
         OnlineMapMsg: Label 'Before you can use Online Map, you must fill in the Online Map Setup window.\See Setting Up Online Map in Help.';
         CheckDateErr: Label '%1 must be equal to or earlier than %2.', Comment = '%1 = The job''s starting date; %2 = The job''s ending date';
         BlockedCustErr: Label 'You cannot set %1 to %2, as this %3 has set %4 to %5.', Comment = '%1 = The Bill-to Customer No. field name; %2 = The job''s Bill-to Customer No. value; %3 = The Customer table name; %4 = The Blocked field name; %5 = The job''s customer''s Blocked value';
