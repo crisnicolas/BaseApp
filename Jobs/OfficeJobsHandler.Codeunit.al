@@ -13,28 +13,28 @@ codeunit 1638 "Office Jobs Handler"
 
     procedure IsJobsHostType(OfficeAddinContext: Record "Office Add-in Context") IsJob: Boolean
     var
-        RegEx: DotNet Regex;
-        Match: DotNet Match;
+        //TODO comment/uncomment RegEx: DotNet Regex;
+        //TODO comment/uncomment Match: DotNet Match;
     begin
-        if OfficeAddinContext.IsAppointment and (OfficeAddinContext.Subject <> '') then begin
-            Match := RegEx.Match(OfficeAddinContext.Subject, JobsRegExTxt);
-            IsJob := Match.Success;
-        end;
+        // if OfficeAddinContext.IsAppointment and (OfficeAddinContext.Subject <> '') then begin
+        //     Match := RegEx.Match(OfficeAddinContext.Subject, JobsRegExTxt);
+        //     IsJob := Match.Success;
+        // end;
     end;
 
     [Scope('OnPrem')]
     procedure GetJobProperties(OfficeAddinContext: Record "Office Add-in Context"; var JobNo: Text; var JobTaskNo: Text; var JobPlanningLineNo: Integer)
     var
-        RegEx: DotNet Regex;
-        Match: DotNet Match;
+        //TODO comment/uncomment RegEx: DotNet Regex;
+        //TODO comment/uncomment Match: DotNet Match;
     begin
-        Match := RegEx.Match(OfficeAddinContext.Subject, JobsRegExTxt);
+        // Match := RegEx.Match(OfficeAddinContext.Subject, JobsRegExTxt);
 
-        if Match.Success then begin
-            JobNo := Match.Groups.Item(1).Value;
-            JobTaskNo := Match.Groups.Item(2).Value;
-            Evaluate(JobPlanningLineNo, Match.Groups.Item(3).Value);
-        end;
+        // if Match.Success then begin
+        //     JobNo := Match.Groups.Item(1).Value;
+        //     JobTaskNo := Match.Groups.Item(2).Value;
+        //     Evaluate(JobPlanningLineNo, Match.Groups.Item(3).Value);
+        // end;
     end;
 
     procedure SubmitJobPlanningLine(JobPlanningLine: Record "Job Planning Line"; JobJournalTemplateName: Code[10]; JobJournalBatchName: Code[10])

@@ -160,11 +160,12 @@ page 9068 "Project Manager Activities"
                         ToolTip = 'Set up My Company with the settings you choose. We''ll show you how, it''s easy.';
                         Visible = false;
 
-                        trigger OnAction()
-                        begin
-                            if UserTours.IsAvailable and O365GettingStartedMgt.AreUserToursEnabled then
-                                UserTours.StartUserTour(O365GettingStartedMgt.GetChangeCompanyTourID);
-                        end;
+                        //TODO comment/uncomment 
+                        // trigger OnAction()
+                        // begin
+                        //     if UserTours.IsAvailable and O365GettingStartedMgt.AreUserToursEnabled then
+                        //         UserTours.StartUserTour(O365GettingStartedMgt.GetChangeCompanyTourID);
+                        // end;
                     }
                     action(ReplayGettingStarted)
                     {
@@ -281,9 +282,9 @@ page 9068 "Project Manager Activities"
         ClientTypeManagement: Codeunit "Client Type Management";
         EnvironmentInfo: Codeunit "Environment Information";
         UserTaskManagement: Codeunit "User Task Management";
-        [RunOnClient]
-        [WithEvents]
-        UserTours: DotNet UserTours;
+        //TODO comment/uncomment [RunOnClient]
+        //TODO comment/uncomment [WithEvents]
+        //TODO comment/uncomment UserTours: DotNet UserTours;
         ReplayGettingStartedVisible: Boolean;
         TileGettingStartedVisible: Boolean;
         SetupIsComplete: Boolean;
@@ -295,12 +296,14 @@ page 9068 "Project Manager Activities"
         CurrPage.Update;
     end;
 
-    trigger UserTours::ShowTourWizard(hasTourCompleted: Boolean)
-    begin
-    end;
+    //TODO comment/uncomment
+    // trigger UserTours::ShowTourWizard(hasTourCompleted: Boolean)
+    // begin
+    // end;
 
-    trigger UserTours::IsTourInProgressResultReady(isInProgress: Boolean)
-    begin
-    end;
+    //TODO comment/uncomment
+    // trigger UserTours::IsTourInProgressResultReady(isInProgress: Boolean)
+    // begin
+    // end;
 }
 

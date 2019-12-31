@@ -12,15 +12,17 @@ page 731 "Job Act to Bud Price Chart"
             {
                 ApplicationArea = Jobs;
 
-                trigger DataPointClicked(point: DotNet BusinessChartDataPoint)
-                begin
-                    BusChartBuf.SetDrillDownIndexes(point);
-                    JobChartMgt.DataPointClicked(BusChartBuf, TempJob);
-                end;
+                //TODO comment/uncomment
+                // trigger DataPointClicked(point: DotNet BusinessChartDataPoint)
+                // begin
+                //     BusChartBuf.SetDrillDownIndexes(point);
+                //     JobChartMgt.DataPointClicked(BusChartBuf, TempJob);
+                // end;
 
-                trigger DataPointDoubleClicked(point: DotNet BusinessChartDataPoint)
-                begin
-                end;
+                //TODO comment/uncomment
+                // trigger DataPointDoubleClicked(point: DotNet BusinessChartDataPoint)
+                // begin
+                // end;
 
                 trigger AddInReady()
                 begin
