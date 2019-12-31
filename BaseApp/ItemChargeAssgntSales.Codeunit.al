@@ -132,7 +132,8 @@ codeunit 5807 "Item Charge Assgnt. (Sales)"
         ItemChargeAssgntSales2.SetRange(
           "Applies-to Doc. Type", ItemChargeAssgntSales2."Applies-to Doc. Type"::Shipment);
         repeat
-            FromSalesShptLine.TestField("Job No.", '');
+            OnCreateShptChargeAssgntOnFromSalesShptLineLoop(FromSalesShptLine);
+
             ItemChargeAssgntSales2.SetRange("Applies-to Doc. No.", FromSalesShptLine."Document No.");
             ItemChargeAssgntSales2.SetRange("Applies-to Doc. Line No.", FromSalesShptLine."Line No.");
             if not ItemChargeAssgntSales2.FindFirst then
@@ -668,6 +669,11 @@ codeunit 5807 "Item Charge Assgnt. (Sales)"
 
     [IntegrationEvent(false, false)]
     local procedure OnAssignByAmountOnBeforeItemChargeAssignmentSalesModify(var ItemChargeAssignmentSales: Record "Item Charge Assignment (Sales)")
+    begin
+    end;
+
+    [IntegrationEvent(false, false)]
+    local procedure OnCreateShptChargeAssgntOnFromSalesShptLineLoop(var FromSalesShptLine: Record "Sales Shipment Line")
     begin
     end;
 }

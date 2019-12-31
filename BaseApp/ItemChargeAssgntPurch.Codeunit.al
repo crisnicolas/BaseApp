@@ -199,7 +199,7 @@ codeunit 5805 "Item Charge Assgnt. (Purch.)"
         IsHandled := false;
         OnBeforeCreateSalesShptChargeAssgnt(FromSalesShptLine, ItemChargeAssgntPurch, IsHandled);
         if not IsHandled then
-            FromSalesShptLine.TestField("Job No.", '');
+            OnNotHandledCreateSalesShptChargeAssgnt(FromSalesShptLine);
         NextLine := ItemChargeAssgntPurch."Line No.";
         ItemChargeAssgntPurch2.SetRange("Document Type", ItemChargeAssgntPurch."Document Type");
         ItemChargeAssgntPurch2.SetRange("Document No.", ItemChargeAssgntPurch."Document No.");
@@ -783,6 +783,11 @@ codeunit 5805 "Item Charge Assgnt. (Purch.)"
 
     [IntegrationEvent(false, false)]
     local procedure OnBeforeCreateSalesShptChargeAssgnt(var FromSalesShptLine: Record "Sales Shipment Line"; ItemChargeAssgntPurch: Record "Item Charge Assignment (Purch)"; var IsHandled: Boolean)
+    begin
+    end;
+
+    [IntegrationEvent(false, false)]
+    local procedure OnNotHandledCreateSalesShptChargeAssgnt(var FromSalesShptLine: Record "Sales Shipment Line")
     begin
     end;
 

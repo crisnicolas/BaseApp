@@ -10,7 +10,6 @@
         "c:/Windows/assembly/",
         "c:\\Program Files\\Microsoft Dynamics 365 Business Central\\150\\Service"
     ],
-    "al.editorServicesLogLevel": "Error",
     "git.ignoreLimitWarning": true,
     "al.ruleSetPath": "./.vscode/Jobs.ruleset.json",
     "CRS.OnSaveAlFileAction": "Rename",

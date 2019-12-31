@@ -152,11 +152,6 @@ table 111 "Sales Shipment Line"
             Caption = 'Customer Price Group';
             TableRelation = "Customer Price Group";
         }
-        field(45; "Job No."; Code[20])
-        {
-            Caption = 'Job No.';
-            //TODO JOBS: TableRelation = Job;
-        }
         field(52; "Work Type Code"; Code[10])
         {
             Caption = 'Work Type Code';
@@ -338,17 +333,6 @@ table 111 "Sales Shipment Line"
         field(826; "Authorized for Credit Card"; Boolean)
         {
             Caption = 'Authorized for Credit Card';
-        }
-        field(1001; "Job Task No."; Code[20])
-        {
-            Caption = 'Job Task No.';
-            Editable = false;
-            //TODO JOBS: TableRelation = "Job Task"."Job Task No." WHERE("Job No." = FIELD("Job No."));
-        }
-        field(1002; "Job Contract Entry No."; Integer)
-        {
-            Caption = 'Job Contract Entry No.';
-            Editable = false;
         }
         field(5402; "Variant Code"; Code[10])
         {

@@ -1234,7 +1234,7 @@ codeunit 80 "Sales-Post"
         IsHandled := false;
         OnPostItemChargePerShptOnBeforeTestJobNo(SalesShptLine, IsHandled);
         if not IsHandled then
-            SalesShptLine.TestField("Job No.", '');
+            OnNotHandledPostItemChargePerShptOnBeforeTestJobNo(SalesShptLine);
 
         if SalesShptLine."Item Shpt. Entry No." <> 0 then
             DistributeCharge :=
@@ -6182,7 +6182,6 @@ codeunit 80 "Sales-Post"
                     SalesShptLine.TestField("No.", SalesLine."No.");
                     SalesShptLine.TestField("Gen. Bus. Posting Group", SalesLine."Gen. Bus. Posting Group");
                     SalesShptLine.TestField("Gen. Prod. Posting Group", SalesLine."Gen. Prod. Posting Group");
-                    SalesShptLine.TestField("Job No.", SalesLine."Job No.");
                     SalesShptLine.TestField("Unit of Measure Code", SalesLine."Unit of Measure Code");
                     SalesShptLine.TestField("Variant Code", SalesLine."Variant Code");
                     if -SalesLine."Qty. to Invoice" * SalesShptLine.Quantity < 0 then
@@ -7605,6 +7604,11 @@ codeunit 80 "Sales-Post"
 
     [IntegrationEvent(false, false)]
     local procedure OnPostItemChargePerShptOnBeforeTestJobNo(SalesShipmentLine: Record "Sales Shipment Line"; var SkipTestJobNo: Boolean)
+    begin
+    end;
+
+    [IntegrationEvent(false, false)]
+    local procedure OnNotHandledPostItemChargePerShptOnBeforeTestJobNo(SalesShipmentLine: Record "Sales Shipment Line")
     begin
     end;
 
