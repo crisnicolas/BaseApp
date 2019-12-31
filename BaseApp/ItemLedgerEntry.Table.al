@@ -204,20 +204,6 @@ table 32 "Item Ledger Entry"
             AccessByPermission = TableData "BOM Component" = R;
             Caption = 'Assemble to Order';
         }
-        field(1000; "Job No."; Code[20])
-        {
-            Caption = 'Job No.';
-            //TODO JOBS:  TableRelation = Job."No.";
-        }
-        field(1001; "Job Task No."; Code[20])
-        {
-            Caption = 'Job Task No.';
-            //TODO JOBS:  TableRelation = "Job Task"."Job Task No." WHERE("Job No." = FIELD("Job No."));
-        }
-        field(1002; "Job Purchase"; Boolean)
-        {
-            Caption = 'Job Purchase';
-        }
         field(5402; "Variant Code"; Code[10])
         {
             Caption = 'Variant Code';

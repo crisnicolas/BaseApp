@@ -1,4 +1,4 @@
-query 265 "Item Ledger Entries"
+query 80265 "Item Ledger Entries - Jobs"
 {
     Caption = 'Item Ledger Entries';
 
@@ -43,6 +43,12 @@ query 265 "Item Ledger Entries"
             {
             }
             column(Location_Code; "Location Code")
+            {
+            }
+            column(Job_No; "Job No.")
+            {
+            }
+            column(Job_Task_No; "Job Task No.")
             {
             }
             column(Open; Open)

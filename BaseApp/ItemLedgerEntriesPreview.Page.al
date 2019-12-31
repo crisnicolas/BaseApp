@@ -237,18 +237,6 @@
                     ToolTip = 'Specifies the line number of the production order component.';
                     Visible = false;
                 }
-                field("Job No."; "Job No.")
-                {
-                    ApplicationArea = Jobs;
-                    ToolTip = 'Specifies the number of the related job.';
-                    Visible = false;
-                }
-                field("Job Task No."; "Job Task No.")
-                {
-                    ApplicationArea = Jobs;
-                    ToolTip = 'Specifies the number of the related job task.';
-                    Visible = false;
-                }
                 field("Dimension Set ID"; "Dimension Set ID")
                 {
                     ApplicationArea = Dimensions;

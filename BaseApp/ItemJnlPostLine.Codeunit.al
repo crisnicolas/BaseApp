@@ -1767,12 +1767,6 @@ codeunit 22 "Item Jnl.-Post Line"
             SetRange("Variant Code", FromItemLedgEntry."Variant Code");
             SetRange(Positive, not FromItemLedgEntry.Positive);
             SetRange("Location Code", FromItemLedgEntry."Location Code");
-            if FromItemLedgEntry."Job Purchase" then begin
-                SetRange("Job No.", FromItemLedgEntry."Job No.");
-                SetRange("Job Task No.", FromItemLedgEntry."Job Task No.");
-                SetRange("Document Type", FromItemLedgEntry."Document Type");
-                SetRange("Document No.", FromItemLedgEntry."Document No.");
-            end;
             if ItemTrackingCode."SN Specific Tracking" then
                 SetRange("Serial No.", FromItemLedgEntry."Serial No.");
             if ItemTrackingCode."Lot Specific Tracking" then
@@ -1986,9 +1980,6 @@ codeunit 22 "Item Jnl.-Post Line"
             ItemLedgEntry.Nonstock := Nonstock;
             ItemLedgEntry."Purchasing Code" := "Purchasing Code";
             ItemLedgEntry."Return Reason Code" := "Return Reason Code";
-            ItemLedgEntry."Job No." := "Job No.";
-            ItemLedgEntry."Job Task No." := "Job Task No.";
-            ItemLedgEntry."Job Purchase" := "Job Purchase";
             ItemLedgEntry."Serial No." := "Serial No.";
             ItemLedgEntry."Lot No." := "Lot No.";
             ItemLedgEntry."Warranty Date" := "Warranty Date";
@@ -2076,11 +2067,6 @@ codeunit 22 "Item Jnl.-Post Line"
 
             if "Entry Type" = "Entry Type"::Consumption then
                 ItemLedgEntry."Applied Entry to Adjust" := true;
-
-            if "Job No." <> '' then begin
-                ItemLedgEntry."Job No." := "Job No.";
-                ItemLedgEntry."Job Task No." := "Job Task No.";
-            end;
 
             ItemLedgEntry.UpdateItemTracking;
 
@@ -2851,6 +2837,8 @@ codeunit 22 "Item Jnl.-Post Line"
     end;
 
     local procedure UpdateItemLedgEntry(ValueEntry: Record "Value Entry"; var ItemLedgEntry: Record "Item Ledger Entry") ModifyEntry: Boolean
+    var
+        MarkToAdjust: Boolean;
     begin
         with ItemLedgEntry do
             if not (ValueEntry."Entry Type" in
@@ -2858,10 +2846,17 @@ codeunit 22 "Item Jnl.-Post Line"
                      ValueEntry."Entry Type"::"Indirect Cost",
                      ValueEntry."Entry Type"::Rounding])
             then begin
+                OnBeforeUpdateItemLedgEntry(ValueEntry, ItemLedgEntry, CalledFromAdjustment, MarkToAdjust);
+
+                if MarkToAdjust then begin
+                    "Applied Entry to Adjust" := true;
+                    ModifyEntry := true;
+                end;
+
                 if ValueEntry.Inventoriable and (not ItemJnlLine.Adjustment or ("Entry Type" = "Entry Type"::"Assembly Output")) then
                     UpdateAvgCostAdjmtEntryPoint(ItemLedgEntry, ValueEntry."Valuation Date");
 
-                if (Positive or "Job Purchase") and
+                if (Positive) and
                    (Quantity <> "Remaining Quantity") and not "Applied Entry to Adjust" and
                    (Item.Type = Item.Type::Inventory) and
                    (not CalledFromAdjustment or AppliedEntriesToReadjust(ItemLedgEntry))
@@ -5751,7 +5746,7 @@ codeunit 22 "Item Jnl.-Post Line"
         exit(TempItemApplnEntryHistory.IsEmpty);
     end;
 
-    local procedure AppliedEntriesToReadjust(ItemLedgEntry: Record "Item Ledger Entry"): Boolean
+    procedure AppliedEntriesToReadjust(ItemLedgEntry: Record "Item Ledger Entry"): Boolean
     begin
         with ItemLedgEntry do
             exit("Entry Type" in ["Entry Type"::Output, "Entry Type"::"Assembly Output"]);
@@ -5916,5 +5911,9 @@ codeunit 22 "Item Jnl.-Post Line"
             exit(not PostedExpCostValueEntry.IsEmpty);
         end;
     end;
-}
 
+    [IntegrationEvent(false, false)]
+    local procedure OnBeforeUpdateItemLedgEntry(ValueEntry: Record "Value Entry"; var ItemLedgEntry: Record "Item Ledger Entry"; CalledFromAdjustment: Boolean; var MarkToAdjust: Boolean)
+    begin
+    end;
+}

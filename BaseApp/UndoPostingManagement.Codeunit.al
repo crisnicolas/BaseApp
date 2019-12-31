@@ -484,6 +484,7 @@ codeunit 5817 "Undo Posting Management"
         ValueEntry: Record "Value Entry";
         ItemRec: Record Item;
         PostedATOLink: Record "Posted Assemble-to-Order Link";
+        JobNoFieldIsBlank: Boolean; //TODO: JOBS 
     begin
         with TempItemLedgEntry do begin
             Find('-'); // Assertion: will fail if not found.
@@ -494,7 +495,7 @@ codeunit 5817 "Undo Posting Management"
 
             repeat
                 if Positive then begin
-                    if ("Job No." = '') and
+                    if JobNoFieldIsBlank and //if ("Job No." = '') and //TODO JOBS: 
                        not (("Order Type" = "Order Type"::Assembly) and
                             PostedATOLink.Get(PostedATOLink."Assembly Document Type"::Assembly, "Document No."))
                     then

@@ -5664,9 +5664,6 @@ codeunit 1751 "Data Classification Eval. Data"
         SetFieldToCompanyConfidential(TableNo, DummyItemLedgerEntry.FieldNo(Open));
         SetFieldToCompanyConfidential(TableNo, DummyItemLedgerEntry.FieldNo("Applies-to Entry"));
         SetFieldToCompanyConfidential(TableNo, DummyItemLedgerEntry.FieldNo("Expiration Date"));
-        SetFieldToCompanyConfidential(TableNo, DummyItemLedgerEntry.FieldNo("Job Purchase"));
-        SetFieldToCompanyConfidential(TableNo, DummyItemLedgerEntry.FieldNo("Job Task No."));
-        SetFieldToCompanyConfidential(TableNo, DummyItemLedgerEntry.FieldNo("Job No."));
         SetFieldToCompanyConfidential(TableNo, DummyItemLedgerEntry.FieldNo("Invoiced Quantity"));
         SetFieldToCompanyConfidential(TableNo, DummyItemLedgerEntry.FieldNo("Remaining Quantity"));
         SetFieldToCompanyConfidential(TableNo, DummyItemLedgerEntry.FieldNo(Quantity));
@@ -5681,6 +5678,7 @@ codeunit 1751 "Data Classification Eval. Data"
         SetFieldToCompanyConfidential(TableNo, DummyItemLedgerEntry.FieldNo("Item No."));
         SetFieldToCompanyConfidential(TableNo, DummyItemLedgerEntry.FieldNo("Entry No."));
         SetFieldToCompanyConfidential(TableNo, DummyItemLedgerEntry.FieldNo("Lot No."));
+        OnAfterClassifyItemLedgerEntry();
     end;
 
     local procedure ClassifyTimeSheetHeader()
@@ -6226,6 +6224,11 @@ codeunit 1751 "Data Classification Eval. Data"
         TableNo := 4151; // Persistent Blob
         SetTableFieldsToNormal(TableNo);
         SetFieldToPersonal(TableNo, 2); // Blob
+    end;
+
+    [IntegrationEvent(false, false)]
+    local procedure OnAfterClassifyItemLedgerEntry()
+    begin
     end;
 }
 

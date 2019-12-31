@@ -4787,6 +4787,7 @@ codeunit 6620 "Copy Document Mgt."
         ItemApplicationEntry: Record "Item Application Entry";
         ItemLedgerEntryLocal: Record "Item Ledger Entry";
         QtyNotShipped: Decimal;
+        JobNoFieldIsBlank: Boolean; //TODO: JOBS 
     begin
         QtyNotShipped := 0;
         with ItemApplicationEntry do begin
@@ -4807,11 +4808,12 @@ codeunit 6620 "Copy Document Mgt."
                      ItemLedgerEntryLocal."Entry Type"::Purchase]) or
                    ((ItemLedgerEntryLocal."Entry Type" in
                      [ItemLedgerEntryLocal."Entry Type"::"Positive Adjmt.", ItemLedgerEntryLocal."Entry Type"::"Negative Adjmt."]) and
-                    (ItemLedgerEntryLocal."Job No." = ''))
+                    JobNoFieldIsBlank) //TODO: JOBS (ItemLedgerEntryLocal."Job No." = ''))                    
                 then
                     QtyNotShipped += Quantity;
             until Next = 0;
         end;
+
         exit(QtyNotShipped);
     end;
 
