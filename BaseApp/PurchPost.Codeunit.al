@@ -1455,7 +1455,7 @@ codeunit 90 "Purch.-Post"
         IsHandled := false;
         OnPostItemChargePerSalesShptOnBeforeTestJobNo(SalesShptLine, IsHandled);
         if not IsHandled then
-            SalesShptLine.TestField("Job No.", '');
+            OnNotHandledPostItemChargePerSalesShptOnBeforeTestJobNo(SalesShptLine);
 
         Sign := -GetSign(SalesShptLine."Quantity (Base)");
 
@@ -7407,6 +7407,11 @@ codeunit 90 "Purch.-Post"
 
     [IntegrationEvent(false, false)]
     local procedure OnPostItemChargePerSalesShptOnBeforeTestJobNo(SalesShipmentLine: Record "Sales Shipment Line"; var IsHandled: Boolean)
+    begin
+    end;
+
+    [IntegrationEvent(false, false)]
+    local procedure OnNotHandledPostItemChargePerSalesShptOnBeforeTestJobNo(SalesShipmentLine: Record "Sales Shipment Line")
     begin
     end;
 

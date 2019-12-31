@@ -150,12 +150,6 @@
                     ToolTip = 'Specifies the unit cost that will appear on the new document lines.';
                     Visible = false;
                 }
-                field("Job No."; "Job No.")
-                {
-                    ApplicationArea = SalesReturnOrder;
-                    ToolTip = 'Specifies the number of the related job.';
-                    Visible = false;
-                }
                 field("Blanket Order No."; "Blanket Order No.")
                 {
                     ApplicationArea = SalesReturnOrder;

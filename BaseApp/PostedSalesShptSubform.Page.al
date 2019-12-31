@@ -129,18 +129,6 @@
                     ToolTip = 'Specifies how long it takes from when the items are shipped from the warehouse to when they are delivered.';
                     Visible = false;
                 }
-                field("Job No."; "Job No.")
-                {
-                    ApplicationArea = Jobs;
-                    ToolTip = 'Specifies the number of the related job.';
-                    Visible = false;
-                }
-                field("Job Task No."; "Job Task No.")
-                {
-                    ApplicationArea = Jobs;
-                    ToolTip = 'Specifies the number of the related job task.';
-                    Visible = false;
-                }
                 field("Outbound Whse. Handling Time"; "Outbound Whse. Handling Time")
                 {
                     ApplicationArea = Warehouse;

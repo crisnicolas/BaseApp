@@ -1874,16 +1874,13 @@ report 202 "Sales Document - Test"
                               StrSubstNo(
                                 Text024,
                                 FieldCaption("Location Code")));
-                        if SaleShptLine."Job No." <> "Job No." then
-                            AddError(
-                              StrSubstNo(
-                                Text024,
-                                FieldCaption("Job No.")));
 
                         if -SalesLine."Qty. to Invoice" * SaleShptLine.Quantity < 0 then
                             AddError(
                               StrSubstNo(
                                 Text027, FieldCaption("Qty. to Invoice")));
+
+                        OnCheckShptLines_AddError(SalesLine2, SaleShptLine, ErrorCounter, ErrorText);
 
                         QtyToBeInvoiced := RemQtyToBeInvoiced - SalesLine."Qty. to Ship";
                         if Abs(QtyToBeInvoiced) > Abs(SaleShptLine.Quantity - SaleShptLine."Quantity Invoiced") then
@@ -2275,6 +2272,11 @@ report 202 "Sales Document - Test"
 
     [IntegrationEvent(false, false)]
     local procedure OnAfterCreateDimTableIDs(var SalesLine: Record "Sales Line"; TableID: array[10] of Integer; No: array[10] of Code[20])
+    begin
+    end;
+
+    [IntegrationEvent(false, false)]
+    local procedure OnCheckShptLines_AddError(SalesLine: Record "Sales Line"; SalesShipmentLine: Record "Sales Shipment Line"; var ErrorCounter: Integer; var ErrorText: array[99] of Text[250])
     begin
     end;
 }

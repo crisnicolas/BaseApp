@@ -91,12 +91,6 @@
                     ToolTip = 'Specifies the number of the item ledger entry that the document or journal line is applied to.';
                     Visible = false;
                 }
-                field("Job No."; "Job No.")
-                {
-                    ApplicationArea = Jobs;
-                    ToolTip = 'Specifies the number of the related job.';
-                    Visible = false;
-                }
                 field("Shipment Date"; "Shipment Date")
                 {
                     ApplicationArea = Basic, Suite;
@@ -242,7 +236,6 @@
         SetRange(Type, Type::Item);
         SetFilter(Quantity, '<>0');
         SetRange(Correction, false);
-        SetRange("Job No.", '');
 
         OnAfterSetFilters(Rec);
     end;
