@@ -1,7 +1,5 @@
 {
     "git.enableSmartCommit": true,
-    "explorer.confirmDelete": false,
-    "workbench.colorTheme": "Visual Studio Light",
     "al.enableCodeAnalysis": false,
     "al.enableCodeActions": false,
     "al.incrementalBuild": true,
@@ -12,7 +10,11 @@
         "c:/Windows/assembly/",
         "c:\\Program Files\\Microsoft Dynamics 365 Business Central\\150\\Service"
     ],
-    "al.editorServicesLogLevel": "Error",
-    "git.ignoreLimitWarning": true
+    "git.ignoreLimitWarning": true,
+    "al.ruleSetPath": "./.vscode/Jobs.ruleset.json",
+    "CRS.OnSaveAlFileAction": "Rename",
+    "CRS.RenameWithGit": true,
+    "CRS.FileNamePattern": "<ObjectNameShort>.<ObjectTypeShortPascalCase>.al",
+    "CRS.FileNamePatternExtensions": "<ObjectNameShort>.<ObjectTypeShortPascalCase>.al",
+    "CRS.FileNamePatternPageCustomizations": "<ObjectNameShort>.<ObjectTypeShortPascalCase>.al",
 }
-
