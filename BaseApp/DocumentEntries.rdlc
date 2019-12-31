@@ -43341,60 +43341,6 @@ IIF(Fields!PrintAmountsInLCY.Value,Fields!CreditAmtLCY_BankAccLedgEntry.Value,Fi
       </DefaultValue>
       <Prompt>UnitPrice_ResLedgEntryCaption</Prompt>
     </ReportParameter>
-    <ReportParameter Name="DocNo_JobLedgEntryCaption">
-      <DataType>String</DataType>
-      <DefaultValue>
-        <Values>
-          <Value>DocNo_JobLedgEntryCaption</Value>
-        </Values>
-      </DefaultValue>
-      <Prompt>DocNo_JobLedgEntryCaption</Prompt>
-    </ReportParameter>
-    <ReportParameter Name="Desc_JobLedgEntryCaption">
-      <DataType>String</DataType>
-      <DefaultValue>
-        <Values>
-          <Value>Desc_JobLedgEntryCaption</Value>
-        </Values>
-      </DefaultValue>
-      <Prompt>Desc_JobLedgEntryCaption</Prompt>
-    </ReportParameter>
-    <ReportParameter Name="Qty_JobLedgEntryCaption">
-      <DataType>String</DataType>
-      <DefaultValue>
-        <Values>
-          <Value>Qty_JobLedgEntryCaption</Value>
-        </Values>
-      </DefaultValue>
-      <Prompt>Qty_JobLedgEntryCaption</Prompt>
-    </ReportParameter>
-    <ReportParameter Name="UnitCostLCY_JobLedgEntryCaption">
-      <DataType>String</DataType>
-      <DefaultValue>
-        <Values>
-          <Value>UnitCostLCY_JobLedgEntryCaption</Value>
-        </Values>
-      </DefaultValue>
-      <Prompt>UnitCostLCY_JobLedgEntryCaption</Prompt>
-    </ReportParameter>
-    <ReportParameter Name="UnitPriceLCY_JobLedgEntryCaption">
-      <DataType>String</DataType>
-      <DefaultValue>
-        <Values>
-          <Value>UnitPriceLCY_JobLedgEntryCaption</Value>
-        </Values>
-      </DefaultValue>
-      <Prompt>UnitPriceLCY_JobLedgEntryCaption</Prompt>
-    </ReportParameter>
-    <ReportParameter Name="EntryNo_JobLedgEntryCaption">
-      <DataType>String</DataType>
-      <DefaultValue>
-        <Values>
-          <Value>EntryNo_JobLedgEntryCaption</Value>
-        </Values>
-      </DefaultValue>
-      <Prompt>EntryNo_JobLedgEntryCaption</Prompt>
-    </ReportParameter>
     <ReportParameter Name="EntryNo_BankAccLedgEntryCaption">
       <DataType>String</DataType>
       <DefaultValue>
@@ -43723,7 +43669,7 @@ IIF(Fields!PrintAmountsInLCY.Value,Fields!CreditAmtLCY_BankAccLedgEntry.Value,Fi
   <ReportParametersLayout>
     <GridLayoutDefinition>
       <NumberOfColumns>1</NumberOfColumns>
-      <NumberOfRows>204</NumberOfRows>
+      <NumberOfRows>198</NumberOfRows>
       <CellDefinitions>
         <CellDefinition>
           <ColumnIndex>0</ColumnIndex>
@@ -44538,211 +44484,181 @@ IIF(Fields!PrintAmountsInLCY.Value,Fields!CreditAmtLCY_BankAccLedgEntry.Value,Fi
         <CellDefinition>
           <ColumnIndex>0</ColumnIndex>
           <RowIndex>162</RowIndex>
-          <ParameterName>DocNo_JobLedgEntryCaption</ParameterName>
-        </CellDefinition>
-        <CellDefinition>
-          <ColumnIndex>0</ColumnIndex>
-          <RowIndex>163</RowIndex>
-          <ParameterName>Desc_JobLedgEntryCaption</ParameterName>
-        </CellDefinition>
-        <CellDefinition>
-          <ColumnIndex>0</ColumnIndex>
-          <RowIndex>164</RowIndex>
-          <ParameterName>Qty_JobLedgEntryCaption</ParameterName>
-        </CellDefinition>
-        <CellDefinition>
-          <ColumnIndex>0</ColumnIndex>
-          <RowIndex>165</RowIndex>
-          <ParameterName>UnitCostLCY_JobLedgEntryCaption</ParameterName>
-        </CellDefinition>
-        <CellDefinition>
-          <ColumnIndex>0</ColumnIndex>
-          <RowIndex>166</RowIndex>
-          <ParameterName>UnitPriceLCY_JobLedgEntryCaption</ParameterName>
-        </CellDefinition>
-        <CellDefinition>
-          <ColumnIndex>0</ColumnIndex>
-          <RowIndex>167</RowIndex>
-          <ParameterName>EntryNo_JobLedgEntryCaption</ParameterName>
-        </CellDefinition>
-        <CellDefinition>
-          <ColumnIndex>0</ColumnIndex>
-          <RowIndex>168</RowIndex>
           <ParameterName>EntryNo_BankAccLedgEntryCaption</ParameterName>
         </CellDefinition>
         <CellDefinition>
           <ColumnIndex>0</ColumnIndex>
-          <RowIndex>169</RowIndex>
+          <RowIndex>163</RowIndex>
           <ParameterName>DocNo_BankAccLedgEntryCaption</ParameterName>
         </CellDefinition>
         <CellDefinition>
           <ColumnIndex>0</ColumnIndex>
-          <RowIndex>170</RowIndex>
+          <RowIndex>164</RowIndex>
           <ParameterName>Desc_BankAccLedgEntryCaption</ParameterName>
         </CellDefinition>
         <CellDefinition>
           <ColumnIndex>0</ColumnIndex>
-          <RowIndex>171</RowIndex>
+          <RowIndex>165</RowIndex>
           <ParameterName>DebitAmt_BankAccLedgEntryCaption</ParameterName>
         </CellDefinition>
         <CellDefinition>
           <ColumnIndex>0</ColumnIndex>
-          <RowIndex>172</RowIndex>
+          <RowIndex>166</RowIndex>
           <ParameterName>CreditAmt_BankAccLedgEntryCaption</ParameterName>
         </CellDefinition>
         <CellDefinition>
           <ColumnIndex>0</ColumnIndex>
-          <RowIndex>173</RowIndex>
+          <RowIndex>167</RowIndex>
           <ParameterName>CurrCode_BankAccLedgEntryCaption</ParameterName>
         </CellDefinition>
         <CellDefinition>
           <ColumnIndex>0</ColumnIndex>
-          <RowIndex>174</RowIndex>
+          <RowIndex>168</RowIndex>
           <ParameterName>DocNo_CheckLedgEntryCaption</ParameterName>
         </CellDefinition>
         <CellDefinition>
           <ColumnIndex>0</ColumnIndex>
-          <RowIndex>175</RowIndex>
+          <RowIndex>169</RowIndex>
           <ParameterName>Desc_CheckLedgEntryCaption</ParameterName>
         </CellDefinition>
         <CellDefinition>
           <ColumnIndex>0</ColumnIndex>
-          <RowIndex>176</RowIndex>
+          <RowIndex>170</RowIndex>
           <ParameterName>Amt_CheckLedgEntryCaption</ParameterName>
         </CellDefinition>
         <CellDefinition>
           <ColumnIndex>0</ColumnIndex>
-          <RowIndex>177</RowIndex>
+          <RowIndex>171</RowIndex>
           <ParameterName>Open_CheckLedgEntryCaption</ParameterName>
         </CellDefinition>
         <CellDefinition>
           <ColumnIndex>0</ColumnIndex>
-          <RowIndex>178</RowIndex>
+          <RowIndex>172</RowIndex>
           <ParameterName>EntryNo_CheckLedgEntryCaption</ParameterName>
         </CellDefinition>
         <CellDefinition>
           <ColumnIndex>0</ColumnIndex>
-          <RowIndex>179</RowIndex>
+          <RowIndex>173</RowIndex>
           <ParameterName>CheckNo_CheckLedgEntryCaption</ParameterName>
         </CellDefinition>
         <CellDefinition>
           <ColumnIndex>0</ColumnIndex>
-          <RowIndex>180</RowIndex>
+          <RowIndex>174</RowIndex>
           <ParameterName>CheckType_CheckLedgEntryCaption</ParameterName>
         </CellDefinition>
         <CellDefinition>
           <ColumnIndex>0</ColumnIndex>
-          <RowIndex>181</RowIndex>
+          <RowIndex>175</RowIndex>
           <ParameterName>DocNo_FALedgEntryCaption</ParameterName>
         </CellDefinition>
         <CellDefinition>
           <ColumnIndex>0</ColumnIndex>
-          <RowIndex>182</RowIndex>
+          <RowIndex>176</RowIndex>
           <ParameterName>Desc_FALedgEntryCaption</ParameterName>
         </CellDefinition>
         <CellDefinition>
           <ColumnIndex>0</ColumnIndex>
-          <RowIndex>183</RowIndex>
+          <RowIndex>177</RowIndex>
           <ParameterName>EntryNo_FALedgEntryCaption</ParameterName>
         </CellDefinition>
         <CellDefinition>
           <ColumnIndex>0</ColumnIndex>
-          <RowIndex>184</RowIndex>
+          <RowIndex>178</RowIndex>
           <ParameterName>Amt_FALedgEntryCaption</ParameterName>
         </CellDefinition>
         <CellDefinition>
           <ColumnIndex>0</ColumnIndex>
-          <RowIndex>185</RowIndex>
+          <RowIndex>179</RowIndex>
           <ParameterName>EntryNo_MaintLedgEntryCaption</ParameterName>
         </CellDefinition>
         <CellDefinition>
           <ColumnIndex>0</ColumnIndex>
-          <RowIndex>186</RowIndex>
+          <RowIndex>180</RowIndex>
           <ParameterName>DocNo_MaintLedgEntryCaption</ParameterName>
         </CellDefinition>
         <CellDefinition>
           <ColumnIndex>0</ColumnIndex>
-          <RowIndex>187</RowIndex>
+          <RowIndex>181</RowIndex>
           <ParameterName>Desc_MaintLedgEntryCaption</ParameterName>
         </CellDefinition>
         <CellDefinition>
           <ColumnIndex>0</ColumnIndex>
-          <RowIndex>188</RowIndex>
+          <RowIndex>182</RowIndex>
           <ParameterName>Amt_MaintLedgEntryCaption</ParameterName>
         </CellDefinition>
         <CellDefinition>
           <ColumnIndex>0</ColumnIndex>
-          <RowIndex>189</RowIndex>
+          <RowIndex>183</RowIndex>
           <ParameterName>DocNo_InsCoverageLedgEntryCaption</ParameterName>
         </CellDefinition>
         <CellDefinition>
           <ColumnIndex>0</ColumnIndex>
-          <RowIndex>190</RowIndex>
+          <RowIndex>184</RowIndex>
           <ParameterName>Desc_InsCoverageLedgEntryCaption</ParameterName>
         </CellDefinition>
         <CellDefinition>
           <ColumnIndex>0</ColumnIndex>
-          <RowIndex>191</RowIndex>
+          <RowIndex>185</RowIndex>
           <ParameterName>Amt_InsCoverageLedgEntryCaption</ParameterName>
         </CellDefinition>
         <CellDefinition>
           <ColumnIndex>0</ColumnIndex>
-          <RowIndex>192</RowIndex>
+          <RowIndex>186</RowIndex>
           <ParameterName>EntryNo_InsCoverageLedgEntryCaption</ParameterName>
         </CellDefinition>
         <CellDefinition>
           <ColumnIndex>0</ColumnIndex>
-          <RowIndex>193</RowIndex>
+          <RowIndex>187</RowIndex>
           <ParameterName>InsurNo_InsCoverageLedgEntryCaption</ParameterName>
         </CellDefinition>
         <CellDefinition>
           <ColumnIndex>0</ColumnIndex>
-          <RowIndex>194</RowIndex>
+          <RowIndex>188</RowIndex>
           <ParameterName>EntryNo_CapLedgEntryCaption</ParameterName>
         </CellDefinition>
         <CellDefinition>
           <ColumnIndex>0</ColumnIndex>
-          <RowIndex>195</RowIndex>
+          <RowIndex>189</RowIndex>
           <ParameterName>DocNo_CapLedgEntryCaption</ParameterName>
         </CellDefinition>
         <CellDefinition>
           <ColumnIndex>0</ColumnIndex>
-          <RowIndex>196</RowIndex>
+          <RowIndex>190</RowIndex>
           <ParameterName>Desc_CapLedgEntryCaption</ParameterName>
         </CellDefinition>
         <CellDefinition>
           <ColumnIndex>0</ColumnIndex>
-          <RowIndex>197</RowIndex>
+          <RowIndex>191</RowIndex>
           <ParameterName>Qty_CapLedgEntryCaption</ParameterName>
         </CellDefinition>
         <CellDefinition>
           <ColumnIndex>0</ColumnIndex>
-          <RowIndex>198</RowIndex>
+          <RowIndex>192</RowIndex>
           <ParameterName>EntryNo_WhseEntryCaption</ParameterName>
         </CellDefinition>
         <CellDefinition>
           <ColumnIndex>0</ColumnIndex>
-          <RowIndex>199</RowIndex>
+          <RowIndex>193</RowIndex>
           <ParameterName>ItemNo_WhseEntryCaption</ParameterName>
         </CellDefinition>
         <CellDefinition>
           <ColumnIndex>0</ColumnIndex>
-          <RowIndex>200</RowIndex>
+          <RowIndex>194</RowIndex>
           <ParameterName>Desc_WhseEntryCaption</ParameterName>
         </CellDefinition>
         <CellDefinition>
           <ColumnIndex>0</ColumnIndex>
-          <RowIndex>201</RowIndex>
+          <RowIndex>195</RowIndex>
           <ParameterName>Qty_WhseEntryCaption</ParameterName>
         </CellDefinition>
         <CellDefinition>
           <ColumnIndex>0</ColumnIndex>
-          <RowIndex>202</RowIndex>
+          <RowIndex>196</RowIndex>
           <ParameterName>RefNo_WhseEntryCaption</ParameterName>
         </CellDefinition>
         <CellDefinition>
           <ColumnIndex>0</ColumnIndex>
-          <RowIndex>203</RowIndex>
+          <RowIndex>197</RowIndex>
           <ParameterName>UOMCode_WhseEntryCaption</ParameterName>
         </CellDefinition>
       </CellDefinitions>
@@ -45755,39 +45671,6 @@ End Function
         </Field>
         <Field Name="ResLedgEntryPostDtCaption">
           <DataField>ResLedgEntryPostDtCaption</DataField>
-        </Field>
-        <Field Name="PstDate_JobLedgEntry">
-          <DataField>PstDate_JobLedgEntry</DataField>
-        </Field>
-        <Field Name="DocNo_JobLedgEntry">
-          <DataField>DocNo_JobLedgEntry</DataField>
-        </Field>
-        <Field Name="Desc_JobLedgEntry">
-          <DataField>Desc_JobLedgEntry</DataField>
-        </Field>
-        <Field Name="Qty_JobLedgEntry">
-          <DataField>Qty_JobLedgEntry</DataField>
-        </Field>
-        <Field Name="Qty_JobLedgEntryFormat">
-          <DataField>Qty_JobLedgEntryFormat</DataField>
-        </Field>
-        <Field Name="UnitCostLCY_JobLedgEntry">
-          <DataField>UnitCostLCY_JobLedgEntry</DataField>
-        </Field>
-        <Field Name="UnitCostLCY_JobLedgEntryFormat">
-          <DataField>UnitCostLCY_JobLedgEntryFormat</DataField>
-        </Field>
-        <Field Name="UnitPriceLCY_JobLedgEntry">
-          <DataField>UnitPriceLCY_JobLedgEntry</DataField>
-        </Field>
-        <Field Name="UnitPriceLCY_JobLedgEntryFormat">
-          <DataField>UnitPriceLCY_JobLedgEntryFormat</DataField>
-        </Field>
-        <Field Name="EntryNo_JobLedgEntry">
-          <DataField>EntryNo_JobLedgEntry</DataField>
-        </Field>
-        <Field Name="JobLedgEntryPostDtCaption">
-          <DataField>JobLedgEntryPostDtCaption</DataField>
         </Field>
         <Field Name="BankAccLedgEntryCurrCaption">
           <DataField>BankAccLedgEntryCurrCaption</DataField>
