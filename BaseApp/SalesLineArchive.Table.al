@@ -201,11 +201,6 @@ table 5108 "Sales Line Archive"
             Caption = 'Allow Quantity Disc.';
             InitValue = true;
         }
-        field(45; "Job No."; Code[20])
-        {
-            Caption = 'Job No.';
-            //TODO JOBS: TableRelation = Job;
-        }
         field(52; "Work Type Code"; Code[10])
         {
             Caption = 'Work Type Code';
