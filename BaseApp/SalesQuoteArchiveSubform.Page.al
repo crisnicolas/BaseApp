@@ -138,12 +138,6 @@
                     ToolTip = 'Specifies that you can assign item charges to this line.';
                     Visible = false;
                 }
-                field("Job No."; "Job No.")
-                {
-                    ApplicationArea = Suite;
-                    ToolTip = 'Specifies the job number that the archived document was linked to.';
-                    Visible = false;
-                }
                 field("Blanket Order No."; "Blanket Order No.")
                 {
                     ApplicationArea = Suite;

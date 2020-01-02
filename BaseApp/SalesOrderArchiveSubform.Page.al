@@ -237,12 +237,6 @@
                     ToolTip = 'Specifies how long it takes from when the items are shipped from the warehouse to when they are delivered.';
                     Visible = false;
                 }
-                field("Job No."; "Job No.")
-                {
-                    ApplicationArea = Suite;
-                    ToolTip = 'Specifies the job number that the archived document was linked to.';
-                    Visible = false;
-                }
                 field("Outbound Whse. Handling Time"; "Outbound Whse. Handling Time")
                 {
                     ApplicationArea = Warehouse;
