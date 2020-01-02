@@ -3,7 +3,6 @@
     "al.enableCodeAnalysis": false,
     "al.enableCodeActions": false,
     "al.incrementalBuild": true,
-    "editor.codeLens": false,
     "al.packageCachePath": ".alpackages",
     "al.assemblyProbingPaths": [
         "./.netpackages",

@@ -9,7 +9,6 @@
 	],
 	"settings": {
 		"explorer.confirmDelete": false,
-		"workbench.colorTheme": "Visual Studio Light",
 		"al.editorServicesLogLevel": "Error",
 		"git.ignoreLimitWarning": true
 	}
